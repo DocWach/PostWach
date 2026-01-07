@@ -1,0 +1,56 @@
+\contentsline {section}{\numberline {1}Introduction}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Motivation}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Research Questions}{3}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Contributions}{3}{subsection.1.3}%
+\contentsline {section}{\numberline {2}Background}{4}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Requirements Engineering Tasks}{4}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Natural Language Processing for RE}{4}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Transformer-Based Language Models}{4}{subsection.2.3}%
+\contentsline {section}{\numberline {3}Methodology}{4}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Search Strategy}{5}{subsection.3.1}%
+\contentsline {subsubsection}{\numberline {3.1.1}Search String}{5}{subsubsection.3.1.1}%
+\contentsline {subsubsection}{\numberline {3.1.2}Databases Searched}{5}{subsubsection.3.1.2}%
+\contentsline {subsubsection}{\numberline {3.1.3}Supplementary Searches}{5}{subsubsection.3.1.3}%
+\contentsline {subsection}{\numberline {3.2}Inclusion and Exclusion Criteria}{5}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Selection Process}{5}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Data Extraction}{6}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Quality Assessment}{6}{subsection.3.5}%
+\contentsline {section}{\numberline {4}Results}{7}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Overview of Included Studies}{7}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Thematic Analysis}{7}{subsection.4.2}%
+\contentsline {subsubsection}{\numberline {4.2.1}Theme 1: Requirements Classification and Detection}{7}{subsubsection.4.2.1}%
+\contentsline {paragraph}{Key Studies and Findings}{7}{section*.5}%
+\contentsline {paragraph}{Evidence Synthesis}{7}{section*.7}%
+\contentsline {subsubsection}{\numberline {4.2.2}Theme 2: Requirements Quality Assessment}{8}{subsubsection.4.2.2}%
+\contentsline {paragraph}{Key Studies}{8}{section*.8}%
+\contentsline {paragraph}{The ``Broken Clock'' Phenomenon}{8}{section*.9}%
+\contentsline {subsubsection}{\numberline {4.2.3}Theme 3: Requirements Generation and Completion}{8}{subsubsection.4.2.3}%
+\contentsline {paragraph}{Key Studies}{8}{section*.10}%
+\contentsline {paragraph}{Evidence Synthesis}{8}{section*.11}%
+\contentsline {subsubsection}{\numberline {4.2.4}Theme 4: Human-AI Collaboration in RE}{9}{subsubsection.4.2.4}%
+\contentsline {paragraph}{Key Findings}{9}{section*.12}%
+\contentsline {subsubsection}{\numberline {4.2.5}Theme 5: Domain-Specific Applications}{9}{subsubsection.4.2.5}%
+\contentsline {paragraph}{Characteristics}{9}{section*.13}%
+\contentsline {subsection}{\numberline {4.3}Methodological Analysis}{9}{subsection.4.3}%
+\contentsline {paragraph}{Critical Methodological Gaps}{9}{section*.15}%
+\contentsline {subsection}{\numberline {4.4}Synthesis of Evidence}{10}{subsection.4.4}%
+\contentsline {section}{\numberline {5}Discussion}{10}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Answering the Research Questions}{10}{subsection.5.1}%
+\contentsline {paragraph}{\textbf {RQ1}: AI/ML Techniques and Effectiveness}{10}{section*.17}%
+\contentsline {paragraph}{\textbf {RQ2}: Limitations and Failure Modes}{10}{section*.18}%
+\contentsline {paragraph}{\textbf {RQ3}: Human-AI Collaboration Models}{10}{section*.19}%
+\contentsline {paragraph}{\textbf {RQ4}: Methodological Approaches}{10}{section*.20}%
+\contentsline {subsection}{\numberline {5.2}Implications for Research}{11}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Implications for Practice}{11}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Threats to Validity}{11}{subsection.5.4}%
+\contentsline {paragraph}{Internal Validity}{11}{section*.21}%
+\contentsline {paragraph}{External Validity}{11}{section*.22}%
+\contentsline {paragraph}{Construct Validity}{11}{section*.23}%
+\contentsline {section}{\numberline {6}Research Agenda}{11}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Priority 1: High Feasibility, High Significance}{11}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Priority 2: High Significance, Lower Feasibility}{11}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Priority 3: Supporting Research}{12}{subsection.6.3}%
+\contentsline {section}{\numberline {7}Conclusion}{12}{section.7}%
+\contentsline {section}{\numberline {A}Complete List of Included Studies}{14}{appendix.A}%
+\contentsline {section}{\numberline {B}Data Extraction Form}{14}{appendix.B}%
+\contentsline {section}{\numberline {C}Quality Assessment Scores}{15}{appendix.C}%

@@ -1,0 +1,213 @@
+\begin{thebibliography}{27}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Abualhaija et~al.(2024)Abualhaija, Arora, Sabetzadeh, Briand, and
+  Vaz]{abualhaija2024completeness}
+Sallam Abualhaija, Chetan Arora, Mehrdad Sabetzadeh, Lionel Briand, and Eduardo
+  Vaz.
+\newblock Improving requirements completeness: automated assistance through
+  large language models.
+\newblock \emph{Requirements Engineering}, 2024.
+\newblock \doi{10.1007/s00766-024-00416-3}.
+
+\bibitem[Ahmad et~al.(2023)]{ahmad2023user}
+Amna Ahmad et~al.
+\newblock On the use of large language models for user story generation.
+\newblock 2023.
+
+\bibitem[Arulmohan et~al.(2023)Arulmohan, Jannach, and
+  Ferrari]{arulmohan2023chatgpt}
+Shalini Arulmohan, Dietmar Jannach, and Alessio Ferrari.
+\newblock Exploring {ChatGPT} as a tool for learning requirements engineering
+  tasks.
+\newblock In \emph{Proceedings of the 31st IEEE International Requirements
+  Engineering Conference (RE)}, pages 243--249. IEEE, 2023.
+\newblock \doi{10.1109/RE57278.2023.00031}.
+
+\bibitem[Binkhonain and Zhao(2023)]{binkhonain2023mlr}
+Manal Binkhonain and Liping Zhao.
+\newblock Automatically classifying non-functional requirements using deep
+  neural network.
+\newblock \emph{Pattern Recognition}, 132:\penalty0 108948, 2023.
+\newblock \doi{10.1016/j.patcog.2022.108948}.
+
+\bibitem[Chong et~al.(2022)Chong, Zhang, Goucher-Lambert, Kotovsky, and
+  Cagan]{chong2022confidence}
+Leah Chong, Guanglu Zhang, Kosa Goucher-Lambert, Kenneth Kotovsky, and Jonathan
+  Cagan.
+\newblock Human confidence in artificial intelligence and in themselves: The
+  evolution and impact of confidence on adoption of {AI} advice.
+\newblock \emph{Computers in Human Behavior}, 127:\penalty0 107018, 2022.
+\newblock \doi{10.1016/j.chb.2021.107018}.
+
+\bibitem[Dalpiaz et~al.(2019)Dalpiaz, Dell'Anna, Aydemir, and
+  Çevikol]{dalpiaz2019requirements}
+Fabiano Dalpiaz, Davide Dell'Anna, Fatma~Başak Aydemir, and Sercan Çevikol.
+\newblock Requirements classification with interpretable machine learning and
+  dependency parsing.
+\newblock In \emph{Proceedings of the 27th IEEE International Requirements
+  Engineering Conference (RE)}, pages 142--152. IEEE, 2019.
+\newblock \doi{10.1109/RE.2019.00025}.
+
+\bibitem[Devlin et~al.(2019)Devlin, Chang, Lee, and Toutanova]{devlin2019bert}
+Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova.
+\newblock {BERT}: Pre-training of deep bidirectional transformers for language
+  understanding.
+\newblock In \emph{Proceedings of the 2019 Conference of the North American
+  Chapter of the Association for Computational Linguistics: Human Language
+  Technologies (NAACL-HLT)}, pages 4171--4186. ACL, 2019.
+
+\bibitem[Ezzini et~al.(2021)Ezzini, Abualhaija, Arora, Sabetzadeh, and
+  Briand]{ezzini2021domain}
+Saad Ezzini, Sallam Abualhaija, Chetan Arora, Mehrdad Sabetzadeh, and Lionel
+  Briand.
+\newblock Using domain-specific corpora for improved handling of ambiguity in
+  requirements.
+\newblock In \emph{Proceedings of the 43rd IEEE/ACM International Conference on
+  Software Engineering (ICSE)}, pages 1485--1497. IEEE/ACM, 2021.
+\newblock \doi{10.1109/ICSE43902.2021.00133}.
+
+\bibitem[Ezzini et~al.(2022)Ezzini, Abualhaija, Arora, and
+  Sabetzadeh]{ezzini2022anaphoric}
+Saad Ezzini, Sallam Abualhaija, Chetan Arora, and Mehrdad Sabetzadeh.
+\newblock Automated handling of anaphoric ambiguity in requirements: A
+  multi-solution study.
+\newblock In \emph{Proceedings of the 44th IEEE/ACM International Conference on
+  Software Engineering (ICSE)}, pages 187--199. ACM, 2022.
+\newblock \doi{10.1145/3510003.3510157}.
+
+\bibitem[Fatima et~al.(2024)Fatima, Javaid, and Imran]{nature2024nfr}
+Sana Fatima, Qaisar Javaid, and Muhammad Imran.
+\newblock A deep learning framework for non-functional requirement
+  classification.
+\newblock \emph{Scientific Reports}, 14:\penalty0 3073, 2024.
+\newblock \doi{10.1038/s41598-024-52802-0}.
+
+\bibitem[Femmer et~al.(2017)Femmer, Fernández, Wagner, and
+  Eder]{femmer2017smells}
+Henning Femmer, Daniel~Méndez Fernández, Stefan Wagner, and Sebastian Eder.
+\newblock Rapid quality assurance with requirements smells.
+\newblock \emph{Journal of Systems and Software}, 123:\penalty0 190--213, 2017.
+\newblock \doi{10.1016/j.jss.2016.02.047}.
+
+\bibitem[Ferrari and Esuli(2019)]{ferrari2019ambiguity}
+Alessio Ferrari and Andrea Esuli.
+\newblock An {NLP} approach for cross-domain ambiguity detection in
+  requirements engineering.
+\newblock \emph{Automated Software Engineering}, 26:\penalty0 559--598, 2019.
+\newblock \doi{10.1007/s10515-019-00261-7}.
+
+\bibitem[Gyory et~al.(2021)Gyory, Kotovsky, Goucher-Lambert, Kotovsky, and
+  Cagan]{gyory2021realtime}
+Joshua Gyory, Nicholas Kotovsky, Kosa Goucher-Lambert, Kenneth Kotovsky, and
+  Jonathan Cagan.
+\newblock Exploring the effects of real-time {AI} design assistance on the
+  creative ideation of designers.
+\newblock \emph{Design Studies}, 77:\penalty0 101041, 2021.
+
+\bibitem[Hey et~al.(2020)Hey, Keim, Koziolek, and Tichy]{hey2020norbert}
+Tobias Hey, Jan Keim, Anne Koziolek, and Walter~F. Tichy.
+\newblock {NoRBERT}: Transfer learning for requirements classification.
+\newblock In \emph{Proceedings of the 28th IEEE International Requirements
+  Engineering Conference (RE)}, pages 169--179. IEEE, 2020.
+\newblock \doi{10.1109/RE48521.2020.00028}.
+
+\bibitem[{INCOSE}(2015)]{incose2015guide}
+{INCOSE}.
+\newblock {INCOSE} guide for writing requirements.
+\newblock International Council on Systems Engineering, 2015.
+
+\bibitem[{ISO/IEC/IEEE}(2018)]{iso29148}
+{ISO/IEC/IEEE}.
+\newblock {ISO/IEC/IEEE 29148:2018} systems and software engineering — life
+  cycle processes — requirements engineering.
+\newblock International Organization for Standardization, 2018.
+
+\bibitem[Kitchenham et~al.(2009)Kitchenham, Brereton, Budgen, Turner, Bailey,
+  and Linkman]{kitchenham2009slr}
+Barbara Kitchenham, O.~Pearl Brereton, David Budgen, Mark Turner, John Bailey,
+  and Stephen Linkman.
+\newblock Systematic literature reviews in software engineering -- a systematic
+  literature review.
+\newblock \emph{Information and Software Technology}, 51\penalty0 (1):\penalty0
+  7--15, 2009.
+\newblock \doi{10.1016/j.infsof.2008.09.009}.
+
+\bibitem[Kurtanovic and Maalej(2017)]{kurtanovic2017classification}
+Zahra Kurtanovic and Walid Maalej.
+\newblock Automatically classifying functional and non-functional requirements
+  using supervised machine learning.
+\newblock In \emph{Proceedings of the 25th IEEE International Requirements
+  Engineering Conference (RE)}, pages 490--495. IEEE, 2017.
+\newblock \doi{10.1109/RE.2017.82}.
+
+\bibitem[Luo et~al.(2022)Luo, Chen, Zhu, Chen, Yan, and Wang]{luo2022prcbert}
+Xianglong Luo, Junhua Chen, Junhui Zhu, Yi~Chen, Kaiwen Yan, and Bo~Wang.
+\newblock {PRCBERT}: Prompt learning for requirement classification using
+  {BERT}-based pretrained language models.
+\newblock In \emph{Proceedings of the 37th IEEE/ACM International Conference on
+  Automated Software Engineering (ASE)}, pages 1--6. ACM, 2022.
+\newblock \doi{10.1145/3551349.3560417}.
+
+\bibitem[Maalej et~al.(2016)Maalej, Nayebi, Johann, and Ruhe]{maalej2016bug}
+Walid Maalej, Maleknaz Nayebi, Timo Johann, and Guenther Ruhe.
+\newblock Toward data-driven requirements engineering.
+\newblock \emph{IEEE Software}, 33\penalty0 (1):\penalty0 48--54, 2016.
+\newblock \doi{10.1109/MS.2015.153}.
+
+\bibitem[Moher et~al.(2009)Moher, Liberati, Tetzlaff, Altman, and {PRISMA
+  Group}]{moher2009prisma}
+David Moher, Alessandro Liberati, Jennifer Tetzlaff, Douglas~G. Altman, and
+  {PRISMA Group}.
+\newblock Preferred reporting items for systematic reviews and meta-analyses:
+  The {PRISMA} statement.
+\newblock \emph{PLoS Medicine}, 6\penalty0 (7):\penalty0 e1000097, 2009.
+\newblock \doi{10.1371/journal.pmed.1000097}.
+
+\bibitem[{OpenAI}(2023)]{openai2023gpt4}
+{OpenAI}.
+\newblock {GPT-4} technical report.
+\newblock \emph{arXiv preprint arXiv:2303.08774}, 2023.
+
+\bibitem[Rasheed et~al.(2025)Rasheed, Waseem, Waseem, Das, and
+  Liang]{rasheed2025llm4re}
+Zahra Rasheed, Saad Waseem, Muhammad Waseem, Teerath Das, and Peng Liang.
+\newblock Large language models ({LLMs}) for requirements engineering ({RE}): A
+  systematic literature review.
+\newblock \emph{arXiv preprint arXiv:2509.11446}, 2025.
+
+\bibitem[Vaswani et~al.(2017)Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez,
+  Łukasz Kaiser, and Polosukhin]{vaswani2017attention}
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
+  Aidan~N. Gomez, Łukasz Kaiser, and Illia Polosukhin.
+\newblock Attention is all you need.
+\newblock 30:\penalty0 5998--6008, 2017.
+
+\bibitem[Wach et~al.(2024)Wach, Pandey, Zhao, and Alhoshan]{wach2024broken}
+Emmanuel Wach, Sushant~Kumar Pandey, Liping Zhao, and Waad Alhoshan.
+\newblock Evaluating large language models for requirements quality: A tale of
+  the broken clock.
+\newblock 2024.
+\newblock IS\_AI4RE Paper.
+
+\bibitem[Wohlin(2014)]{wohlin2014snowballing}
+Claes Wohlin.
+\newblock Guidelines for snowballing in systematic literature studies and a
+  replication in software engineering.
+\newblock pages 1--10, 2014.
+\newblock \doi{10.1145/2601248.2601268}.
+
+\bibitem[Zhao et~al.(2021)Zhao, Alhoshan, Ferrari, Letsholo, Ajagbe, Chioasca,
+  and Batista-Navarro]{zhao2024llm4re}
+Liping Zhao, Waad Alhoshan, Alessio Ferrari, Keletso~J. Letsholo, Muideen~A.
+  Ajagbe, Erol-Valeriu Chioasca, and Riza~Theresa Batista-Navarro.
+\newblock Natural language processing for requirements engineering: A
+  systematic mapping study.
+\newblock \emph{ACM Computing Surveys}, 54\penalty0 (3):\penalty0 1--41, 2021.
+\newblock \doi{10.1145/3444689}.
+
+\end{thebibliography}
