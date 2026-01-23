@@ -2,7 +2,7 @@
 
 **Date:** January 22, 2026
 **Project:** NATO STO Technical Activity Proposal - Neuro-Symbolic AI for Wargaming
-**Last Updated:** January 22, 2026 (Final)
+**Last Updated:** January 22, 2026 (Session 2)
 
 ---
 
@@ -205,11 +205,39 @@ f9b4f3f Add critique of NATO STO research topics for wargaming TAP
 
 ---
 
+## Session 2: Continuation (January 22, 2026)
+
+### Work Performed
+- Attempted to fix JavaScript tab navigation bug in `Research_Proposal_v2.html`
+- Tab navigation not working - only Executive Summary tab accessible
+
+### Bug Fix Attempts
+1. **Initial fix**: Changed `event.target` to pass `this` and accept `btn` parameter
+2. **Second attempt**: Rewrote with traditional for loops and null checks
+3. **Third attempt**: Complete rewrite using:
+   - `DOMContentLoaded` event listener
+   - `addEventListener` instead of inline onclick
+   - `data-section` attributes on buttons
+   - Lazy chart initialization
+
+### Open Issue
+- **Problem**: Tab navigation in `Research_Proposal_v2.html` still not functioning
+- **Symptoms**: Only "Executive Summary" tab displays content; other tabs (Technical Approach, Research Program, CDT Portfolio, Management, Impact & Ethics) do not switch
+- **Status**: UNRESOLVED - requires further debugging
+- **Next Step**: Check browser developer console (F12) for JavaScript errors
+
+### Git Commits (Session 2)
+```
+c04e2e0 Fix JavaScript tab navigation bug in Research Proposal v2 HTML
+```
+
+---
+
 ## Repository
 
 - **Remote:** https://github.com/DocWach/PostWach.git
 - **Branch:** main
-- **Latest Commit:** c5f555c
+- **Latest Commit:** c04e2e0
 
 ---
 
