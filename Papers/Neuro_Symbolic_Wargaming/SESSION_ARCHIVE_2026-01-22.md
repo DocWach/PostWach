@@ -205,30 +205,82 @@ f9b4f3f Add critique of NATO STO research topics for wargaming TAP
 
 ---
 
-## Session 2: Continuation (January 22, 2026)
+## Session 2 & 3: Bug Fix Attempts (January 22-23, 2026)
 
-### Work Performed
-- Attempted to fix JavaScript tab navigation bug in `Research_Proposal_v2.html`
-- Tab navigation not working - only Executive Summary tab accessible
+### Problem Description
+- **File**: `Research_Proposal_v2.html`
+- **Symptom**: Tab navigation not functioning - only "Executive Summary" tab displays; clicking other tabs (Technical Approach, Research Program, CDT Portfolio, Management, Impact & Ethics) does not switch content
+- **Status**: UNRESOLVED
 
-### Bug Fix Attempts
-1. **Initial fix**: Changed `event.target` to pass `this` and accept `btn` parameter
-2. **Second attempt**: Rewrote with traditional for loops and null checks
-3. **Third attempt**: Complete rewrite using:
-   - `DOMContentLoaded` event listener
-   - `addEventListener` instead of inline onclick
-   - `data-section` attributes on buttons
-   - Lazy chart initialization
+### Fix Attempts (All Unsuccessful)
 
-### Open Issue
-- **Problem**: Tab navigation in `Research_Proposal_v2.html` still not functioning
-- **Symptoms**: Only "Executive Summary" tab displays content; other tabs (Technical Approach, Research Program, CDT Portfolio, Management, Impact & Ethics) do not switch
-- **Status**: UNRESOLVED - requires further debugging
-- **Next Step**: Check browser developer console (F12) for JavaScript errors
+| Attempt | Approach | Result |
+|---------|----------|--------|
+| 1 | Changed `event.target` to pass `this` parameter | Not working |
+| 2 | Traditional for loops + null checks | Not working |
+| 3 | `DOMContentLoaded` + `addEventListener` + `data-section` attributes | Not working |
+| 4 | Simplified inline onclick matching working `Transition_Roadmap.html` pattern | Not working |
+| 5 | Added `type="button"` to all button elements | Not working |
+| 6 | Added debug `alert()` to test if clicks register | Not tested/inconclusive |
 
-### Git Commits (Session 2)
+### Technical Details
+
+**Current HTML structure:**
+```html
+<div class="nav-tabs">
+    <button type="button" class="nav-tab active" onclick="showSection('executive', this)">Executive Summary</button>
+    <button type="button" class="nav-tab" onclick="showSection('technical', this)">Technical Approach</button>
+    <!-- ... more tabs ... -->
+</div>
+```
+
+**Current JavaScript:**
+```javascript
+function showSection(sectionId, btn) {
+    document.querySelectorAll('.section').forEach(function(s) {
+        s.classList.remove('active');
+    });
+    document.querySelectorAll('.nav-tab').forEach(function(t) {
+        t.classList.remove('active');
+    });
+    document.getElementById(sectionId).classList.add('active');
+    btn.classList.add('active');
+}
+```
+
+**CSS (relevant):**
+```css
+.section { display: none; }
+.section.active { display: block; }
+```
+
+### Possible Causes to Investigate
+1. Browser caching old JavaScript
+2. Chart.js CDN blocking/failing silently
+3. Security policy blocking inline onclick
+4. Something in the CSS preventing click events
+5. File encoding issue
+6. OneDrive sync conflict
+
+### Workaround
+- Use the markdown version `Research_Proposal_v2.md` which contains all content
+- Other HTML files in the project (e.g., `Transition_Roadmap.html`) have working tabs with similar code
+
+### Comparison with Working File
+`Transition_Roadmap.html` uses nearly identical pattern and works:
+```javascript
+function showSection(sectionId) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(sectionId).classList.add('active');
+    event.target.classList.add('active');
+}
+```
+
+### Git Commits (Sessions 2-3)
 ```
 c04e2e0 Fix JavaScript tab navigation bug in Research Proposal v2 HTML
+656fceb Update session archive and continue tab navigation fix attempts
 ```
 
 ---

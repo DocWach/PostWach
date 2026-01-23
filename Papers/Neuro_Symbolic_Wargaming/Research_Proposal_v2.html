@@ -620,12 +620,12 @@
         </div>
 
         <div class="nav-tabs">
-            <button class="nav-tab active" data-section="executive">Executive Summary</button>
-            <button class="nav-tab" data-section="technical">Technical Approach</button>
-            <button class="nav-tab" data-section="research">Research Program</button>
-            <button class="nav-tab" data-section="cdts">CDT Portfolio</button>
-            <button class="nav-tab" data-section="management">Management</button>
-            <button class="nav-tab" data-section="impact">Impact & Ethics</button>
+            <button type="button" class="nav-tab active" onclick="showSection('executive', this)">Executive Summary</button>
+            <button type="button" class="nav-tab" onclick="showSection('technical', this)">Technical Approach</button>
+            <button type="button" class="nav-tab" onclick="showSection('research', this)">Research Program</button>
+            <button type="button" class="nav-tab" onclick="showSection('cdts', this)">CDT Portfolio</button>
+            <button type="button" class="nav-tab" onclick="showSection('management', this)">Management</button>
+            <button type="button" class="nav-tab" onclick="showSection('impact', this)">Impact & Ethics</button>
         </div>
     </div>
 
@@ -1332,109 +1332,71 @@
     </div>
 
     <script>
-        // Wait for DOM to be fully loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            var chartsInitialized = false;
-            var tabs = document.querySelectorAll('.nav-tab');
-            var sections = document.querySelectorAll('.section');
-
-            // Add click handler to each tab
-            for (var i = 0; i < tabs.length; i++) {
-                tabs[i].addEventListener('click', function(e) {
-                    var clickedTab = e.currentTarget;
-                    var sectionId = clickedTab.getAttribute('data-section');
-
-                    // Remove active from all
-                    for (var j = 0; j < tabs.length; j++) {
-                        tabs[j].className = 'nav-tab';
-                    }
-                    for (var j = 0; j < sections.length; j++) {
-                        sections[j].className = 'section';
-                    }
-
-                    // Add active to clicked tab and corresponding section
-                    clickedTab.className = 'nav-tab active';
-                    var targetSection = document.getElementById(sectionId);
-                    if (targetSection) {
-                        targetSection.className = 'section active';
-                    }
-
-                    // Initialize charts when management section is shown
-                    if (sectionId === 'management' && !chartsInitialized) {
-                        chartsInitialized = true;
-                        setTimeout(initCharts, 100);
-                    }
-                });
+        // Simple tab navigation
+        function showSection(sectionId, btn) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(function(s) {
+                s.classList.remove('active');
+            });
+            // Remove active from all tabs
+            document.querySelectorAll('.nav-tab').forEach(function(t) {
+                t.classList.remove('active');
+            });
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            // Activate clicked tab
+            btn.classList.add('active');
+            // Initialize charts if management section
+            if (sectionId === 'management') {
+                initChartsOnce();
             }
+        }
 
-            function initCharts() {
-                if (typeof Chart === 'undefined') {
-                    console.error('Chart.js not loaded');
-                    return;
+        // Chart initialization (runs once)
+        var chartsReady = false;
+        function initChartsOnce() {
+            if (chartsReady) return;
+            chartsReady = true;
+            setTimeout(function() {
+                var budgetCanvas = document.getElementById('budgetChart');
+                if (budgetCanvas && typeof Chart !== 'undefined') {
+                    new Chart(budgetCanvas.getContext('2d'), {
+                        type: 'bar',
+                        data: {
+                            labels: ['Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'],
+                            datasets: [{
+                                label: 'Budget (€K)',
+                                data: [2000, 2850, 3000, 2800, 1950],
+                                backgroundColor: ['rgba(0,73,144,0.8)', 'rgba(0,102,204,0.8)', 'rgba(0,163,224,0.8)', 'rgba(0,102,204,0.8)', 'rgba(0,73,144,0.8)'],
+                                borderColor: 'rgba(0,73,144,1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: { title: { display: true, text: 'Annual Budget Distribution' } },
+                            scales: { y: { beginAtZero: true, title: { display: true, text: '€ Thousands' } } }
+                        }
+                    });
                 }
-
-                try {
-                    // Budget Chart
-                    var budgetCanvas = document.getElementById('budgetChart');
-                    if (budgetCanvas) {
-                        new Chart(budgetCanvas.getContext('2d'), {
-                            type: 'bar',
-                            data: {
-                                labels: ['Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'],
-                                datasets: [{
-                                    label: 'Budget (€K)',
-                                    data: [2000, 2850, 3000, 2800, 1950],
-                                    backgroundColor: [
-                                        'rgba(0, 73, 144, 0.8)',
-                                        'rgba(0, 102, 204, 0.8)',
-                                        'rgba(0, 163, 224, 0.8)',
-                                        'rgba(0, 102, 204, 0.8)',
-                                        'rgba(0, 73, 144, 0.8)'
-                                    ],
-                                    borderColor: 'rgba(0, 73, 144, 1)',
-                                    borderWidth: 1
-                                }]
-                            },
-                            options: {
-                                responsive: true,
-                                maintainAspectRatio: false,
-                                plugins: {
-                                    title: { display: true, text: 'Annual Budget Distribution' }
-                                },
-                                scales: {
-                                    y: { beginAtZero: true, title: { display: true, text: '€ Thousands' } }
-                                }
-                            }
-                        });
-                    }
-
-                    // Category Chart
-                    var categoryCanvas = document.getElementById('categoryChart');
-                    if (categoryCanvas) {
-                        new Chart(categoryCanvas.getContext('2d'), {
-                            type: 'doughnut',
-                            data: {
-                                labels: ['Personnel', 'CDTs', 'Infrastructure', 'Subcontracts', 'Equipment', 'Travel', 'Other'],
-                                datasets: [{
-                                    data: [6000, 1500, 1500, 1300, 1000, 800, 500],
-                                    backgroundColor: ['#004990', '#0066cc', '#00a3e0', '#27ae60', '#9b59b6', '#e67e22', '#95a5a6']
-                                }]
-                            },
-                            options: {
-                                responsive: true,
-                                maintainAspectRatio: false,
-                                plugins: {
-                                    title: { display: true, text: 'Total Budget by Category (€12.6M)' },
-                                    legend: { position: 'right' }
-                                }
-                            }
-                        });
-                    }
-                } catch (e) {
-                    console.error('Chart error:', e);
+                var categoryCanvas = document.getElementById('categoryChart');
+                if (categoryCanvas && typeof Chart !== 'undefined') {
+                    new Chart(categoryCanvas.getContext('2d'), {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Personnel', 'CDTs', 'Infrastructure', 'Subcontracts', 'Equipment', 'Travel', 'Other'],
+                            datasets: [{ data: [6000, 1500, 1500, 1300, 1000, 800, 500], backgroundColor: ['#004990', '#0066cc', '#00a3e0', '#27ae60', '#9b59b6', '#e67e22', '#95a5a6'] }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: { title: { display: true, text: 'Total Budget by Category (€12.6M)' }, legend: { position: 'right' } }
+                        }
+                    });
                 }
-            }
-        });
+            }, 100);
+        }
     </script>
 </body>
 </html>
