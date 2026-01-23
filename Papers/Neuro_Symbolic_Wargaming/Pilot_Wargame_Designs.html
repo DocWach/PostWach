@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilot Wargame Designs | Neuro-Symbolic AI Validation</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #0f172a;
+            --secondary: #1e293b;
+            --accent: #3b82f6;
+            --pilot1: #8b5cf6;
+            --pilot2: #ec4899;
+            --pilot3: #f97316;
+            --pilot4: #14b8a6;
+            --pilot5: #ef4444;
+            --light: #f8fafc;
+            --dark: #0f172a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .header h1 { font-size: 2.2rem; margin-bottom: 10px; }
+        .header p { font-size: 1.1rem; opacity: 0.9; }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Stats */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-top: 5px;
+        }
+
+        /* Pilot Cards */
+        .pilots-grid {
+            display: grid;
+            gap: 30px;
+        }
+
+        .pilot-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .pilot-header {
+            padding: 30px;
+            color: white;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .pilot-header.pilot1 { background: linear-gradient(135deg, var(--pilot1) 0%, #7c3aed 100%); }
+        .pilot-header.pilot2 { background: linear-gradient(135deg, var(--pilot2) 0%, #db2777 100%); }
+        .pilot-header.pilot3 { background: linear-gradient(135deg, var(--pilot3) 0%, #ea580c 100%); }
+        .pilot-header.pilot4 { background: linear-gradient(135deg, var(--pilot4) 0%, #0d9488 100%); }
+        .pilot-header.pilot5 { background: linear-gradient(135deg, var(--pilot5) 0%, #dc2626 100%); }
+
+        .pilot-number {
+            font-size: 3rem;
+            font-weight: 800;
+            opacity: 0.3;
+        }
+
+        .pilot-title-block h2 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .pilot-title-block p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .pilot-meta {
+            text-align: right;
+        }
+
+        .meta-item {
+            margin-bottom: 8px;
+        }
+
+        .meta-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+        }
+
+        .meta-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .pilot-body {
+            padding: 30px;
+        }
+
+        /* Sections within pilot */
+        .pilot-section {
+            margin-bottom: 25px;
+        }
+
+        .pilot-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 1rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        /* Gap Questions */
+        .gap-questions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .gap-badge {
+            background: var(--light);
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            border-left: 3px solid var(--accent);
+        }
+
+        .gap-badge.high {
+            border-left-color: #ef4444;
+        }
+
+        /* AI Components */
+        .ai-components {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .ai-box {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .ai-box h4 {
+            font-size: 0.9rem;
+            color: var(--dark);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ai-box.neural h4::before {
+            content: "🧠";
+        }
+
+        .ai-box.symbolic h4::before {
+            content: "⚙️";
+        }
+
+        .ai-list {
+            list-style: none;
+        }
+
+        .ai-list li {
+            padding: 6px 0;
+            font-size: 0.9rem;
+            color: #475569;
+        }
+
+        /* Phases */
+        .phases-timeline {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+
+        .phase-item {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 15px;
+            min-width: 150px;
+            text-align: center;
+        }
+
+        .phase-num {
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-bottom: 5px;
+        }
+
+        .phase-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .phase-duration {
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+
+        /* Measures */
+        .measures-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .measure-card {
+            background: var(--light);
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .measure-type {
+            font-size: 0.7rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .measure-name {
+            font-size: 0.95rem;
+            color: var(--dark);
+            margin-top: 5px;
+        }
+
+        .measure-target {
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        /* Resources */
+        .resources-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+        }
+
+        .resource-item {
+            background: var(--light);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .resource-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .resource-label {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-top: 5px;
+        }
+
+        /* Summary Section */
+        .summary-section {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            margin-top: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .summary-title {
+            font-size: 1.6rem;
+            color: var(--primary);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .chart-box {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .chart-box h3 {
+            font-size: 1rem;
+            color: var(--dark);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Success Criteria */
+        .criteria-list {
+            list-style: none;
+        }
+
+        .criteria-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .criteria-item:last-child {
+            border-bottom: none;
+        }
+
+        .criteria-check {
+            width: 30px;
+            height: 30px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .criteria-text {
+            flex: 1;
+        }
+
+        .criteria-target {
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--dark);
+            color: #94a3b8;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .pilot-header {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .pilot-meta {
+                text-align: center;
+            }
+
+            .ai-components {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>Pilot Wargame Designs</h1>
+        <p>5 Wargames to Validate Neuro-Symbolic AI for Mission Engineering</p>
+    </header>
+
+    <div class="container">
+        <!-- Stats -->
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-value">5</div>
+                <div class="stat-label">Pilot Wargames</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">14</div>
+                <div class="stat-label">HIGH Priority Questions</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">10</div>
+                <div class="stat-label">Total Days</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">111</div>
+                <div class="stat-label">Participants</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">TRL 4</div>
+                <div class="stat-label">Target Readiness</div>
+            </div>
+        </div>
+
+        <!-- Pilot Cards -->
+        <div class="pilots-grid">
+            <!-- Pilot 1 -->
+            <div class="pilot-card">
+                <div class="pilot-header pilot1">
+                    <div class="pilot-number">01</div>
+                    <div class="pilot-title-block">
+                        <h2>Coalition Operations Matrix Game</h2>
+                        <p>OPERATION NORTHERN SHIELD - Multinational NATO Response</p>
+                    </div>
+                    <div class="pilot-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">Duration</div>
+                            <div class="meta-value">2.5 Days</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Participants</div>
+                            <div class="meta-value">25</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pilot-body">
+                    <div class="pilot-section">
+                        <div class="section-title">ME Gap Questions Addressed</div>
+                        <div class="gap-questions">
+                            <div class="gap-badge high">Q01: Data Classification Constraints</div>
+                            <div class="gap-badge high">Q03: Planning Cycle Synchronization</div>
+                            <div class="gap-badge high">Q04: Capability & Doctrine Differences</div>
+                        </div>
+                    </div>
+
+                    <div class="pilot-section">
+                        <div class="section-title">AI Components</div>
+                        <div class="ai-components">
+                            <div class="ai-box neural">
+                                <h4>Neural</h4>
+                                <ul class="ai-list">
+                                    <li>Scenario Generator (constrained by STANAG)</li>
+                                    <li>Pattern Learner (NATO exercise AARs)</li>
+                                    <li>Prediction Engine (planning sync)</li>
+                                </ul>
+                            </div>
+                            <div class="ai-box symbolic">
+                                <h4>Symbolic</h4>
+                                <ul class="ai-list">
+                                    <li>Classification constraint enforcement</li>
+                                    <li>ROE reasoning & validation</li>
+                                    <li>Policy-based explanations</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pilot-section">
+                        <div class="section-title">Scenario Phases</div>
+                        <div class="phases-timeline">
+                            <div class="phase-item">
+                                <div class="phase-num">Phase 1</div>
+                                <div class="phase-name">Assembly</div>
+                                <div class="phase-duration">4 hours</div>
+                            </div>
+                            <div class="phase-item">
+                                <div class="phase-num">Phase 2</div>
+                                <div class="phase-name">Planning</div>
+                                <div class="phase-duration">6 hours</div>
+                            </div>
+                            <div class="phase-item">
+                                <div class="phase-num">Phase 3</div>
+                                <div class="phase-name">Deployment</div>
+                                <div class="phase-duration">4 hours</div>
+                            </div>
+                            <div class="phase-item">
+                                <div class="phase-num">Phase 4</div>
+                                <div class="phase-name">Execution</div>
+                                <div class="phase-duration">4 hours</div>
+                            </div>
+                            <div class="phase-item">
+                                <div class="phase-num">Phase 5</div>
+                                <div class="phase-name">Transition</div>
+                                <div class="phase-duration">2 hours</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pilot-section">
+                        <div class="section-title">Key Measures</div>
+                        <div class="measures-grid">
+                            <div class="measure-card">
+                                <div class="measure-type">MoE</div>
+                                <div class="measure-name">Joint Mission Effectiveness</div>
+                                <div class="measure-target">Target: ≥70%</div>
+                            </div>
+                            <div class="measure-card">
+                                <div class="measure-type">MoE</div>
+                                <div class="measure-name">Information Availability</div>
+                                <div class="measure-target">Target: ≥60%</div>
+                            </div>
+                            <div class="measure-card">
+                                <div class="measure-type">AI Metric</div>
+                                <div class="measure-name">Constraint Accuracy</div>
+                                <div class="measure-target">Target: ≥90%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pilot 2 -->
+            <div class="pilot-card">
+                <div class="pilot-header pilot2">
+                    <div class="pilot-number">02</div>
+                    <div class="pilot-title-block">
+                        <h2>Human-Machine Teaming Simulation</h2>
+                        <p>AUTONOMOUS CONVOY ESCORT - Adaptive Automation Study</p>
+                    </div>
+                    <div class="pilot-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">Duration</div>
+                            <div class="meta-value">2 Days</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Participants</div>
+                            <div class="meta-value">28</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pilot-body">
+                    <div class="pilot-section">
+                        <div class="section-title">ME Gap Questions Addressed</div>
+                        <div class="gap-questions">
+                            <div class="gap-badge high">Q01: Adaptive Automation Levels</div>
+                            <div class="gap-badge high">Q03: Interface Design for Trust</div>
+                            <div class="gap-badge high">Q04: System Transparency</div>
+                        </div>
+                    </div>
+
+                    <div class="pilot-section">
+                        <div class="section-title">AI Components</div>
+                        <div class="ai-components">
+                            <div class="ai-box neural">
+                                <h4>Neural</h4>
+                                <ul class="ai-list">
+                                    <li>Workload prediction from physio data</li>
+                                    <li>Automation transition optimization</li>
+                                    <li>Trust calibration modeling</li>
+                                </ul>
+                            </div>
+                            <div class="ai-box symbolic">
+                                <h4>Symbolic</h4>
+                                <ul class="ai-list">
+                                    <li>Authority boundary enforcement</li>
+                                    <li>Automation level constraints</li>
+                                    <li>Real-time explanation generation</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pilot-section">
+                        <div class="section-title">Interface A/B/C Testing</div>
+                        <div class="resources-row">
+                            <div class="resource-item">
+                                <div class="resource-value">A</div>
+                                <div class="resource-label">Minimal Explanation</div>
+                            </div>
+                            <div class="resource-item">
+                                <div class="resource-value">B</div>
+                                <div class="resource-label">Full Explanation</div>
+                            </div>
+                            <div class="resource-item">
+                                <div class="resource-value">C</div>
+                                <div class="resource-label">Adaptive Explanation</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pilot-section">
+                        <div class="section-title">Physiological Measurement</div>
+                        <div class="measures-grid">
+                            <div class="measure-card">
+                                <div class="measure-type">Workload</div>
+                                <div class="measure-name">Heart Rate Variability</div>
+                            </div>
+                            <div class="measure-card">
+                                <div class="measure-type">Attention</div>
+                                <div class="measure-name">Eye Tracking</div>
+                            </div>
+                            <div class="measure-card">
+                                <div class="measure-type">Stress</div>
+                                <div class="measure-name">Galvanic Skin Response</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pilot 3 -->
+            <div class="pilot-card">
+                <div class="pilot-header pilot3">
+                    <div class="pilot-number">03</div>
+                    <div class="pilot-title-block">
+                        <h2>Communications-Denied Operations</h2>
+                        <p>OPERATION SILENT THUNDER - Progressive Degradation</p>
+                    </div>
+                    <div class="pilot-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">Duration</div>
+                            <div class="meta-value">2 Days</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Participants</div>
+                            <div class="meta-value">18</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pilot-body">
+                    <div class="pilot-section">
+                        <div class="section-title">ME Gap Questions Addressed</div>
+                        <div class="gap-questions">
+                            <div class="gap-badge high">Q01: Degradation Thresholds</div>
+                            <div class="gap-badge high">Q02: Autonomous Behaviors</div>
+                            <div class="gap-badge high">Q04: C2 Adaptation</div>
+                        </div>
+                    </div>
+
+                    <div class="pilot-section">
+                        <div class="section-title">Communications Degradation Profile</div>
+                        <div class="phases-timeline">
+                            <div class="phase-item" style="border-left: 3px solid #22c55e;">
+                                <div class="phase-num">Phase 1</div>
+                                <div class="phase-name">Full Comms</div>
+                                <div class="phase-duration">100% BW</div>
+                            </div>
+                            <div class="phase-item" style="border-left: 3px solid #84cc16;">
+                                <div class="phase-num">Phase 2</div>
+                                <div class="phase-name">Contested</div>
+                                <div class="phase-duration">50% BW</div>
+                            </div>
+                            <div class="phase-item" style="border-left: 3px solid #eab308;">
+                                <div class="phase-num">Phase 3</div>
+                                <div class="phase-name">Degraded</div>
+                                <div class="phase-duration">20% BW</div>
+                            </div>
+                            <div class="phase-item" style="border-left: 3px solid #ef4444;">
+                                <div class="phase-num">Phase 4</div>
+                                <div class="phase-name">Denied</div>
+                                <div class="phase-duration">5% BW</div>
+                            </div>
+                            <div class="phase-item" style="border-left: 3px solid #3b82f6;">
+                                <div class="phase-num">Phase 5</div>
+                                <div class="phase-name">Recovery</div>
+                                <div class="phase-duration">Variable</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pilot-section">
+                        <div class="section-title">Pre-Delegated Authority Levels</div>
+                        <div class="resources-row">
+                            <div class="resource-item">
+                                <div class="resource-value">α</div>
+                                <div class="resource-label">Standing (Self-defense)</div>
+                            </div>
+                            <div class="resource-item">
+                                <div class="resource-value">β</div>
+                                <div class="resource-label">Pre-Mission</div>
+                            </div>
+                            <div class="resource-item">
+                                <div class="resource-value">γ</div>
+                                <div class="resource-label">Last Contact</div>
+                            </div>
+                            <div class="resource-item">
+                                <div class="resource-value">δ</div>
+                                <div class="resource-label">Emergency</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pilot 4 -->
+            <div class="pilot-card">
+                <div class="pilot-header pilot4">
+                    <div class="pilot-number">04</div>
+                    <div class="pilot-title-block">
+                        <h2>Ethics & Authority Boundaries</h2>
+                        <p>OPERATION MORAL COMPASS - 15 Ethical Vignettes</p>
+                    </div>
+                    <div class="pilot-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">Duration</div>
+                            <div class="meta-value">2 Days</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Participants</div>
+                            <div class="meta-value">23</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pilot-body">
+                    <div class="pilot-section">
+                        <div class="section-title">ME Gap Questions Addressed</div>
+                        <div class="gap-questions">
+                            <div class="gap-badge high">Q01: ROE Encoding</div>
+                            <div class="gap-badge high">Q02: Human Oversight Structure</div>
+                            <div class="gap-badge high">Q03: Human-in vs On-the-Loop</div>
+                            <div class="gap-badge high">Q05: Conflict Resolution</div>
+                        </div>
+                    </div>
+
+                    <div class="pilot-section">
+                        <div class="section-title">Vignette Progression</div>
+                        <div class="resources-row">
+                            <div class="resource-item">
+                                <div class="resource-value">A</div>
+                                <div class="resource-label">Clear Cases (1-3)</div>
+                            </div>
+                            <div class="resource-item">
+                                <div class="resource-value">B</div>
+                                <div class="resource-label">Boundary Cases (4-7)</div>
+                            </div>
+                            <div class="resource-item">
+                                <div class="resource-value">C</div>
+                                <div class="resource-label">Conflict Cases (8-11)</div>
+                            </div>
+                            <div class="resource-item">
+                                <div class="resource-value">D</div>
+                                <div class="resource-label">Novel Cases (12-15)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pilot-section">
+                        <div class="section-title">AI Ethics Analysis Output</div>
+                        <div class="ai-components">
+                            <div class="ai-box symbolic">
+                                <h4>Symbolic (Primary)</h4>
+                                <ul class="ai-list">
+                                    <li>ROE constraint analysis</li>
+                                    <li>Authority determination</li>
+                                    <li>Counterfactual reasoning</li>
+                                    <li>Precedent case matching</li>
+                                </ul>
+                            </div>
+                            <div class="ai-box neural">
+                                <h4>Neural (Supporting)</h4>
+                                <ul class="ai-list">
+                                    <li>Expert judgment patterns</li>
+                                    <li>Boundary case generation</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pilot 5 -->
+            <div class="pilot-card">
+                <div class="pilot-header pilot5">
+                    <div class="pilot-number">05</div>
+                    <div class="pilot-title-block">
+                        <h2>Failure Mode Analysis</h2>
+                        <p>SYSTEM STRESS TEST - Fault Injection & Cascade Prediction</p>
+                    </div>
+                    <div class="pilot-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">Duration</div>
+                            <div class="meta-value">1.5 Days</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Participants</div>
+                            <div class="meta-value">17</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pilot-body">
+                    <div class="pilot-section">
+                        <div class="section-title">ME Gap Questions Addressed</div>
+                        <div class="gap-questions">
+                            <div class="gap-badge high">Q01: Single Points of Failure</div>
+                            <div class="gap-badge high">Q02: Minimum Viable Configuration</div>
+                        </div>
+                    </div>
+
+                    <div class="pilot-section">
+                        <div class="section-title">Failure Injection Schedule</div>
+                        <div class="phases-timeline">
+                            <div class="phase-item" style="border-left: 3px solid #22c55e;">
+                                <div class="phase-num">Phase 1</div>
+                                <div class="phase-name">Single Failures</div>
+                                <div class="phase-duration">Low Severity</div>
+                            </div>
+                            <div class="phase-item" style="border-left: 3px solid #eab308;">
+                                <div class="phase-num">Phase 2</div>
+                                <div class="phase-name">Multiple Failures</div>
+                                <div class="phase-duration">Medium Severity</div>
+                            </div>
+                            <div class="phase-item" style="border-left: 3px solid #f97316;">
+                                <div class="phase-num">Phase 3</div>
+                                <div class="phase-name">Cascading</div>
+                                <div class="phase-duration">High Severity</div>
+                            </div>
+                            <div class="phase-item" style="border-left: 3px solid #ef4444;">
+                                <div class="phase-num">Phase 4</div>
+                                <div class="phase-name">Near-Total</div>
+                                <div class="phase-duration">Critical</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pilot-section">
+                        <div class="section-title">AI Capabilities</div>
+                        <div class="ai-components">
+                            <div class="ai-box neural">
+                                <h4>Neural</h4>
+                                <ul class="ai-list">
+                                    <li>Cascade effect prediction</li>
+                                    <li>Failure combination patterns</li>
+                                </ul>
+                            </div>
+                            <div class="ai-box symbolic">
+                                <h4>Symbolic</h4>
+                                <ul class="ai-list">
+                                    <li>Dependency graph modeling</li>
+                                    <li>Failure propagation tracing</li>
+                                    <li>MVP configuration identification</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary Section -->
+        <div class="summary-section">
+            <h2 class="summary-title">Pilot Portfolio Summary</h2>
+
+            <div class="summary-grid">
+                <div class="chart-box">
+                    <h3>Questions by Gap Area</h3>
+                    <canvas id="gapAreaChart"></canvas>
+                </div>
+                <div class="chart-box">
+                    <h3>Resource Allocation</h3>
+                    <canvas id="resourceChart"></canvas>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px;">
+                <h3 style="font-size: 1.2rem; color: var(--primary); margin-bottom: 20px; text-align: center;">Success Criteria</h3>
+                <ul class="criteria-list">
+                    <li class="criteria-item">
+                        <div class="criteria-check">✓</div>
+                        <div class="criteria-text">ME Questions Addressed</div>
+                        <div class="criteria-target">14 of 18 HIGH priority</div>
+                    </li>
+                    <li class="criteria-item">
+                        <div class="criteria-check">✓</div>
+                        <div class="criteria-text">AI TRL Advancement</div>
+                        <div class="criteria-target">TRL 3 → 4 for all components</div>
+                    </li>
+                    <li class="criteria-item">
+                        <div class="criteria-check">✓</div>
+                        <div class="criteria-text">Methodology Validation</div>
+                        <div class="criteria-target">80% process steps validated</div>
+                    </li>
+                    <li class="criteria-item">
+                        <div class="criteria-check">✓</div>
+                        <div class="criteria-text">Insight Generation</div>
+                        <div class="criteria-target">≥50 validated insights</div>
+                    </li>
+                    <li class="criteria-item">
+                        <div class="criteria-check">✓</div>
+                        <div class="criteria-text">Cross-Pilot Learning</div>
+                        <div class="criteria-target">Demonstrated knowledge transfer</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p><strong>Pilot Wargame Designs for Neuro-Symbolic AI Validation</strong></p>
+        <p>Prepared for NATO STO TAP Development | University of Arizona PostDoc Research</p>
+        <p>Version 1.0 | 2026-01-22</p>
+    </footer>
+
+    <script>
+        // Gap Area Chart
+        new Chart(document.getElementById('gapAreaChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Coalition', 'HMT', 'Comms-Denied', 'Ethics', 'Failure'],
+                datasets: [{
+                    label: 'Questions Addressed',
+                    data: [3, 3, 3, 4, 2],
+                    backgroundColor: ['#8b5cf6', '#ec4899', '#f97316', '#14b8a6', '#ef4444']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false } },
+                scales: { y: { beginAtZero: true, max: 5 } }
+            }
+        });
+
+        // Resource Chart
+        new Chart(document.getElementById('resourceChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Pilot 1 (2.5d)', 'Pilot 2 (2d)', 'Pilot 3 (2d)', 'Pilot 4 (2d)', 'Pilot 5 (1.5d)'],
+                datasets: [{
+                    data: [2.5, 2, 2, 2, 1.5],
+                    backgroundColor: ['#8b5cf6', '#ec4899', '#f97316', '#14b8a6', '#ef4444']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
