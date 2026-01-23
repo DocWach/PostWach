@@ -26,17 +26,39 @@ NATO and Allied nations invest substantial resources in wargaming to explore ope
 
 ### The Solution
 
-Neuro-symbolic AI integrates two complementary reasoning paradigms:
+Neuro-symbolic AI integrates two reasoning paradigms, with the **symbolic layer serving as the foundational constraint system**:
 
 | Paradigm | Strengths | Limitations | Wargaming Application |
 |----------|-----------|-------------|----------------------|
-| **Neural** | Pattern learning, generalization, handling ambiguity | Opaque, no guarantees, requires large data | Scenario generation, pattern recognition, prediction |
-| **Symbolic** | Explainability, rule enforcement, traceability | Brittle, cannot learn, requires manual encoding | Doctrinal constraints, audit trails, explanation |
-| **Integrated** | Learns while explaining, generalizes while constraining | Research maturity, integration complexity | Credible, traceable, scalable decision support |
+| **Symbolic (FOUNDATION)** | Formal guarantees, explainability, traceability, constraint enforcement | Cannot learn from data alone | Doctrinal compliance, audit trails, formal verification |
+| **Neural (AUGMENTATION)** | Pattern learning, generalization, handling ambiguity | Opaque, no inherent guarantees | Scenario generation, pattern recognition, prediction |
+| **Integrated** | Neural proposes, symbolic disposes | Research maturity, integration complexity | Credible, traceable, formally verifiable decision support |
+
+**Key Principle:** Neural components operate within boundaries defined by symbolic constraints. The symbolic layer provides NATO-grade formal guarantees while neural components augment human analytical capacity. See *Formal_Verification_Framework.md* for detailed specifications.
 
 ### Central Research Question
 
 > **How can neuro-symbolic AI be responsibly integrated into wargaming to produce analytically credible, reusable, and decision-relevant insights that measurably improve capability development and acquisition?**
+
+### Operational Definition: Analytical Credibility
+
+For NATO/defense contexts, "analytically credible" is formally defined as:
+
+```
+AnalyticallyCredible(insight) ≡
+    hasConfidence(insight, c) ∧ c ≥ 0.7 ∧
+    hasCompleteProvenance(insight) ∧
+    (SMEValidated(insight) ∨ FormallyVerified(insight)) ∧
+    hasComprehensibleExplanation(insight) ∧
+    ¬hasContradiction(insight)
+```
+
+This requires:
+1. **Quantified Confidence**: Calibrated probability ≥ 70% with formal bounds
+2. **Complete Traceability**: Every insight traces to wargame evidence
+3. **Validation**: Either SME review or formal verification
+4. **Explainability**: Comprehensible reasoning chain
+5. **Consistency**: No contradictions with existing knowledge
 
 ### Proposed Program
 
@@ -176,6 +198,15 @@ This contrasts with purely rationalist approaches (knowledge from rules alone) a
 - RQ4.1: What evidence standards satisfy acquisition authorities?
 - RQ4.2: How is confidence quantified and communicated?
 - RQ4.3: What interfaces connect wargaming to NDPP and national acquisition processes?
+
+**RQ5: Formal Methods for Wargaming AI** *(NEW)*
+> What formal verification methods ensure NATO-grade guarantees for AI-augmented wargaming?
+
+- RQ5.1: What safety and liveness properties must the system satisfy?
+- RQ5.2: How can model checking verify temporal properties at scale?
+- RQ5.3: What theorem proving approach establishes correctness claims?
+- RQ5.4: How is the "neural proposes, symbolic disposes" pattern formally specified?
+- RQ5.5: What certification pathway aligns with defense acquisition standards?
 
 #### Secondary Research Questions
 
@@ -472,11 +503,20 @@ The system supports simultaneous operation across classification levels:
 - Security architecture design
 - Interoperability requirements
 
-**WP1.2: Knowledge Engineering** (M4-M12)
-- Wargaming ontology development
-- NATO doctrine encoding
-- Historical wargame data collection
-- Knowledge graph population
+**WP1.2: Ontology Engineering (FOUNDATIONAL)** (M4-M12)
+- Wargaming ontology development using NeOn methodology
+- NATO standards alignment (MIP DEM, JC3IEDM, APP-6, STANAG 4774/4778)
+- Formal axiomatization of domain concepts
+- OWL 2 profile selection with decidability analysis
+- Competency question definition and validation
+- See **Ontology_Engineering_Strategy.md** for detailed methodology
+
+**WP1.2b: Formal Verification Foundation** (M6-M12)
+- Safety/liveness property specification (LTL/MTL)
+- Model checking infrastructure (NuSMV/UPPAAL)
+- Theorem proving setup (Isabelle/HOL)
+- Formal interface contracts
+- See **Formal_Verification_Framework.md** for detailed approach
 
 **WP1.3: Baseline Establishment** (M6-M12)
 - Current practice documentation
@@ -867,8 +907,11 @@ The system will **never**:
 | CDTs | 0 | 300 | 500 | 500 | 200 | 1,500 |
 | Subcontracts | 300 | 400 | 300 | 200 | 100 | 1,300 |
 | Infrastructure | 100 | 200 | 300 | 400 | 500 | 1,500 |
+| Formal Methods | 100 | 200 | 200 | 150 | 100 | 750 |
 | Other | 100 | 100 | 100 | 100 | 100 | 500 |
-| **Total** | **2,000** | **2,850** | **3,000** | **2,800** | **1,950** | **12,600** |
+| **Total** | **2,100** | **3,050** | **3,200** | **2,950** | **2,050** | **13,350** |
+
+**Note:** Budget increased by €750K to include formal methods expertise (2 FTE over 5 years) for ontology engineering, model checking, and theorem proving activities essential for NATO-grade formal guarantees.
 
 #### Cost Sharing Model
 
@@ -1165,11 +1208,13 @@ We invite NATO nations and partner organizations to:
 The following documents provide detailed specifications referenced in this proposal:
 
 1. **ME_Wargame_Mapping_Matrix.md**: Complete mapping of 42 ME gap questions to wargame designs
-2. **Neuro_Symbolic_Architecture_Specification.md**: Detailed technical architecture
+2. **Neuro_Symbolic_Architecture_Specification.md**: Detailed technical architecture with formal foundations
 3. **Methodology_Handbook_Outline.md**: Practitioner handbook structure
 4. **Pilot_Wargame_Designs.md**: Detailed specifications for 5 pilot wargames
 5. **Transition_Roadmap.md**: Comprehensive operationalization pathway
 6. **NATO_STO_Research_Topics_Expanded.md**: 80 research questions across 10 topics
+7. **Ontology_Engineering_Strategy.md**: NeOn methodology adaptation, NATO standards alignment, formal axiomatization, OWL 2 profile selection
+8. **Formal_Verification_Framework.md**: Model checking strategy, theorem proving, safety case structure (GSN), certification pathway
 
 ### Appendix D: Letters of Support
 

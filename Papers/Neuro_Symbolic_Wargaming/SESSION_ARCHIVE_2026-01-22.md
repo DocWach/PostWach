@@ -309,4 +309,61 @@ c04e2e0 Fix JavaScript tab navigation bug in Research Proposal v2 HTML
 
 ---
 
-*Archive finalized: January 22, 2026*
+---
+
+## Session 4: Formal Guarantees Enhancement (January 23, 2026)
+
+### Problem Addressed
+
+The research proposal had good OWL 2 ontology foundations but lacked the formal methods, verification frameworks, and rigorous semantics required for NATO/defense acquisition decisions. Critical gaps identified:
+- No formal verification framework (model checking, theorem proving)
+- No formal semantics document for the ontology
+- No safety/liveness properties specified
+- SHACL constraints were descriptive, not formally guaranteed
+- Confidence quantification lacked Bayesian/measure-theoretic foundation
+- "Analytical credibility" was never operationally defined
+
+### New Documents Created
+
+| Document | Size | Description |
+|----------|------|-------------|
+| `Ontology_Engineering_Strategy.md` | ~25 KB | NeOn methodology, NATO standards alignment (MIP DEM, JC3IEDM, APP-6, STANAG 4774/4778), formal axiomatization, OWL 2 profile selection, competency questions, governance procedures |
+| `Formal_Verification_Framework.md` | ~35 KB | LTL/MTL property specification, model checking strategy (NuSMV/UPPAAL), theorem proving (Isabelle/HOL), CSP formalism, Bayesian confidence quantification, GSN safety case, certification pathway |
+
+### Documents Updated
+
+| Document | Changes |
+|----------|---------|
+| `Neuro_Symbolic_Architecture_Specification.md` | Added Section 2 "Formal Foundations", strengthened symbolic layer description, added "Neural Proposes, Symbolic Disposes" pattern, updated section numbering, added references to new documents |
+| `Research_Proposal_v2.md` | Added operational definition of "analytical credibility", new research topic RQ5 on formal methods, elevated ontology engineering to foundational work package, updated budget (+€750K for formal methods), references to new documents |
+| `SESSION_ARCHIVE_2026-01-22.md` | This update |
+
+### Key Concepts Introduced
+
+1. **Symbolic as Foundation**: Neural components operate within symbolic constraints, not as equal partners
+2. **"Neural Proposes, Symbolic Disposes"**: Formal interface contract ensuring all neural outputs pass symbolic validation
+3. **Formal Guarantees**: LTL safety properties (□), liveness properties (◇), decidability proofs
+4. **Analytical Credibility (Operational Definition)**:
+   - Confidence ≥ 70% (calibrated)
+   - Complete provenance chain
+   - SME or formal validation
+   - Comprehensible explanation
+   - No contradictions
+5. **NATO Standards Alignment**: MIP DEM, JC3IEDM, APP-6, STANAG 4774/4778
+6. **Safety Case Structure**: Goal Structuring Notation (GSN) with formal backing
+
+### File Inventory Update
+
+| File | Size (bytes) | Description |
+|------|--------------|-------------|
+| `Ontology_Engineering_Strategy.md` | ~25,000 | NEW - Ontology methodology |
+| `Formal_Verification_Framework.md` | ~35,000 | NEW - Verification framework |
+| `Research_Proposal_v2.md` | ~62,000 | UPDATED - Main proposal |
+| `Neuro_Symbolic_Architecture_Specification.md` | ~90,000 | UPDATED - Architecture spec |
+| `SESSION_ARCHIVE_2026-01-22.md` | ~12,000 | UPDATED - This archive |
+
+**Total Documentation:** ~830 KB across 17 files
+
+---
+
+*Archive updated: January 23, 2026*

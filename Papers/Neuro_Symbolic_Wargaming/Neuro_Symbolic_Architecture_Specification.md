@@ -23,16 +23,17 @@ The architecture supports the **42 ME gap questions** mapped in the ME-Wargame M
 ## Table of Contents
 
 1. [Architecture Overview](#1-architecture-overview)
-2. [Knowledge Graph Schema](#2-knowledge-graph-schema)
-3. [Neural Component Specification](#3-neural-component-specification)
-4. [Symbolic Component Specification](#4-symbolic-component-specification)
-5. [Neuro-Symbolic Integration Layer](#5-neuro-symbolic-integration-layer)
-6. [Wargaming Lifecycle Integration](#6-wargaming-lifecycle-integration)
-7. [Data Flow Architecture](#7-data-flow-architecture)
-8. [API Specifications](#8-api-specifications)
-9. [Security and Governance](#9-security-and-governance)
-10. [Implementation Roadmap](#10-implementation-roadmap)
-11. [Validation Framework](#11-validation-framework)
+2. [Formal Foundations](#2-formal-foundations)
+3. [Knowledge Graph Schema](#3-knowledge-graph-schema)
+4. [Neural Component Specification](#4-neural-component-specification)
+5. [Symbolic Component Specification](#5-symbolic-component-specification)
+6. [Neuro-Symbolic Integration Layer](#6-neuro-symbolic-integration-layer)
+7. [Wargaming Lifecycle Integration](#7-wargaming-lifecycle-integration)
+8. [Data Flow Architecture](#8-data-flow-architecture)
+9. [API Specifications](#9-api-specifications)
+10. [Security and Governance](#10-security-and-governance)
+11. [Implementation Roadmap](#11-implementation-roadmap)
+12. [Validation Framework](#12-validation-framework)
 
 ---
 
@@ -123,7 +124,145 @@ The architecture supports the **42 ME gap questions** mapped in the ME-Wargame M
 
 ---
 
-## 2. Knowledge Graph Schema
+## 2. Formal Foundations
+
+This section establishes the formal basis for the neuro-symbolic architecture, ensuring NATO-grade guarantees for acquisition decision support. The symbolic layer serves as the **foundational constraint system** that all neural outputs must satisfy.
+
+### 2.1 Formal Semantics for Key Predicates
+
+The following predicates have formally defined semantics:
+
+**Predicate 2.1.1: hasCompleteProvenance(i)**
+```
+hasCompleteProvenance(i) ≡
+    ∃T. TraceabilityChain(T) ∧ T.insight = i ∧
+    ∃o. Outcome(o) ∧ ledTo(o, i) ∧ T.outcome = o ∧
+    ∃m. Move(m) ∧ resultsIn(m, o) ∧ T.move = m ∧
+    ∃w. Wargame(w) ∧ hasMove(w, m) ∧ T.wargame = w ∧
+    ∃g. GapQuestion(g) ∧ addresses(w, g) ∧ T.gap = g
+```
+
+**Predicate 2.1.2: analyticallyCredible(i)**
+```
+analyticallyCredible(i) ≡
+    Insight(i) ∧
+    hasConfidence(i, c) ∧ c ≥ θ_credible ∧
+    hasCompleteProvenance(i) ∧
+    (∃v. SMEValidated(i, v) ∨ formallyVerified(i)) ∧
+    hasComprehensibleExplanation(i) ∧
+    ¬hasContradiction(i)
+```
+
+**Predicate 2.1.3: constraintSatisfied(output)**
+```
+constraintSatisfied(output) ≡
+    ∀c ∈ Constraints. c.applies(output) → c.satisfied(output)
+```
+
+### 2.2 Decidability Guarantees for Reasoning
+
+The system guarantees decidable reasoning through careful ontology profile selection:
+
+| Reasoning Task | Profile | Decidability | Complexity |
+|----------------|---------|--------------|------------|
+| Class consistency | OWL 2 DL | Decidable | 2-NEXPTIME |
+| Instance checking | OWL 2 DL | Decidable | 2-NEXPTIME |
+| Conjunctive queries | OWL 2 RL | Decidable | PTIME |
+| SHACL validation | SHACL Core | Decidable | PTIME |
+| Rule inference | SWRL-DL | Decidable | 2-NEXPTIME |
+
+**Theorem 2.2.1 (Reasoning Termination):**
+*All reasoning operations in the production system terminate in bounded time.*
+
+*Proof:* The production system uses OWL 2 RL for runtime reasoning, which is PTIME-decidable. Combined with bounded ABox size (finite wargame artifacts), termination is guaranteed. □
+
+### 2.3 Soundness and Completeness Properties
+
+**Soundness (Theorem 2.3.1):**
+*If the reasoning engine derives a conclusion, that conclusion is logically entailed by the knowledge base.*
+
+**Completeness (Theorem 2.3.2 - Qualified):**
+*For the OWL 2 RL subset, if a conclusion is logically entailed and expressible in the profile, the reasoning engine derives it.*
+
+Note: Full OWL 2 DL completeness is achieved in offline analysis; runtime uses the sound RL subset.
+
+### 2.4 The "Neural Proposes, Symbolic Disposes" Pattern
+
+This fundamental architectural pattern ensures neural components cannot violate system guarantees:
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│              NEURAL PROPOSES, SYMBOLIC DISPOSES PATTERN                  │
+│                                                                          │
+│  INVARIANT: No neural output reaches users without symbolic validation   │
+│                                                                          │
+│  ┌───────────────────┐                    ┌─────────────────────────┐  │
+│  │   NEURAL LAYER    │    Proposals       │   SYMBOLIC LAYER        │  │
+│  │                   │───────────────────►│                         │  │
+│  │  • Unconstrained  │                    │  • Validates all rules  │  │
+│  │    generation     │                    │  • Checks consistency   │  │
+│  │  • Pattern recog  │                    │  • Enforces security    │  │
+│  │  • Predictions    │    Accept/Reject   │  • Maintains provenance │  │
+│  │  • Confidence     │◄───────────────────│  • Generates explanations│ │
+│  │    estimates      │                    │                         │  │
+│  └───────────────────┘                    └─────────────────────────┘  │
+│                                                                          │
+│  Contract:                                                               │
+│    PRE:  Neural output has confidence ∈ [0,1], sources non-empty        │
+│    POST: If accepted, output satisfies all constraints                  │
+│    INV:  Classification never decreases through system                  │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+**Formal Interface Contract:**
+```python
+@dataclass
+class NeuralOutput:
+    content: Any
+    confidence: float  # Invariant: 0 ≤ confidence ≤ 1
+    sources: List[EntityRef]  # Invariant: len(sources) > 0
+    timestamp: datetime
+
+@dataclass
+class ValidationResult:
+    is_valid: bool
+    violations: List[Constraint]
+    repairs: List[Suggestion]
+    validated_output: Optional[ValidatedOutput]
+
+def validate(neural_output: NeuralOutput) -> ValidationResult:
+    """
+    Symbolic validation gate.
+
+    Guarantees:
+    - If is_valid=True, all constraints satisfied
+    - If is_valid=False, violations list explains why
+    - Classification is preserved or elevated
+    - Provenance chain is extended
+    """
+```
+
+### 2.5 Guarantee Preservation Through Integration
+
+**Theorem 2.5.1 (Guarantee Preservation):**
+*System guarantees G hold for all outputs that pass symbolic validation.*
+
+*Proof:*
+1. Let G = {g₁, ..., gₙ} be the set of system guarantees
+2. Each gᵢ is encoded as constraint cᵢ in SHACL/OWL
+3. Symbolic validation checks all constraints
+4. Validation accepts iff ∀i. cᵢ(output) = true
+5. Therefore, acceptance ⟹ all guarantees hold □
+
+### 2.6 References to Supporting Documents
+
+For detailed formal specifications, see:
+- **Ontology Engineering Strategy**: Methodology, axiomatization, decidability analysis
+- **Formal Verification Framework**: Model checking, theorem proving, safety case
+
+---
+
+## 3. Knowledge Graph Schema
 
 ### 2.1 Core Ontology Structure
 
@@ -374,7 +513,7 @@ wg:Insight2026-001 a wg:Insight ;
 
 ---
 
-## 3. Neural Component Specification
+## 4. Neural Component Specification
 
 ### 3.1 Component Overview
 
@@ -602,21 +741,69 @@ class Prediction:
 
 ---
 
-## 4. Symbolic Component Specification
+## 5. Symbolic Component Specification
 
-### 4.1 Component Overview
+**The symbolic layer serves as the foundational constraint system for the entire architecture.** Neural components operate within boundaries defined by symbolic rules, and all outputs must pass symbolic validation before reaching users.
 
-| Component | Purpose | Technology | ME Gap Coverage |
-|-----------|---------|------------|-----------------|
-| **Knowledge Graph** | Store and query domain knowledge | Neo4j, Apache Jena | All 42 questions |
-| **Reasoning Engine** | Perform logical inference | Pellet, HermiT | 35 questions |
-| **Constraint Manager** | Enforce rules and policies | SHACL, OPA | 35 questions |
-| **Traceability Manager** | Track provenance and decisions | Custom + PROV-O | All 42 questions |
-| **Explanation Engine** | Generate human-readable explanations | Template + NLG | 30 questions |
+### 5.1 Component Overview
 
-### 4.2 Reasoning Engine
+| Component | Purpose | Technology | ME Gap Coverage | Formal Guarantee |
+|-----------|---------|------------|-----------------|------------------|
+| **Knowledge Graph** | Store and query domain knowledge | Neo4j, Apache Jena | All 42 questions | Ontology consistency |
+| **Reasoning Engine** | Perform logical inference | Pellet, HermiT | 35 questions | Sound & decidable |
+| **Constraint Manager** | Enforce rules and policies | SHACL, OPA | 35 questions | Constraint satisfaction |
+| **Traceability Manager** | Track provenance and decisions | Custom + PROV-O | All 42 questions | Provenance completeness |
+| **Explanation Engine** | Generate human-readable explanations | Template + NLG | 30 questions | Explanation fidelity |
 
-#### 4.2.1 Reasoning Types
+### 5.1.1 Formal Constraint Satisfaction (Beyond SHACL Checking)
+
+The Constraint Manager provides **formal guarantees** beyond simple SHACL shape validation:
+
+**Three-Level Constraint Architecture:**
+```
+Level 1: SHACL Shapes (Structural)
+├── Required fields present
+├── Data types correct
+├── Cardinality constraints
+└── Value restrictions
+
+Level 2: OWL Axioms (Semantic)
+├── Class membership entailments
+├── Property restrictions
+├── Disjointness enforcement
+└── Consistency verification
+
+Level 3: Domain Rules (Business Logic)
+├── Classification propagation
+├── ROE compliance
+├── Temporal ordering
+└── Provenance chain validity
+```
+
+**Decidability Guarantee:** All constraints are expressible in decidable fragments. Constraint checking terminates in polynomial time for SHACL Core and OWL 2 RL.
+
+### 5.1.2 Reasoning Engine Formal Properties
+
+| Property | Guarantee | Verification Method |
+|----------|-----------|---------------------|
+| **Soundness** | Derived conclusions are logically entailed | Reasoner certification |
+| **Completeness** | All entailed conclusions derivable (for RL) | Profile compliance |
+| **Termination** | Reasoning always completes | OWL 2 RL decidability |
+| **Consistency Preservation** | Consistent input → consistent output | Formal proof |
+
+### 5.1.3 Provenance Chain Formal Model
+
+**Definition:** A provenance chain P for insight i is valid iff:
+```
+valid(P) ≡ P.insight = i ∧ ledTo(P.outcome, i) ∧ resultsIn(P.move, P.outcome) ∧
+           hasMove(P.wargame, P.move) ∧ addresses(P.wargame, P.gap)
+```
+
+See **Formal_Verification_Framework.md** Section 8 for detailed proofs.
+
+### 5.2 Reasoning Engine
+
+#### 5.2.1 Reasoning Types
 
 | Reasoning Type | Description | Implementation |
 |----------------|-------------|----------------|
@@ -626,7 +813,7 @@ class Prediction:
 | **Temporal Reasoning** | Handle time-based logic | Allen's interval algebra |
 | **Defeasible Reasoning** | Handle exceptions and defaults | Prioritized rules |
 
-#### 4.2.2 Rule Examples
+#### 5.2.2 Rule Examples
 
 ```swrl
 # Rule: If a move violates ROE, flag for human review
@@ -644,7 +831,7 @@ wg:nationality(?p1, ?n1) ∧ wg:nationality(?p2, ?n2) ∧
 differentFrom(?n1, ?n2) → nsw:requiresInteroperabilityCheck(?w, true)
 ```
 
-#### 4.2.3 SHACL Constraint Examples
+#### 5.2.3 SHACL Constraint Examples
 
 ```turtle
 # Constraint: Every insight must have provenance
@@ -687,9 +874,9 @@ nsw:EthicsWargameShape a sh:NodeShape ;
     ] .
 ```
 
-### 4.3 Traceability Manager
+### 5.3 Traceability Manager
 
-#### 4.3.1 Traceability Chain Schema
+#### 5.3.1 Traceability Chain Schema
 
 ```
 ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
@@ -704,7 +891,7 @@ nsw:EthicsWargameShape a sh:NodeShape ;
 └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
 ```
 
-#### 4.3.2 Provenance Query Examples
+#### 5.3.2 Provenance Query Examples
 
 ```sparql
 # Query: Trace an insight back to its source gap question
@@ -742,9 +929,9 @@ WHERE {
 ORDER BY DESC(?timestamp)
 ```
 
-### 4.4 Explanation Engine
+### 5.4 Explanation Engine
 
-#### 4.4.1 Explanation Types
+#### 5.4.1 Explanation Types
 
 | Explanation Type | Purpose | Technique |
 |------------------|---------|-----------|
@@ -754,7 +941,7 @@ ORDER BY DESC(?timestamp)
 | **Confidence** | How certain the AI is | Uncertainty communication |
 | **Limitation** | What the AI doesn't know | Known unknown enumeration |
 
-#### 4.4.2 Explanation Templates
+#### 5.4.2 Explanation Templates
 
 ```python
 # Factual explanation template
@@ -792,7 +979,7 @@ Recommendation: {recommendation_based_on_confidence}
 """
 ```
 
-#### 4.4.3 Explanation API
+#### 5.4.3 Explanation API
 
 ```python
 class ExplanationRequest:
@@ -812,11 +999,11 @@ class ExplanationResponse:
 
 ---
 
-## 5. Neuro-Symbolic Integration Layer
+## 6. Neuro-Symbolic Integration Layer
 
-### 5.1 Integration Patterns
+### 6.1 Integration Patterns
 
-#### 5.1.1 Neural → Symbolic (Grounding)
+#### 6.1.1 Neural → Symbolic (Grounding)
 
 Neural outputs are grounded in symbolic knowledge to ensure consistency and validity.
 
@@ -848,7 +1035,7 @@ Neural outputs are grounded in symbolic knowledge to ensure consistency and vali
 | **Consistency Check** | Ensure no contradictions with KG | New insight consistent with doctrine |
 | **Classification Enforcement** | Apply security labels | Derived data inherits classification |
 
-#### 5.1.2 Symbolic → Neural (Abstraction)
+#### 6.1.2 Symbolic → Neural (Abstraction)
 
 Symbolic knowledge is abstracted into neural representations for learning and generation.
 
@@ -876,9 +1063,9 @@ Symbolic knowledge is abstracted into neural representations for learning and ge
 | **Context Retrieval** | Provide relevant KG context to neural | Historical similar wargames |
 | **Template Instantiation** | Fill neural templates with KG facts | Scenario template + ORBAT facts |
 
-### 5.2 Bidirectional Coupling Engine
+### 6.2 Bidirectional Coupling Engine
 
-#### 5.2.1 Architecture
+#### 6.2.1 Architecture
 
 ```python
 class NeuralSymbolicCoupler:
@@ -944,9 +1131,9 @@ class NeuralSymbolicCoupler:
         )
 ```
 
-### 5.3 Confidence Calibration
+### 6.3 Confidence Calibration
 
-#### 5.3.1 Calibration Framework
+#### 6.3.1 Calibration Framework
 
 ```python
 class ConfidenceCalibrator:
@@ -1002,7 +1189,7 @@ class ConfidenceCalibrator:
 
 ---
 
-## 6. Wargaming Lifecycle Integration
+## 7. Wargaming Lifecycle Integration
 
 ### 6.1 Lifecycle Phases
 
@@ -1079,7 +1266,7 @@ class ConfidenceCalibrator:
 
 ---
 
-## 7. Data Flow Architecture
+## 8. Data Flow Architecture
 
 ### 7.1 Data Flow Diagram
 
@@ -1171,7 +1358,7 @@ class ConfidenceCalibrator:
 
 ---
 
-## 8. API Specifications
+## 9. API Specifications
 
 ### 8.1 Core APIs
 
@@ -1458,7 +1645,7 @@ components:
 
 ---
 
-## 9. Security and Governance
+## 10. Security and Governance
 
 ### 9.1 Security Architecture
 
@@ -1524,7 +1711,7 @@ components:
 
 ---
 
-## 10. Implementation Roadmap
+## 11. Implementation Roadmap
 
 ### 10.1 Phase 1: Foundation (Year 1)
 
@@ -1567,7 +1754,7 @@ components:
 
 ---
 
-## 11. Validation Framework
+## 12. Validation Framework
 
 ### 11.1 Validation Approach
 
@@ -1639,6 +1826,8 @@ components:
 | NATO STO Research Topics Expanded | 80 research questions across 10 topics |
 | NATO STO Research Topics Critique | Gap analysis of original research topics |
 | Integrated Readiness Level Matrix | TRL/MRL/IRL/HRL/ORL/KRL alignment |
+| **Ontology_Engineering_Strategy.md** | Methodology, NATO alignment, formal axiomatization |
+| **Formal_Verification_Framework.md** | Model checking, theorem proving, safety case structure |
 
 ---
 
