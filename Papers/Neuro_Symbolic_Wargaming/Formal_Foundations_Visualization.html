@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neuro-Symbolic Wargaming - Formal Foundations</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #e4e4e4;
+            min-height: 100vh;
+        }
+        .header {
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid #e94560;
+        }
+        .header h1 {
+            color: #e94560;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        .header p {
+            color: #aaa;
+            font-size: 1rem;
+        }
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px;
+            background: rgba(0,0,0,0.2);
+            flex-wrap: wrap;
+        }
+        .nav-tab {
+            background: rgba(233, 69, 96, 0.2);
+            border: 1px solid #e94560;
+            color: #e94560;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        .nav-tab:hover, .nav-tab.active {
+            background: #e94560;
+            color: white;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .section {
+            display: none;
+        }
+        .section.active {
+            display: block;
+        }
+        .card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(233, 69, 96, 0.3);
+        }
+        .card h2 {
+            color: #e94560;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            border-bottom: 1px solid rgba(233, 69, 96, 0.3);
+            padding-bottom: 10px;
+        }
+        .card h3 {
+            color: #4ecca3;
+            margin: 15px 0 10px 0;
+            font-size: 1.1rem;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        th {
+            background: rgba(233, 69, 96, 0.2);
+            color: #e94560;
+        }
+        tr:hover {
+            background: rgba(255,255,255,0.05);
+        }
+        .formula-box {
+            background: rgba(0,0,0,0.3);
+            border-left: 4px solid #4ecca3;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .formula-box code {
+            color: #4ecca3;
+            white-space: pre-wrap;
+        }
+        .highlight-box {
+            background: rgba(233, 69, 96, 0.1);
+            border: 1px solid #e94560;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .highlight-box.green {
+            background: rgba(78, 204, 163, 0.1);
+            border-color: #4ecca3;
+        }
+        .highlight-box.blue {
+            background: rgba(100, 149, 237, 0.1);
+            border-color: cornflowerblue;
+        }
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            margin: 2px;
+        }
+        .badge-high { background: #e94560; color: white; }
+        .badge-medium { background: #f39c12; color: white; }
+        .badge-low { background: #4ecca3; color: white; }
+        .badge-new { background: #3498db; color: white; }
+        .architecture-diagram {
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            white-space: pre;
+            line-height: 1.4;
+            font-size: 0.85rem;
+        }
+        .stat-card {
+            text-align: center;
+            padding: 20px;
+        }
+        .stat-value {
+            font-size: 2.5rem;
+            color: #e94560;
+            font-weight: bold;
+        }
+        .stat-label {
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+        .timeline-item {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .timeline-marker {
+            width: 30px;
+            height: 30px;
+            background: #e94560;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+        .timeline-content {
+            margin-left: 15px;
+            flex-grow: 1;
+        }
+        .timeline-title {
+            color: #4ecca3;
+            font-weight: bold;
+        }
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin: 20px 0;
+        }
+        .property-list {
+            list-style: none;
+        }
+        .property-list li {
+            padding: 10px;
+            margin: 5px 0;
+            background: rgba(0,0,0,0.2);
+            border-radius: 5px;
+            border-left: 3px solid #e94560;
+        }
+        .property-list li.safety { border-left-color: #e94560; }
+        .property-list li.liveness { border-left-color: #4ecca3; }
+        .property-list li.fairness { border-left-color: #f39c12; }
+        .ltl-formula {
+            color: #4ecca3;
+            font-family: 'Courier New', monospace;
+            background: rgba(0,0,0,0.3);
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .flow-box {
+            background: rgba(233, 69, 96, 0.2);
+            border: 1px solid #e94560;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            min-width: 150px;
+        }
+        .flow-box.symbolic {
+            background: rgba(78, 204, 163, 0.2);
+            border-color: #4ecca3;
+        }
+        .flow-arrow {
+            font-size: 1.5rem;
+            color: #e94560;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Neuro-Symbolic AI Wargaming: Formal Foundations</h1>
+        <p>NATO STO Technical Activity Proposal - Formal Verification & Ontology Engineering</p>
+    </div>
+
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showSection('overview', this)">Overview</button>
+        <button class="nav-tab" onclick="showSection('ontology', this)">Ontology Engineering</button>
+        <button class="nav-tab" onclick="showSection('verification', this)">Formal Verification</button>
+        <button class="nav-tab" onclick="showSection('properties', this)">Safety Properties</button>
+        <button class="nav-tab" onclick="showSection('integration', this)">Neural-Symbolic Contract</button>
+        <button class="nav-tab" onclick="showSection('credibility', this)">Analytical Credibility</button>
+        <button class="nav-tab" onclick="showSection('timeline', this)">Implementation</button>
+    </div>
+
+    <div class="container">
+        <!-- Overview Section -->
+        <div id="overview" class="section active">
+            <div class="grid-3">
+                <div class="card stat-card">
+                    <div class="stat-value">2</div>
+                    <div class="stat-label">New Foundational Documents</div>
+                </div>
+                <div class="card stat-card">
+                    <div class="stat-value">30</div>
+                    <div class="stat-label">Competency Questions</div>
+                </div>
+                <div class="card stat-card">
+                    <div class="stat-value">8</div>
+                    <div class="stat-label">Safety Properties</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Why Formal Guarantees Matter for NATO</h2>
+                <table>
+                    <tr>
+                        <th>Requirement</th>
+                        <th>Informal Approach</th>
+                        <th>Formal Approach</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Justified</strong></td>
+                        <td>"SMEs agreed it's credible"</td>
+                        <td>Provenance chain complete, confidence bounds proven</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Traceable</strong></td>
+                        <td>"Insight came from wargame X"</td>
+                        <td><code class="ltl-formula">∀i. hasProvenance(i) ∧ complete(provenance)</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bounded</strong></td>
+                        <td>"Confidence is about 85%"</td>
+                        <td><code class="ltl-formula">P(correct|evidence) ∈ [0.82, 0.88]</code> with 95% credibility</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Safe</strong></td>
+                        <td>"We haven't seen failures"</td>
+                        <td><code class="ltl-formula">□(AIOutput → ConstraintsSatisfied)</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Reliable</strong></td>
+                        <td>"It usually works"</td>
+                        <td><code class="ltl-formula">◇(Query) → ◇(Response)</code> within T</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="card">
+                <h2>Key Principle: Symbolic as Foundation</h2>
+                <div class="highlight-box green">
+                    <strong>Neural components operate within boundaries defined by symbolic constraints.</strong>
+                    The symbolic layer provides NATO-grade formal guarantees while neural components augment human analytical capacity.
+                </div>
+                <div class="flow-diagram">
+                    <div class="flow-box">Neural Layer<br><small>Proposes</small></div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-box symbolic">Symbolic Layer<br><small>Validates</small></div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-box symbolic">Formal Guarantees<br><small>Proven</small></div>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h2>New Document: Ontology Engineering Strategy</h2>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>✓ NeOn methodology adaptation</li>
+                        <li>✓ NATO standards alignment (MIP, JC3IEDM, APP-6)</li>
+                        <li>✓ Formal axiomatization</li>
+                        <li>✓ OWL 2 profile selection</li>
+                        <li>✓ 30 competency questions</li>
+                        <li>✓ Governance procedures</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h2>New Document: Formal Verification Framework</h2>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>✓ LTL/MTL safety properties</li>
+                        <li>✓ Model checking (NuSMV/UPPAAL)</li>
+                        <li>✓ Theorem proving (Isabelle/HOL)</li>
+                        <li>✓ Bayesian confidence quantification</li>
+                        <li>✓ GSN safety case structure</li>
+                        <li>✓ Certification pathway</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ontology Engineering Section -->
+        <div id="ontology" class="section">
+            <div class="card">
+                <h2>Ontology Engineering Methodology</h2>
+                <div class="architecture-diagram">
+┌─────────────────────────────────────────────────────────────────────────┐
+│                    NeON ADAPTED LIFECYCLE                                │
+│                                                                          │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐│
+│  │ Initiation   │─►│ Reuse        │─►│ Reengineering│─►│ Design       ││
+│  │              │  │              │  │              │  │              ││
+│  │ - Scope      │  │ - NATO stds  │  │ - Adapt MIP  │  │ - Modular    ││
+│  │ - Competency │  │ - JC3IEDM    │  │ - Extend for │  │   architecture│
+│  │   questions  │  │ - PROV-O     │  │   wargaming  │  │ - Axioms     ││
+│  └──────────────┘  └──────────────┘  └──────────────┘  └──────────────┘│
+│         │                                                      │        │
+│         │              ┌──────────────┐                       │        │
+│         │              │ Evaluation   │◄──────────────────────┘        │
+│         │              │ - Competency │                                 │
+│         │              │ - Consistency│                                 │
+│         │              │ - Formal     │                                 │
+│         │              │   validation │                                 │
+│         │              └──────────────┘                                 │
+│         │                     │                                         │
+│         └─────────────────────┼─────────────────────────────────────────│
+│                               ▼                                         │
+│                    ┌──────────────┐                                     │
+│                    │ Maintenance  │                                     │
+│                    │ - Versioning │                                     │
+│                    │ - Governance │                                     │
+│                    │ - Evolution  │                                     │
+│                    └──────────────┘                                     │
+└─────────────────────────────────────────────────────────────────────────┘
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>NATO Standards Alignment</h2>
+                <table>
+                    <tr>
+                        <th>Standard</th>
+                        <th>Description</th>
+                        <th>Integration</th>
+                    </tr>
+                    <tr>
+                        <td><strong>MIP DEM</strong></td>
+                        <td>Multilateral Interoperability Programme Data Exchange Model</td>
+                        <td>Unit, Operation, Materiel concepts</td>
+                    </tr>
+                    <tr>
+                        <td><strong>JC3IEDM</strong></td>
+                        <td>Joint C3 Information Exchange Data Model</td>
+                        <td>Operational context, phases</td>
+                    </tr>
+                    <tr>
+                        <td><strong>APP-6(D)</strong></td>
+                        <td>Military Symbology</td>
+                        <td>Force representation (2525D SIDC)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>STANAG 4774</strong></td>
+                        <td>Metadata Binding Mechanism</td>
+                        <td>Classification at element level</td>
+                    </tr>
+                    <tr>
+                        <td><strong>STANAG 4778</strong></td>
+                        <td>Security Label</td>
+                        <td>Releasability, national caveats</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h2>OWL 2 Profile Selection</h2>
+                    <table>
+                        <tr>
+                            <th>Profile</th>
+                            <th>Decidability</th>
+                            <th>Complexity</th>
+                        </tr>
+                        <tr>
+                            <td>OWL 2 Full</td>
+                            <td><span class="badge badge-high">Undecidable</span></td>
+                            <td>-</td>
+                        </tr>
+                        <tr style="background: rgba(78, 204, 163, 0.2);">
+                            <td><strong>OWL 2 DL</strong></td>
+                            <td><span class="badge badge-low">Decidable</span></td>
+                            <td>2-NEXPTIME</td>
+                        </tr>
+                        <tr>
+                            <td>OWL 2 EL</td>
+                            <td><span class="badge badge-low">Decidable</span></td>
+                            <td>PTIME</td>
+                        </tr>
+                        <tr style="background: rgba(78, 204, 163, 0.2);">
+                            <td><strong>OWL 2 RL</strong></td>
+                            <td><span class="badge badge-low">Decidable</span></td>
+                            <td>PTIME</td>
+                        </tr>
+                    </table>
+                    <div class="highlight-box green">
+                        <strong>Decision:</strong> OWL 2 DL for development, OWL 2 RL for runtime (guaranteed PTIME)
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>Core Domain Axioms</h2>
+                    <div class="formula-box">
+                        <code>Axiom 1: Insight Provenance
+∀i. Insight(i) → ∃w,o. Wargame(w) ∧ Outcome(o)
+    ∧ produces(w,o) ∧ ledTo(o,i)
+
+Axiom 2: Gap-Insight Relevance
+∀i,g. supports(i,g) → ∃w. Wargame(w)
+    ∧ addresses(w,g) ∧ produces(w,i)
+
+Axiom 3: Classification Propagation
+∀x,y,c. (derivedFrom(x,y) ∧ hasClass(y,c)
+    ∧ ¬isDowngraded(x)) → hasClass(x,c)</code>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Competency Questions Coverage</h2>
+                <div class="chart-container">
+                    <canvas id="cqChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Formal Verification Section -->
+        <div id="verification" class="section">
+            <div class="card">
+                <h2>Verification Tools & Techniques</h2>
+                <div class="grid-3">
+                    <div class="highlight-box">
+                        <h3>Model Checking</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li><strong>NuSMV:</strong> CTL/LTL, BDD-based</li>
+                            <li><strong>UPPAAL:</strong> Timed automata</li>
+                            <li><strong>SPIN:</strong> LTL, explicit state</li>
+                            <li><strong>TLA+:</strong> Distributed systems</li>
+                        </ul>
+                    </div>
+                    <div class="highlight-box green">
+                        <h3>Theorem Proving</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li><strong>Isabelle/HOL:</strong> Primary prover</li>
+                            <li><strong>Target:</strong> 80% automated</li>
+                            <li><strong>Proof certificates</strong></li>
+                            <li><strong>Mechanized verification</strong></li>
+                        </ul>
+                    </div>
+                    <div class="highlight-box blue">
+                        <h3>Specification Languages</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li><strong>Z Notation:</strong> Data types</li>
+                            <li><strong>Alloy:</strong> Structural models</li>
+                            <li><strong>TLA+:</strong> Temporal behavior</li>
+                            <li><strong>LTL/MTL:</strong> Properties</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Defense-in-Depth Verification</h2>
+                <div class="architecture-diagram">
+Level 1: Type System (Static Analysis)
+    ↓
+Level 2: Constraint Checking (SHACL/OPA)
+    ↓
+Level 3: Model Checking (Temporal Properties)
+    ↓
+Level 4: Theorem Proving (Correctness Proofs)
+    ↓
+Level 5: Runtime Monitoring (Dynamic Verification)
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Safety Case Structure (GSN)</h2>
+                <div class="architecture-diagram">
+                        ┌─────────────────────┐
+                        │ G1: System is       │
+                        │ acceptably safe for │
+                        │ acquisition support │
+                        └──────────┬──────────┘
+                                   │
+              ┌────────────────────┼────────────────────┐
+              │                    │                    │
+              ▼                    ▼                    ▼
+   ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐
+   │ G2: All outputs │  │ G3: Traceability│  │ G4: Human       │
+   │ satisfy         │  │ is complete     │  │ oversight       │
+   │ constraints     │  │ and correct     │  │ maintained      │
+   └────────┬────────┘  └────────┬────────┘  └────────┬────────┘
+            │                    │                    │
+            ▼                    ▼                    ▼
+   ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐
+   │ E1: Model       │  │ E2: Theorem     │  │ E3: Operational │
+   │ checking        │  │ proof in        │  │ audit logs,     │
+   │ results         │  │ Isabelle        │  │ training records│
+   └─────────────────┘  └─────────────────┘  └─────────────────┘
+                </div>
+            </div>
+        </div>
+
+        <!-- Safety Properties Section -->
+        <div id="properties" class="section">
+            <div class="card">
+                <h2>Temporal Logic Specifications</h2>
+                <ul class="property-list">
+                    <li class="safety">
+                        <strong>S1: Constraint Satisfaction</strong><br>
+                        <span class="ltl-formula">□(AIOutput → ConstraintsSatisfied)</span><br>
+                        <small>Every AI output satisfies all defined constraints</small>
+                    </li>
+                    <li class="safety">
+                        <strong>S2: Classification Enforcement</strong><br>
+                        <span class="ltl-formula">□(DerivedData → Classification(Derived) ≥ max(Classification(Sources)))</span><br>
+                        <small>Derived data is at least as classified as its sources</small>
+                    </li>
+                    <li class="safety">
+                        <strong>S3: Provenance Integrity</strong><br>
+                        <span class="ltl-formula">□(Insight → hasValidProvenance(Insight))</span><br>
+                        <small>Every insight has valid, complete provenance</small>
+                    </li>
+                    <li class="safety">
+                        <strong>S4: Human Oversight</strong><br>
+                        <span class="ltl-formula">□(HighImpactDecision → ○(HumanReview))</span><br>
+                        <small>High-impact decisions are always followed by human review</small>
+                    </li>
+                    <li class="liveness">
+                        <strong>L1: Query Response</strong><br>
+                        <span class="ltl-formula">□(Query → ◇Response)</span><br>
+                        <small>Every query eventually receives a response</small>
+                    </li>
+                    <li class="liveness">
+                        <strong>L2: Bounded Response Time</strong><br>
+                        <span class="ltl-formula">□(Query → ◇≤T Response)</span><br>
+                        <small>Response occurs within time bound T</small>
+                    </li>
+                    <li class="liveness">
+                        <strong>L3: Insight Validation</strong><br>
+                        <span class="ltl-formula">□(AIInsight → ◇(Validated ∨ Rejected))</span><br>
+                        <small>Every AI insight is eventually validated or rejected</small>
+                    </li>
+                    <li class="fairness">
+                        <strong>F1: No Participant Bias</strong><br>
+                        <span class="ltl-formula">□(∀p1,p2. SimilarMoves(p1,p2) → SimilarEvaluation(p1,p2))</span><br>
+                        <small>Similar moves receive similar evaluations</small>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2>Property Categories Distribution</h2>
+                <div class="chart-container">
+                    <canvas id="propertiesChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Neural-Symbolic Contract Section -->
+        <div id="integration" class="section">
+            <div class="card">
+                <h2>Neural Proposes, Symbolic Disposes Pattern</h2>
+                <div class="architecture-diagram">
+┌─────────────────────────────────────────────────────────────────────────┐
+│              NEURAL PROPOSES, SYMBOLIC DISPOSES PATTERN                  │
+│                                                                          │
+│  INVARIANT: No neural output reaches users without symbolic validation   │
+│                                                                          │
+│  ┌───────────────────┐                    ┌─────────────────────────┐  │
+│  │   NEURAL LAYER    │    Proposals       │   SYMBOLIC LAYER        │  │
+│  │                   │───────────────────►│                         │  │
+│  │  • Unconstrained  │                    │  • Validates all rules  │  │
+│  │    generation     │                    │  • Checks consistency   │  │
+│  │  • Pattern recog  │                    │  • Enforces security    │  │
+│  │  • Predictions    │    Accept/Reject   │  • Maintains provenance │  │
+│  │  • Confidence     │◄───────────────────│  • Generates explanations│ │
+│  │    estimates      │                    │                         │  │
+│  └───────────────────┘                    └─────────────────────────┘  │
+│                                                                          │
+│  Contract:                                                               │
+│    PRE:  Neural output has confidence ∈ [0,1], sources non-empty        │
+│    POST: If accepted, output satisfies all constraints                  │
+│    INV:  Classification never decreases through system                  │
+└─────────────────────────────────────────────────────────────────────────┘
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h2>Interface Contract</h2>
+                    <div class="formula-box">
+                        <code>@dataclass
+class NeuralOutput:
+    content: Any
+    confidence: float  # INV: 0 ≤ confidence ≤ 1
+    sources: List[EntityRef]  # INV: len > 0
+    timestamp: datetime
+
+@dataclass
+class ValidationResult:
+    is_valid: bool
+    violations: List[Constraint]
+    repairs: List[Suggestion]
+    validated_output: Optional[ValidatedOutput]</code>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>Guarantee Preservation Theorem</h2>
+                    <div class="highlight-box green">
+                        <strong>Theorem:</strong> System guarantees G hold for all outputs that pass symbolic validation.
+                    </div>
+                    <div class="formula-box">
+                        <code>Proof:
+1. Let G = {g₁, ..., gₙ} be system guarantees
+2. Each gᵢ encoded as constraint cᵢ
+3. Validation checks all constraints
+4. Acceptance iff ∀i. cᵢ(output) = true
+5. Therefore: acceptance ⟹ all guarantees hold □</code>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Three-Level Constraint Architecture</h2>
+                <div class="grid-3">
+                    <div class="highlight-box">
+                        <h3>Level 1: SHACL (Structural)</h3>
+                        <ul style="font-size: 0.9rem;">
+                            <li>Required fields present</li>
+                            <li>Data types correct</li>
+                            <li>Cardinality constraints</li>
+                            <li>Value restrictions</li>
+                        </ul>
+                    </div>
+                    <div class="highlight-box green">
+                        <h3>Level 2: OWL (Semantic)</h3>
+                        <ul style="font-size: 0.9rem;">
+                            <li>Class membership</li>
+                            <li>Property restrictions</li>
+                            <li>Disjointness</li>
+                            <li>Consistency verification</li>
+                        </ul>
+                    </div>
+                    <div class="highlight-box blue">
+                        <h3>Level 3: Domain Rules</h3>
+                        <ul style="font-size: 0.9rem;">
+                            <li>Classification propagation</li>
+                            <li>ROE compliance</li>
+                            <li>Temporal ordering</li>
+                            <li>Provenance validity</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytical Credibility Section -->
+        <div id="credibility" class="section">
+            <div class="card">
+                <h2>Operational Definition: Analytical Credibility</h2>
+                <div class="formula-box">
+                    <code>AnalyticallyCredible(insight) ≡
+    hasConfidence(insight, c) ∧ c ≥ 0.7 ∧
+    hasCompleteProvenance(insight) ∧
+    (SMEValidated(insight) ∨ FormallyVerified(insight)) ∧
+    hasComprehensibleExplanation(insight) ∧
+    ¬hasContradiction(insight)</code>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h2>Five Requirements for Credibility</h2>
+                    <table>
+                        <tr>
+                            <th>#</th>
+                            <th>Requirement</th>
+                            <th>Criterion</th>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td><strong>Quantified Confidence</strong></td>
+                            <td>Calibrated probability ≥ 70% with formal bounds</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td><strong>Complete Traceability</strong></td>
+                            <td>Every insight traces to wargame evidence</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td><strong>Validation</strong></td>
+                            <td>SME review OR formal verification</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td><strong>Explainability</strong></td>
+                            <td>Comprehensible reasoning chain</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td><strong>Consistency</strong></td>
+                            <td>No contradictions with existing knowledge</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="card">
+                    <h2>Bayesian Confidence Framework</h2>
+                    <div class="formula-box">
+                        <code>P(H|E) = P(E|H) · P(H) / P(E)
+
+where:
+  H = hypothesis (e.g., "gap exists")
+  E = evidence (wargame observations)
+  P(H|E) = posterior (confidence)
+  P(E|H) = likelihood
+  P(H) = prior
+  P(E) = marginal likelihood</code>
+                    </div>
+                    <div class="highlight-box green">
+                        <strong>Calibration Requirement:</strong><br>
+                        |P(correct | conf) - conf| ≤ ε (where ε ≤ 0.1)
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Confidence Level Interpretation</h2>
+                <div class="chart-container">
+                    <canvas id="confidenceChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Implementation Timeline Section -->
+        <div id="timeline" class="section">
+            <div class="card">
+                <h2>Implementation Roadmap</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker">1</div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Phase 1: Specification (M1-M6)</div>
+                            <p>Property specification (LTL/MTL), Z specification, Alloy modeling, proof obligations</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">2</div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Phase 2: Infrastructure (M7-M12)</div>
+                            <p>Model checker setup (NuSMV/UPPAAL), theorem prover (Isabelle), CI/CD integration</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">3</div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Phase 3: Full Verification (M13-M18)</div>
+                            <p>Complete model checking, theorem proving, safety case construction, independent review</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h2>Resource Requirements</h2>
+                    <table>
+                        <tr>
+                            <th>Resource</th>
+                            <th>Phase 1</th>
+                            <th>Phase 2</th>
+                            <th>Phase 3</th>
+                        </tr>
+                        <tr>
+                            <td>Formal Methods Experts (FTE)</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>Tool Licenses</td>
+                            <td>Basic</td>
+                            <td>Full</td>
+                            <td>Full</td>
+                        </tr>
+                        <tr>
+                            <td>Computing (Model Checking)</td>
+                            <td>Low</td>
+                            <td>High</td>
+                            <td>High</td>
+                        </tr>
+                        <tr>
+                            <td>Independent Reviewer</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>1</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="card">
+                    <h2>Budget Impact</h2>
+                    <div class="highlight-box">
+                        <strong>Formal Methods Addition:</strong> +€750K over 5 years
+                    </div>
+                    <table>
+                        <tr>
+                            <th>Year</th>
+                            <th>Formal Methods Budget</th>
+                        </tr>
+                        <tr><td>Year 1</td><td>€100K</td></tr>
+                        <tr><td>Year 2</td><td>€200K</td></tr>
+                        <tr><td>Year 3</td><td>€200K</td></tr>
+                        <tr><td>Year 4</td><td>€150K</td></tr>
+                        <tr><td>Year 5</td><td>€100K</td></tr>
+                    </table>
+                    <p style="margin-top: 10px; color: #aaa; font-size: 0.9rem;">
+                        Total project budget: €13.35M (increased from €12.6M)
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Certification Pathway</h2>
+                <table>
+                    <tr>
+                        <th>Impact Level</th>
+                        <th>Impact Description</th>
+                        <th>Verification Required</th>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-high">DIL-A</span></td>
+                        <td>Catastrophic (war/peace decision)</td>
+                        <td>Full formal verification</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-high">DIL-B</span></td>
+                        <td>Major (significant investment)</td>
+                        <td>Model checking + testing</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-medium">DIL-C</span></td>
+                        <td>Moderate (program-level)</td>
+                        <td>Testing + review</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-low">DIL-D</span></td>
+                        <td>Minor (exploratory)</td>
+                        <td>Basic testing</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-low">DIL-E</span></td>
+                        <td>Negligible (training)</td>
+                        <td>Minimal</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId, btn) {
+            document.querySelectorAll('.section').forEach(function(s) {
+                s.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-tab').forEach(function(t) {
+                t.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+            btn.classList.add('active');
+        }
+
+        // Competency Questions Chart
+        const cqCtx = document.getElementById('cqChart');
+        if (cqCtx) {
+            new Chart(cqCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Mission Engineering', 'Wargaming Lifecycle', 'Acquisition Integration'],
+                    datasets: [{
+                        label: 'Competency Questions',
+                        data: [10, 10, 10],
+                        backgroundColor: ['#e94560', '#4ecca3', '#3498db'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        title: { display: true, text: '30 Competency Questions by Domain', color: '#e4e4e4' }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 12,
+                            ticks: { color: '#aaa' },
+                            grid: { color: 'rgba(255,255,255,0.1)' }
+                        },
+                        x: {
+                            ticks: { color: '#aaa' },
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Properties Distribution Chart
+        const propCtx = document.getElementById('propertiesChart');
+        if (propCtx) {
+            new Chart(propCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Safety Properties', 'Liveness Properties', 'Fairness Properties'],
+                    datasets: [{
+                        data: [5, 3, 2],
+                        backgroundColor: ['#e94560', '#4ecca3', '#f39c12'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: { color: '#e4e4e4' }
+                        },
+                        title: { display: true, text: 'Property Type Distribution', color: '#e4e4e4' }
+                    }
+                }
+            });
+        }
+
+        // Confidence Levels Chart
+        const confCtx = document.getElementById('confidenceChart');
+        if (confCtx) {
+            new Chart(confCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Very Low\n(0-30%)', 'Low\n(30-50%)', 'Moderate\n(50-70%)', 'High\n(70-90%)', 'Very High\n(90-100%)'],
+                    datasets: [{
+                        label: 'Decision Support Level',
+                        data: [1, 2, 3, 4, 5],
+                        backgroundColor: function(context) {
+                            const colors = ['#e74c3c', '#e67e22', '#f39c12', '#27ae60', '#2ecc71'];
+                            return colors[context.dataIndex];
+                        },
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    plugins: {
+                        legend: { display: false },
+                        title: { display: true, text: 'Confidence Level → Decision Support Mapping', color: '#e4e4e4' }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 6,
+                            ticks: {
+                                color: '#aaa',
+                                callback: function(value) {
+                                    const labels = ['', 'Exploratory', 'Hypothesis', 'Validation Req', 'SME Review', 'Direct Support'];
+                                    return labels[value] || '';
+                                }
+                            },
+                            grid: { color: 'rgba(255,255,255,0.1)' }
+                        },
+                        y: {
+                            ticks: { color: '#aaa' },
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
