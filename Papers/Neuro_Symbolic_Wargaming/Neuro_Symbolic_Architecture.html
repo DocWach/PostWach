@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neuro-Symbolic Architecture | AI for Mission Engineering & Wargaming</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #1e3a5f;
+            --secondary: #2d5a87;
+            --neural: #8b5cf6;
+            --symbolic: #10b981;
+            --integration: #f59e0b;
+            --accent: #3b82f6;
+            --light: #f8fafc;
+            --dark: #0f172a;
+            --gray: #64748b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Navigation */
+        .nav {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            gap: 5px;
+            padding: 10px 20px;
+            overflow-x: auto;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border: none;
+            background: var(--light);
+            color: var(--dark);
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .section {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        /* Architecture Diagram */
+        .architecture-diagram {
+            background: linear-gradient(180deg, #f0f4f8 0%, #e2e8f0 100%);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .arch-layer {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 5px solid var(--accent);
+        }
+
+        .arch-layer h3 {
+            font-size: 1rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .arch-components {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .arch-component {
+            flex: 1;
+            min-width: 180px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .arch-component.neural {
+            background: linear-gradient(135deg, #c4b5fd 0%, #8b5cf6 100%);
+            color: white;
+        }
+
+        .arch-component.symbolic {
+            background: linear-gradient(135deg, #6ee7b7 0%, #10b981 100%);
+            color: white;
+        }
+
+        .arch-component.integration {
+            background: linear-gradient(135deg, #fcd34d 0%, #f59e0b 100%);
+            color: var(--dark);
+        }
+
+        .arch-component.ui {
+            background: linear-gradient(135deg, #93c5fd 0%, #3b82f6 100%);
+            color: white;
+        }
+
+        .arch-component.data {
+            background: linear-gradient(135deg, #a5b4fc 0%, #6366f1 100%);
+            color: white;
+        }
+
+        .coupling-arrow {
+            text-align: center;
+            padding: 10px;
+            font-size: 2rem;
+            color: var(--integration);
+        }
+
+        /* Component Cards */
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .component-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .component-card-header {
+            padding: 20px;
+            color: white;
+        }
+
+        .component-card-header.neural {
+            background: linear-gradient(135deg, var(--neural) 0%, #7c3aed 100%);
+        }
+
+        .component-card-header.symbolic {
+            background: linear-gradient(135deg, var(--symbolic) 0%, #059669 100%);
+        }
+
+        .component-card-header h3 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .component-card-header p {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .component-card-body {
+            padding: 20px;
+        }
+
+        .capability-list {
+            list-style: none;
+        }
+
+        .capability-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .capability-list li:last-child {
+            border-bottom: none;
+        }
+
+        .capability-badge {
+            background: var(--light);
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        /* Knowledge Graph Schema */
+        .ontology-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .ontology-card {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 20px;
+            border-top: 4px solid var(--accent);
+        }
+
+        .ontology-card h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .entity-list {
+            list-style: none;
+        }
+
+        .entity-list li {
+            padding: 8px 0;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .entity-list li::before {
+            content: "○";
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* API Section */
+        .api-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .api-card {
+            background: var(--dark);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .api-card-header {
+            background: rgba(255,255,255,0.1);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .api-method {
+            padding: 5px 12px;
+            border-radius: 5px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .api-method.post {
+            background: #22c55e;
+            color: white;
+        }
+
+        .api-method.get {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .api-endpoint {
+            color: #94a3b8;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        .api-card-body {
+            padding: 20px;
+            color: #e2e8f0;
+        }
+
+        .api-card-body p {
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .api-params {
+            list-style: none;
+            font-size: 0.85rem;
+        }
+
+        .api-params li {
+            padding: 5px 0;
+            color: #94a3b8;
+        }
+
+        .api-params code {
+            color: #fbbf24;
+        }
+
+        /* Roadmap */
+        .roadmap {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .roadmap::before {
+            content: "";
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, var(--neural) 0%, var(--symbolic) 50%, var(--integration) 100%);
+            border-radius: 3px;
+        }
+
+        .roadmap-phase {
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .roadmap-phase::before {
+            content: "";
+            position: absolute;
+            left: -26px;
+            top: 5px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: white;
+            border: 4px solid var(--accent);
+        }
+
+        .roadmap-phase.phase-1::before {
+            border-color: var(--neural);
+        }
+
+        .roadmap-phase.phase-2::before {
+            border-color: var(--symbolic);
+        }
+
+        .roadmap-phase.phase-3::before {
+            border-color: var(--integration);
+        }
+
+        .phase-title {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .phase-milestones {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .milestone {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .milestone-id {
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 5px;
+        }
+
+        .milestone-trl {
+            margin-top: 8px;
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        /* Charts */
+        .charts-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .chart-box {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .chart-box h3 {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        /* Governance */
+        .governance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .governance-card {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .governance-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 1.5rem;
+        }
+
+        .governance-card h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .governance-card p {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--dark);
+            color: #94a3b8;
+        }
+
+        .footer p {
+            margin-bottom: 5px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.6rem;
+            }
+
+            .arch-components {
+                flex-direction: column;
+            }
+
+            .component-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <h1>Neuro-Symbolic Architecture Specification</h1>
+        <p>AI Integration for Mission Engineering, Wargaming, and Acquisition Decision Support</p>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <button class="nav-btn active" onclick="scrollTo('overview')">Overview</button>
+            <button class="nav-btn" onclick="scrollTo('architecture')">Architecture</button>
+            <button class="nav-btn" onclick="scrollTo('neural')">Neural Components</button>
+            <button class="nav-btn" onclick="scrollTo('symbolic')">Symbolic Components</button>
+            <button class="nav-btn" onclick="scrollTo('knowledge')">Knowledge Graph</button>
+            <button class="nav-btn" onclick="scrollTo('api')">APIs</button>
+            <button class="nav-btn" onclick="scrollTo('governance')">Governance</button>
+            <button class="nav-btn" onclick="scrollTo('roadmap')">Roadmap</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Overview Section -->
+        <section id="overview" class="section">
+            <h2 class="section-title">Executive Overview</h2>
+
+            <p style="font-size: 1.1rem; margin-bottom: 25px;">
+                This architecture combines <strong>neural networks</strong> (pattern learning, scenario generation, prediction)
+                with <strong>symbolic reasoning</strong> (knowledge representation, constraint enforcement, explanation)
+                to produce analytically credible, traceable insights for NATO capability development and acquisition decisions.
+            </p>
+
+            <div class="charts-row">
+                <div class="chart-box">
+                    <h3>ME Gap Question Coverage</h3>
+                    <canvas id="coverageChart"></canvas>
+                </div>
+                <div class="chart-box">
+                    <h3>Component Capabilities</h3>
+                    <canvas id="capabilitiesChart"></canvas>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 30px;">
+                <div style="background: linear-gradient(135deg, var(--neural) 0%, #7c3aed 100%); color: white; padding: 25px; border-radius: 12px; text-align: center;">
+                    <div style="font-size: 2.5rem; font-weight: 700;">5</div>
+                    <div style="font-size: 0.9rem; opacity: 0.9;">Neural Components</div>
+                </div>
+                <div style="background: linear-gradient(135deg, var(--symbolic) 0%, #059669 100%); color: white; padding: 25px; border-radius: 12px; text-align: center;">
+                    <div style="font-size: 2.5rem; font-weight: 700;">5</div>
+                    <div style="font-size: 0.9rem; opacity: 0.9;">Symbolic Components</div>
+                </div>
+                <div style="background: linear-gradient(135deg, var(--integration) 0%, #d97706 100%); color: white; padding: 25px; border-radius: 12px; text-align: center;">
+                    <div style="font-size: 2.5rem; font-weight: 700;">42</div>
+                    <div style="font-size: 0.9rem; opacity: 0.9;">ME Gap Questions</div>
+                </div>
+                <div style="background: linear-gradient(135deg, var(--accent) 0%, #1d4ed8 100%); color: white; padding: 25px; border-radius: 12px; text-align: center;">
+                    <div style="font-size: 2.5rem; font-weight: 700;">10</div>
+                    <div style="font-size: 0.9rem; opacity: 0.9;">Research Topics</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Architecture Diagram -->
+        <section id="architecture" class="section">
+            <h2 class="section-title">System Architecture</h2>
+
+            <div class="architecture-diagram">
+                <!-- UI Layer -->
+                <div class="arch-layer">
+                    <h3>User Interface Layer</h3>
+                    <div class="arch-components">
+                        <div class="arch-component ui">Wargame Facilitation</div>
+                        <div class="arch-component ui">Analysis Dashboard</div>
+                        <div class="arch-component ui">Decision Support</div>
+                        <div class="arch-component ui">Audit & Traceability</div>
+                    </div>
+                </div>
+
+                <div class="coupling-arrow">↕</div>
+
+                <!-- Integration Layer -->
+                <div class="arch-layer" style="border-left-color: var(--integration);">
+                    <h3>Neuro-Symbolic Integration Layer</h3>
+                    <div class="arch-components">
+                        <div class="arch-component integration">Neural Grounding</div>
+                        <div class="arch-component integration">Symbolic Abstraction</div>
+                        <div class="arch-component integration">Confidence Calibration</div>
+                        <div class="arch-component integration">Explanation Generator</div>
+                    </div>
+                </div>
+
+                <div class="coupling-arrow">↕</div>
+
+                <!-- Processing Layer -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <!-- Neural -->
+                    <div class="arch-layer" style="border-left-color: var(--neural);">
+                        <h3>Neural Components</h3>
+                        <div class="arch-components" style="flex-direction: column;">
+                            <div class="arch-component neural">Scenario Generator</div>
+                            <div class="arch-component neural">Pattern Learner</div>
+                            <div class="arch-component neural">Prediction Engine</div>
+                            <div class="arch-component neural">Optimization Engine</div>
+                            <div class="arch-component neural">Adversary Modeler</div>
+                        </div>
+                    </div>
+
+                    <!-- Symbolic -->
+                    <div class="arch-layer" style="border-left-color: var(--symbolic);">
+                        <h3>Symbolic Components</h3>
+                        <div class="arch-components" style="flex-direction: column;">
+                            <div class="arch-component symbolic">Knowledge Graph</div>
+                            <div class="arch-component symbolic">Reasoning Engine</div>
+                            <div class="arch-component symbolic">Constraint Manager</div>
+                            <div class="arch-component symbolic">Traceability Manager</div>
+                            <div class="arch-component symbolic">Explanation Engine</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="coupling-arrow">↕</div>
+
+                <!-- Data Layer -->
+                <div class="arch-layer" style="border-left-color: #6366f1;">
+                    <h3>Data & Persistence Layer</h3>
+                    <div class="arch-components">
+                        <div class="arch-component data">Wargame Artifacts</div>
+                        <div class="arch-component data">ME Gap Repository</div>
+                        <div class="arch-component data">Doctrine & Policy KB</div>
+                        <div class="arch-component data">Historical Wargame DB</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Neural Components -->
+        <section id="neural" class="section">
+            <h2 class="section-title">Neural Components</h2>
+
+            <div class="component-grid">
+                <div class="component-card">
+                    <div class="component-card-header neural">
+                        <h3>Scenario Generator</h3>
+                        <p>Create diverse, realistic wargame scenarios</p>
+                    </div>
+                    <div class="component-card-body">
+                        <ul class="capability-list">
+                            <li>Narrative Generation <span class="capability-badge">Transformer</span></li>
+                            <li>ORBAT Generation <span class="capability-badge">Constrained</span></li>
+                            <li>Event Injection <span class="capability-badge">Adversarial</span></li>
+                            <li>Edge Case Discovery <span class="capability-badge">Sampling</span></li>
+                        </ul>
+                        <p style="margin-top: 15px; font-size: 0.85rem; color: var(--gray);">Coverage: 25 ME gap questions</p>
+                    </div>
+                </div>
+
+                <div class="component-card">
+                    <div class="component-card-header neural">
+                        <h3>Pattern Learner</h3>
+                        <p>Extract patterns from historical wargames</p>
+                    </div>
+                    <div class="component-card-body">
+                        <ul class="capability-list">
+                            <li>Historical Mining <span class="capability-badge">Sequence</span></li>
+                            <li>Trend Detection <span class="capability-badge">Time Series</span></li>
+                            <li>Anomaly Detection <span class="capability-badge">Isolation</span></li>
+                            <li>Cross-Game Synthesis <span class="capability-badge">Transfer</span></li>
+                        </ul>
+                        <p style="margin-top: 15px; font-size: 0.85rem; color: var(--gray);">Coverage: 42 ME gap questions</p>
+                    </div>
+                </div>
+
+                <div class="component-card">
+                    <div class="component-card-header neural">
+                        <h3>Prediction Engine</h3>
+                        <p>Forecast outcomes and identify thresholds</p>
+                    </div>
+                    <div class="component-card-body">
+                        <ul class="capability-list">
+                            <li>Outcome Forecasting <span class="capability-badge">GNN</span></li>
+                            <li>Threshold Detection <span class="capability-badge">GP</span></li>
+                            <li>Risk Assessment <span class="capability-badge">Bayesian</span></li>
+                            <li>Uncertainty Quantification <span class="capability-badge">Ensemble</span></li>
+                        </ul>
+                        <p style="margin-top: 15px; font-size: 0.85rem; color: var(--gray);">Coverage: 30 ME gap questions</p>
+                    </div>
+                </div>
+
+                <div class="component-card">
+                    <div class="component-card-header neural">
+                        <h3>Optimization Engine</h3>
+                        <p>Find optimal configurations and sequences</p>
+                    </div>
+                    <div class="component-card-body">
+                        <ul class="capability-list">
+                            <li>Resource Allocation <span class="capability-badge">MIP</span></li>
+                            <li>Sequencing <span class="capability-badge">GA</span></li>
+                            <li>Multi-Objective <span class="capability-badge">MOEA</span></li>
+                            <li>Configuration <span class="capability-badge">BO</span></li>
+                        </ul>
+                        <p style="margin-top: 15px; font-size: 0.85rem; color: var(--gray);">Coverage: 15 ME gap questions</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Symbolic Components -->
+        <section id="symbolic" class="section">
+            <h2 class="section-title">Symbolic Components</h2>
+
+            <div class="component-grid">
+                <div class="component-card">
+                    <div class="component-card-header symbolic">
+                        <h3>Knowledge Graph</h3>
+                        <p>Store and query domain knowledge</p>
+                    </div>
+                    <div class="component-card-body">
+                        <ul class="capability-list">
+                            <li>OWL 2 Ontology <span class="capability-badge">W3C</span></li>
+                            <li>SHACL Constraints <span class="capability-badge">Validation</span></li>
+                            <li>SPARQL Queries <span class="capability-badge">Graph</span></li>
+                            <li>Entity Relationships <span class="capability-badge">Neo4j</span></li>
+                        </ul>
+                        <p style="margin-top: 15px; font-size: 0.85rem; color: var(--gray);">Coverage: 42 ME gap questions</p>
+                    </div>
+                </div>
+
+                <div class="component-card">
+                    <div class="component-card-header symbolic">
+                        <h3>Reasoning Engine</h3>
+                        <p>Perform logical inference and validation</p>
+                    </div>
+                    <div class="component-card-body">
+                        <ul class="capability-list">
+                            <li>Deductive Inference <span class="capability-badge">OWL RL</span></li>
+                            <li>Constraint Satisfaction <span class="capability-badge">SHACL</span></li>
+                            <li>Consistency Checking <span class="capability-badge">DL</span></li>
+                            <li>Temporal Reasoning <span class="capability-badge">Allen</span></li>
+                        </ul>
+                        <p style="margin-top: 15px; font-size: 0.85rem; color: var(--gray);">Coverage: 35 ME gap questions</p>
+                    </div>
+                </div>
+
+                <div class="component-card">
+                    <div class="component-card-header symbolic">
+                        <h3>Traceability Manager</h3>
+                        <p>Track provenance and decision chains</p>
+                    </div>
+                    <div class="component-card-body">
+                        <ul class="capability-list">
+                            <li>Provenance Tracking <span class="capability-badge">PROV-O</span></li>
+                            <li>Decision Chains <span class="capability-badge">Graph</span></li>
+                            <li>Audit Logging <span class="capability-badge">Immutable</span></li>
+                            <li>Classification Labels <span class="capability-badge">NATO</span></li>
+                        </ul>
+                        <p style="margin-top: 15px; font-size: 0.85rem; color: var(--gray);">Coverage: 42 ME gap questions</p>
+                    </div>
+                </div>
+
+                <div class="component-card">
+                    <div class="component-card-header symbolic">
+                        <h3>Explanation Engine</h3>
+                        <p>Generate human-readable explanations</p>
+                    </div>
+                    <div class="component-card-body">
+                        <ul class="capability-list">
+                            <li>Factual Explanations <span class="capability-badge">Template</span></li>
+                            <li>Counterfactual <span class="capability-badge">Contrastive</span></li>
+                            <li>Causal Chains <span class="capability-badge">Graph</span></li>
+                            <li>Confidence Comm. <span class="capability-badge">Calibrated</span></li>
+                        </ul>
+                        <p style="margin-top: 15px; font-size: 0.85rem; color: var(--gray);">Coverage: 30 ME gap questions</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Knowledge Graph Schema -->
+        <section id="knowledge" class="section">
+            <h2 class="section-title">Knowledge Graph Schema</h2>
+
+            <div class="ontology-section">
+                <div class="ontology-card">
+                    <h4>Mission Engineering Entities</h4>
+                    <ul class="entity-list">
+                        <li>MissionEngineeringGap</li>
+                        <li>GapArea (9 areas)</li>
+                        <li>GapQuestion (42 questions)</li>
+                        <li>MeasureOfEffectiveness</li>
+                        <li>MeasureOfPerformance</li>
+                    </ul>
+                </div>
+
+                <div class="ontology-card">
+                    <h4>Wargaming Entities</h4>
+                    <ul class="entity-list">
+                        <li>Wargame</li>
+                        <li>WargameType (8 types)</li>
+                        <li>Scenario</li>
+                        <li>Move / Outcome</li>
+                        <li>Insight / Participant</li>
+                    </ul>
+                </div>
+
+                <div class="ontology-card">
+                    <h4>Acquisition Entities</h4>
+                    <ul class="entity-list">
+                        <li>CapabilityGap</li>
+                        <li>Requirement</li>
+                        <li>AcquisitionMilestone</li>
+                        <li>Program</li>
+                        <li>Alternative</li>
+                    </ul>
+                </div>
+
+                <div class="ontology-card">
+                    <h4>DOTMLPFI Entities</h4>
+                    <ul class="entity-list">
+                        <li>Doctrine</li>
+                        <li>Organization</li>
+                        <li>Training / Materiel</li>
+                        <li>Leadership / Personnel</li>
+                        <li>Facilities / Interoperability</li>
+                    </ul>
+                </div>
+
+                <div class="ontology-card">
+                    <h4>Provenance Entities</h4>
+                    <ul class="entity-list">
+                        <li>ProvenanceRecord</li>
+                        <li>AIContribution</li>
+                        <li>HumanContribution</li>
+                        <li>Confidence Score</li>
+                        <li>Validation Status</li>
+                    </ul>
+                </div>
+
+                <div class="ontology-card">
+                    <h4>Key Relationships</h4>
+                    <ul class="entity-list">
+                        <li>addressesGap</li>
+                        <li>producesInsight</li>
+                        <li>supportsRequirement</li>
+                        <li>hasProvenance</li>
+                        <li>validatedBy</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- API Section -->
+        <section id="api" class="section">
+            <h2 class="section-title">API Specifications</h2>
+
+            <div class="api-grid">
+                <div class="api-card">
+                    <div class="api-card-header">
+                        <span class="api-method post">POST</span>
+                        <span class="api-endpoint">/api/v1/scenarios/generate</span>
+                    </div>
+                    <div class="api-card-body">
+                        <p>Generate wargame scenarios from ME gap questions with doctrinal constraints.</p>
+                        <ul class="api-params">
+                            <li><code>gap_question_id</code> - ME gap question URI</li>
+                            <li><code>constraints</code> - Doctrinal/operational constraints</li>
+                            <li><code>diversity_params</code> - Scenario variation settings</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="api-card">
+                    <div class="api-card-header">
+                        <span class="api-method post">POST</span>
+                        <span class="api-endpoint">/api/v1/patterns/query</span>
+                    </div>
+                    <div class="api-card-body">
+                        <p>Query for patterns identified across historical wargames.</p>
+                        <ul class="api-params">
+                            <li><code>gap_area</code> - Filter by gap area</li>
+                            <li><code>pattern_type</code> - recurring/emerging/anomalous</li>
+                            <li><code>min_confidence</code> - Confidence threshold</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="api-card">
+                    <div class="api-card-header">
+                        <span class="api-method get">GET</span>
+                        <span class="api-endpoint">/api/v1/traceability/chain</span>
+                    </div>
+                    <div class="api-card-body">
+                        <p>Get complete traceability chain for any entity.</p>
+                        <ul class="api-params">
+                            <li><code>entity_uri</code> - Entity to trace</li>
+                            <li><code>direction</code> - upstream/downstream/both</li>
+                            <li><code>max_depth</code> - Chain traversal depth</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="api-card">
+                    <div class="api-card-header">
+                        <span class="api-method post">POST</span>
+                        <span class="api-endpoint">/api/v1/explanations/generate</span>
+                    </div>
+                    <div class="api-card-body">
+                        <p>Generate human-readable explanations for AI outputs.</p>
+                        <ul class="api-params">
+                            <li><code>entity_uri</code> - What to explain</li>
+                            <li><code>explanation_types</code> - factual/counterfactual/causal</li>
+                            <li><code>audience</code> - technical/decision-maker</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Governance -->
+        <section id="governance" class="section">
+            <h2 class="section-title">Security & Responsible AI Governance</h2>
+
+            <div class="governance-grid">
+                <div class="governance-card">
+                    <div class="governance-icon">👁️</div>
+                    <h4>Human Oversight</h4>
+                    <p>Humans retain final decision authority; mandatory validation for high-impact outputs</p>
+                </div>
+
+                <div class="governance-card">
+                    <div class="governance-icon">🔍</div>
+                    <h4>Transparency</h4>
+                    <p>All AI reasoning traceable and explainable through the explanation engine</p>
+                </div>
+
+                <div class="governance-card">
+                    <div class="governance-icon">📋</div>
+                    <h4>Accountability</h4>
+                    <p>Complete provenance tracking and immutable audit trails</p>
+                </div>
+
+                <div class="governance-card">
+                    <div class="governance-icon">⚖️</div>
+                    <h4>Bias Mitigation</h4>
+                    <p>Continuous bias testing with fairness metrics across all NATO nations</p>
+                </div>
+
+                <div class="governance-card">
+                    <div class="governance-icon">🛡️</div>
+                    <h4>Robustness</h4>
+                    <p>Adversarial testing and uncertainty quantification for reliable performance</p>
+                </div>
+
+                <div class="governance-card">
+                    <div class="governance-icon">🔐</div>
+                    <h4>Security</h4>
+                    <p>NATO classification boundaries, encryption, and cross-domain solutions</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Roadmap -->
+        <section id="roadmap" class="section">
+            <h2 class="section-title">Implementation Roadmap</h2>
+
+            <div class="roadmap">
+                <div class="roadmap-phase phase-1">
+                    <h3 class="phase-title">Phase 1: Foundation (Year 1)</h3>
+                    <div class="phase-milestones">
+                        <div class="milestone">
+                            <div class="milestone-id">M1.1</div>
+                            Knowledge graph schema finalized
+                            <div class="milestone-trl">KRL 3</div>
+                        </div>
+                        <div class="milestone">
+                            <div class="milestone-id">M1.2</div>
+                            Core ontology implemented (OWL/SHACL)
+                            <div class="milestone-trl">KRL 3</div>
+                        </div>
+                        <div class="milestone">
+                            <div class="milestone-id">M1.3</div>
+                            Basic scenario generator prototype
+                            <div class="milestone-trl">TRL 3</div>
+                        </div>
+                        <div class="milestone">
+                            <div class="milestone-id">M1.4</div>
+                            Traceability manager MVP
+                            <div class="milestone-trl">TRL 3</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="roadmap-phase phase-2">
+                    <h3 class="phase-title">Phase 2: Pilot Implementation (Year 2)</h3>
+                    <div class="phase-milestones">
+                        <div class="milestone">
+                            <div class="milestone-id">M2.1</div>
+                            Full scenario generator with constraints
+                            <div class="milestone-trl">TRL 4</div>
+                        </div>
+                        <div class="milestone">
+                            <div class="milestone-id">M2.2</div>
+                            Pattern learner trained on historical data
+                            <div class="milestone-trl">TRL 4</div>
+                        </div>
+                        <div class="milestone">
+                            <div class="milestone-id">M2.3</div>
+                            Pilot wargame: Coalition Operations
+                            <div class="milestone-trl">TRL 4, KRL 4</div>
+                        </div>
+                        <div class="milestone">
+                            <div class="milestone-id">M2.4</div>
+                            Pilot wargame: Human-Machine Teaming
+                            <div class="milestone-trl">TRL 4, KRL 4</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="roadmap-phase phase-3">
+                    <h3 class="phase-title">Phase 3: Validation & Transition (Year 3)</h3>
+                    <div class="phase-milestones">
+                        <div class="milestone">
+                            <div class="milestone-id">M3.1</div>
+                            Prediction engine with calibration
+                            <div class="milestone-trl">TRL 5</div>
+                        </div>
+                        <div class="milestone">
+                            <div class="milestone-id">M3.2</div>
+                            Cross-game synthesis demonstrated
+                            <div class="milestone-trl">KRL 5</div>
+                        </div>
+                        <div class="milestone">
+                            <div class="milestone-id">M3.3</div>
+                            Full system integration validated
+                            <div class="milestone-trl">TRL 5</div>
+                        </div>
+                        <div class="milestone">
+                            <div class="milestone-id">M3.4</div>
+                            Transition roadmap for operationalization
+                            <div class="milestone-trl">TRL 6 ready</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p><strong>Neuro-Symbolic Architecture Specification</strong></p>
+        <p>AI Integration for Mission Engineering, Wargaming, and Acquisition Decision Support</p>
+        <p>Prepared for NATO STO TAP Development | University of Arizona PostDoc Research</p>
+        <p>Version 1.0 | 2026-01-22</p>
+    </footer>
+
+    <script>
+        // Navigation scroll
+        function scrollTo(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        // Charts
+        document.addEventListener('DOMContentLoaded', function() {
+            // Coverage Chart
+            new Chart(document.getElementById('coverageChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Pattern Learner (42)', 'Traceability (42)', 'Prediction (30)', 'Scenario Gen (25)', 'Optimization (15)'],
+                    datasets: [{
+                        data: [42, 42, 30, 25, 15],
+                        backgroundColor: ['#8b5cf6', '#10b981', '#f59e0b', '#3b82f6', '#ef4444']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 12,
+                                font: { size: 11 }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Capabilities Radar
+            new Chart(document.getElementById('capabilitiesChart'), {
+                type: 'radar',
+                data: {
+                    labels: ['Scenario Generation', 'Pattern Learning', 'Prediction', 'Optimization', 'Traceability', 'Explanation'],
+                    datasets: [
+                        {
+                            label: 'Neural',
+                            data: [90, 95, 85, 80, 30, 40],
+                            backgroundColor: 'rgba(139, 92, 246, 0.2)',
+                            borderColor: '#8b5cf6',
+                            pointBackgroundColor: '#8b5cf6'
+                        },
+                        {
+                            label: 'Symbolic',
+                            data: [40, 30, 40, 50, 95, 90],
+                            backgroundColor: 'rgba(16, 185, 129, 0.2)',
+                            borderColor: '#10b981',
+                            pointBackgroundColor: '#10b981'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
