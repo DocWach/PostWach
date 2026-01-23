@@ -1,0 +1,1743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transition Roadmap - Neuro-Symbolic AI for Wargaming</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #2c5282;
+            --accent: #3182ce;
+            --success: #38a169;
+            --warning: #d69e2e;
+            --danger: #e53e3e;
+            --light: #f7fafc;
+            --dark: #1a202c;
+            --education: #805ad5;
+            --exercise: #38a169;
+            --acquisition: #dd6b20;
+            --operational: #e53e3e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #1a365d 0%, #2d3748 100%);
+            min-height: 100vh;
+            color: var(--dark);
+        }
+
+        .header {
+            background: rgba(26, 54, 93, 0.95);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 4px solid var(--accent);
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: rgba(255,255,255,0.1);
+            flex-wrap: wrap;
+        }
+
+        .nav-tab {
+            padding: 0.75rem 1.5rem;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-tab:hover, .nav-tab.active {
+            background: var(--accent);
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .grid-2 { grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); }
+        .grid-3 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+        .grid-4 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .card h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent);
+            font-size: 1.3rem;
+        }
+
+        .card h3 {
+            color: var(--secondary);
+            margin: 1rem 0 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* Timeline Styles */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--education), var(--exercise), var(--acquisition), var(--operational));
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 30px;
+            position: relative;
+            margin: 2rem 0;
+            width: 50%;
+        }
+
+        .timeline-item:nth-child(even) {
+            align-self: flex-end;
+            justify-content: flex-start;
+            padding-left: 30px;
+            padding-right: 0;
+            margin-left: 50%;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 1.25rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            max-width: 350px;
+            position: relative;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            right: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            background: var(--accent);
+            border: 3px solid white;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .timeline-item:nth-child(even)::after {
+            left: -8px;
+            right: auto;
+        }
+
+        .timeline-year {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-year {
+            right: -80px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-year {
+            left: -80px;
+        }
+
+        /* CDT Cards */
+        .cdt-card {
+            border-left: 5px solid;
+            transition: transform 0.3s;
+        }
+
+        .cdt-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .cdt-card.education { border-color: var(--education); }
+        .cdt-card.exercise { border-color: var(--exercise); }
+        .cdt-card.acquisition { border-color: var(--acquisition); }
+        .cdt-card.operational { border-color: var(--operational); }
+
+        .cdt-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .cdt-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .cdt-badge.education { background: var(--education); }
+        .cdt-badge.exercise { background: var(--exercise); }
+        .cdt-badge.acquisition { background: var(--acquisition); }
+        .cdt-badge.operational { background: var(--operational); }
+
+        .cdt-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        .cdt-detail {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .cdt-detail-label {
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        /* TRL Progress */
+        .trl-track {
+            display: flex;
+            justify-content: space-between;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .trl-track::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            z-index: 1;
+        }
+
+        .trl-progress {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--education), var(--exercise), var(--acquisition));
+            border-radius: 3px;
+            z-index: 2;
+            transition: width 0.5s;
+        }
+
+        .trl-marker {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            z-index: 3;
+            position: relative;
+            background: #e2e8f0;
+            color: #718096;
+            transition: all 0.3s;
+        }
+
+        .trl-marker.active {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 2px 10px rgba(49, 130, 206, 0.4);
+        }
+
+        .trl-marker.completed {
+            background: var(--success);
+            color: white;
+        }
+
+        /* Metrics Table */
+        .metrics-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .metrics-table th, .metrics-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.9rem;
+        }
+
+        .metrics-table th {
+            background: var(--light);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .metrics-table tr:hover {
+            background: #f7fafc;
+        }
+
+        /* Progress Bars */
+        .progress-container {
+            margin: 0.5rem 0;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.25rem;
+            font-size: 0.85rem;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s;
+        }
+
+        .progress-fill.education { background: var(--education); }
+        .progress-fill.exercise { background: var(--exercise); }
+        .progress-fill.acquisition { background: var(--acquisition); }
+        .progress-fill.success { background: var(--success); }
+
+        /* Risk Matrix */
+        .risk-matrix {
+            display: grid;
+            grid-template-columns: auto repeat(3, 1fr);
+            gap: 2px;
+            background: #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        .risk-cell {
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        .risk-header {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        .risk-label {
+            background: var(--secondary);
+            color: white;
+            font-weight: 600;
+        }
+
+        .risk-low { background: #c6f6d5; }
+        .risk-medium { background: #fefcbf; }
+        .risk-high { background: #fed7d7; }
+
+        /* Governance Structure */
+        .governance-tree {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+        }
+
+        .governance-node {
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .governance-node.top {
+            background: var(--primary);
+            color: white;
+        }
+
+        .governance-children {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .governance-node.child {
+            background: var(--light);
+            border: 2px solid var(--accent);
+            color: var(--primary);
+        }
+
+        /* Charts */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-top: 1rem;
+        }
+
+        /* Checklist */
+        .checklist {
+            list-style: none;
+        }
+
+        .checklist li {
+            padding: 0.5rem 0;
+            padding-left: 2rem;
+            position: relative;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .checklist li::before {
+            content: '☐';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+
+        /* Milestone Cards */
+        .milestone-card {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--light);
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+            border-left: 4px solid var(--accent);
+        }
+
+        .milestone-date {
+            font-weight: bold;
+            color: var(--primary);
+            min-width: 60px;
+        }
+
+        .milestone-content h4 {
+            color: var(--secondary);
+            margin-bottom: 0.25rem;
+        }
+
+        .milestone-content p {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(even) {
+                width: 100%;
+                padding-left: 50px;
+                padding-right: 0;
+                margin-left: 0;
+                justify-content: flex-start;
+            }
+
+            .timeline-item::after,
+            .timeline-item:nth-child(even)::after {
+                left: 12px;
+                right: auto;
+            }
+
+            .timeline-item .timeline-year,
+            .timeline-item:nth-child(even) .timeline-year {
+                left: auto;
+                right: auto;
+                top: -25px;
+                transform: none;
+            }
+
+            .grid-2, .grid-3, .grid-4 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Summary Stats */
+        .stats-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-box {
+            flex: 1;
+            min-width: 150px;
+            background: var(--light);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            border-top: 4px solid var(--accent);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        /* Environment Pathway */
+        .pathway {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            position: relative;
+        }
+
+        .pathway::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            right: 10%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--education), var(--exercise), var(--acquisition), var(--operational));
+            z-index: 1;
+        }
+
+        .pathway-node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .pathway-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .pathway-icon.education { background: var(--education); }
+        .pathway-icon.exercise { background: var(--exercise); }
+        .pathway-icon.acquisition { background: var(--acquisition); }
+        .pathway-icon.operational { background: var(--operational); }
+
+        .pathway-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-align: center;
+        }
+
+        .pathway-year {
+            font-size: 0.75rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Transition Roadmap</h1>
+        <p>Neuro-Symbolic AI for Wargaming: From Research to Operational Capability</p>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showSection('overview')">Overview</button>
+            <button class="nav-tab" onclick="showSection('cdts')">CDT Portfolio</button>
+            <button class="nav-tab" onclick="showSection('pathway')">Operationalization</button>
+            <button class="nav-tab" onclick="showSection('metrics')">Success Metrics</button>
+            <button class="nav-tab" onclick="showSection('governance')">Governance</button>
+            <button class="nav-tab" onclick="showSection('milestones')">Milestones</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Overview Section -->
+        <section id="overview" class="section active">
+            <div class="stats-row">
+                <div class="stat-box">
+                    <div class="stat-value">5</div>
+                    <div class="stat-label">Years Total</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">6</div>
+                    <div class="stat-label">CDTs Planned</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">TRL 8</div>
+                    <div class="stat-label">Target Level</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">15+</div>
+                    <div class="stat-label">Nations Target</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">50+</div>
+                    <div class="stat-label">Wargames/Year</div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-bottom: 1.5rem;">
+                <h2>Environment Transition Sequence</h2>
+                <div class="pathway">
+                    <div class="pathway-node">
+                        <div class="pathway-icon education">📚</div>
+                        <div class="pathway-label">Education</div>
+                        <div class="pathway-year">Year 2-3</div>
+                    </div>
+                    <div class="pathway-node">
+                        <div class="pathway-icon exercise">⚔️</div>
+                        <div class="pathway-label">Exercise</div>
+                        <div class="pathway-year">Year 3-4</div>
+                    </div>
+                    <div class="pathway-node">
+                        <div class="pathway-icon acquisition">📋</div>
+                        <div class="pathway-label">Acquisition</div>
+                        <div class="pathway-year">Year 4-5</div>
+                    </div>
+                    <div class="pathway-node">
+                        <div class="pathway-icon operational">🎯</div>
+                        <div class="pathway-label">Operational</div>
+                        <div class="pathway-year">Year 5+</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-2">
+                <div class="card">
+                    <h2>TRL Progression</h2>
+                    <div class="trl-track">
+                        <div class="trl-progress" style="width: 0%;" id="trl-progress"></div>
+                        <div class="trl-marker" data-trl="3">3</div>
+                        <div class="trl-marker" data-trl="4">4</div>
+                        <div class="trl-marker" data-trl="5">5</div>
+                        <div class="trl-marker" data-trl="6">6</div>
+                        <div class="trl-marker" data-trl="7">7</div>
+                        <div class="trl-marker" data-trl="8">8</div>
+                        <div class="trl-marker" data-trl="9">9</div>
+                    </div>
+                    <table class="metrics-table">
+                        <tr>
+                            <th>TRL</th>
+                            <th>Gate</th>
+                            <th>Timeline</th>
+                        </tr>
+                        <tr>
+                            <td>3-4</td>
+                            <td>Lab Validation</td>
+                            <td>Year 1</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Relevant Environment</td>
+                            <td>Year 2</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>CDT Demonstration</td>
+                            <td>Year 3</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>Operational Prototype</td>
+                            <td>Year 4</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>Qualified System</td>
+                            <td>Year 5</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="card">
+                    <h2>Transition Targets by Environment</h2>
+                    <div class="chart-container">
+                        <canvas id="targetChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 1.5rem;">
+                <h2>5-Year Transition Timeline</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <span class="timeline-year">Y1</span>
+                            <h3 style="color: var(--education);">Foundation</h3>
+                            <p>Architecture specification, TRL 3-4 validation, pilot preparation</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <span class="timeline-year">Y2</span>
+                            <h3 style="color: var(--education);">Educational Pilots</h3>
+                            <p>CDT-01 SCHOLAR (NDC), CDT-02 INSIGHT (JWC), CDT-02b PARTNER (DoD)</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <span class="timeline-year">Y3</span>
+                            <h3 style="color: var(--exercise);">Exercise Integration</h3>
+                            <p>CDT-03 CWIX (multinational), CDT-03b CMX (crisis management)</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <span class="timeline-year">Y4</span>
+                            <h3 style="color: var(--acquisition);">Acquisition Support</h3>
+                            <p>CDT-04 ACQUIRE (NAAG), CDT-04b SHAPE (operational planning)</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <span class="timeline-year">Y5</span>
+                            <h3 style="color: var(--operational);">Operational Capability</h3>
+                            <p>IOC/FOC, full deployment, sustainment transition</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CDT Portfolio Section -->
+        <section id="cdts" class="section">
+            <div class="grid grid-2">
+                <div class="card cdt-card education">
+                    <div class="cdt-header">
+                        <div>
+                            <h2 style="border: none; margin: 0; padding: 0;">CDT-01: PROJECT SCHOLAR</h2>
+                            <p>Educational Integration</p>
+                        </div>
+                        <span class="cdt-badge education">Year 2</span>
+                    </div>
+                    <p><strong>Objective:</strong> Validate neuro-symbolic AI in Professional Military Education wargaming</p>
+                    <div class="cdt-details">
+                        <div class="cdt-detail">
+                            <span class="cdt-detail-label">Host:</span>
+                            <span>NATO Defence College</span>
+                        </div>
+                        <div class="cdt-detail">
+                            <span class="cdt-detail-label">Duration:</span>
+                            <span>12 weeks</span>
+                        </div>
+                        <div class="cdt-detail">
+                            <span class="cdt-detail-label">Participants:</span>
+                            <span>45 senior officers</span>
+                        </div>
+                        <div class="cdt-detail">
+                            <span class="cdt-detail-label">TRL:</span>
+                            <span>4 → 5</span>
+                        </div>
+                    </div>
+                    <h3>Key Capabilities</h3>
+                    <ul style="margin-left: 1.5rem; font-size: 0.9rem;">
+                        <li>AI-assisted scenario generation</li>
+                        <li>Real-time insight extraction</li>
+                        <li>Automated AAR generation</li>
+                        <li>Cross-game knowledge synthesis</li>
+                    </ul>
+                </div>
+
+                <div class="card cdt-card education">
+                    <div class="cdt-header">
+                        <div>
+                            <h2 style="border: none; margin: 0; padding: 0;">CDT-02: PROJECT INSIGHT</h2>
+                            <p>Analytical Integration</p>
+                        </div>
+                        <span class="cdt-badge education">Year 2</span>
+                    </div>
+                    <p><strong>Objective:</strong> Validate neuro-symbolic AI for operational wargame analysis</p>
+                    <div class="cdt-details">
+                        <div class="cdt-detail">
+                            <span class="cdt-detail-label">Host:</span>
+                            <span>Joint Warfare Centre</span>
+                        </div>
+                        <div class="cdt-detail">
+                            <span class="cdt-detail-label">Duration:</span>
+                            <span>16 weeks</span>
+                        </div>
+                        <div class="cdt-detail">
+                            <span class="cdt-detail-label">Participants:</span>
+                            <span>60 personnel</span>
+                        </div>
+                        <div class="cdt-detail">
+                            <span class="cdt-detail-label">TRL:</span>
+                            <span>5 → 6</span>
+                        </div>
+                    </div>
+                    <h3>Key Capabilities</h3>
+                    <ul style="margin-left: 1.5rem; font-size: 0.9rem;">
+                        <li>Adversary behavior modeling</li>
+                        <li>Capability gap hypothesis generation</li>
+                        <li>COA analysis with confidence</li>
+                        <li>Multi-game pattern synthesis</li>
+                    </ul>
+                </div>
+
+                <div class="card cdt-card education">
+                    <div class="cdt-header">
+                        <div>
+                            <h2 style="border: none; margin: 0; padding: 0;">CDT-02b: PROJECT PARTNER</h2>
+                            <p>DoD Integration</p>
+                        </div>
+                        <span class="cdt-badge education">Year 2</span>
+                    </div>
+                    <p><strong>Objective:</strong> Validate alignment with DoD acquisition processes</p>
+                    <div class="cdt-details">
+                        <div class="cdt-detail">
+                            <span class="cdt-detail-label">Host:</span>
+                            <span>Naval Postgraduate School</span>
+                        </div>
+                        <div class="cdt-detail">
+                            <span class="cdt-detail-label">Duration:</span>
+                            <span>16 weeks</span>
+                        </div>
+                        <div class="cdt-detail">
+                            <span class="cdt-detail-label">Participants:</span>
+                            <span>40 personnel</span>
+                        </div>
+                        <div class="cdt-detail">
+                            <span class="cdt-detail-label">TRL:</span>
+                            <span>5 → 6</span>
+                        </div>
+                    </div>
+                    <h3>Key Capabilities</h3>
+                    <ul style="margin-left: 1.5rem; font-size: 0.9rem;">
+                        <li>JCIDS-aligned documentation</li>
+                        <li>AoA support</li>
+                        <li>Requirements traceability</li>
+                        <li>Cost-capability trade-space</li>
+                    </ul>
+                </div>
+
+                <div class="card cdt-card exercise">
+                    <div class="cdt-header">
+                        <div>
+                            <h2 style="border: none; margin: 0; padding: 0;">CDT-03: PROJECT CWIX</h2>
+                            <p>Exercise Integration</p>
+                        </div>
+                        <span class="cdt-badge exercise">Year 3</span>
+                    </div>
+                    <p><strong>Objective:</strong> Validate in multinational exercise environment</p>
+                    <div class="cdt-details">
+                        <div class="cdt-detail">
+                            <span class="cdt-detail-label">Host:</span>
+                            <span>CWIX, Bydgoszcz</span>
+                        </div>
+                        <div class="cdt-detail">
+                            <span class="cdt-detail-label">Duration:</span>
+                            <span>3 weeks live</span>
+                        </div>
+                        <div class="cdt-detail">
+                            <span class="cdt-detail-label">Participants:</span>
+                            <span>25 nations, 150+ personnel</span>
+                        </div>
+                        <div class="cdt-detail">
+                            <span class="cdt-detail-label">TRL:</span>
+                            <span>6 → 7</span>
+                        </div>
+                    </div>
+                    <h3>Key Capabilities</h3>
+                    <ul style="margin-left: 1.5rem; font-size: 0.9rem;">
+                        <li>Multinational interoperability analysis</li>
+                        <li>Real-time gap identification</li>
+                        <li>Coalition pattern learning</li>
+                        <li>FMN/MIP integration</li>
+                    </ul>
+                </div>
+
+                <div class="card cdt-card exercise">
+                    <div class="cdt-header">
+                        <div>
+                            <h2 style="border: none; margin: 0; padding: 0;">CDT-03b: PROJECT CMX</h2>
+                            <p>Crisis Management</p>
+                        </div>
+                        <span class="cdt-badge exercise">Year 3</span>
+                    </div>
+                    <p><strong>Objective:</strong> Validate in NATO Crisis Management Exercise</p>
+                    <div class="cdt-details">
+                        <div class="cdt-detail">
+                            <span class="cdt-detail-label">Host:</span>
+                            <span>NATO HQ Brussels</span>
+                        </div>
+                        <div class="cdt-detail">
+                            <span class="cdt-detail-label">Duration:</span>
+                            <span>1 week live</span>
+                        </div>
+                        <div class="cdt-detail">
+                            <span class="cdt-detail-label">Participants:</span>
+                            <span>NATO HQ Staff</span>
+                        </div>
+                        <div class="cdt-detail">
+                            <span class="cdt-detail-label">TRL:</span>
+                            <span>6 → 7</span>
+                        </div>
+                    </div>
+                    <h3>Key Capabilities</h3>
+                    <ul style="margin-left: 1.5rem; font-size: 0.9rem;">
+                        <li>Crisis escalation pattern recognition</li>
+                        <li>Decision timeline compression</li>
+                        <li>Political-military interface</li>
+                        <li>Multi-stakeholder coordination</li>
+                    </ul>
+                </div>
+
+                <div class="card cdt-card acquisition">
+                    <div class="cdt-header">
+                        <div>
+                            <h2 style="border: none; margin: 0; padding: 0;">CDT-04: PROJECT ACQUIRE</h2>
+                            <p>Acquisition Integration</p>
+                        </div>
+                        <span class="cdt-badge acquisition">Year 4</span>
+                    </div>
+                    <p><strong>Objective:</strong> Validate for capability development decisions</p>
+                    <div class="cdt-details">
+                        <div class="cdt-detail">
+                            <span class="cdt-detail-label">Host:</span>
+                            <span>NATO Armaments Group</span>
+                        </div>
+                        <div class="cdt-detail">
+                            <span class="cdt-detail-label">Duration:</span>
+                            <span>36 weeks</span>
+                        </div>
+                        <div class="cdt-detail">
+                            <span class="cdt-detail-label">Participants:</span>
+                            <span>Capability managers</span>
+                        </div>
+                        <div class="cdt-detail">
+                            <span class="cdt-detail-label">TRL:</span>
+                            <span>7 → 8</span>
+                        </div>
+                    </div>
+                    <h3>Key Capabilities</h3>
+                    <ul style="margin-left: 1.5rem; font-size: 0.9rem;">
+                        <li>NDPP capability target analysis</li>
+                        <li>Multinational procurement coordination</li>
+                        <li>Technology insertion identification</li>
+                        <li>Life-cycle cost-benefit analysis</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 1.5rem;">
+                <h2>CDT Success Criteria Summary</h2>
+                <div class="chart-container" style="height: 350px;">
+                    <canvas id="cdtMetricsChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Operationalization Pathway Section -->
+        <section id="pathway" class="section">
+            <div class="grid grid-2">
+                <div class="card">
+                    <h2>Capability Maturation Model</h2>
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Level 1: Assisted (Y1-2)</span>
+                            <span>AI provides suggestions</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill education" style="width: 100%;"></div>
+                        </div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Level 2: Augmented (Y2-3)</span>
+                            <span>AI performs routine analysis</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill education" style="width: 80%;"></div>
+                        </div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Level 3: Collaborative (Y3-4)</span>
+                            <span>Human-AI teaming</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill exercise" style="width: 60%;"></div>
+                        </div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Level 4: Integrated (Y4-5)</span>
+                            <span>AI fully in workflows</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill acquisition" style="width: 40%;"></div>
+                        </div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Level 5: Autonomous (Y5+)</span>
+                            <span>Minimal supervision</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill success" style="width: 20%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>Training & Certification Pathway</h2>
+                    <table class="metrics-table">
+                        <tr>
+                            <th>Level</th>
+                            <th>Title</th>
+                            <th>Hours</th>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>AI-Aware User</td>
+                            <td>8</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>AI-Assisted Analyst</td>
+                            <td>24</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>AI-Augmented Facilitator</td>
+                            <td>40</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>AI Integration Specialist</td>
+                            <td>80</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>AI Governance Lead</td>
+                            <td>40</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="grid grid-2" style="margin-top: 1.5rem;">
+                <div class="card">
+                    <h2>Infrastructure Transition</h2>
+                    <div class="chart-container">
+                        <canvas id="infraChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>Cost Transition (€ Millions)</h2>
+                    <div class="chart-container">
+                        <canvas id="costChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 1.5rem;">
+                <h2>Stakeholder Transition Matrix</h2>
+                <table class="metrics-table">
+                    <tr>
+                        <th>Stakeholder</th>
+                        <th>Current State</th>
+                        <th>Target State</th>
+                        <th>Priority</th>
+                    </tr>
+                    <tr>
+                        <td>Wargame Designers</td>
+                        <td>Manual scenario creation</td>
+                        <td>AI-assisted with constraints</td>
+                        <td><span class="cdt-badge" style="background: var(--danger);">HIGH</span></td>
+                    </tr>
+                    <tr>
+                        <td>Analysts</td>
+                        <td>Post-hoc insight extraction</td>
+                        <td>Real-time pattern recognition</td>
+                        <td><span class="cdt-badge" style="background: var(--danger);">HIGH</span></td>
+                    </tr>
+                    <tr>
+                        <td>Facilitators</td>
+                        <td>Sole adjudicators</td>
+                        <td>Human-AI teaming</td>
+                        <td><span class="cdt-badge" style="background: var(--warning);">MED</span></td>
+                    </tr>
+                    <tr>
+                        <td>Sponsors</td>
+                        <td>Narrative reports</td>
+                        <td>Traceable evidence chains</td>
+                        <td><span class="cdt-badge" style="background: var(--danger);">HIGH</span></td>
+                    </tr>
+                    <tr>
+                        <td>Acquisition</td>
+                        <td>Qualitative justification</td>
+                        <td>Quantified confidence</td>
+                        <td><span class="cdt-badge" style="background: #c53030;">CRITICAL</span></td>
+                    </tr>
+                    <tr>
+                        <td>Policy</td>
+                        <td>No AI governance</td>
+                        <td>Responsible AI framework</td>
+                        <td><span class="cdt-badge" style="background: var(--danger);">HIGH</span></td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Success Metrics Section -->
+        <section id="metrics" class="section">
+            <div class="grid grid-3">
+                <div class="card">
+                    <h2>Strategic Metrics</h2>
+                    <table class="metrics-table">
+                        <tr>
+                            <th>Metric</th>
+                            <th>Y3</th>
+                            <th>Y5</th>
+                        </tr>
+                        <tr>
+                            <td>Wargames using AI</td>
+                            <td>10</td>
+                            <td>50+</td>
+                        </tr>
+                        <tr>
+                            <td>Nations adopting</td>
+                            <td>5</td>
+                            <td>15+</td>
+                        </tr>
+                        <tr>
+                            <td>Decision confidence</td>
+                            <td>+20%</td>
+                            <td>+40%</td>
+                        </tr>
+                        <tr>
+                            <td>Analysis cycle time</td>
+                            <td>-30%</td>
+                            <td>-50%</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="card">
+                    <h2>Operational Metrics</h2>
+                    <table class="metrics-table">
+                        <tr>
+                            <th>Metric</th>
+                            <th>Threshold</th>
+                            <th>Target</th>
+                        </tr>
+                        <tr>
+                            <td>System availability</td>
+                            <td>>95%</td>
+                            <td>>99%</td>
+                        </tr>
+                        <tr>
+                            <td>Response time</td>
+                            <td><5 sec</td>
+                            <td><2 sec</td>
+                        </tr>
+                        <tr>
+                            <td>Insight accuracy</td>
+                            <td>>70%</td>
+                            <td>>85%</td>
+                        </tr>
+                        <tr>
+                            <td>User satisfaction</td>
+                            <td>>70%</td>
+                            <td>>85%</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="card">
+                    <h2>Technical Metrics</h2>
+                    <table class="metrics-table">
+                        <tr>
+                            <th>Metric</th>
+                            <th>Threshold</th>
+                            <th>Target</th>
+                        </tr>
+                        <tr>
+                            <td>Model accuracy</td>
+                            <td>>75%</td>
+                            <td>>90%</td>
+                        </tr>
+                        <tr>
+                            <td>KG completeness</td>
+                            <td>>80%</td>
+                            <td>>95%</td>
+                        </tr>
+                        <tr>
+                            <td>Explanation quality</td>
+                            <td>>70%</td>
+                            <td>>85%</td>
+                        </tr>
+                        <tr>
+                            <td>Integration rate</td>
+                            <td>>90%</td>
+                            <td>>98%</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 1.5rem;">
+                <h2>Risk Assessment Matrix</h2>
+                <div class="grid grid-3">
+                    <div>
+                        <h3>Technical Risks</h3>
+                        <div class="risk-matrix">
+                            <div class="risk-cell risk-header">Risk</div>
+                            <div class="risk-cell risk-header">L</div>
+                            <div class="risk-cell risk-header">I</div>
+                            <div class="risk-cell risk-label">Model degradation</div>
+                            <div class="risk-cell risk-medium">M</div>
+                            <div class="risk-cell risk-high">H</div>
+                            <div class="risk-cell risk-label">Integration failure</div>
+                            <div class="risk-cell risk-medium">M</div>
+                            <div class="risk-cell risk-high">H</div>
+                            <div class="risk-cell risk-label">Security vuln.</div>
+                            <div class="risk-cell risk-low">L</div>
+                            <div class="risk-cell risk-high">C</div>
+                            <div class="risk-cell risk-label">Data quality</div>
+                            <div class="risk-cell risk-high">H</div>
+                            <div class="risk-cell risk-medium">M</div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3>Organizational Risks</h3>
+                        <div class="risk-matrix">
+                            <div class="risk-cell risk-header">Risk</div>
+                            <div class="risk-cell risk-header">L</div>
+                            <div class="risk-cell risk-header">I</div>
+                            <div class="risk-cell risk-label">User resistance</div>
+                            <div class="risk-cell risk-high">H</div>
+                            <div class="risk-cell risk-high">H</div>
+                            <div class="risk-cell risk-label">Funding gap</div>
+                            <div class="risk-cell risk-medium">M</div>
+                            <div class="risk-cell risk-high">C</div>
+                            <div class="risk-cell risk-label">Personnel loss</div>
+                            <div class="risk-cell risk-medium">M</div>
+                            <div class="risk-cell risk-high">H</div>
+                            <div class="risk-cell risk-label">Policy delays</div>
+                            <div class="risk-cell risk-medium">M</div>
+                            <div class="risk-cell risk-medium">M</div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3>Operational Risks</h3>
+                        <div class="risk-matrix">
+                            <div class="risk-cell risk-header">Risk</div>
+                            <div class="risk-cell risk-header">L</div>
+                            <div class="risk-cell risk-header">I</div>
+                            <div class="risk-cell risk-label">Over-reliance</div>
+                            <div class="risk-cell risk-medium">M</div>
+                            <div class="risk-cell risk-high">H</div>
+                            <div class="risk-cell risk-label">Adversary exploit</div>
+                            <div class="risk-cell risk-low">L</div>
+                            <div class="risk-cell risk-high">C</div>
+                            <div class="risk-cell risk-label">Bias in recs</div>
+                            <div class="risk-cell risk-medium">M</div>
+                            <div class="risk-cell risk-high">H</div>
+                            <div class="risk-cell risk-label">Scope creep</div>
+                            <div class="risk-cell risk-high">H</div>
+                            <div class="risk-cell risk-medium">M</div>
+                        </div>
+                    </div>
+                </div>
+                <p style="margin-top: 1rem; font-size: 0.85rem; color: #666;">L = Likelihood, I = Impact. C = Critical, H = High, M = Medium, L = Low</p>
+            </div>
+        </section>
+
+        <!-- Governance Section -->
+        <section id="governance" class="section">
+            <div class="card">
+                <h2>Governance Structure</h2>
+                <div class="governance-tree">
+                    <div class="governance-node top">NATO STO Oversight<br><small>Science & Technology Committee (STC)</small></div>
+                    <div class="governance-children">
+                        <div class="governance-node child">Technical Transition Board<br><small>SAS, MSG, IST, HFM</small></div>
+                        <div class="governance-node child">Operational Transition Board<br><small>ACT, JWC, JFTC, CoEs</small></div>
+                        <div class="governance-node child">Governance Transition Board<br><small>IS/Policy, NCIA, NAAG, Legal</small></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-2" style="margin-top: 1.5rem;">
+                <div class="card">
+                    <h2>Responsible AI Principles</h2>
+                    <table class="metrics-table">
+                        <tr>
+                            <th>Principle</th>
+                            <th>Technical Implementation</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Lawfulness</strong></td>
+                            <td>ROE encoding, legal constraint checking</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Accountability</strong></td>
+                            <td>Full audit logging, decision attribution</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Explainability</strong></td>
+                            <td>Explanation engine, confidence reporting</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Reliability</strong></td>
+                            <td>Continuous testing, validation pipelines</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Governability</strong></td>
+                            <td>Human override, confidence gating</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bias Mitigation</strong></td>
+                            <td>Diverse training data, regular audits</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="card">
+                    <h2>Data Classification</h2>
+                    <table class="metrics-table">
+                        <tr>
+                            <th>Data Type</th>
+                            <th>Classification</th>
+                        </tr>
+                        <tr>
+                            <td>Synthetic scenarios</td>
+                            <td>UNCLASSIFIED</td>
+                        </tr>
+                        <tr>
+                            <td>PME wargame outcomes</td>
+                            <td>NATO UNCLASSIFIED</td>
+                        </tr>
+                        <tr>
+                            <td>Exercise data</td>
+                            <td>NATO RESTRICTED</td>
+                        </tr>
+                        <tr>
+                            <td>Operational insights</td>
+                            <td>NATO CONFIDENTIAL+</td>
+                        </tr>
+                        <tr>
+                            <td>Capability assessments</td>
+                            <td>NATO SECRET</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 1.5rem;">
+                <h2>Incident Response Categories</h2>
+                <div class="grid grid-4">
+                    <div style="background: #fed7d7; padding: 1rem; border-radius: 8px; text-align: center;">
+                        <h3 style="color: #c53030;">CRITICAL</h3>
+                        <p style="font-size: 0.9rem;">Security breach, safety issue</p>
+                        <p style="font-weight: bold;">Immediate response</p>
+                    </div>
+                    <div style="background: #feebc8; padding: 1rem; border-radius: 8px; text-align: center;">
+                        <h3 style="color: #c05621;">HIGH</h3>
+                        <p style="font-size: 0.9rem;">System failure, data issue</p>
+                        <p style="font-weight: bold;">4 hour response</p>
+                    </div>
+                    <div style="background: #fefcbf; padding: 1rem; border-radius: 8px; text-align: center;">
+                        <h3 style="color: #975a16;">MEDIUM</h3>
+                        <p style="font-size: 0.9rem;">Performance degradation</p>
+                        <p style="font-weight: bold;">24 hour response</p>
+                    </div>
+                    <div style="background: #c6f6d5; padding: 1rem; border-radius: 8px; text-align: center;">
+                        <h3 style="color: #276749;">LOW</h3>
+                        <p style="font-size: 0.9rem;">Minor issues, feedback</p>
+                        <p style="font-weight: bold;">72 hour response</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Milestones Section -->
+        <section id="milestones" class="section">
+            <div class="card">
+                <h2>Key Milestones Timeline</h2>
+                <div class="grid grid-2">
+                    <div>
+                        <h3>Year 1-2: Foundation & Education</h3>
+                        <div class="milestone-card" style="border-color: var(--primary);">
+                            <div class="milestone-date">Y1 Q1</div>
+                            <div class="milestone-content">
+                                <h4>TAP Approval</h4>
+                                <p>Proposal submission to STC</p>
+                            </div>
+                        </div>
+                        <div class="milestone-card" style="border-color: var(--primary);">
+                            <div class="milestone-date">Y1 Q3</div>
+                            <div class="milestone-content">
+                                <h4>Architecture Complete</h4>
+                                <p>Requirements finalized, technical board approval</p>
+                            </div>
+                        </div>
+                        <div class="milestone-card" style="border-color: var(--education);">
+                            <div class="milestone-date">Y1 Q4</div>
+                            <div class="milestone-content">
+                                <h4>TRL 4 Gate</h4>
+                                <p>Lab validation complete</p>
+                            </div>
+                        </div>
+                        <div class="milestone-card" style="border-color: var(--education);">
+                            <div class="milestone-date">Y2 Q1</div>
+                            <div class="milestone-content">
+                                <h4>CDT-01 Start</h4>
+                                <p>PROJECT SCHOLAR at NDC</p>
+                            </div>
+                        </div>
+                        <div class="milestone-card" style="border-color: var(--education);">
+                            <div class="milestone-date">Y2 Q2</div>
+                            <div class="milestone-content">
+                                <h4>TRL 5 Gate</h4>
+                                <p>CDT-01 results validated</p>
+                            </div>
+                        </div>
+                        <div class="milestone-card" style="border-color: var(--education);">
+                            <div class="milestone-date">Y2 Q3</div>
+                            <div class="milestone-content">
+                                <h4>CDT-02/02b Start</h4>
+                                <p>INSIGHT (JWC) + PARTNER (NPS)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3>Year 3-5: Exercise, Acquisition & Operations</h3>
+                        <div class="milestone-card" style="border-color: var(--exercise);">
+                            <div class="milestone-date">Y3 Q1</div>
+                            <div class="milestone-content">
+                                <h4>TRL 6 Gate</h4>
+                                <p>CDT-02 results, STC approval</p>
+                            </div>
+                        </div>
+                        <div class="milestone-card" style="border-color: var(--exercise);">
+                            <div class="milestone-date">Y3 Q2</div>
+                            <div class="milestone-content">
+                                <h4>CDT-03 CWIX</h4>
+                                <p>25-nation exercise integration</p>
+                            </div>
+                        </div>
+                        <div class="milestone-card" style="border-color: var(--exercise);">
+                            <div class="milestone-date">Y3 Q4</div>
+                            <div class="milestone-content">
+                                <h4>CDT-03b CMX</h4>
+                                <p>Crisis management exercise</p>
+                            </div>
+                        </div>
+                        <div class="milestone-card" style="border-color: var(--acquisition);">
+                            <div class="milestone-date">Y4 Q1</div>
+                            <div class="milestone-content">
+                                <h4>TRL 7 + CDT-04 Start</h4>
+                                <p>PROJECT ACQUIRE at NAAG</p>
+                            </div>
+                        </div>
+                        <div class="milestone-card" style="border-color: var(--operational);">
+                            <div class="milestone-date">Y5 Q1</div>
+                            <div class="milestone-content">
+                                <h4>TRL 8 Gate</h4>
+                                <p>All CDT results compiled</p>
+                            </div>
+                        </div>
+                        <div class="milestone-card" style="border-color: var(--operational);">
+                            <div class="milestone-date">Y5 Q3</div>
+                            <div class="milestone-content">
+                                <h4>Initial Operational Capability</h4>
+                                <p>Infrastructure + training complete</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-2" style="margin-top: 1.5rem;">
+                <div class="card">
+                    <h2>Pre-CDT Checklist</h2>
+                    <ul class="checklist">
+                        <li>Host organization agreement signed</li>
+                        <li>Technical requirements documented</li>
+                        <li>Security accreditation obtained</li>
+                        <li>Participant recruitment complete</li>
+                        <li>Training materials prepared</li>
+                        <li>Data handling agreements in place</li>
+                        <li>Evaluation plan approved</li>
+                        <li>Contingency procedures documented</li>
+                        <li>Support team identified</li>
+                        <li>Go/no-go criteria defined</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h2>Transition Readiness Checklist</h2>
+                    <ul class="checklist">
+                        <li>Architecture documented and validated</li>
+                        <li>Security accredited for target environment</li>
+                        <li>Performance meets requirements</li>
+                        <li>Interfaces tested and certified</li>
+                        <li>Governance framework approved</li>
+                        <li>Training program developed</li>
+                        <li>Support organization funded</li>
+                        <li>All policies in place</li>
+                        <li>Sustainment budget approved</li>
+                        <li>Stakeholder buy-in confirmed</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Tab navigation
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Animate TRL progress on load
+        setTimeout(() => {
+            document.getElementById('trl-progress').style.width = '50%';
+            document.querySelectorAll('.trl-marker').forEach((marker, index) => {
+                if (index < 3) {
+                    setTimeout(() => marker.classList.add('completed'), index * 200);
+                } else if (index === 3) {
+                    setTimeout(() => marker.classList.add('active'), index * 200);
+                }
+            });
+        }, 500);
+
+        // Target Environment Chart
+        const targetCtx = document.getElementById('targetChart').getContext('2d');
+        new Chart(targetCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Education', 'Exercise', 'Acquisition', 'Operational'],
+                datasets: [{
+                    label: 'TRL Entry',
+                    data: [4, 5, 6, 7],
+                    backgroundColor: 'rgba(128, 90, 213, 0.7)'
+                }, {
+                    label: 'TRL Exit',
+                    data: [6, 7, 7, 8],
+                    backgroundColor: 'rgba(56, 161, 105, 0.7)'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 9,
+                        title: { display: true, text: 'TRL Level' }
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'TRL Progression by Environment'
+                    }
+                }
+            }
+        });
+
+        // CDT Metrics Chart
+        const cdtCtx = document.getElementById('cdtMetricsChart').getContext('2d');
+        new Chart(cdtCtx, {
+            type: 'radar',
+            data: {
+                labels: ['User Acceptance', 'Technical Performance', 'Integration Success', 'Knowledge Transfer', 'Time Reduction'],
+                datasets: [{
+                    label: 'Threshold',
+                    data: [70, 75, 80, 60, 30],
+                    borderColor: 'rgba(229, 62, 62, 0.8)',
+                    backgroundColor: 'rgba(229, 62, 62, 0.1)',
+                    borderWidth: 2
+                }, {
+                    label: 'Target',
+                    data: [85, 90, 95, 80, 50],
+                    borderColor: 'rgba(56, 161, 105, 0.8)',
+                    backgroundColor: 'rgba(56, 161, 105, 0.2)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: { stepSize: 20 }
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'CDT Success Criteria (% Targets)'
+                    }
+                }
+            }
+        });
+
+        // Infrastructure Chart
+        const infraCtx = document.getElementById('infraChart').getContext('2d');
+        new Chart(infraCtx, {
+            type: 'line',
+            data: {
+                labels: ['Y1', 'Y2', 'Y3', 'Y4', 'Y5'],
+                datasets: [{
+                    label: 'Research',
+                    data: [100, 80, 40, 20, 10],
+                    borderColor: '#805ad5',
+                    fill: false
+                }, {
+                    label: 'Pilot',
+                    data: [0, 20, 60, 40, 20],
+                    borderColor: '#38a169',
+                    fill: false
+                }, {
+                    label: 'Operational',
+                    data: [0, 0, 0, 40, 70],
+                    borderColor: '#dd6b20',
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: { display: true, text: '% Capability' }
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Infrastructure Transition'
+                    }
+                }
+            }
+        });
+
+        // Cost Chart
+        const costCtx = document.getElementById('costChart').getContext('2d');
+        new Chart(costCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Y1-2', 'Y3-4', 'Y5+'],
+                datasets: [{
+                    label: 'R&D',
+                    data: [2.0, 1.5, 0.5],
+                    backgroundColor: '#805ad5'
+                }, {
+                    label: 'Infrastructure',
+                    data: [0.3, 0.8, 1.2],
+                    backgroundColor: '#38a169'
+                }, {
+                    label: 'Training',
+                    data: [0.1, 0.3, 0.5],
+                    backgroundColor: '#dd6b20'
+                }, {
+                    label: 'Operations',
+                    data: [0.1, 0.4, 0.8],
+                    backgroundColor: '#3182ce'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { stacked: true },
+                    y: {
+                        stacked: true,
+                        title: { display: true, text: '€ Millions' }
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Annual Cost by Category'
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
