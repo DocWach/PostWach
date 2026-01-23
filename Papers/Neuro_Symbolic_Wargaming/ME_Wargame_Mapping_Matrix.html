@@ -1,0 +1,1567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ME-Wargame Mapping Matrix | Neuro-Symbolic AI for Mission Engineering</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #2c5282;
+            --accent: #4299e1;
+            --success: #48bb78;
+            --warning: #ed8936;
+            --danger: #f56565;
+            --light: #f7fafc;
+            --dark: #1a202c;
+            --neural: #9f7aea;
+            --symbolic: #38b2ac;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 280px;
+            background: var(--primary);
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .sidebar-header p {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            margin-top: 5px;
+        }
+
+        .nav-section {
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nav-section-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.5;
+            padding: 0 20px 10px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 10px 20px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border-left: 3px solid var(--accent);
+        }
+
+        .nav-link .badge {
+            float: right;
+            background: rgba(255,255,255,0.2);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 30px;
+        }
+
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .section-subtitle {
+            font-size: 0.9rem;
+            color: #718096;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-card.neural {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .stat-card.symbolic {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+
+        .stat-card.high {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        /* Charts */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .chart-title {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        /* Wargame Type Cards */
+        .wargame-types-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .wargame-type-card {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .wargame-type-card h4 {
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .wargame-type-card p {
+            font-size: 0.85rem;
+            color: #718096;
+            margin-bottom: 10px;
+        }
+
+        .wargame-type-card .tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            font-size: 0.7rem;
+            padding: 3px 10px;
+            border-radius: 20px;
+            background: white;
+        }
+
+        .tag.fidelity {
+            color: var(--secondary);
+            border: 1px solid var(--secondary);
+        }
+
+        .tag.ai {
+            color: var(--neural);
+            border: 1px solid var(--neural);
+        }
+
+        /* Gap Area Cards */
+        .gap-area {
+            margin-bottom: 30px;
+        }
+
+        .gap-area-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 20px 25px;
+            border-radius: 12px 12px 0 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .gap-area-header:hover {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+        }
+
+        .gap-area-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .gap-area-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .gap-area-content {
+            background: white;
+            border-radius: 0 0 12px 12px;
+            padding: 25px;
+            border: 1px solid #e2e8f0;
+            border-top: none;
+        }
+
+        .gap-area-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .overview-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .overview-label {
+            font-size: 0.75rem;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .overview-value {
+            font-size: 0.95rem;
+            color: var(--dark);
+            font-weight: 500;
+        }
+
+        /* Question Cards */
+        .question-card {
+            background: var(--light);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .question-header {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .question-header:hover {
+            background: #edf2f7;
+        }
+
+        .question-id {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+        }
+
+        .question-text {
+            font-size: 0.95rem;
+            color: var(--dark);
+            line-height: 1.5;
+        }
+
+        .priority-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .priority-high {
+            background: #fed7d7;
+            color: #c53030;
+        }
+
+        .priority-medium {
+            background: #feebc8;
+            color: #c05621;
+        }
+
+        .priority-low {
+            background: #c6f6d5;
+            color: #276749;
+        }
+
+        .question-details {
+            display: none;
+            padding: 0 20px 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .question-details.active {
+            display: block;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .detail-box {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .detail-box h5 {
+            font-size: 0.8rem;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+
+        .detail-box p {
+            font-size: 0.9rem;
+            color: var(--dark);
+        }
+
+        .detail-box.neural {
+            border-left: 3px solid var(--neural);
+        }
+
+        .detail-box.symbolic {
+            border-left: 3px solid var(--symbolic);
+        }
+
+        /* AI Contributions */
+        .ai-contributions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .contribution-section {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .contribution-section.neural {
+            border-top: 4px solid var(--neural);
+        }
+
+        .contribution-section.symbolic {
+            border-top: 4px solid var(--symbolic);
+        }
+
+        .contribution-section h3 {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contribution-section h3 .icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .neural .icon {
+            background: var(--neural);
+            color: white;
+        }
+
+        .symbolic .icon {
+            background: var(--symbolic);
+            color: white;
+        }
+
+        .capability-list {
+            list-style: none;
+        }
+
+        .capability-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .capability-list li:last-child {
+            border-bottom: none;
+        }
+
+        .capability-name {
+            font-weight: 500;
+        }
+
+        .capability-count {
+            background: white;
+            padding: 3px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            color: #718096;
+        }
+
+        /* Pilot Wargames Table */
+        .pilot-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .pilot-table th {
+            background: var(--primary);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .pilot-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .pilot-table tr:hover td {
+            background: var(--light);
+        }
+
+        .pilot-rank {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        /* Filter Bar */
+        .filter-bar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            border: 2px solid #e2e8f0;
+            background: white;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: white;
+        }
+
+        /* Expand/Collapse Icon */
+        .expand-icon {
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+        }
+
+        .expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .ai-contributions {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .sidebar {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .section {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h1>ME-Wargame Matrix</h1>
+                <p>Neuro-Symbolic AI for Mission Engineering</p>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Overview</div>
+                <a href="#executive-summary" class="nav-link">Executive Summary</a>
+                <a href="#statistics" class="nav-link">Key Statistics</a>
+                <a href="#wargame-types" class="nav-link">Wargame Taxonomy</a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Gap Areas (42 Questions)</div>
+                <a href="#gap-coalition" class="nav-link">Coalition Operations <span class="badge">5</span></a>
+                <a href="#gap-comms" class="nav-link">Comms-Denied <span class="badge">5</span></a>
+                <a href="#gap-ethics" class="nav-link">Ethics & Legal <span class="badge">5</span></a>
+                <a href="#gap-sustain" class="nav-link">Sustainment <span class="badge">5</span></a>
+                <a href="#gap-hmt" class="nav-link">Human-Machine Teaming <span class="badge">5</span></a>
+                <a href="#gap-failure" class="nav-link">Failure Modes <span class="badge">5</span></a>
+                <a href="#gap-temporal" class="nav-link">Temporal/Phasing <span class="badge">5</span></a>
+                <a href="#gap-training" class="nav-link">Training <span class="badge">4</span></a>
+                <a href="#gap-stakeholder" class="nav-link">Stakeholder <span class="badge">3</span></a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Analysis</div>
+                <a href="#ai-contributions" class="nav-link">AI Contributions</a>
+                <a href="#pilot-wargames" class="nav-link">Recommended Pilots</a>
+                <a href="#dotmlpfi" class="nav-link">DOTMLPFI Coverage</a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Executive Summary -->
+            <section id="executive-summary" class="section">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Mission Engineering to Wargame Mapping Matrix</h2>
+                        <p class="section-subtitle">Neuro-Symbolic AI Integration for NATO Capability Development</p>
+                    </div>
+                    <div style="text-align: right; font-size: 0.85rem; color: #718096;">
+                        <div>Version 1.0</div>
+                        <div>2026-01-22</div>
+                    </div>
+                </div>
+
+                <p style="margin-bottom: 20px;">This matrix maps <strong>42 Mission Engineering gap questions</strong> across <strong>9 gap areas</strong> to specific wargame designs, identifying how neuro-symbolic AI can contribute to addressing each question through a combination of neural learning and symbolic reasoning capabilities.</p>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">42</div>
+                        <div class="stat-label">Total ME Gap Questions</div>
+                    </div>
+                    <div class="stat-card neural">
+                        <div class="stat-value">9</div>
+                        <div class="stat-label">Gap Areas Covered</div>
+                    </div>
+                    <div class="stat-card symbolic">
+                        <div class="stat-value">8</div>
+                        <div class="stat-label">Wargame Types</div>
+                    </div>
+                    <div class="stat-card high">
+                        <div class="stat-value">18</div>
+                        <div class="stat-label">HIGH Priority Questions</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Statistics Charts -->
+            <section id="statistics" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Key Statistics</h2>
+                </div>
+
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <h3 class="chart-title">Questions by Priority Level</h3>
+                        <canvas id="priorityChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h3 class="chart-title">Questions by Gap Area</h3>
+                        <canvas id="gapAreaChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h3 class="chart-title">Wargame Type Distribution</h3>
+                        <canvas id="wargameTypeChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h3 class="chart-title">DOTMLPFI Coverage</h3>
+                        <canvas id="dotmlpfiChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Wargame Type Taxonomy -->
+            <section id="wargame-types" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Wargame Type Taxonomy</h2>
+                </div>
+
+                <div class="wargame-types-grid">
+                    <div class="wargame-type-card">
+                        <h4>Seminar</h4>
+                        <p>Discussion-based, expert-facilitated exploration of concepts and issues</p>
+                        <div class="tags">
+                            <span class="tag fidelity">Low Fidelity</span>
+                            <span class="tag ai">High AI Suitability</span>
+                        </div>
+                    </div>
+                    <div class="wargame-type-card">
+                        <h4>Tabletop</h4>
+                        <p>Turn-based games with adjudication and structured decision points</p>
+                        <div class="tags">
+                            <span class="tag fidelity">Medium Fidelity</span>
+                            <span class="tag ai">High AI Suitability</span>
+                        </div>
+                    </div>
+                    <div class="wargame-type-card">
+                        <h4>Matrix Game</h4>
+                        <p>Structured argumentation with probability assessment and outcomes</p>
+                        <div class="tags">
+                            <span class="tag fidelity">Medium Fidelity</span>
+                            <span class="tag ai">Very High AI Suitability</span>
+                        </div>
+                    </div>
+                    <div class="wargame-type-card">
+                        <h4>Computational</h4>
+                        <p>Computer-mediated wargames with integrated models and simulations</p>
+                        <div class="tags">
+                            <span class="tag fidelity">High Fidelity</span>
+                            <span class="tag ai">Very High AI Suitability</span>
+                        </div>
+                    </div>
+                    <div class="wargame-type-card">
+                        <h4>LVC (Live-Virtual-Constructive)</h4>
+                        <p>Integrated live, virtual, and constructive training environments</p>
+                        <div class="tags">
+                            <span class="tag fidelity">Very High Fidelity</span>
+                            <span class="tag ai">Medium AI Suitability</span>
+                        </div>
+                    </div>
+                    <div class="wargame-type-card">
+                        <h4>Red Team</h4>
+                        <p>Adversarial thinking focus with dedicated opposition forces</p>
+                        <div class="tags">
+                            <span class="tag fidelity">Medium Fidelity</span>
+                            <span class="tag ai">High AI Suitability</span>
+                        </div>
+                    </div>
+                    <div class="wargame-type-card">
+                        <h4>Campaign</h4>
+                        <p>Extended multi-phase operations with logistics and sustainment</p>
+                        <div class="tags">
+                            <span class="tag fidelity">High Fidelity</span>
+                            <span class="tag ai">High AI Suitability</span>
+                        </div>
+                    </div>
+                    <div class="wargame-type-card">
+                        <h4>Crisis</h4>
+                        <p>Time-compressed decision scenarios with high-stress conditions</p>
+                        <div class="tags">
+                            <span class="tag fidelity">Medium Fidelity</span>
+                            <span class="tag ai">High AI Suitability</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gap Area 1: Coalition -->
+            <section id="gap-coalition" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Gap Area 1: Coalition & Allied Operations</h2>
+                    <span class="section-subtitle">5 Questions | 3 HIGH, 2 MEDIUM Priority</span>
+                </div>
+
+                <div class="gap-area-overview">
+                    <div class="overview-item">
+                        <span class="overview-label">Primary Wargame Type</span>
+                        <span class="overview-value">Multinational Tabletop / Matrix Game</span>
+                    </div>
+                    <div class="overview-item">
+                        <span class="overview-label">Secondary Type</span>
+                        <span class="overview-value">Coalition Planning Seminar</span>
+                    </div>
+                    <div class="overview-item">
+                        <span class="overview-label">Key AI Role</span>
+                        <span class="overview-value">Model national constraints, optimize coordination</span>
+                    </div>
+                    <div class="overview-item">
+                        <span class="overview-label">DOTMLPFI Focus</span>
+                        <span class="overview-value">Interoperability, Organization, Policy</span>
+                    </div>
+                </div>
+
+                <!-- Question 1 -->
+                <div class="question-card">
+                    <div class="question-header" onclick="toggleQuestion(this)">
+                        <div>
+                            <div class="question-id">COALITION-Q01: Data Classification Constraints</div>
+                            <div class="question-text">What data classification constraints and release policies limit mission-critical information sharing with coalition partners, and how do these constraints affect joint mission effectiveness?</div>
+                        </div>
+                        <span class="priority-badge priority-high">HIGH</span>
+                    </div>
+                    <div class="question-details">
+                        <div class="details-grid">
+                            <div class="detail-box">
+                                <h5>Wargame Design</h5>
+                                <p><strong>Type:</strong> Matrix Game with classification layers<br>
+                                <strong>Format:</strong> 2-day multinational tabletop<br>
+                                <strong>Participants:</strong> 15-25 (multi-nation representation)</p>
+                            </div>
+                            <div class="detail-box neural">
+                                <h5>Neural AI Contribution</h5>
+                                <p>Learn historical patterns of classification friction; predict information bottlenecks; generate realistic data-sharing scenarios</p>
+                            </div>
+                            <div class="detail-box symbolic">
+                                <h5>Symbolic AI Contribution</h5>
+                                <p>Encode classification rules (STANAG 4774); enforce release constraints; trace information flow decisions; explain policy violations</p>
+                            </div>
+                            <div class="detail-box">
+                                <h5>Measures</h5>
+                                <p><strong>MoE:</strong> Joint mission effectiveness; information availability<br>
+                                <strong>MoP:</strong> Data release latency; classification overhead</p>
+                            </div>
+                            <div class="detail-box">
+                                <h5>Acquisition Relevance</h5>
+                                <p>C4ISR system requirements; cross-domain solutions</p>
+                            </div>
+                            <div class="detail-box">
+                                <h5>DOTMLPFI</h5>
+                                <p>Interoperability, Policy, Leadership</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="question-card">
+                    <div class="question-header" onclick="toggleQuestion(this)">
+                        <div>
+                            <div class="question-id">COALITION-Q02: Interface Reconfiguration</div>
+                            <div class="question-text">How should system interfaces and data formats be designed to enable rapid reconfiguration for different coalition partner access levels without compromising security?</div>
+                        </div>
+                        <span class="priority-badge priority-medium">MEDIUM</span>
+                    </div>
+                    <div class="question-details">
+                        <div class="details-grid">
+                            <div class="detail-box">
+                                <h5>Wargame Design</h5>
+                                <p><strong>Type:</strong> Technical Tabletop + Computational<br>
+                                <strong>Format:</strong> 1-day technical workshop + simulation<br>
+                                <strong>Participants:</strong> 12-20 (system architects, security SMEs)</p>
+                            </div>
+                            <div class="detail-box neural">
+                                <h5>Neural AI Contribution</h5>
+                                <p>Learn interface adaptation patterns; predict reconfiguration time; generate partner access scenarios</p>
+                            </div>
+                            <div class="detail-box symbolic">
+                                <h5>Symbolic AI Contribution</h5>
+                                <p>Enforce security architecture rules; validate interface compliance; trace configuration decisions</p>
+                            </div>
+                            <div class="detail-box">
+                                <h5>DOTMLPFI</h5>
+                                <p>Materiel, Interoperability</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="question-card">
+                    <div class="question-header" onclick="toggleQuestion(this)">
+                        <div>
+                            <div class="question-id">COALITION-Q03: Planning Cycle Synchronization</div>
+                            <div class="question-text">Which coordination mechanisms and liaison structures most effectively synchronize planning cycles across coalition partners with different decision-making timelines?</div>
+                        </div>
+                        <span class="priority-badge priority-high">HIGH</span>
+                    </div>
+                    <div class="question-details">
+                        <div class="details-grid">
+                            <div class="detail-box">
+                                <h5>Wargame Design</h5>
+                                <p><strong>Type:</strong> Coalition Planning Seminar<br>
+                                <strong>Format:</strong> 3-day planning exercise<br>
+                                <strong>Participants:</strong> 20-30 (multi-nation planners)</p>
+                            </div>
+                            <div class="detail-box neural">
+                                <h5>Neural AI Contribution</h5>
+                                <p>Model national planning cycle patterns; predict synchronization points; optimize liaison placement</p>
+                            </div>
+                            <div class="detail-box symbolic">
+                                <h5>Symbolic AI Contribution</h5>
+                                <p>Encode planning process constraints; track decision dependencies; explain timeline conflicts</p>
+                            </div>
+                            <div class="detail-box">
+                                <h5>DOTMLPFI</h5>
+                                <p>Organization, Doctrine, Leadership</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="question-card">
+                    <div class="question-header" onclick="toggleQuestion(this)">
+                        <div>
+                            <div class="question-id">COALITION-Q04: Capability and Doctrine Differences</div>
+                            <div class="question-text">How do differences in coalition partner capabilities, doctrine, and rules of engagement affect combined force employment options and mission planning?</div>
+                        </div>
+                        <span class="priority-badge priority-high">HIGH</span>
+                    </div>
+                    <div class="question-details">
+                        <div class="details-grid">
+                            <div class="detail-box">
+                                <h5>Wargame Design</h5>
+                                <p><strong>Type:</strong> Matrix Game<br>
+                                <strong>Format:</strong> 2-day multinational wargame<br>
+                                <strong>Participants:</strong> 20-30 (multi-nation operators)</p>
+                            </div>
+                            <div class="detail-box neural">
+                                <h5>Neural AI Contribution</h5>
+                                <p>Learn capability combination patterns; predict ROE conflicts; generate force employment alternatives</p>
+                            </div>
+                            <div class="detail-box symbolic">
+                                <h5>Symbolic AI Contribution</h5>
+                                <p>Encode national ROE constraints; validate doctrine compliance; trace capability-to-mission mapping</p>
+                            </div>
+                            <div class="detail-box">
+                                <h5>DOTMLPFI</h5>
+                                <p>Doctrine, Organization, Materiel</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="question-card">
+                    <div class="question-header" onclick="toggleQuestion(this)">
+                        <div>
+                            <div class="question-id">COALITION-Q05: Interoperability Standards</div>
+                            <div class="question-text">What minimum interoperability standards are required to achieve effective coalition operations, and what is the cost/benefit of exceeding those minimums?</div>
+                        </div>
+                        <span class="priority-badge priority-medium">MEDIUM</span>
+                    </div>
+                    <div class="question-details">
+                        <div class="details-grid">
+                            <div class="detail-box">
+                                <h5>Wargame Design</h5>
+                                <p><strong>Type:</strong> Seminar + Computational Analysis<br>
+                                <strong>Format:</strong> 1-day seminar with M&S support<br>
+                                <strong>Participants:</strong> 15-20 (standards experts, acquisition)</p>
+                            </div>
+                            <div class="detail-box neural">
+                                <h5>Neural AI Contribution</h5>
+                                <p>Learn cost-effectiveness curves from historical data; predict interoperability ROI</p>
+                            </div>
+                            <div class="detail-box symbolic">
+                                <h5>Symbolic AI Contribution</h5>
+                                <p>Encode STANAG requirements; calculate compliance costs; trace standard-to-capability mapping</p>
+                            </div>
+                            <div class="detail-box">
+                                <h5>DOTMLPFI</h5>
+                                <p>Materiel, Interoperability, Facilities</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gap Area 2: Comms-Denied -->
+            <section id="gap-comms" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Gap Area 2: Communications-Denied Environments</h2>
+                    <span class="section-subtitle">5 Questions | 3 HIGH, 2 MEDIUM Priority</span>
+                </div>
+
+                <div class="gap-area-overview">
+                    <div class="overview-item">
+                        <span class="overview-label">Primary Wargame Type</span>
+                        <span class="overview-value">Computational Wargame with comms degradation</span>
+                    </div>
+                    <div class="overview-item">
+                        <span class="overview-label">Secondary Type</span>
+                        <span class="overview-value">Crisis Decision Game</span>
+                    </div>
+                    <div class="overview-item">
+                        <span class="overview-label">Key AI Role</span>
+                        <span class="overview-value">Model degradation curves, optimize autonomous behavior</span>
+                    </div>
+                    <div class="overview-item">
+                        <span class="overview-label">DOTMLPFI Focus</span>
+                        <span class="overview-value">Materiel, Doctrine, Training</span>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-header" onclick="toggleQuestion(this)">
+                        <div>
+                            <div class="question-id">COMMS-DENIED-Q01: Degradation Thresholds</div>
+                            <div class="question-text">How does mission effectiveness degrade as communications bandwidth decreases or latency increases, and what are the critical thresholds for different mission types?</div>
+                        </div>
+                        <span class="priority-badge priority-high">HIGH</span>
+                    </div>
+                    <div class="question-details">
+                        <div class="details-grid">
+                            <div class="detail-box neural">
+                                <h5>Neural AI Contribution</h5>
+                                <p>Learn degradation curves; predict mission failure thresholds; model non-linear effects</p>
+                            </div>
+                            <div class="detail-box symbolic">
+                                <h5>Symbolic AI Contribution</h5>
+                                <p>Encode mission-comms dependencies; define threshold rules; trace degradation-to-failure chains</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-header" onclick="toggleQuestion(this)">
+                        <div>
+                            <div class="question-id">COMMS-DENIED-Q02: Autonomous Behaviors</div>
+                            <div class="question-text">What autonomous behaviors and pre-delegated authorities should distributed platforms have to continue mission execution during extended communications denial?</div>
+                        </div>
+                        <span class="priority-badge priority-high">HIGH</span>
+                    </div>
+                    <div class="question-details">
+                        <div class="details-grid">
+                            <div class="detail-box neural">
+                                <h5>Neural AI Contribution</h5>
+                                <p>Learn effective autonomous behavior patterns; predict authority boundary cases</p>
+                            </div>
+                            <div class="detail-box symbolic">
+                                <h5>Symbolic AI Contribution</h5>
+                                <p>Encode authority delegation rules; enforce ROE constraints; trace autonomous decisions</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-header" onclick="toggleQuestion(this)">
+                        <div>
+                            <div class="question-id">COMMS-DENIED-Q03: Architecture Resilience</div>
+                            <div class="question-text">Which communications architectures (mesh, relay, SATCOM, LOS) provide the best resilience against jamming and interference for different operational scenarios?</div>
+                        </div>
+                        <span class="priority-badge priority-medium">MEDIUM</span>
+                    </div>
+                    <div class="question-details">
+                        <div class="details-grid">
+                            <div class="detail-box neural">
+                                <h5>Neural AI Contribution</h5>
+                                <p>Learn jamming effectiveness patterns; predict architecture performance; optimize hybrid solutions</p>
+                            </div>
+                            <div class="detail-box symbolic">
+                                <h5>Symbolic AI Contribution</h5>
+                                <p>Model architecture constraints; validate coverage requirements; trace link-to-mission dependencies</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-header" onclick="toggleQuestion(this)">
+                        <div>
+                            <div class="question-id">COMMS-DENIED-Q04: C2 Adaptation</div>
+                            <div class="question-text">How should command and control structures adapt when communications links are intermittent, and what information should be prioritized when bandwidth is constrained?</div>
+                        </div>
+                        <span class="priority-badge priority-high">HIGH</span>
+                    </div>
+                    <div class="question-details">
+                        <div class="details-grid">
+                            <div class="detail-box neural">
+                                <h5>Neural AI Contribution</h5>
+                                <p>Learn information prioritization patterns; predict C2 adaptation effectiveness</p>
+                            </div>
+                            <div class="detail-box symbolic">
+                                <h5>Symbolic AI Contribution</h5>
+                                <p>Encode C2 doctrine; enforce information priority rules; trace adaptation decisions</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-header" onclick="toggleQuestion(this)">
+                        <div>
+                            <div class="question-id">COMMS-DENIED-Q05: Graceful Degradation</div>
+                            <div class="question-text">What graceful degradation modes should systems support when operating in electromagnetically contested environments, and how should operators be trained to recognize and respond to these modes?</div>
+                        </div>
+                        <span class="priority-badge priority-medium">MEDIUM</span>
+                    </div>
+                    <div class="question-details">
+                        <div class="details-grid">
+                            <div class="detail-box neural">
+                                <h5>Neural AI Contribution</h5>
+                                <p>Learn mode recognition patterns; predict operator response effectiveness</p>
+                            </div>
+                            <div class="detail-box symbolic">
+                                <h5>Symbolic AI Contribution</h5>
+                                <p>Define degradation mode rules; trace mode transitions; explain system state</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gap Area 3: Ethics -->
+            <section id="gap-ethics" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Gap Area 3: Ethics & Legal Compliance</h2>
+                    <span class="section-subtitle">5 Questions | 4 HIGH, 1 MEDIUM Priority</span>
+                </div>
+
+                <div class="gap-area-overview">
+                    <div class="overview-item">
+                        <span class="overview-label">Primary Wargame Type</span>
+                        <span class="overview-value">Ethical Dilemma Seminar</span>
+                    </div>
+                    <div class="overview-item">
+                        <span class="overview-label">Key AI Role</span>
+                        <span class="overview-value">Pattern-match precedents, enforce ROE constraints</span>
+                    </div>
+                    <div class="overview-item">
+                        <span class="overview-label">DOTMLPFI Focus</span>
+                        <span class="overview-value">Doctrine, Leadership, Policy</span>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-header" onclick="toggleQuestion(this)">
+                        <div>
+                            <div class="question-id">ETHICS-Q01: ROE Encoding</div>
+                            <div class="question-text">What legal authorities and rules of engagement constraints must be encoded into autonomous system behaviors, and how should these constraints be validated and updated?</div>
+                        </div>
+                        <span class="priority-badge priority-high">HIGH</span>
+                    </div>
+                    <div class="question-details">
+                        <div class="details-grid">
+                            <div class="detail-box neural">
+                                <h5>Neural AI Contribution</h5>
+                                <p>Pattern-match historical ROE applications; predict edge cases</p>
+                            </div>
+                            <div class="detail-box symbolic">
+                                <h5>Symbolic AI Contribution</h5>
+                                <p>Formally encode ROE constraints; verify constraint consistency; trace authority chains</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-header" onclick="toggleQuestion(this)">
+                        <div>
+                            <div class="question-id">ETHICS-Q02: Human Oversight</div>
+                            <div class="question-text">How should human oversight be structured for autonomous systems to ensure accountability while maintaining operational tempo and effectiveness?</div>
+                        </div>
+                        <span class="priority-badge priority-high">HIGH</span>
+                    </div>
+                    <div class="question-details">
+                        <div class="details-grid">
+                            <div class="detail-box neural">
+                                <h5>Neural AI Contribution</h5>
+                                <p>Model tempo-oversight trade-offs; predict accountability gaps</p>
+                            </div>
+                            <div class="detail-box symbolic">
+                                <h5>Symbolic AI Contribution</h5>
+                                <p>Encode accountability rules; trace decision authority; explain oversight gaps</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-header" onclick="toggleQuestion(this)">
+                        <div>
+                            <div class="question-id">ETHICS-Q03: Human-in/on-the-Loop</div>
+                            <div class="question-text">Which decision types require human-in-the-loop approval versus human-on-the-loop monitoring, and how do these boundaries shift based on operational context?</div>
+                        </div>
+                        <span class="priority-badge priority-high">HIGH</span>
+                    </div>
+                    <div class="question-details">
+                        <div class="details-grid">
+                            <div class="detail-box neural">
+                                <h5>Neural AI Contribution</h5>
+                                <p>Learn context-authority patterns; predict boundary shift triggers</p>
+                            </div>
+                            <div class="detail-box symbolic">
+                                <h5>Symbolic AI Contribution</h5>
+                                <p>Define authority categories; enforce boundary rules; trace context-to-authority mapping</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-header" onclick="toggleQuestion(this)">
+                        <div>
+                            <div class="question-id">ETHICS-Q04: Audit Trails</div>
+                            <div class="question-text">What audit trails and decision logs are required to demonstrate compliance with legal and policy constraints during post-mission review?</div>
+                        </div>
+                        <span class="priority-badge priority-medium">MEDIUM</span>
+                    </div>
+                    <div class="question-details">
+                        <div class="details-grid">
+                            <div class="detail-box neural">
+                                <h5>Neural AI Contribution</h5>
+                                <p>Learn audit pattern requirements; predict review challenges</p>
+                            </div>
+                            <div class="detail-box symbolic">
+                                <h5>Symbolic AI Contribution</h5>
+                                <p>Define audit completeness rules; verify log integrity; trace decision-to-evidence chains</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-header" onclick="toggleQuestion(this)">
+                        <div>
+                            <div class="question-id">ETHICS-Q05: Conflict Resolution</div>
+                            <div class="question-text">How should systems handle situations where mission objectives conflict with legal, ethical, or policy constraints, and who has authority to resolve such conflicts?</div>
+                        </div>
+                        <span class="priority-badge priority-high">HIGH</span>
+                    </div>
+                    <div class="question-details">
+                        <div class="details-grid">
+                            <div class="detail-box neural">
+                                <h5>Neural AI Contribution</h5>
+                                <p>Pattern-match historical conflict resolutions; predict escalation paths</p>
+                            </div>
+                            <div class="detail-box symbolic">
+                                <h5>Symbolic AI Contribution</h5>
+                                <p>Encode conflict resolution rules; model authority hierarchy; trace resolution decisions</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Abbreviated sections for remaining gap areas -->
+            <section id="gap-sustain" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Gap Area 4: Sustainment & Lifecycle</h2>
+                    <span class="section-subtitle">5 Questions | 0 HIGH, 4 MEDIUM, 1 LOW Priority</span>
+                </div>
+                <p>Questions address system lifecycle management, obsolescence prediction, and sustainment optimization. Primary wargame type: Campaign Simulation (Logistics).</p>
+            </section>
+
+            <section id="gap-hmt" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Gap Area 5: Human-Machine Teaming</h2>
+                    <span class="section-subtitle">5 Questions | 3 HIGH, 2 MEDIUM Priority</span>
+                </div>
+                <p>Questions address adaptive automation, information allocation, trust calibration, and training for human-machine teams. Primary wargame type: Human-in-the-Loop Simulation.</p>
+            </section>
+
+            <section id="gap-failure" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Gap Area 6: Failure Modes & Graceful Degradation</h2>
+                    <span class="section-subtitle">5 Questions | 2 HIGH, 3 MEDIUM Priority</span>
+                </div>
+                <p>Questions address single points of failure, cascading effects, recovery procedures, and contingency planning. Primary wargame type: Fault Injection Simulation.</p>
+            </section>
+
+            <section id="gap-temporal" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Gap Area 7: Temporal & Phasing Decisions</h2>
+                    <span class="section-subtitle">5 Questions | 1 HIGH, 4 MEDIUM Priority</span>
+                </div>
+                <p>Questions address capability phasing, transition planning, and schedule risk management. Primary wargame type: Portfolio Planning Seminar.</p>
+            </section>
+
+            <section id="gap-training" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Gap Area 8: Training & Readiness</h2>
+                    <span class="section-subtitle">4 Questions | 0 HIGH, 3 MEDIUM, 1 LOW Priority</span>
+                </div>
+                <p>Questions address simulation fidelity, skill decay, and training pipeline capacity. Primary wargame type: Training Effectiveness Study.</p>
+            </section>
+
+            <section id="gap-stakeholder" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Gap Area 9: Stakeholder & User Engagement</h2>
+                    <span class="section-subtitle">3 Questions | 2 HIGH, 1 MEDIUM Priority</span>
+                </div>
+                <p>Questions address requirements capture, analysis-decision alignment, and stakeholder conflict resolution. Primary wargame type: Multi-Party Negotiation.</p>
+            </section>
+
+            <!-- AI Contributions -->
+            <section id="ai-contributions" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Neuro-Symbolic AI Contributions</h2>
+                </div>
+
+                <div class="ai-contributions">
+                    <div class="contribution-section neural">
+                        <h3><span class="icon">🧠</span> Neural AI Capabilities</h3>
+                        <ul class="capability-list">
+                            <li>
+                                <span class="capability-name">Pattern Learning</span>
+                                <span class="capability-count">42 questions</span>
+                            </li>
+                            <li>
+                                <span class="capability-name">Prediction</span>
+                                <span class="capability-count">30 questions</span>
+                            </li>
+                            <li>
+                                <span class="capability-name">Scenario Generation</span>
+                                <span class="capability-count">25 questions</span>
+                            </li>
+                            <li>
+                                <span class="capability-name">Optimization</span>
+                                <span class="capability-count">15 questions</span>
+                            </li>
+                            <li>
+                                <span class="capability-name">Anomaly Detection</span>
+                                <span class="capability-count">10 questions</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="contribution-section symbolic">
+                        <h3><span class="icon">⚙️</span> Symbolic AI Capabilities</h3>
+                        <ul class="capability-list">
+                            <li>
+                                <span class="capability-name">Traceability</span>
+                                <span class="capability-count">42 questions</span>
+                            </li>
+                            <li>
+                                <span class="capability-name">Constraint Enforcement</span>
+                                <span class="capability-count">35 questions</span>
+                            </li>
+                            <li>
+                                <span class="capability-name">Explanation Generation</span>
+                                <span class="capability-count">30 questions</span>
+                            </li>
+                            <li>
+                                <span class="capability-name">Validation</span>
+                                <span class="capability-count">25 questions</span>
+                            </li>
+                            <li>
+                                <span class="capability-name">Formal Modeling</span>
+                                <span class="capability-count">20 questions</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pilot Wargames -->
+            <section id="pilot-wargames" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Recommended Pilot Wargames</h2>
+                </div>
+
+                <table class="pilot-table">
+                    <thead>
+                        <tr>
+                            <th>Priority</th>
+                            <th>Wargame</th>
+                            <th>Questions Addressed</th>
+                            <th>Duration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><div class="pilot-rank">1</div></td>
+                            <td><strong>Coalition Operations Matrix Game</strong></td>
+                            <td>COALITION-Q01, Q03, Q04</td>
+                            <td>2-3 days</td>
+                        </tr>
+                        <tr>
+                            <td><div class="pilot-rank">2</div></td>
+                            <td><strong>Human-Machine Teaming Simulation</strong></td>
+                            <td>HMT-Q01, Q03, Q04</td>
+                            <td>2 days</td>
+                        </tr>
+                        <tr>
+                            <td><div class="pilot-rank">3</div></td>
+                            <td><strong>Communications-Denied Operations</strong></td>
+                            <td>COMMS-Q01, Q02, Q04</td>
+                            <td>2 days</td>
+                        </tr>
+                        <tr>
+                            <td><div class="pilot-rank">4</div></td>
+                            <td><strong>Ethics & Authority Boundaries</strong></td>
+                            <td>ETHICS-Q01, Q02, Q03, Q05</td>
+                            <td>2 days</td>
+                        </tr>
+                        <tr>
+                            <td><div class="pilot-rank">5</div></td>
+                            <td><strong>Failure Mode Analysis</strong></td>
+                            <td>FAILURE-Q01, Q02</td>
+                            <td>1-2 days</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- DOTMLPFI -->
+            <section id="dotmlpfi" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">DOTMLPFI Coverage Analysis</h2>
+                </div>
+
+                <div class="chart-container" style="max-width: 600px; margin: 0 auto;">
+                    <canvas id="dotmlpfiRadar"></canvas>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer style="text-align: center; padding: 30px; color: #718096; font-size: 0.85rem;">
+                <p>ME-Wargame Mapping Matrix | Neuro-Symbolic AI for Mission Engineering</p>
+                <p>Prepared for NATO STO TAP Development | University of Arizona PostDoc Research</p>
+                <p>Version 1.0 | 2026-01-22</p>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        // Toggle question details
+        function toggleQuestion(header) {
+            const details = header.nextElementSibling;
+            details.classList.toggle('active');
+            header.parentElement.classList.toggle('expanded');
+        }
+
+        // Chart.js configurations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Priority Chart
+            new Chart(document.getElementById('priorityChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['HIGH (18)', 'MEDIUM (22)', 'LOW (2)'],
+                    datasets: [{
+                        data: [18, 22, 2],
+                        backgroundColor: ['#f56565', '#ed8936', '#48bb78'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+
+            // Gap Area Chart
+            new Chart(document.getElementById('gapAreaChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Coalition', 'Comms-Denied', 'Ethics', 'Sustainment', 'HMT', 'Failure', 'Temporal', 'Training', 'Stakeholder'],
+                    datasets: [{
+                        label: 'Questions',
+                        data: [5, 5, 5, 5, 5, 5, 5, 4, 3],
+                        backgroundColor: '#4299e1'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 6
+                        }
+                    }
+                }
+            });
+
+            // Wargame Type Chart
+            new Chart(document.getElementById('wargameTypeChart'), {
+                type: 'pie',
+                data: {
+                    labels: ['Seminar/Workshop (33%)', 'Tabletop/Matrix (29%)', 'Computational (24%)', 'Human-in-Loop (14%)'],
+                    datasets: [{
+                        data: [14, 12, 10, 6],
+                        backgroundColor: ['#667eea', '#48bb78', '#ed8936', '#f56565'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+
+            // DOTMLPFI Chart
+            new Chart(document.getElementById('dotmlpfiChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Materiel', 'Training', 'Doctrine', 'Organization', 'Leadership', 'Interoperability', 'Personnel', 'Facilities'],
+                    datasets: [{
+                        label: 'Question Coverage',
+                        data: [28, 14, 12, 11, 8, 8, 6, 6],
+                        backgroundColor: ['#1a365d', '#2c5282', '#2b6cb0', '#3182ce', '#4299e1', '#63b3ed', '#90cdf4', '#bee3f8']
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+
+            // DOTMLPFI Radar
+            new Chart(document.getElementById('dotmlpfiRadar'), {
+                type: 'radar',
+                data: {
+                    labels: ['Doctrine', 'Organization', 'Training', 'Materiel', 'Leadership', 'Personnel', 'Facilities', 'Interoperability'],
+                    datasets: [{
+                        label: 'Question Coverage',
+                        data: [12, 11, 14, 28, 8, 6, 6, 8],
+                        backgroundColor: 'rgba(66, 153, 225, 0.2)',
+                        borderColor: '#4299e1',
+                        pointBackgroundColor: '#4299e1'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        r: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth' });
+
+                // Update active state
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
