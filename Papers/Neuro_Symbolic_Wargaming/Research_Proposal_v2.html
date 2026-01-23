@@ -620,12 +620,12 @@
         </div>
 
         <div class="nav-tabs">
-            <button class="nav-tab active" onclick="showSection('executive')">Executive Summary</button>
-            <button class="nav-tab" onclick="showSection('technical')">Technical Approach</button>
-            <button class="nav-tab" onclick="showSection('research')">Research Program</button>
-            <button class="nav-tab" onclick="showSection('cdts')">CDT Portfolio</button>
-            <button class="nav-tab" onclick="showSection('management')">Management</button>
-            <button class="nav-tab" onclick="showSection('impact')">Impact & Ethics</button>
+            <button class="nav-tab active" onclick="showSection('executive', this)">Executive Summary</button>
+            <button class="nav-tab" onclick="showSection('technical', this)">Technical Approach</button>
+            <button class="nav-tab" onclick="showSection('research', this)">Research Program</button>
+            <button class="nav-tab" onclick="showSection('cdts', this)">CDT Portfolio</button>
+            <button class="nav-tab" onclick="showSection('management', this)">Management</button>
+            <button class="nav-tab" onclick="showSection('impact', this)">Impact & Ethics</button>
         </div>
     </div>
 
@@ -1332,11 +1332,11 @@
     </div>
 
     <script>
-        function showSection(sectionId) {
+        function showSection(sectionId, btn) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
             document.getElementById(sectionId).classList.add('active');
-            event.target.classList.add('active');
+            btn.classList.add('active');
         }
 
         // Budget Chart
