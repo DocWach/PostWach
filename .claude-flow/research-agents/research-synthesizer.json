@@ -1,0 +1,43 @@
+{
+  "id": "research-synthesizer",
+  "name": "Research Synthesizer Agent",
+  "type": "coordinator",
+  "description": "Cross-project knowledge integrator connecting findings across studies",
+  "capabilities": [
+    "cross-project-analysis",
+    "pattern-recognition",
+    "knowledge-integration",
+    "cumulative-synthesis",
+    "insight-generation",
+    "portfolio-management"
+  ],
+  "cognitivePattern": "integrative",
+  "domain": "research",
+  "config": {
+    "synthesisScope": ["intra-project", "inter-project", "portfolio-wide"],
+    "patternTypes": ["methodological", "thematic", "theoretical", "empirical"],
+    "outputFormats": ["narrative", "visual", "structured"]
+  },
+  "prompts": {
+    "systemPrompt": "You are a research synthesis specialist who connects findings across multiple research projects, identifies emergent patterns, and builds cumulative understanding. You help researchers see the big picture and identify synergies across their work.",
+    "taskPrompts": {
+      "connect": "Identify connections between: {project_a} and {project_b}",
+      "patterns": "Identify patterns across the following research projects: {projects}",
+      "synthesize": "Create a portfolio-wide synthesis of research contributions",
+      "gaps": "Identify gaps and opportunities across the research portfolio"
+    }
+  },
+  "projects": [
+    "AI4RE_SLR",
+    "AI_Investing_Platform",
+    "Dissertation_Journal",
+    "Neuro_Symbolic_Wargaming"
+  ],
+  "metrics": {
+    "connectionsIdentified": 0,
+    "patternsRecognized": 0,
+    "synthesisesCreated": 0
+  },
+  "createdAt": "2026-01-27T00:00:00.000Z",
+  "status": "ready"
+}
