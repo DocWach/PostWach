@@ -1,0 +1,2050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PostWach Research Co-Pilot | Complete Guide</title>
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #2c5282;
+            --accent: #ed8936;
+            --success: #38a169;
+            --warning: #d69e2e;
+            --light: #f7fafc;
+            --dark: #1a202c;
+            --gradient-1: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
+            --gradient-2: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+            --gradient-3: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: var(--gradient-1);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header .tagline {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header .version {
+            display: inline-block;
+            background: var(--accent);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            position: relative;
+        }
+
+        /* Research Focus Banner */
+        .research-focus {
+            background: var(--dark);
+            color: white;
+            padding: 1.5rem 2rem;
+            text-align: center;
+        }
+
+        .research-pillars {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .pillar {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pillar-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        /* Navigation */
+        .nav {
+            background: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 0.7rem 1.5rem;
+            border: 2px solid var(--primary);
+            background: white;
+            color: var(--primary);
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Level Selector */
+        .level-selector {
+            background: #edf2f7;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .level-selector h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .level-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .level-btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .level-btn.elementary {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .level-btn.intermediate {
+            background: #bee3f8;
+            color: #2a4365;
+        }
+
+        .level-btn.advanced {
+            background: #fed7aa;
+            color: #7b341e;
+        }
+
+        .level-btn.expert {
+            background: #e9d8fd;
+            color: #44337a;
+        }
+
+        .level-btn.active {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Main Content */
+        .main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Content Cards */
+        .content-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-left: 5px solid var(--primary);
+        }
+
+        .content-card h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .content-card.elementary { border-left-color: #38a169; }
+        .content-card.intermediate { border-left-color: #3182ce; }
+        .content-card.advanced { border-left-color: #dd6b20; }
+        .content-card.expert { border-left-color: #805ad5; }
+
+        /* Level Content */
+        .level-content {
+            display: none;
+        }
+
+        .level-content.active {
+            display: block;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            color: #718096;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Agent Grid */
+        .agent-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .agent-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            border-top: 4px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .agent-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .agent-card.msc { border-top-color: var(--accent); }
+        .agent-card.research { border-top-color: var(--success); }
+
+        .agent-card h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .agent-card .msc-code {
+            display: inline-block;
+            background: #edf2f7;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: #4a5568;
+            margin-bottom: 0.5rem;
+        }
+
+        .agent-card p {
+            font-size: 0.9rem;
+            color: #718096;
+        }
+
+        /* Workflow Diagram */
+        .workflow-container {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .workflow-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .workflow-step {
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            padding: 1.5rem 1rem;
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .workflow-step::after {
+            content: '→';
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+
+        .workflow-step:last-child::after {
+            display: none;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-1);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-weight: 700;
+        }
+
+        /* MSC Coverage */
+        .msc-coverage {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .coverage-bar {
+            height: 30px;
+            background: #e2e8f0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .coverage-fill {
+            height: 100%;
+            background: var(--gradient-3);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            transition: width 1s ease;
+        }
+
+        /* Research Integration */
+        .research-integration {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        @media (max-width: 900px) {
+            .research-integration {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .integration-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .integration-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .integration-card.se { border-top: 5px solid #3182ce; }
+        .integration-card.ai { border-top: 5px solid #38a169; }
+        .integration-card.st { border-top: 5px solid #805ad5; }
+
+        .integration-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+
+        .integration-card.se .integration-icon { background: #ebf8ff; }
+        .integration-card.ai .integration-icon { background: #f0fff4; }
+        .integration-card.st .integration-icon { background: #faf5ff; }
+
+        /* Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        .data-table th, .data-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .data-table th {
+            background: #f7fafc;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .data-table tr:hover {
+            background: #f7fafc;
+        }
+
+        /* Tooltips */
+        .tooltip {
+            position: relative;
+            cursor: help;
+            border-bottom: 1px dotted var(--primary);
+        }
+
+        .tooltip:hover::after {
+            content: attr(data-tip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--dark);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            z-index: 100;
+        }
+
+        /* Collapsible */
+        .collapsible {
+            background: #f7fafc;
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .collapsible-header {
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .collapsible-header:hover {
+            background: #edf2f7;
+        }
+
+        .collapsible-content {
+            display: none;
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .collapsible.open .collapsible-content {
+            display: block;
+        }
+
+        .collapsible-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .collapsible.open .collapsible-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Architecture Diagram */
+        .architecture {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .arch-layers {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .arch-layer {
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .arch-layer.user { background: linear-gradient(135deg, #ebf8ff 0%, #bee3f8 100%); }
+        .arch-layer.orchestration { background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%); }
+        .arch-layer.agents { background: linear-gradient(135deg, #fffaf0 0%, #feebc8 100%); }
+        .arch-layer.memory { background: linear-gradient(135deg, #faf5ff 0%, #e9d8fd 100%); }
+        .arch-layer.foundation { background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%); }
+
+        /* Code Block */
+        .code-block {
+            background: var(--dark);
+            color: #a0aec0;
+            padding: 1.5rem;
+            border-radius: 12px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+        }
+
+        .code-block .command {
+            color: #68d391;
+        }
+
+        .code-block .comment {
+            color: #718096;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .footer a {
+            color: var(--accent);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .research-pillars {
+                gap: 1.5rem;
+            }
+
+            .workflow-steps {
+                flex-direction: column;
+            }
+
+            .workflow-step::after {
+                content: '↓';
+                right: 50%;
+                top: auto;
+                bottom: -25px;
+                transform: translateX(50%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>PostWach</h1>
+        <p class="tagline">AI-Powered Research Co-Pilot for Systems Engineering, AI Foundations, and Sociotechnical Transformation</p>
+        <span class="version">v3.0.0 | 100% MSC Coverage | January 2026</span>
+    </header>
+
+    <div class="research-focus">
+        <strong>Research Focus Areas</strong>
+        <div class="research-pillars">
+            <div class="pillar">
+                <div class="pillar-icon">⚙️</div>
+                <span>Systems Engineering Foundations</span>
+            </div>
+            <div class="pillar">
+                <div class="pillar-icon">🧠</div>
+                <span>Artificial Intelligence</span>
+            </div>
+            <div class="pillar">
+                <div class="pillar-icon">🌐</div>
+                <span>Sociotechnical Transformation</span>
+            </div>
+        </div>
+    </div>
+
+    <nav class="nav">
+        <div class="nav-inner">
+            <button class="nav-btn active" data-section="overview">Overview</button>
+            <button class="nav-btn" data-section="capabilities">Capabilities</button>
+            <button class="nav-btn" data-section="agents">Agents</button>
+            <button class="nav-btn" data-section="workflows">Workflows</button>
+            <button class="nav-btn" data-section="research">Research Integration</button>
+            <button class="nav-btn" data-section="architecture">Architecture</button>
+        </div>
+    </nav>
+
+    <div class="level-selector">
+        <h3>Select Explanation Level</h3>
+        <div class="level-buttons">
+            <button class="level-btn elementary active" data-level="elementary">Elementary</button>
+            <button class="level-btn intermediate" data-level="intermediate">Intermediate</button>
+            <button class="level-btn advanced" data-level="advanced">Advanced</button>
+            <button class="level-btn expert" data-level="expert">Expert</button>
+        </div>
+    </div>
+
+    <main class="main">
+        <!-- OVERVIEW SECTION -->
+        <div class="section active" id="overview">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">34</div>
+                    <div class="stat-label">Custom Research Agents</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">154</div>
+                    <div class="stat-label">Task Tool Agent Types</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">MSC 2020 Coverage</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">200+</div>
+                    <div class="stat-label">MCP Tools Available</div>
+                </div>
+            </div>
+
+            <!-- Elementary Level -->
+            <div class="level-content elementary active">
+                <div class="content-card elementary">
+                    <h2>🌟 What is PostWach?</h2>
+                    <p><strong>PostWach is like having a team of very smart research assistants who never sleep.</strong></p>
+                    <p style="margin-top: 1rem;">Imagine you're writing a research paper. Normally, you'd have to:</p>
+                    <ul style="margin: 1rem 0 1rem 2rem;">
+                        <li>Search through hundreds of papers yourself</li>
+                        <li>Take notes and organize everything</li>
+                        <li>Double-check your math and logic</li>
+                        <li>Format everything correctly</li>
+                    </ul>
+                    <p><strong>PostWach does all of this for you!</strong> It's a computer program that understands research and can help you every step of the way.</p>
+                </div>
+
+                <div class="content-card elementary">
+                    <h2>🎯 What Does Dr. Wach Research?</h2>
+                    <p>Dr. Wach studies three big questions:</p>
+                    <div style="margin: 1.5rem 0; display: grid; gap: 1rem;">
+                        <div style="background: #ebf8ff; padding: 1rem; border-radius: 8px;">
+                            <strong>1. Systems Engineering:</strong> How do we build really complex things (like airplanes or hospitals) so they work perfectly?
+                        </div>
+                        <div style="background: #f0fff4; padding: 1rem; border-radius: 8px;">
+                            <strong>2. Artificial Intelligence:</strong> How can computers help us think and solve problems?
+                        </div>
+                        <div style="background: #faf5ff; padding: 1rem; border-radius: 8px;">
+                            <strong>3. Sociotechnical Transformation:</strong> How do new technologies change the way people work and live together?
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-card elementary">
+                    <h2>🤖 What Can PostWach Do?</h2>
+                    <p>Think of PostWach as a Swiss Army knife for research:</p>
+                    <ul style="margin: 1rem 0 1rem 2rem; line-height: 2;">
+                        <li><strong>Read papers</strong> and tell you what they're about</li>
+                        <li><strong>Find connections</strong> between different ideas</li>
+                        <li><strong>Check math</strong> to make sure proofs are correct</li>
+                        <li><strong>Write drafts</strong> of papers and responses</li>
+                        <li><strong>Remember everything</strong> from past conversations</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Intermediate Level -->
+            <div class="level-content intermediate">
+                <div class="content-card intermediate">
+                    <h2>📚 PostWach: Your Research Co-Pilot</h2>
+                    <p>PostWach is a specialized AI research assistant built on Claude Code and enhanced with custom agents, workflows, and memory systems. It's designed specifically for academic research at the intersection of systems engineering, AI, and sociotechnical studies.</p>
+
+                    <h3 style="margin-top: 1.5rem; color: var(--secondary);">Key Components:</h3>
+                    <ul style="margin: 1rem 0 1rem 2rem;">
+                        <li><strong>Custom Agents (34):</strong> Specialized AI personalities for different research tasks</li>
+                        <li><strong>Workflow Templates (4):</strong> Step-by-step processes for common research activities</li>
+                        <li><strong>Semantic Memory:</strong> AI-powered search that understands meaning, not just keywords</li>
+                        <li><strong>MSC Coverage:</strong> Complete coverage of all 63 mathematics subject classifications</li>
+                    </ul>
+                </div>
+
+                <div class="content-card intermediate">
+                    <h2>🔬 Research Focus Areas Explained</h2>
+                    <div class="research-integration">
+                        <div class="integration-card se">
+                            <div class="integration-icon">⚙️</div>
+                            <h3>Systems Engineering</h3>
+                            <p>Using formal methods like DEVS (Discrete Event System Specification) and T3SD (Three-Space Decomposition) to mathematically verify that complex systems will work correctly.</p>
+                        </div>
+                        <div class="integration-card ai">
+                            <div class="integration-icon">🧠</div>
+                            <h3>Artificial Intelligence</h3>
+                            <p>Exploring how AI can assist in requirements engineering, system design, and verification—making the design process smarter and more reliable.</p>
+                        </div>
+                        <div class="integration-card st">
+                            <div class="integration-icon">🌐</div>
+                            <h3>Sociotechnical Transformation</h3>
+                            <p>Understanding how AI tools change the way engineers and researchers work, and designing systems that account for human factors.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-card intermediate">
+                    <h2>💡 How It Works</h2>
+                    <p>When you ask PostWach a question or assign it a task:</p>
+                    <ol style="margin: 1rem 0 1rem 2rem; line-height: 2;">
+                        <li>It analyzes your request and selects appropriate agents</li>
+                        <li>Multiple agents can work in parallel on different aspects</li>
+                        <li>Results are stored in semantic memory for future reference</li>
+                        <li>You receive synthesized, well-organized output</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Advanced Level -->
+            <div class="level-content advanced">
+                <div class="content-card advanced">
+                    <h2>🏗️ PostWach Architecture Overview</h2>
+                    <p>PostWach is built on a multi-layer architecture integrating Claude Code's capabilities with specialized research tools:</p>
+
+                    <div class="arch-layers" style="margin: 1.5rem 0;">
+                        <div class="arch-layer user">
+                            <strong>User Interface Layer</strong>
+                            <p>Claude Code CLI + MCP Protocol (200+ tools)</p>
+                        </div>
+                        <div class="arch-layer orchestration">
+                            <strong>Orchestration Layer</strong>
+                            <p>claude-flow v3.0.0 | Hive-Mind Coordination | Task Routing</p>
+                        </div>
+                        <div class="arch-layer agents">
+                            <strong>Agent Layer</strong>
+                            <p>34 Custom Agents + 154 Task Tool Types | MSC-Complete Mathematics</p>
+                        </div>
+                        <div class="arch-layer memory">
+                            <strong>Memory Layer</strong>
+                            <p>sql.js Backend | HNSW Indexing | all-MiniLM-L6-v2 Embeddings | Hyperbolic Space</p>
+                        </div>
+                        <div class="arch-layer foundation">
+                            <strong>Foundation Layer</strong>
+                            <p>Claude Opus 4.5 | 200K Context | Tool Use | Agentic Execution</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-card advanced">
+                    <h2>🧮 Formal Methods Integration</h2>
+                    <p>PostWach is optimized for formal verification workflows central to Dr. Wach's research:</p>
+
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Formalism</th>
+                                <th>Application</th>
+                                <th>Supporting Agents</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>DEVS</strong></td>
+                                <td>Discrete Event System Specification for M&S</td>
+                                <td>proof-constructor, systems-control-theorist</td>
+                            </tr>
+                            <tr>
+                                <td><strong>T3SD</strong></td>
+                                <td>Three-Space Decomposition verification</td>
+                                <td>category-theorist, algebraic-topologist</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Category Theory</strong></td>
+                                <td>Morphism-based system relationships</td>
+                                <td>category-theorist, algebraic-geometer</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Set Theory</strong></td>
+                                <td>Foundational structures and relations</td>
+                                <td>set-theorist, logic-validator</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="content-card advanced">
+                    <h2>📊 Memory System</h2>
+                    <p>PostWach uses a sophisticated semantic memory system:</p>
+                    <ul style="margin: 1rem 0 1rem 2rem;">
+                        <li><strong>HNSW Indexing:</strong> 150x faster similarity search using Hierarchical Navigable Small World graphs</li>
+                        <li><strong>Hyperbolic Embeddings:</strong> Poincaré ball model (c=-1) preserves hierarchical knowledge structures</li>
+                        <li><strong>all-MiniLM-L6-v2:</strong> 384-dimensional embeddings for semantic similarity</li>
+                        <li><strong>sql.js Backend:</strong> Persistent storage via SQLite compiled to WebAssembly</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Expert Level -->
+            <div class="level-content expert">
+                <div class="content-card expert">
+                    <h2>🔬 Technical Specification</h2>
+                    <p>PostWach represents a state-of-the-art integration of large language model capabilities with domain-specific research tooling:</p>
+
+                    <div class="collapsible">
+                        <div class="collapsible-header">
+                            Configuration Details
+                            <span class="collapsible-icon">▼</span>
+                        </div>
+                        <div class="collapsible-content">
+                            <div class="code-block">
+<span class="comment">// claude-flow.config.json (v3.0.0)</span>
+{
+  "version": "3.0.0",
+  "name": "PostWach Research Co-Pilot",
+  "memory": {
+    "backend": "sql.js",
+    "indexing": "hnsw",
+    "embeddingModel": "all-MiniLM-L6-v2",
+    "dimensions": 384,
+    "hyperbolic": { "enabled": true, "curvature": -1 }
+  },
+  "neural": {
+    "enabled": true,
+    "models": ["pattern-recognition", "research-synthesis"]
+  }
+}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="collapsible">
+                        <div class="collapsible-header">
+                            Agent Taxonomy
+                            <span class="collapsible-icon">▼</span>
+                        </div>
+                        <div class="collapsible-content">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Category</th>
+                                        <th>Count</th>
+                                        <th>Examples</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Research Workflow</td>
+                                        <td>6</td>
+                                        <td>literature-reviewer, methodology-advisor, peer-review-responder</td>
+                                    </tr>
+                                    <tr>
+                                        <td>MSC Pure Math</td>
+                                        <td>22</td>
+                                        <td>algebraic-geometer, k-theorist, operator-theorist</td>
+                                    </tr>
+                                    <tr>
+                                        <td>MSC Applied Math</td>
+                                        <td>6</td>
+                                        <td>statistician, game-theorist, mathematical-biologist</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Task Tool (Built-in)</td>
+                                        <td>154</td>
+                                        <td>category-theorist, proof-constructor, set-theorist</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="collapsible">
+                        <div class="collapsible-header">
+                            MSC 2020 Coverage Matrix
+                            <span class="collapsible-icon">▼</span>
+                        </div>
+                        <div class="collapsible-content">
+                            <p>Complete coverage achieved through combination of Task tool agents and custom PostWach agents:</p>
+                            <div class="coverage-bar">
+                                <div class="coverage-fill" style="width: 100%;">100% (63/63 Categories)</div>
+                            </div>
+                            <p style="margin-top: 1rem;"><strong>Coverage Sources:</strong></p>
+                            <ul style="margin: 0.5rem 0 0 2rem;">
+                                <li>35 categories via Task tool built-in agents</li>
+                                <li>28 categories via custom PostWach MSC agents</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-card expert">
+                    <h2>🎯 Research Domain Mapping</h2>
+                    <p>PostWach's capabilities map directly to Dr. Wach's research objectives:</p>
+
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Research Objective</th>
+                                <th>Relevant Agents</th>
+                                <th>Workflows</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>DEVS Formal Verification</strong></td>
+                                <td>proof-constructor, systems-control-theorist (MSC-93), set-theorist, category-theorist</td>
+                                <td>formal-verification.json</td>
+                            </tr>
+                            <tr>
+                                <td><strong>T3SD Morphism Analysis</strong></td>
+                                <td>category-theorist, algebraic-topologist, algebraic-geometer (MSC-14)</td>
+                                <td>formal-verification.json (morphism-analysis step)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>AI4RE Literature Review</strong></td>
+                                <td>literature-reviewer, research-synthesizer, methodology-advisor</td>
+                                <td>literature-review.json</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sociotechnical Analysis</strong></td>
+                                <td>game-theorist (MSC-91), statistician (MSC-62), systems-control-theorist</td>
+                                <td>paper-writing.json</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="content-card expert">
+                    <h2>⚡ Invocation Patterns</h2>
+                    <div class="code-block">
+<span class="comment"># Semantic search across research corpus</span>
+<span class="command">claude-flow memory search</span> -q "DEVS verification morphism"
+
+<span class="comment"># Spawn research agent for literature review</span>
+<span class="command">claude-flow agent spawn</span> -t literature-reviewer
+
+<span class="comment"># Execute formal verification workflow</span>
+<span class="command">claude-flow workflow run</span> -t formal-verification --task "T3SD property verification"
+
+<span class="comment"># Route task to optimal model (haiku/sonnet/opus)</span>
+<span class="command">claude-flow hooks model-route</span> -t "complex proof construction"
+
+<span class="comment"># Initialize hive-mind for parallel research</span>
+<span class="command">claude-flow hive-mind init</span> --topology mesh --workers 4
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CAPABILITIES SECTION -->
+        <div class="section" id="capabilities">
+            <div class="level-content elementary active">
+                <div class="content-card elementary">
+                    <h2>🛠️ What PostWach Can Do For You</h2>
+                    <p>Think of these as superpowers for research:</p>
+
+                    <div style="display: grid; gap: 1rem; margin: 1.5rem 0;">
+                        <div style="background: #f0fff4; padding: 1.5rem; border-radius: 12px;">
+                            <h3 style="color: #22543d;">📖 Read & Understand</h3>
+                            <p>PostWach can read research papers and explain them in simple terms. It remembers what it reads!</p>
+                        </div>
+                        <div style="background: #ebf8ff; padding: 1.5rem; border-radius: 12px;">
+                            <h3 style="color: #2a4365;">🔍 Search & Find</h3>
+                            <p>Instead of keyword searching, PostWach understands what you mean and finds related information.</p>
+                        </div>
+                        <div style="background: #fffaf0; padding: 1.5rem; border-radius: 12px;">
+                            <h3 style="color: #7b341e;">✍️ Write & Edit</h3>
+                            <p>PostWach helps write papers, respond to reviewers, and format documents correctly.</p>
+                        </div>
+                        <div style="background: #faf5ff; padding: 1.5rem; border-radius: 12px;">
+                            <h3 style="color: #44337a;">🧮 Calculate & Verify</h3>
+                            <p>It checks mathematical proofs and makes sure your logic is correct.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="level-content intermediate">
+                <div class="content-card intermediate">
+                    <h2>🎛️ Core Capabilities</h2>
+
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Capability</th>
+                                <th>Description</th>
+                                <th>Use Case</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Semantic Search</strong></td>
+                                <td>Vector-based similarity search using embeddings</td>
+                                <td>Finding related papers by concept, not keywords</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Multi-Agent Orchestration</strong></td>
+                                <td>Coordinate multiple specialized agents in parallel</td>
+                                <td>Complex research tasks requiring diverse expertise</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Workflow Automation</strong></td>
+                                <td>Step-by-step execution of research processes</td>
+                                <td>Systematic literature reviews, paper writing</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Formal Verification</strong></td>
+                                <td>Mathematical proof construction and validation</td>
+                                <td>DEVS model verification, T3SD morphism proofs</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Persistent Memory</strong></td>
+                                <td>Cross-session knowledge retention</td>
+                                <td>Building cumulative research knowledge base</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="level-content advanced">
+                <div class="content-card advanced">
+                    <h2>🔧 Technical Capabilities</h2>
+
+                    <div class="collapsible open">
+                        <div class="collapsible-header">
+                            Memory & Embeddings
+                            <span class="collapsible-icon">▼</span>
+                        </div>
+                        <div class="collapsible-content">
+                            <ul>
+                                <li><strong>HNSW Indexing:</strong> O(log n) approximate nearest neighbor search</li>
+                                <li><strong>Hyperbolic Embeddings:</strong> Better preservation of hierarchical structures</li>
+                                <li><strong>384-dimensional vectors:</strong> Balance of expressiveness and efficiency</li>
+                                <li><strong>sql.js persistence:</strong> SQLite compiled to WASM for browser/Node.js</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="collapsible">
+                        <div class="collapsible-header">
+                            Agent Coordination
+                            <span class="collapsible-icon">▼</span>
+                        </div>
+                        <div class="collapsible-content">
+                            <ul>
+                                <li><strong>Hive-Mind:</strong> Queen-led consensus with worker delegation</li>
+                                <li><strong>Mesh Topology:</strong> Peer-to-peer agent communication</li>
+                                <li><strong>Task Routing:</strong> Intelligent assignment based on agent capabilities</li>
+                                <li><strong>Parallel Execution:</strong> Multiple agents working simultaneously</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="collapsible">
+                        <div class="collapsible-header">
+                            Neural Features
+                            <span class="collapsible-icon">▼</span>
+                        </div>
+                        <div class="collapsible-content">
+                            <ul>
+                                <li><strong>Pattern Recognition:</strong> Learn from successful research patterns</li>
+                                <li><strong>SONA Training:</strong> Sub-0.05ms learning for fast adaptation</li>
+                                <li><strong>Trajectory Evaluation:</strong> Assess and improve reasoning paths</li>
+                                <li><strong>Strategy Optimization:</strong> Refine approaches based on outcomes</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="level-content expert">
+                <div class="content-card expert">
+                    <h2>⚙️ System Specifications</h2>
+
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Component</th>
+                                <th>Specification</th>
+                                <th>Performance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Base Model</td>
+                                <td>Claude Opus 4.5 (claude-opus-4-5-20251101)</td>
+                                <td>200K context, tool use, agentic</td>
+                            </tr>
+                            <tr>
+                                <td>Embedding Model</td>
+                                <td>all-MiniLM-L6-v2</td>
+                                <td>384 dimensions, 22M parameters</td>
+                            </tr>
+                            <tr>
+                                <td>Vector Index</td>
+                                <td>HNSW (M=16, ef=200)</td>
+                                <td>150x speedup vs brute force</td>
+                            </tr>
+                            <tr>
+                                <td>Memory Backend</td>
+                                <td>sql.js (SQLite WASM)</td>
+                                <td>Persistent, cross-session</td>
+                            </tr>
+                            <tr>
+                                <td>Hyperbolic Space</td>
+                                <td>Poincaré Ball (c=-1)</td>
+                                <td>Hierarchical preservation</td>
+                            </tr>
+                            <tr>
+                                <td>MCP Protocol</td>
+                                <td>200+ tools registered</td>
+                                <td>Extensible tool ecosystem</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- AGENTS SECTION -->
+        <div class="section" id="agents">
+            <div class="level-content elementary active">
+                <div class="content-card elementary">
+                    <h2>🤖 Meet the PostWach Team</h2>
+                    <p>PostWach has different "agents" - think of them as specialists who are really good at one thing:</p>
+
+                    <div class="agent-grid">
+                        <div class="agent-card research">
+                            <h4>📚 Literature Reviewer</h4>
+                            <p>Reads lots of papers and tells you what's important</p>
+                        </div>
+                        <div class="agent-card research">
+                            <h4>🔬 Methodology Advisor</h4>
+                            <p>Helps you design good experiments and studies</p>
+                        </div>
+                        <div class="agent-card research">
+                            <h4>✉️ Peer Review Responder</h4>
+                            <p>Helps you answer reviewer comments politely and thoroughly</p>
+                        </div>
+                        <div class="agent-card research">
+                            <h4>🧮 Proof Constructor</h4>
+                            <p>Builds mathematical proofs step by step</p>
+                        </div>
+                        <div class="agent-card research">
+                            <h4>🔗 Research Synthesizer</h4>
+                            <p>Connects ideas from different papers together</p>
+                        </div>
+                        <div class="agent-card research">
+                            <h4>📝 Theorem Documenter</h4>
+                            <p>Writes clear explanations of math concepts</p>
+                        </div>
+                    </div>
+
+                    <p style="margin-top: 1.5rem;">Plus 28 more math specialists covering every area of mathematics!</p>
+                </div>
+            </div>
+
+            <div class="level-content intermediate">
+                <div class="content-card intermediate">
+                    <h2>📋 Agent Categories</h2>
+
+                    <h3 style="margin: 1.5rem 0 1rem; color: var(--success);">Research Workflow Agents (6)</h3>
+                    <div class="agent-grid">
+                        <div class="agent-card research">
+                            <h4>literature-reviewer</h4>
+                            <p>Systematic literature search, source evaluation, gap identification</p>
+                        </div>
+                        <div class="agent-card research">
+                            <h4>methodology-advisor</h4>
+                            <p>Research design, methods selection, rigor assessment</p>
+                        </div>
+                        <div class="agent-card research">
+                            <h4>peer-review-responder</h4>
+                            <p>Response strategy, evidence gathering, revision tracking</p>
+                        </div>
+                        <div class="agent-card research">
+                            <h4>proof-constructor</h4>
+                            <p>Formal proofs, DEVS verification, T3SD morphisms</p>
+                        </div>
+                        <div class="agent-card research">
+                            <h4>research-synthesizer</h4>
+                            <p>Cross-study integration, pattern identification</p>
+                        </div>
+                        <div class="agent-card research">
+                            <h4>theorem-documenter</h4>
+                            <p>Mathematical documentation, proof exposition</p>
+                        </div>
+                    </div>
+
+                    <h3 style="margin: 1.5rem 0 1rem; color: var(--accent);">MSC Mathematics Agents (28)</h3>
+                    <p>Complete coverage of all Mathematics Subject Classification categories not covered by built-in agents.</p>
+                    <div class="agent-grid">
+                        <div class="agent-card msc">
+                            <span class="msc-code">MSC-14</span>
+                            <h4>algebraic-geometer</h4>
+                            <p>Schemes, varieties, sheaf cohomology</p>
+                        </div>
+                        <div class="agent-card msc">
+                            <span class="msc-code">MSC-19</span>
+                            <h4>k-theorist</h4>
+                            <p>Algebraic & topological K-theory, index theory</p>
+                        </div>
+                        <div class="agent-card msc">
+                            <span class="msc-code">MSC-22</span>
+                            <h4>lie-group-theorist</h4>
+                            <p>Lie groups, representations, symmetric spaces</p>
+                        </div>
+                        <div class="agent-card msc">
+                            <span class="msc-code">MSC-47</span>
+                            <h4>operator-theorist</h4>
+                            <p>Spectral theory, C*-algebras, semigroups</p>
+                        </div>
+                        <div class="agent-card msc">
+                            <span class="msc-code">MSC-93</span>
+                            <h4>systems-control-theorist</h4>
+                            <p>Control systems, stability, DEVS-relevant</p>
+                        </div>
+                        <div class="agent-card msc">
+                            <span class="msc-code">MSC-62</span>
+                            <h4>statistician</h4>
+                            <p>Statistical inference, Bayesian methods</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="level-content advanced">
+                <div class="content-card advanced">
+                    <h2>🗂️ Complete Agent Inventory</h2>
+
+                    <h3 style="margin: 1.5rem 0 1rem;">PostWach Custom Agents (34)</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Agent ID</th>
+                                <th>MSC Code</th>
+                                <th>Domain</th>
+                                <th>Key Capabilities</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>literature-reviewer</td><td>-</td><td>Research</td><td>PRISMA, systematic review</td></tr>
+                            <tr><td>methodology-advisor</td><td>-</td><td>Research</td><td>Methods design, rigor</td></tr>
+                            <tr><td>peer-review-responder</td><td>-</td><td>Research</td><td>Response strategy</td></tr>
+                            <tr><td>proof-constructor</td><td>-</td><td>Formal Methods</td><td>DEVS, T3SD proofs</td></tr>
+                            <tr><td>research-synthesizer</td><td>-</td><td>Research</td><td>Cross-study synthesis</td></tr>
+                            <tr><td>theorem-documenter</td><td>-</td><td>Formal Methods</td><td>Math documentation</td></tr>
+                            <tr><td>general-mathematician</td><td>00</td><td>General</td><td>Cross-disciplinary</td></tr>
+                            <tr><td>math-historian</td><td>01</td><td>History</td><td>Historical context</td></tr>
+                            <tr><td>algebraic-geometer</td><td>14</td><td>Algebra</td><td>Schemes, varieties</td></tr>
+                            <tr><td>nonassociative-algebraist</td><td>17</td><td>Algebra</td><td>Lie algebras</td></tr>
+                            <tr><td>k-theorist</td><td>19</td><td>Topology</td><td>K-groups, index</td></tr>
+                            <tr><td>lie-group-theorist</td><td>22</td><td>Groups</td><td>Lie groups, reps</td></tr>
+                            <tr><td>potential-theorist</td><td>31</td><td>Analysis</td><td>Harmonic functions</td></tr>
+                            <tr><td>several-complex-variables-analyst</td><td>32</td><td>Analysis</td><td>Complex manifolds</td></tr>
+                            <tr><td>special-functions-specialist</td><td>33</td><td>Analysis</td><td>Bessel, hypergeometric</td></tr>
+                            <tr><td>difference-equations-specialist</td><td>39</td><td>Analysis</td><td>Recurrences</td></tr>
+                            <tr><td>sequences-series-specialist</td><td>40</td><td>Analysis</td><td>Summability</td></tr>
+                            <tr><td>approximation-theorist</td><td>41</td><td>Analysis</td><td>Splines, wavelets</td></tr>
+                            <tr><td>harmonic-analyst</td><td>42</td><td>Analysis</td><td>Fourier, singular integrals</td></tr>
+                            <tr><td>abstract-harmonic-analyst</td><td>43</td><td>Analysis</td><td>Groups, Fourier algebras</td></tr>
+                            <tr><td>integral-transforms-specialist</td><td>44</td><td>Analysis</td><td>Laplace, Mellin</td></tr>
+                            <tr><td>integral-equations-specialist</td><td>45</td><td>Analysis</td><td>Fredholm, Volterra</td></tr>
+                            <tr><td>operator-theorist</td><td>47</td><td>Analysis</td><td>Spectral, C*-algebras</td></tr>
+                            <tr><td>convex-geometer</td><td>52</td><td>Geometry</td><td>Polytopes, packing</td></tr>
+                            <tr><td>manifold-theorist</td><td>57</td><td>Topology</td><td>Surgery, knots</td></tr>
+                            <tr><td>global-analyst</td><td>58</td><td>Analysis</td><td>Index theory</td></tr>
+                            <tr><td>statistician</td><td>62</td><td>Applied</td><td>Inference, Bayesian</td></tr>
+                            <tr><td>solid-mechanics-specialist</td><td>74</td><td>Applied</td><td>Elasticity, fracture</td></tr>
+                            <tr><td>statistical-mechanics-specialist</td><td>82</td><td>Physics</td><td>Phase transitions</td></tr>
+                            <tr><td>mathematical-astrophysicist</td><td>85</td><td>Physics</td><td>Celestial mechanics</td></tr>
+                            <tr><td>mathematical-geophysicist</td><td>86</td><td>Physics</td><td>Seismology</td></tr>
+                            <tr><td>game-theorist</td><td>91</td><td>Applied</td><td>Mechanism design</td></tr>
+                            <tr><td>mathematical-biologist</td><td>92</td><td>Applied</td><td>Population dynamics</td></tr>
+                            <tr><td>systems-control-theorist</td><td>93</td><td>Applied</td><td>Control, stability, DEVS</td></tr>
+                            <tr><td>information-theorist</td><td>94</td><td>Applied</td><td>Coding, cryptography</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="level-content expert">
+                <div class="content-card expert">
+                    <h2>🔬 Agent Configuration Schema</h2>
+                    <p>Each PostWach agent follows a standardized JSON configuration:</p>
+
+                    <div class="code-block">
+{
+  "id": "systems-control-theorist",
+  "name": "Systems Theory and Control Specialist",
+  "type": "researcher",
+  "domain": "MSC-93",
+  "mscCode": "93-XX",
+  "mscName": "Systems theory; control",
+  "description": "...",
+  "capabilities": [
+    "linear systems theory",
+    "nonlinear control",
+    "optimal control",
+    "stability analysis",
+    "robust control"
+  ],
+  "systemPrompt": "You are an expert in systems theory...",
+  "expertise": [...],
+  "relatedAgents": ["ode-dynamicist", "optimization-specialist"],
+  "t3sdRelevance": "High - directly supports DEVS and MBSE",
+  "createdAt": "2026-01-27T00:00:00.000Z"
+}
+                    </div>
+
+                    <h3 style="margin: 1.5rem 0 1rem;">Task Tool Agent Types (154)</h3>
+                    <p>In addition to custom agents, PostWach has access to all Claude Code Task tool agent types. Key math-related agents include:</p>
+                    <ul style="margin: 1rem 0 1rem 2rem; columns: 3;">
+                        <li>set-theorist</li>
+                        <li>category-theorist</li>
+                        <li>group-theorist</li>
+                        <li>ring-theorist</li>
+                        <li>field-theorist</li>
+                        <li>linear-algebraist</li>
+                        <li>combinatorialist</li>
+                        <li>graph-theorist</li>
+                        <li>number-theorist</li>
+                        <li>real-analyst</li>
+                        <li>complex-analyst</li>
+                        <li>functional-analyst</li>
+                        <li>measure-theorist</li>
+                        <li>ode-dynamicist</li>
+                        <li>pde-specialist</li>
+                        <li>geometer</li>
+                        <li>differential-geometer</li>
+                        <li>general-topologist</li>
+                        <li>algebraic-topologist</li>
+                        <li>probabilist</li>
+                        <li>numerical-analyst</li>
+                        <li>proof-constructor</li>
+                        <li>logic-validator</li>
+                        <li>axiom-architect</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- WORKFLOWS SECTION -->
+        <div class="section" id="workflows">
+            <div class="level-content elementary active">
+                <div class="content-card elementary">
+                    <h2>📋 Research Recipes</h2>
+                    <p>PostWach has "workflows" - step-by-step instructions for common research tasks. It's like having a recipe book for research!</p>
+
+                    <div style="margin: 1.5rem 0;">
+                        <h3 style="color: var(--primary);">📚 Literature Review Workflow</h3>
+                        <div class="workflow-steps">
+                            <div class="workflow-step">
+                                <div class="step-number">1</div>
+                                <strong>Search</strong>
+                                <p>Find papers</p>
+                            </div>
+                            <div class="workflow-step">
+                                <div class="step-number">2</div>
+                                <strong>Screen</strong>
+                                <p>Pick the good ones</p>
+                            </div>
+                            <div class="workflow-step">
+                                <div class="step-number">3</div>
+                                <strong>Read</strong>
+                                <p>Extract key info</p>
+                            </div>
+                            <div class="workflow-step">
+                                <div class="step-number">4</div>
+                                <strong>Summarize</strong>
+                                <p>Write it up</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="level-content intermediate">
+                <div class="content-card intermediate">
+                    <h2>🔄 Available Workflows</h2>
+
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Workflow</th>
+                                <th>Steps</th>
+                                <th>Primary Agents</th>
+                                <th>Use Case</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Systematic Literature Review</strong></td>
+                                <td>6</td>
+                                <td>literature-reviewer, research-synthesizer</td>
+                                <td>AI4RE SLR, background research</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Academic Paper Writing</strong></td>
+                                <td>6</td>
+                                <td>research-synthesizer, methodology-advisor</td>
+                                <td>Journal submissions</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Peer Review Response</strong></td>
+                                <td>6</td>
+                                <td>peer-review-responder, literature-reviewer</td>
+                                <td>Revise & resubmit</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Formal Verification</strong></td>
+                                <td>6</td>
+                                <td>proof-constructor, theorem-documenter</td>
+                                <td>DEVS proofs, T3SD verification</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="level-content advanced">
+                <div class="content-card advanced">
+                    <h2>📐 Formal Verification Workflow</h2>
+                    <p>Specifically designed for Dr. Wach's T3SD and DEVS verification research:</p>
+
+                    <div class="workflow-steps" style="flex-wrap: wrap;">
+                        <div class="workflow-step">
+                            <div class="step-number">1</div>
+                            <strong>Specify Properties</strong>
+                            <p>Define formal notation</p>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-number">2</div>
+                            <strong>Formalize Model</strong>
+                            <p>Create DEVS model</p>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-number">3</div>
+                            <strong>Construct Proofs</strong>
+                            <p>Develop formal proofs</p>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-number">4</div>
+                            <strong>Verify Proofs</strong>
+                            <p>Check correctness</p>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-number">5</div>
+                            <strong>Document</strong>
+                            <p>Create documentation</p>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-number">6</div>
+                            <strong>Morphism Analysis</strong>
+                            <p>T3SD verification</p>
+                        </div>
+                    </div>
+
+                    <div class="code-block" style="margin-top: 1.5rem;">
+<span class="comment"># Execute formal verification workflow</span>
+<span class="command">claude-flow workflow run</span> -t formal-verification \
+  --task "Verify DEVS closure under coupling" \
+  --specialization T3SD
+                    </div>
+                </div>
+            </div>
+
+            <div class="level-content expert">
+                <div class="content-card expert">
+                    <h2>⚙️ Workflow Configuration</h2>
+
+                    <div class="code-block">
+<span class="comment">// formal-verification.json</span>
+{
+  "id": "formal-verification-workflow",
+  "name": "Formal Verification",
+  "type": "formal-methods",
+  "steps": [
+    {
+      "id": "specify-properties",
+      "agent": "proof-constructor",
+      "inputs": ["system_description", "requirements"],
+      "outputs": ["formal_properties"]
+    },
+    {
+      "id": "formalize-model",
+      "agent": "proof-constructor",
+      "inputs": ["system_description", "formal_properties"],
+      "outputs": ["formal_model"]
+    },
+    {
+      "id": "construct-proofs",
+      "agent": "proof-constructor",
+      "inputs": ["formal_model", "formal_properties"],
+      "outputs": ["proof_sketches"]
+    },
+    {
+      "id": "morphism-analysis",
+      "agent": "proof-constructor",
+      "inputs": ["formal_model", "related_models"],
+      "outputs": ["morphism_proofs"],
+      "optional": true
+    }
+  ],
+  "metadata": {
+    "formalisms": ["DEVS", "Set Theory", "Category Theory"],
+    "verificationTypes": ["property", "refinement", "morphism"]
+  },
+  "specializations": {
+    "T3SD": {
+      "description": "Three-Space Decomposition verification",
+      "additionalSteps": ["morphism-analysis"]
+    }
+  }
+}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RESEARCH INTEGRATION SECTION -->
+        <div class="section" id="research">
+            <div class="level-content elementary active">
+                <div class="content-card elementary">
+                    <h2>🎓 How PostWach Helps Your Research</h2>
+
+                    <div class="research-integration">
+                        <div class="integration-card se">
+                            <div class="integration-icon">⚙️</div>
+                            <h3>Building Better Systems</h3>
+                            <p>PostWach helps check that complex systems (like aircraft or hospitals) are designed correctly using math.</p>
+                        </div>
+                        <div class="integration-card ai">
+                            <div class="integration-icon">🧠</div>
+                            <h3>Smarter AI Tools</h3>
+                            <p>PostWach IS an AI tool that helps study how AI can make engineering better.</p>
+                        </div>
+                        <div class="integration-card st">
+                            <div class="integration-icon">🌐</div>
+                            <h3>People + Technology</h3>
+                            <p>PostWach helps study how new tools change the way people work together.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="level-content intermediate">
+                <div class="content-card intermediate">
+                    <h2>🔗 Research Domain Connections</h2>
+
+                    <h3 style="margin: 1.5rem 0 1rem; color: #3182ce;">Systems Engineering Foundations</h3>
+                    <ul style="margin: 0 0 1rem 2rem;">
+                        <li><strong>DEVS Formalism:</strong> Discrete Event System Specification for rigorous M&S</li>
+                        <li><strong>T3SD Framework:</strong> Three-Space Decomposition for verification</li>
+                        <li><strong>MBSE:</strong> Model-Based Systems Engineering practices</li>
+                        <li><strong>Relevant Agents:</strong> proof-constructor, systems-control-theorist, category-theorist</li>
+                    </ul>
+
+                    <h3 style="margin: 1.5rem 0 1rem; color: #38a169;">Artificial Intelligence</h3>
+                    <ul style="margin: 0 0 1rem 2rem;">
+                        <li><strong>AI4RE:</strong> AI for Requirements Engineering (ongoing SLR)</li>
+                        <li><strong>LLM Integration:</strong> Using language models for engineering tasks</li>
+                        <li><strong>Semantic Search:</strong> Meaning-based information retrieval</li>
+                        <li><strong>Relevant Agents:</strong> literature-reviewer, research-synthesizer</li>
+                    </ul>
+
+                    <h3 style="margin: 1.5rem 0 1rem; color: #805ad5;">Sociotechnical Transformation</h3>
+                    <ul style="margin: 0 0 1rem 2rem;">
+                        <li><strong>Human-AI Collaboration:</strong> How engineers work with AI tools</li>
+                        <li><strong>Technology Adoption:</strong> Organizational change with new tools</li>
+                        <li><strong>Relevant Agents:</strong> game-theorist, statistician, methodology-advisor</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="level-content advanced">
+                <div class="content-card advanced">
+                    <h2>📊 Project Integration</h2>
+
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Project</th>
+                                <th>Type</th>
+                                <th>PostWach Role</th>
+                                <th>Key Workflows</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>AI4RE_SLR</strong></td>
+                                <td>Systematic Literature Review</td>
+                                <td>Literature search, synthesis, gap analysis</td>
+                                <td>literature-review.json</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Dissertation_Journal</strong></td>
+                                <td>Publication</td>
+                                <td>Paper writing, peer review response</td>
+                                <td>paper-writing.json, peer-review-response.json</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Neuro_Symbolic_Wargaming</strong></td>
+                                <td>Research</td>
+                                <td>Formal methods, game theory analysis</td>
+                                <td>formal-verification.json</td>
+                            </tr>
+                            <tr>
+                                <td><strong>AI_Investing_Platform</strong></td>
+                                <td>Applied Research</td>
+                                <td>Statistical analysis, system design</td>
+                                <td>paper-writing.json</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="level-content expert">
+                <div class="content-card expert">
+                    <h2>🔬 Research Methodology Support</h2>
+
+                    <h3 style="margin: 1.5rem 0 1rem;">Formal Methods Stack</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Layer</th>
+                                <th>Formalism</th>
+                                <th>PostWach Support</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Foundation</td>
+                                <td>Set Theory, First-Order Logic</td>
+                                <td>set-theorist, general-logician, logic-validator</td>
+                            </tr>
+                            <tr>
+                                <td>Structure</td>
+                                <td>Category Theory, Universal Algebra</td>
+                                <td>category-theorist, universal-algebraist</td>
+                            </tr>
+                            <tr>
+                                <td>Dynamics</td>
+                                <td>DEVS, Dynamical Systems</td>
+                                <td>systems-control-theorist, ode-dynamicist</td>
+                            </tr>
+                            <tr>
+                                <td>Verification</td>
+                                <td>T3SD, Morphism Proofs</td>
+                                <td>proof-constructor, algebraic-topologist</td>
+                            </tr>
+                            <tr>
+                                <td>Application</td>
+                                <td>MBSE, SysML</td>
+                                <td>methodology-advisor, research-synthesizer</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3 style="margin: 1.5rem 0 1rem;">T3SD Verification Pipeline</h3>
+                    <div class="code-block">
+<span class="comment"># Three-Space Decomposition verification process</span>
+
+<span class="comment"># 1. Problem Space formalization</span>
+<span class="command">claude-flow agent spawn</span> -t set-theorist \
+  --task "Formalize requirements as set-theoretic structures"
+
+<span class="comment"># 2. Solution Space modeling</span>
+<span class="command">claude-flow agent spawn</span> -t systems-control-theorist \
+  --task "Create DEVS model of system behavior"
+
+<span class="comment"># 3. Verification Space morphisms</span>
+<span class="command">claude-flow agent spawn</span> -t category-theorist \
+  --task "Verify morphisms between problem and solution spaces"
+
+<span class="comment"># 4. Formal proof construction</span>
+<span class="command">claude-flow workflow run</span> -t formal-verification \
+  --specialization T3SD
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ARCHITECTURE SECTION -->
+        <div class="section" id="architecture">
+            <div class="level-content elementary active">
+                <div class="content-card elementary">
+                    <h2>🏗️ How PostWach is Built</h2>
+                    <p>Think of PostWach like a building with different floors:</p>
+
+                    <div class="architecture">
+                        <div class="arch-layers">
+                            <div class="arch-layer user">
+                                <strong>🖥️ Top Floor: You!</strong>
+                                <p>Where you type questions and get answers</p>
+                            </div>
+                            <div class="arch-layer orchestration">
+                                <strong>🎯 Manager Floor</strong>
+                                <p>Decides which helpers to use for your question</p>
+                            </div>
+                            <div class="arch-layer agents">
+                                <strong>👥 Helper Floor</strong>
+                                <p>34 specialized research helpers ready to work</p>
+                            </div>
+                            <div class="arch-layer memory">
+                                <strong>🧠 Memory Floor</strong>
+                                <p>Remembers everything from past conversations</p>
+                            </div>
+                            <div class="arch-layer foundation">
+                                <strong>🤖 Brain Floor</strong>
+                                <p>The smart AI (Claude) that powers everything</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="level-content intermediate">
+                <div class="content-card intermediate">
+                    <h2>🏛️ System Architecture</h2>
+
+                    <div class="architecture">
+                        <div class="arch-layers">
+                            <div class="arch-layer user">
+                                <strong>Interface Layer</strong>
+                                <p>Claude Code CLI | MCP Protocol | 200+ Tools</p>
+                            </div>
+                            <div class="arch-layer orchestration">
+                                <strong>Orchestration Layer</strong>
+                                <p>claude-flow v3.0.0 | Hive-Mind | Task Routing | Model Selection</p>
+                            </div>
+                            <div class="arch-layer agents">
+                                <strong>Agent Layer</strong>
+                                <p>34 Custom Research Agents | 154 Task Tool Types | MSC Complete</p>
+                            </div>
+                            <div class="arch-layer memory">
+                                <strong>Memory Layer</strong>
+                                <p>sql.js | HNSW Indexing | Hyperbolic Embeddings | 384-dim Vectors</p>
+                            </div>
+                            <div class="arch-layer foundation">
+                                <strong>Foundation Layer</strong>
+                                <p>Claude Opus 4.5 | 200K Context | Tool Use | Agentic Execution</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="level-content advanced">
+                <div class="content-card advanced">
+                    <h2>⚡ Technical Architecture</h2>
+
+                    <h3 style="margin: 1rem 0;">Component Diagram</h3>
+                    <div class="code-block">
+┌─────────────────────────────────────────────────────────────────┐
+│                        USER INTERFACE                            │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────────────┐  │
+│  │ Claude Code  │  │  MCP Tools   │  │   Workflow CLI       │  │
+│  │     CLI      │  │   (200+)     │  │                      │  │
+│  └──────────────┘  └──────────────┘  └──────────────────────┘  │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                      ORCHESTRATION                               │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────────────┐  │
+│  │  Hive-Mind   │  │ Task Router  │  │   Model Selector     │  │
+│  │   (Queen)    │  │              │  │  (haiku/sonnet/opus) │  │
+│  └──────────────┘  └──────────────┘  └──────────────────────┘  │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                         AGENTS                                   │
+│  ┌─────────────────────────┐  ┌─────────────────────────────┐  │
+│  │   PostWach Custom (34)  │  │   Task Tool Types (154)     │  │
+│  │  • Research Workflow    │  │  • Mathematics (44)         │  │
+│  │  • MSC Mathematics      │  │  • Philosophy (12)          │  │
+│  │                         │  │  • Development (20+)        │  │
+│  └─────────────────────────┘  └─────────────────────────────┘  │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                         MEMORY                                   │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────────────┐  │
+│  │   sql.js     │  │    HNSW      │  │   Hyperbolic Space   │  │
+│  │  (SQLite)    │  │   Index      │  │   (Poincaré c=-1)    │  │
+│  └──────────────┘  └──────────────┘  └──────────────────────┘  │
+│  ┌─────────────────────────────────────────────────────────┐   │
+│  │          all-MiniLM-L6-v2 Embeddings (384-dim)          │   │
+│  └─────────────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                       FOUNDATION                                 │
+│  ┌─────────────────────────────────────────────────────────┐   │
+│  │              Claude Opus 4.5 (claude-opus-4-5)          │   │
+│  │         200K context | Tool use | Agentic execution     │   │
+│  └─────────────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────────────┘
+                    </div>
+                </div>
+            </div>
+
+            <div class="level-content expert">
+                <div class="content-card expert">
+                    <h2>🔧 Configuration Files</h2>
+
+                    <div class="collapsible open">
+                        <div class="collapsible-header">
+                            claude-flow.config.json
+                            <span class="collapsible-icon">▼</span>
+                        </div>
+                        <div class="collapsible-content">
+                            <div class="code-block">
+{
+  "version": "3.0.0",
+  "name": "PostWach Research Co-Pilot",
+  "memory": {
+    "backend": "sql.js",
+    "indexing": "hnsw",
+    "embeddingModel": "all-MiniLM-L6-v2",
+    "dimensions": 384,
+    "hyperbolic": {
+      "enabled": true,
+      "curvature": -1,
+      "model": "poincare"
+    }
+  },
+  "neural": {
+    "enabled": true,
+    "pretrainPath": "./Papers",
+    "patterns": 30,
+    "strategies": 16
+  },
+  "research": {
+    "enabled": true,
+    "papersPath": "./Papers",
+    "backgroundDocs": "./Background docs",
+    "projects": [
+      "AI4RE_SLR",
+      "Dissertation_Journal",
+      "Neuro_Symbolic_Wargaming"
+    ]
+  },
+  "hooks": {
+    "modelRouting": true,
+    "autoFormat": true,
+    "tokenTracking": true
+  }
+}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="collapsible">
+                        <div class="collapsible-header">
+                            .mcp.json
+                            <span class="collapsible-icon">▼</span>
+                        </div>
+                        <div class="collapsible-content">
+                            <div class="code-block">
+{
+  "mcpServers": {
+    "claude-flow": {
+      "type": "stdio",
+      "command": "claude-flow",
+      "args": ["mcp", "start"]
+    },
+    "ruv-swarm": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["ruv-swarm", "mcp", "start"]
+    },
+    "flow-nexus": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["flow-nexus@latest", "mcp", "start"]
+    }
+  }
+}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="collapsible">
+                        <div class="collapsible-header">
+                            Directory Structure
+                            <span class="collapsible-icon">▼</span>
+                        </div>
+                        <div class="collapsible-content">
+                            <div class="code-block">
+PostDoc/
+├── .claude-flow/
+│   ├── research-agents/          # 34 custom agents
+│   │   ├── literature-reviewer.json
+│   │   ├── msc-*.json           # 28 MSC agents
+│   │   └── ...
+│   ├── workflows/
+│   │   └── templates/           # 4 workflow templates
+│   ├── embeddings.json
+│   └── neural/
+├── docs/
+│   ├── postwach_complete_v2.html
+│   └── MSC_Coverage_Analysis.md
+├── Papers/
+│   ├── AI4RE_SLR/
+│   ├── Dissertation_Journal/
+│   └── Neuro_Symbolic_Wargaming/
+├── Background docs/
+├── claude-flow.config.json      # v3.0.0
+└── .mcp.json
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p><strong>PostWach Research Co-Pilot</strong> | v3.0.0 | 100% MSC Coverage</p>
+        <p>Built on <a href="https://github.com/ruvnet/claude-flow">claude-flow</a> | Powered by Claude Opus 4.5</p>
+        <p style="margin-top: 1rem; opacity: 0.8;">Dr. Wach's Research: Systems Engineering Foundations | Artificial Intelligence | Sociotechnical Transformation</p>
+        <p style="margin-top: 0.5rem; opacity: 0.6;">January 27, 2026</p>
+    </footer>
+
+    <script>
+        // Navigation
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const sectionId = btn.dataset.section;
+                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+                document.getElementById(sectionId).classList.add('active');
+            });
+        });
+
+        // Level selector
+        document.querySelectorAll('.level-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const level = btn.dataset.level;
+                document.querySelectorAll('.level-content').forEach(c => c.classList.remove('active'));
+                document.querySelectorAll(`.level-content.${level}`).forEach(c => c.classList.add('active'));
+            });
+        });
+
+        // Collapsibles
+        document.querySelectorAll('.collapsible-header').forEach(header => {
+            header.addEventListener('click', () => {
+                header.parentElement.classList.toggle('open');
+            });
+        });
+
+        // Animate coverage bar on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const fill = entry.target.querySelector('.coverage-fill');
+                    if (fill) {
+                        fill.style.width = '100%';
+                    }
+                }
+            });
+        });
+
+        document.querySelectorAll('.coverage-bar').forEach(bar => {
+            observer.observe(bar);
+        });
+    </script>
+</body>
+</html>
