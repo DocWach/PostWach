@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PostWach - Research Co-Pilot</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
+            --success: #10b981;
+            --success-light: #34d399;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --bg-dark: #0f172a;
+            --bg-darker: #020617;
+            --bg-card: #1e293b;
+            --bg-card-hover: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border: #334155;
+            --gradient-1: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+            --gradient-2: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg-darker);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: var(--gradient-1);
+            border-radius: 1.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.95;
+            margin-bottom: 1rem;
+        }
+
+        .hero .tagline {
+            font-size: 1.1rem;
+            opacity: 0.85;
+            max-width: 600px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .badge-row {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+        }
+
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--success-light);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+
+        /* Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            background: var(--bg-card);
+            padding: 0.5rem;
+            border-radius: 1rem;
+        }
+
+        .nav-tab {
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .nav-tab:hover {
+            color: var(--text-primary);
+            background: var(--bg-card-hover);
+        }
+
+        .nav-tab.active {
+            color: white;
+            background: var(--primary);
+        }
+
+        /* Sections */
+        .section {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
+        }
+
+        .card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.15);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        /* Explanation Levels */
+        .level-selector {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .level-btn {
+            padding: 0.5rem 1.25rem;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-radius: 2rem;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .level-btn:hover {
+            border-color: var(--primary);
+            color: var(--text-primary);
+        }
+
+        .level-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .explanation {
+            display: none;
+        }
+
+        .explanation.active {
+            display: block;
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        /* Stats */
+        .stat-card {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--bg-dark);
+            border-radius: 0.75rem;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Progress Bars */
+        .progress-container {
+            margin-bottom: 1rem;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--bg-dark);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        .progress-fill.green { background: var(--success); }
+        .progress-fill.blue { background: var(--info); }
+        .progress-fill.purple { background: var(--primary); }
+        .progress-fill.orange { background: var(--warning); }
+
+        /* Agent Cards */
+        .agent-card {
+            background: var(--bg-dark);
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            border-left: 4px solid var(--primary);
+        }
+
+        .agent-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .agent-type {
+            font-size: 0.75rem;
+            color: var(--primary-light);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .agent-desc {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        /* Workflow Timeline */
+        .workflow-timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .workflow-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0.5rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+
+        .workflow-step {
+            position: relative;
+            padding: 1rem;
+            background: var(--bg-dark);
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .workflow-step::before {
+            content: '';
+            position: absolute;
+            left: -1.75rem;
+            top: 1.25rem;
+            width: 12px;
+            height: 12px;
+            background: var(--primary);
+            border-radius: 50%;
+            border: 2px solid var(--bg-card);
+        }
+
+        .step-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .step-agent {
+            font-size: 0.75rem;
+            color: var(--primary-light);
+        }
+
+        /* Code Blocks */
+        .code-block {
+            background: var(--bg-darker);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 0.875rem;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+        }
+
+        .code-block .comment {
+            color: var(--text-muted);
+        }
+
+        .code-block .command {
+            color: var(--success-light);
+        }
+
+        /* Architecture Diagram */
+        .architecture {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            padding: 2rem;
+            background: var(--bg-dark);
+            border-radius: 1rem;
+        }
+
+        .arch-layer {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .arch-box {
+            padding: 1rem 1.5rem;
+            background: var(--bg-card);
+            border-radius: 0.5rem;
+            border: 2px solid var(--border);
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .arch-box.primary {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .arch-box.success {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .arch-connector {
+            width: 2px;
+            height: 30px;
+            background: var(--border);
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comparison-table th {
+            background: var(--bg-dark);
+            font-weight: 600;
+        }
+
+        .comparison-table tr:hover td {
+            background: var(--bg-card-hover);
+        }
+
+        /* Tooltips */
+        .tooltip {
+            position: relative;
+            cursor: help;
+            border-bottom: 1px dotted var(--text-secondary);
+        }
+
+        .tooltip:hover::after {
+            content: attr(data-tip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-darker);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            white-space: nowrap;
+            z-index: 100;
+            border: 1px solid var(--border);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            border-top: 1px solid var(--border);
+            margin-top: 3rem;
+        }
+
+        /* Emoji Icons */
+        .icon {
+            font-size: 1.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .nav-tabs {
+                flex-direction: column;
+            }
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Section -->
+        <header class="hero">
+            <div class="hero-content">
+                <h1>PostWach</h1>
+                <p class="subtitle">Research Co-Pilot for Dr. Wach</p>
+                <p class="tagline">An AI-powered research assistant built on Claude Flow, specializing in systems engineering, formal methods, and academic workflows.</p>
+                <div class="badge-row">
+                    <span class="badge"><span class="badge-dot"></span> claude-flow v3.0.0</span>
+                    <span class="badge">&#x1F9E0; 6 Research Agents</span>
+                    <span class="badge">&#x1F4CA; 4 Workflow Templates</span>
+                    <span class="badge">&#x2728; 95% Capability</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav-tabs">
+            <button class="nav-tab active" onclick="showSection('what')">What is PostWach?</button>
+            <button class="nav-tab" onclick="showSection('status')">Current Status</button>
+            <button class="nav-tab" onclick="showSection('agents')">Research Agents</button>
+            <button class="nav-tab" onclick="showSection('workflows')">Workflows</button>
+            <button class="nav-tab" onclick="showSection('architecture')">Architecture</button>
+            <button class="nav-tab" onclick="showSection('usage')">How to Use</button>
+        </nav>
+
+        <!-- What is PostWach Section -->
+        <section id="what" class="section active">
+            <h2 class="section-title"><span class="icon">&#x1F4DA;</span> What is PostWach?</h2>
+
+            <div class="level-selector">
+                <button class="level-btn active" onclick="showLevel('elementary')">&#x1F476; Elementary</button>
+                <button class="level-btn" onclick="showLevel('intermediate')">&#x1F393; Intermediate</button>
+                <button class="level-btn" onclick="showLevel('advanced')">&#x1F9D1;&#x200D;&#x1F4BB; Advanced</button>
+                <button class="level-btn" onclick="showLevel('expert')">&#x1F9D9; Expert</button>
+            </div>
+
+            <!-- Elementary Level -->
+            <div id="elementary" class="explanation active">
+                <div class="card">
+                    <h3 class="card-title">&#x1F31F; PostWach is Like a Super-Smart Research Helper!</h3>
+                    <p style="font-size: 1.1rem; margin-bottom: 1rem;">
+                        Imagine you have a team of really smart friends who can help you with different things:
+                    </p>
+                    <div class="grid-3">
+                        <div class="stat-card">
+                            <div style="font-size: 3rem;">&#x1F4D6;</div>
+                            <p><strong>The Librarian</strong></p>
+                            <p style="font-size: 0.875rem; color: var(--text-secondary);">Finds and reads lots of books and papers for you</p>
+                        </div>
+                        <div class="stat-card">
+                            <div style="font-size: 3rem;">&#x1F9EE;</div>
+                            <p><strong>The Math Wizard</strong></p>
+                            <p style="font-size: 0.875rem; color: var(--text-secondary);">Helps prove that math problems are correct</p>
+                        </div>
+                        <div class="stat-card">
+                            <div style="font-size: 3rem;">&#x270D;&#xFE0F;</div>
+                            <p><strong>The Writer</strong></p>
+                            <p style="font-size: 0.875rem; color: var(--text-secondary);">Helps write papers and answer questions</p>
+                        </div>
+                    </div>
+                    <p style="margin-top: 1.5rem; font-size: 1.1rem;">
+                        <strong>PostWach</strong> is a computer program that has all these helpers working together! It's named after Dr. <strong>Wach</strong> (rhymes with "Doc") because it's his special research helper.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Intermediate Level -->
+            <div id="intermediate" class="explanation">
+                <div class="card">
+                    <h3 class="card-title">&#x1F393; PostWach: Your AI Research Assistant</h3>
+                    <p style="margin-bottom: 1rem;">
+                        PostWach is an AI-powered research co-pilot designed for academic researchers. It combines multiple specialized AI agents that work together to help with different research tasks.
+                    </p>
+
+                    <h4 style="margin: 1rem 0 0.5rem;">Key Capabilities:</h4>
+                    <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                        <li><strong>Literature Review:</strong> Automatically finds, reads, and summarizes academic papers</li>
+                        <li><strong>Writing Assistance:</strong> Helps draft papers, respond to reviewers, and document research</li>
+                        <li><strong>Formal Methods:</strong> Constructs mathematical proofs and verifies system models</li>
+                        <li><strong>Project Management:</strong> Tracks tasks, workflows, and research progress</li>
+                    </ul>
+
+                    <h4 style="margin: 1rem 0 0.5rem;">Why "PostWach"?</h4>
+                    <p>
+                        The name is a play on words: <strong>Post</strong> (postdoctoral research) + <strong>Wach</strong> (Dr. Wach's last name, pronounced like "Doc"). It's a personalized research co-pilot tailored for systems engineering and formal methods research.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Advanced Level -->
+            <div id="advanced" class="explanation">
+                <div class="card">
+                    <h3 class="card-title">&#x1F9D1;&#x200D;&#x1F4BB; PostWach: Multi-Agent Research Orchestration Platform</h3>
+                    <p style="margin-bottom: 1rem;">
+                        PostWach is a specialized configuration of Claude Flow v3.0.0-alpha.185, implementing a multi-agent orchestration system optimized for academic research in systems engineering and formal methods.
+                    </p>
+
+                    <h4 style="margin: 1rem 0 0.5rem;">Technical Components:</h4>
+                    <div class="grid-2">
+                        <div class="agent-card">
+                            <div class="agent-name">Hive-Mind Coordination</div>
+                            <div class="agent-type">Queen + Worker Topology</div>
+                            <div class="agent-desc">Mesh-based multi-agent coordination with consensus algorithms for distributed task execution.</div>
+                        </div>
+                        <div class="agent-card">
+                            <div class="agent-name">HNSW Vector Search</div>
+                            <div class="agent-type">150x Faster Semantic Search</div>
+                            <div class="agent-desc">Hierarchical Navigable Small World graphs for efficient similarity search across research corpus.</div>
+                        </div>
+                        <div class="agent-card">
+                            <div class="agent-name">Hyperbolic Embeddings</div>
+                            <div class="agent-type">Poincare Ball Model</div>
+                            <div class="agent-desc">Non-Euclidean embedding space preserving hierarchical relationships in knowledge graphs.</div>
+                        </div>
+                        <div class="agent-card">
+                            <div class="agent-name">SONA Intelligence</div>
+                            <div class="agent-type">Sub-0.05ms Learning</div>
+                            <div class="agent-desc">Pattern extraction, trajectory evaluation, and strategy distillation for continuous improvement.</div>
+                        </div>
+                    </div>
+
+                    <h4 style="margin: 1.5rem 0 0.5rem;">Specialized Research Agents:</h4>
+                    <p>Six domain-specific agents trained on research patterns:</p>
+                    <ul style="margin-left: 1.5rem;">
+                        <li><code>literature-reviewer</code> - SLR protocol, citation management, gap analysis</li>
+                        <li><code>methodology-advisor</code> - Research design, validity assessment, statistical guidance</li>
+                        <li><code>peer-review-responder</code> - Reviewer feedback analysis, response drafting</li>
+                        <li><code>proof-constructor</code> - DEVS formalism, set theory, category theory proofs</li>
+                        <li><code>research-synthesizer</code> - Cross-project integration, pattern recognition</li>
+                        <li><code>theorem-documenter</code> - LaTeX formatting, proof documentation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Expert Level -->
+            <div id="expert" class="explanation">
+                <div class="card">
+                    <h3 class="card-title">&#x1F9D9; PostWach: Domain-Driven Research Intelligence Architecture</h3>
+
+                    <p style="margin-bottom: 1rem;">
+                        PostWach implements a Domain-Driven Design (DDD) architecture leveraging Claude Flow's event-sourced state management and AgentDB for high-performance vector operations. The system is optimized for T3SD (Three-Space Decomposition) formal verification workflows.
+                    </p>
+
+                    <h4 style="margin: 1rem 0 0.5rem;">Core Architecture:</h4>
+                    <div class="code-block">
+<span class="comment">// PostWach Configuration Schema (v3.0.0)</span>
+{
+  "memory": {
+    "backend": "sql.js",           <span class="comment">// SQLite WASM for persistence</span>
+    "indexing": "hnsw",            <span class="comment">// Hierarchical Navigable Small World</span>
+    "embeddingModel": "all-MiniLM-L6-v2",  <span class="comment">// 384-dim sentence embeddings</span>
+    "hyperbolic": { "enabled": true, "curvature": -1.0 }  <span class="comment">// Poincare ball</span>
+  },
+  "neural": {
+    "flashAttention": true,        <span class="comment">// 2.49x-7.47x speedup</span>
+    "quantization": "int8",        <span class="comment">// 4x memory reduction</span>
+    "patternLearning": true        <span class="comment">// MicroLoRA fine-tuning</span>
+  }
+}
+                    </div>
+
+                    <h4 style="margin: 1.5rem 0 0.5rem;">Research Domain Integration:</h4>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Domain</th>
+                                <th>Agents</th>
+                                <th>Formalisms</th>
+                                <th>Workflows</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Systems Engineering</td>
+                                <td>methodology-advisor, research-synthesizer</td>
+                                <td>MBSE, SysML</td>
+                                <td>literature-review, paper-writing</td>
+                            </tr>
+                            <tr>
+                                <td>Formal Methods</td>
+                                <td>proof-constructor, theorem-documenter</td>
+                                <td>DEVS, Set Theory, Category Theory</td>
+                                <td>formal-verification</td>
+                            </tr>
+                            <tr>
+                                <td>Academic Publishing</td>
+                                <td>literature-reviewer, peer-review-responder</td>
+                                <td>PRISMA, IEEE</td>
+                                <td>peer-review-response</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4 style="margin: 1.5rem 0 0.5rem;">T3SD Verification Stack:</h4>
+                    <p>PostWach is specifically designed to support Dr. Wach's T3SD (Three-Space Decomposition) research:</p>
+                    <ul style="margin-left: 1.5rem;">
+                        <li><strong>Problem Space:</strong> Requirements formalization using set-theoretic constructs</li>
+                        <li><strong>Solution Space:</strong> DEVS model construction and composition</li>
+                        <li><strong>Verification Space:</strong> Morphism proofs between system representations</li>
+                    </ul>
+
+                    <div class="code-block" style="margin-top: 1rem;">
+<span class="comment"># Expert CLI Usage</span>
+<span class="command">$ claude-flow embeddings search -q "DEVS morphism verification T3SD"</span>
+<span class="command">$ claude-flow agent spawn -t proof-constructor --config ./research-agents/proof-constructor.json</span>
+<span class="command">$ claude-flow workflow run -t formal-verification --task "Verify PSF to System Model morphism"</span>
+<span class="command">$ claude-flow hooks model-route -t "Construct category-theoretic proof" --explain</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Current Status Section -->
+        <section id="status" class="section">
+            <h2 class="section-title"><span class="icon">&#x1F4CA;</span> Current Status</h2>
+
+            <div class="grid-4">
+                <div class="stat-card">
+                    <div class="stat-value">95%</div>
+                    <div class="stat-label">Overall Capability</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">6</div>
+                    <div class="stat-label">Research Agents</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">4</div>
+                    <div class="stat-label">Workflow Templates</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">84</div>
+                    <div class="stat-label">Files Indexed</div>
+                </div>
+            </div>
+
+            <div class="grid-2" style="margin-top: 1.5rem;">
+                <div class="card">
+                    <h3 class="card-title">System Health</h3>
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Configuration</span>
+                            <span>100%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill green" style="width: 100%;"></div>
+                        </div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Hive-Mind</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill blue" style="width: 75%;"></div>
+                        </div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Neural Training</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill purple" style="width: 95%;"></div>
+                        </div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Embeddings</span>
+                            <span>100%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill green" style="width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Intelligence Training</h3>
+                    <div class="grid-2">
+                        <div class="stat-card">
+                            <div class="stat-value" style="font-size: 1.75rem;">30</div>
+                            <div class="stat-label">Patterns Extracted</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" style="font-size: 1.75rem;">16</div>
+                            <div class="stat-label">Strategies Learned</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" style="font-size: 1.75rem;">46</div>
+                            <div class="stat-label">Trajectories</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" style="font-size: 1.75rem;">85.4%</div>
+                            <div class="stat-label">Neural Accuracy</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">Research Projects</h3>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Project</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>AI4RE_SLR</td>
+                            <td>Systematic Literature Review</td>
+                            <td><span style="color: var(--success);">&#x2714; Indexed</span></td>
+                        </tr>
+                        <tr>
+                            <td>AI_Investing_Platform</td>
+                            <td>Applied Research</td>
+                            <td><span style="color: var(--success);">&#x2714; Indexed</span></td>
+                        </tr>
+                        <tr>
+                            <td>Dissertation_Journal</td>
+                            <td>Publication</td>
+                            <td><span style="color: var(--success);">&#x2714; Indexed</span></td>
+                        </tr>
+                        <tr>
+                            <td>Neuro_Symbolic_Wargaming</td>
+                            <td>Research</td>
+                            <td><span style="color: var(--success);">&#x2714; Indexed</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Research Agents Section -->
+        <section id="agents" class="section">
+            <h2 class="section-title"><span class="icon">&#x1F916;</span> Research Agents</h2>
+
+            <div class="grid-2">
+                <div class="card">
+                    <div class="agent-card" style="border-color: var(--info);">
+                        <div class="agent-name">&#x1F4DA; Literature Reviewer</div>
+                        <div class="agent-type">Researcher</div>
+                        <div class="agent-desc">Systematically analyzes academic sources, extracts key findings, identifies research gaps, and synthesizes literature into coherent narratives. Follows PRISMA guidelines.</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="agent-card" style="border-color: var(--success);">
+                        <div class="agent-name">&#x1F3AF; Methodology Advisor</div>
+                        <div class="agent-type">Analyst</div>
+                        <div class="agent-desc">Expert in research design including Design Science Research, experiments, case studies, and formal verification methods. Ensures methodological rigor.</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="agent-card" style="border-color: var(--warning);">
+                        <div class="agent-name">&#x1F4DD; Peer Review Responder</div>
+                        <div class="agent-type">Writer</div>
+                        <div class="agent-desc">Analyzes reviewer feedback, categorizes comments, drafts professional responses, and tracks manuscript revisions for successful publication.</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="agent-card" style="border-color: var(--danger);">
+                        <div class="agent-name">&#x1F9EE; Proof Constructor</div>
+                        <div class="agent-type">Formal Methods</div>
+                        <div class="agent-desc">Constructs formal proofs using DEVS formalism, set theory, and category theory. Specializes in T3SD morphism verification.</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="agent-card" style="border-color: var(--primary);">
+                        <div class="agent-name">&#x1F517; Research Synthesizer</div>
+                        <div class="agent-type">Coordinator</div>
+                        <div class="agent-desc">Integrates findings across multiple research projects, identifies emergent patterns, and builds cumulative understanding of the research portfolio.</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="agent-card" style="border-color: #ec4899;">
+                        <div class="agent-name">&#x1F4C4; Theorem Documenter</div>
+                        <div class="agent-type">Writer</div>
+                        <div class="agent-desc">Creates comprehensive documentation for mathematical theorems and proofs. Formats in LaTeX with proper notation and pedagogical explanations.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Workflows Section -->
+        <section id="workflows" class="section">
+            <h2 class="section-title"><span class="icon">&#x1F504;</span> Research Workflows</h2>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3 class="card-title">&#x1F4DA; Systematic Literature Review</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 1rem;">PRISMA-compliant workflow for comprehensive literature reviews</p>
+                    <div class="workflow-timeline">
+                        <div class="workflow-step">
+                            <div class="step-name">1. Define Protocol</div>
+                            <div class="step-agent">methodology-advisor</div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-name">2. Database Search</div>
+                            <div class="step-agent">literature-reviewer</div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-name">3. Title/Abstract Screening</div>
+                            <div class="step-agent">literature-reviewer</div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-name">4. Full-Text Review</div>
+                            <div class="step-agent">literature-reviewer</div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-name">5. Synthesis</div>
+                            <div class="step-agent">research-synthesizer</div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-name">6. Write Review</div>
+                            <div class="step-agent">literature-reviewer</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">&#x1F9EE; Formal Verification</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 1rem;">T3SD-optimized workflow for system model verification</p>
+                    <div class="workflow-timeline">
+                        <div class="workflow-step">
+                            <div class="step-name">1. Specify Properties</div>
+                            <div class="step-agent">proof-constructor</div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-name">2. Formalize Model</div>
+                            <div class="step-agent">proof-constructor</div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-name">3. Construct Proofs</div>
+                            <div class="step-agent">proof-constructor</div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-name">4. Verify Proofs</div>
+                            <div class="step-agent">proof-constructor</div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-name">5. Document Results</div>
+                            <div class="step-agent">theorem-documenter</div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-name">6. Analyze Morphisms</div>
+                            <div class="step-agent">proof-constructor</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Architecture Section -->
+        <section id="architecture" class="section">
+            <h2 class="section-title"><span class="icon">&#x1F3D7;&#xFE0F;</span> Architecture</h2>
+
+            <div class="card">
+                <div class="architecture">
+                    <div class="arch-box primary" style="font-size: 1.25rem; font-weight: 600;">
+                        &#x1F9D1;&#x200D;&#x1F4BB; User (Dr. Wach)
+                    </div>
+                    <div class="arch-connector"></div>
+                    <div class="arch-box primary">
+                        &#x1F916; Claude Code + PostWach
+                    </div>
+                    <div class="arch-connector"></div>
+                    <div class="arch-layer">
+                        <div class="arch-box">&#x1F451; Hive-Mind Queen</div>
+                    </div>
+                    <div class="arch-connector"></div>
+                    <div class="arch-layer">
+                        <div class="arch-box success">Literature Reviewer</div>
+                        <div class="arch-box success">Methodology Advisor</div>
+                        <div class="arch-box success">Proof Constructor</div>
+                    </div>
+                    <div class="arch-layer" style="margin-top: 0.5rem;">
+                        <div class="arch-box success">Peer Review Responder</div>
+                        <div class="arch-box success">Research Synthesizer</div>
+                        <div class="arch-box success">Theorem Documenter</div>
+                    </div>
+                    <div class="arch-connector"></div>
+                    <div class="arch-layer">
+                        <div class="arch-box">&#x1F4BE; sql.js + HNSW</div>
+                        <div class="arch-box">&#x1F9E0; Neural Patterns</div>
+                        <div class="arch-box">&#x1F4C1; Research Corpus</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-3" style="margin-top: 1.5rem;">
+                <div class="card">
+                    <h3 class="card-title">&#x1F5C4;&#xFE0F; Memory Layer</h3>
+                    <ul style="margin-left: 1rem; color: var(--text-secondary);">
+                        <li>sql.js SQLite WASM</li>
+                        <li>HNSW vector indexing</li>
+                        <li>384-dim embeddings</li>
+                        <li>Hyperbolic space</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">&#x1F9E0; Intelligence Layer</h3>
+                    <ul style="margin-left: 1rem; color: var(--text-secondary);">
+                        <li>SONA learning system</li>
+                        <li>Pattern extraction</li>
+                        <li>Strategy distillation</li>
+                        <li>Flash Attention</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">&#x1F310; MCP Servers</h3>
+                    <ul style="margin-left: 1rem; color: var(--text-secondary);">
+                        <li>claude-flow (primary)</li>
+                        <li>ruv-swarm (WASM)</li>
+                        <li>flow-nexus (cloud)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Usage Section -->
+        <section id="usage" class="section">
+            <h2 class="section-title"><span class="icon">&#x1F680;</span> How to Use PostWach</h2>
+
+            <div class="card">
+                <h3 class="card-title">Quick Start Commands</h3>
+                <div class="code-block">
+<span class="comment"># Check system status</span>
+<span class="command">claude-flow status</span>
+
+<span class="comment"># Semantic search across research</span>
+<span class="command">claude-flow embeddings search -q "DEVS verification"</span>
+
+<span class="comment"># Spawn a research agent</span>
+<span class="command">claude-flow agent spawn -t literature-reviewer</span>
+
+<span class="comment"># Run a workflow</span>
+<span class="command">claude-flow workflow run -t peer-review-response</span>
+
+<span class="comment"># Check hive-mind status</span>
+<span class="command">claude-flow hive-mind status</span>
+
+<span class="comment"># View intelligence metrics</span>
+<span class="command">claude-flow hooks metrics</span>
+                </div>
+            </div>
+
+            <div class="grid-2" style="margin-top: 1.5rem;">
+                <div class="card">
+                    <h3 class="card-title">&#x1F4DD; For Writing Tasks</h3>
+                    <ul style="margin-left: 1rem; color: var(--text-secondary);">
+                        <li>Use <code>peer-review-responder</code> for reviewer responses</li>
+                        <li>Use <code>theorem-documenter</code> for proofs</li>
+                        <li>Use <code>paper-writing</code> workflow for drafts</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">&#x1F50D; For Research Tasks</h3>
+                    <ul style="margin-left: 1rem; color: var(--text-secondary);">
+                        <li>Use <code>literature-reviewer</code> for SLRs</li>
+                        <li>Use <code>methodology-advisor</code> for design</li>
+                        <li>Use <code>research-synthesizer</code> for integration</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p><strong>PostWach</strong> - Research Co-Pilot for Dr. Wach</p>
+            <p style="margin-top: 0.5rem;">claude-flow v3.0.0-alpha.185 | Implementation Date: January 27, 2026</p>
+            <p style="margin-top: 0.5rem; color: var(--text-muted);">
+                "Wach" rhymes with "Doc" - PostWach is your PostDoc research partner!
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function showLevel(levelId) {
+            // Hide all explanations
+            document.querySelectorAll('.explanation').forEach(e => e.classList.remove('active'));
+            document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
+
+            // Show selected level
+            document.getElementById(levelId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Animate progress bars on load
+        document.addEventListener('DOMContentLoaded', () => {
+            const progressFills = document.querySelectorAll('.progress-fill');
+            progressFills.forEach(fill => {
+                const width = fill.style.width;
+                fill.style.width = '0%';
+                setTimeout(() => {
+                    fill.style.width = width;
+                }, 300);
+            });
+        });
+    </script>
+</body>
+</html>
