@@ -38,3 +38,17 @@ docs/node_modules/
 
 # Temporary/upload artifacts
 _ul*
+
+# Work products and works in progress (live on OneDrive, not git)
+Papers/AI_Investing_Platform/
+Papers/Dissertation_Journal/
+docs/add_watermark.mjs
+docs/ai_history.md
+docs/ai_history_timeline.mmd
+docs/ai_history_timeline.png
+docs/plans/
+docs/research/
+docs/session_archives/
+docs/titanium_supply_chain_analyzer_user_manual.md
+docs/white_paper_ai_capability_tiers.md
+docs/white_paper_ai_capability_tiers.pdf
