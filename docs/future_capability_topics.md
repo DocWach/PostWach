@@ -34,7 +34,26 @@
 
 ## Pending Topics
 
-### 2. [Reserved for future topics]
+### 2. Formal Morphism Definitions (Journal Paper)
+
+**Issue:** The morphism definitions in the journal paper (lines 421-479 of main.tex) use informal prose rather than mathematical rigor.
+
+**Current State:** Definitions like "A mapping of the preservation of equivalence between a pair of system specifications of the same algebraic structure" are descriptive but not formally mathematical.
+
+**Potential Enhancement:** Add formal Definition environments with:
+- System Homomorphism: Triple $h = (h_S, h_X, h_Y)$ with transition and output preservation conditions
+- System Isomorphism: Homomorphism where all component functions are bijective
+- Identity Isomorphism: Isomorphism where all functions are identity functions
+
+**Status:** Deferred for future discussion - not required for initial co-author review.
+
+### 3. Figure 5 Resolution
+
+**Issue:** Figure 5 (LC/LA system model specification) has insufficient resolution for publication.
+
+**Action Required:** Recreate from original source at 300+ DPI or export as vector PDF.
+
+**Source File:** `Figure_5.png` in the 2026 - Dis Pub folder
 
 ---
 
@@ -43,6 +62,8 @@
 | Date | Topic | Outcome |
 |------|-------|---------|
 | 2026-01-27 | T3SD description error identified | Added to priority topics |
+| 2026-01-27 | Formal morphism definitions | Deferred to future discussion |
+| 2026-01-27 | Figure 5 resolution | Noted - needs higher DPI source |
 
 ---
 
