@@ -23,21 +23,23 @@ Swarm intelligence emerged from study of collective behavior in biological syste
 
 Key swarm intelligence paradigms include:
 
-**Ant Colony Optimization (ACO)** models how ants find shortest paths through pheromone-based stigmergic coordination [10]. Artificial ants deposit virtual pheromone on solution components, guiding subsequent ants toward promising solutions. ACO has proven effective for combinatorial optimization problems including routing, scheduling, and assignment.
+**Ant Colony Optimization (ACO)** models how ants find shortest paths through pheromone-based stigmergic coordination [10]. Artificial ants deposit virtual pheromone on solution components, guiding subsequent ants toward promising solutions. ACO has proven effective for combinatorial optimization problems including routing, scheduling, and assignment. In engineering contexts, ACO has been applied to scheduling problems such as test case prioritization [84] and resource allocation in complex projects [85], where the combinatorial search space makes exhaustive approaches intractable.
 
-**Particle Swarm Optimization (PSO)** models flocking behavior, with particles (candidate solutions) moving through search spaces influenced by their own best-known position and the swarm's best-known position [11]. PSO has found wide application in continuous optimization.
+**Particle Swarm Optimization (PSO)** models flocking behavior, with particles (candidate solutions) moving through search spaces influenced by their own best-known position and the swarm's best-known position [11]. PSO has found wide application in continuous optimization. PSO applications in engineering include multi-objective design optimization [86] and antenna design [87], demonstrating the paradigm's utility for parameter-rich engineering problems with competing objectives.
 
-**Stigmergic coordination** provides a paradigm for indirect communication through environmental modification—agents leave traces that influence other agents' behavior without direct message exchange [12]. This enables scalable coordination with minimal communication overhead.
+**Stigmergic coordination** provides a paradigm for indirect communication through environmental modification—agents leave traces that influence other agents' behavior without direct message exchange [12]. This enables scalable coordination with minimal communication overhead. In engineering contexts, shared digital models (e.g., model-based systems engineering repositories) can serve as stigmergic media, where agent annotations, flags, and analysis results left on model elements guide subsequent agents' analysis and review activities [88].
 
 Swarm intelligence contributes key insights to AI swarms: that collective intelligence can exceed individual capability, that simple local rules can produce complex global behavior, and that decentralized coordination can achieve robust, scalable solutions.
 
 ### 2.3 Large Language Models and Agentic AI
 
-The emergence of large language models (LLMs) since 2018 has transformed the landscape for AI agent development [13, 14]. Models trained on massive text corpora exhibit emergent capabilities in language understanding, reasoning, and generation that earlier approaches could not achieve [15].
+The emergence of large language models (LLMs) since 2018 has transformed the landscape for AI agent development [13, 14]. Models trained on massive text corpora exhibit emergent capabilities in language understanding, reasoning, and generation that earlier approaches could not achieve [15]. The field has advanced rapidly: OpenAI's GPT-4 [89], Anthropic's Claude [90], and Google's Gemini [91] represent the commercial frontier, while open-weight models such as Meta's Llama [92] and Mistral [93] have broadened access and enabled customization for specialized domains.
 
 The transition from LLMs to agentic AI involves augmenting language models with capabilities for autonomous action:
 
-**Tool use** enables LLMs to invoke external tools—calculators, search engines, APIs, code interpreters—extending their capabilities beyond text generation [16, 17]. Tool-augmented LLMs can retrieve information, execute computations, and interact with external systems.
+**Tool use** enables LLMs to invoke external tools—calculators, search engines, APIs, code interpreters—extending their capabilities beyond text generation [16, 17]. Tool-augmented LLMs can retrieve information, execute computations, and interact with external systems. The Model Context Protocol (MCP) [94] has emerged as a standardization effort for tool integration, providing a uniform interface through which LLM agents discover and invoke external capabilities. Agentic coding tools such as Claude Code, Cursor, and GitHub Copilot Workspace [95] exemplify tool-augmented LLM agents that have reached production use, demonstrating the viability of autonomous tool invocation in professional workflows.
+
+**Computer use and GUI agents** represent a further expansion of agentic capability (2024--2025), enabling LLM-based agents to interact directly with graphical user interfaces—clicking, typing, and navigating applications as a human user would [96]. This capability is particularly relevant for systems engineering, where many tools (e.g., modeling environments, PLM systems) lack programmatic APIs.
 
 **Memory systems** provide LLMs with persistent context beyond their context window, enabling accumulation of knowledge across interactions [18]. Memory architectures include retrieval-augmented generation (RAG), vector databases, and structured knowledge stores.
 
@@ -82,19 +84,51 @@ The convergence of multi-agent systems, swarm intelligence, and LLM-based agenti
 
 **Quality through diversity.** Engineering quality benefits from multiple perspectives examining artifacts. Agent swarms provide perspective diversity—different specializations, different analysis approaches—that surface issues single-point analysis misses.
 
-This intersection defines the scope of this survey: multi-agent AI systems, drawing on classical MAS foundations, swarm intelligence principles, and modern LLM-based agentic AI capabilities, applied to support systems engineering processes.
+This intersection defines the scope of this survey: multi-agent AI systems, drawing on classical MAS foundations, swarm intelligence principles, and modern LLM-based agentic AI capabilities, applied to support systems engineering processes. Section 5 provides the systematic mapping of these intersecting capabilities to ISO 15288 process areas that constitutes this survey's core contribution.
+
+Figure 2 illustrates the evolution of agent paradigms and their convergence toward multi-agent AI for systems engineering.
+
+```mermaid
+timeline
+    title Evolution of Agent Paradigms Toward Multi-Agent AI for SE
+    section Classical MAS
+        1980s–1990s : Distributed AI, KQML, FIPA-ACL
+                    : BDI architecture (Rao & Georgeff)
+                    : Subsumption architecture (Brooks)
+    section Swarm Intelligence
+        1990s–2000s : Ant Colony Optimization (Dorigo)
+                    : Particle Swarm Optimization (Kennedy & Eberhart)
+                    : Stigmergic coordination
+    section ML & NLP Foundations
+        2010s       : Deep learning revolution
+                    : Sequence-to-sequence models
+                    : Attention mechanisms (Vaswani et al.)
+    section LLM Era
+        2018–2022   : GPT, BERT, PaLM
+                    : In-context learning
+                    : Chain-of-thought prompting
+    section Agentic AI
+        2023–2024   : ReAct, tool use, memory systems
+                    : AutoGPT, MetaGPT, CrewAI, AutoGen
+                    : SWE-agent, Devin, OpenHands
+    section Convergence
+        2024–2025   : Claude Code, Cursor, Copilot Workspace
+                    : MCP standardization, GUI agents
+                    : Multi-agent SE applications emerge
+```
 
 ---
 
-**Word count:** ~1,050 words
+**Word count:** ~1,350 words
 **Subsections:** 5
-**References cited:** [1]-[28]
+**References cited:** [1]-[28], [84]-[96]
 
 ---
 
 ## Revision Notes
 
-- [ ] Expand LLM-based agents section with more recent frameworks
-- [ ] Add specific examples for each swarm intelligence paradigm
-- [ ] Consider adding timeline figure
+- [x] Expand LLM-based agents section with more recent frameworks
+- [x] Add specific examples for each swarm intelligence paradigm
+- [x] Consider adding timeline figure
+- [x] Add forward reference to Section 5 in Section 2.5
 
