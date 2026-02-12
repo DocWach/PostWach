@@ -88,6 +88,44 @@ LLM-based multi-agent systems exhibit distinctive coordination patterns:
 
 **Memory-mediated coordination** uses shared memory systems (vector stores, knowledge graphs) as coordination substrate. Agents contribute to and query shared memory, achieving indirect coordination.
 
+**Framework-specific coordination implementations** illustrate how these abstract patterns manifest in practice:
+- **MetaGPT** [41] employs a "Software Company" metaphor in which agents assume roles (Product Manager, Architect, Engineer, QA) and coordinate through a shared message pool and structured document outputs. Each role publishes artifacts (PRDs, design documents, code) that downstream roles consume, enforcing a sequential dependency chain akin to a waterfall process [104].
+- **AutoGen** [42] implements conversational turn-taking where agents exchange natural language messages in configurable interaction patterns. Speaker selection can be round-robin, random, or LLM-directed, enabling flexible coordination topologies from simple two-agent dialogues to complex group chats with dynamic participation [105].
+- **CrewAI** [43] uses a "crew" metaphor with explicit task delegation. Agents are assigned roles with defined goals and backstories, and tasks flow through sequential or hierarchical process models. A hierarchical process designates a manager agent that delegates subtasks and synthesizes results [106].
+- **LangGraph** [44] takes a graph-theoretic approach, modeling coordination as explicit state machines. Nodes represent agent actions or decision points; edges define transitions conditioned on state. This provides deterministic control flow while allowing individual nodes to invoke LLM reasoning, offering a balance between predictability and flexibility [107].
+- **ChatDev** [108] simulates a software company with agents coordinating through waterfall-model phases (design, coding, testing, documentation). Phase transitions are explicitly structured, and within each phase, agents engage in role-playing dialogues to produce artifacts.
+
+Figure 4 maps coordination mechanisms by control structure and communication directness, positioning framework implementations within the design space.
+
+```mermaid
+quadrantChart
+    title Coordination Mechanism Design Space
+    x-axis "Indirect Communication" --> "Direct Communication"
+    y-axis "Decentralized Control" --> "Centralized Control"
+    quadrant-1 "Orchestrated Direct"
+    quadrant-2 "Orchestrated Indirect"
+    quadrant-3 "Emergent Indirect"
+    quadrant-4 "Peer-to-Peer Direct"
+    "Stigmergy": [0.15, 0.15]
+    "Self-Organization": [0.20, 0.10]
+    "Swarm Behaviors": [0.25, 0.20]
+    "Blackboard": [0.30, 0.50]
+    "Pub-Sub": [0.35, 0.45]
+    "Shared Memory": [0.25, 0.40]
+    "Market / Contract Net": [0.55, 0.35]
+    "Coalition Formation": [0.50, 0.25]
+    "Team-Based": [0.60, 0.45]
+    "Message Passing / ACL": [0.75, 0.50]
+    "Conversational (AutoGen)": [0.85, 0.30]
+    "Hierarchy": [0.60, 0.80]
+    "Orchestrator Pattern": [0.70, 0.85]
+    "MetaGPT Workflow": [0.55, 0.75]
+    "CrewAI Delegation": [0.65, 0.70]
+    "LangGraph State Machine": [0.75, 0.75]
+    "ChatDev Waterfall": [0.60, 0.80]
+    "OpenAI Swarm Handoff": [0.70, 0.40]
+```
+
 ### 4.7 Comparison and Trade-offs
 
 Table 2 compares coordination mechanisms across key dimensions.
@@ -110,21 +148,37 @@ Table 2 compares coordination mechanisms across key dimensions.
 
 *Communication overhead:* Rich communication (conversational) enables nuanced coordination but incurs token costs and latency. Efficient protocols reduce overhead at the cost of expressiveness.
 
+*Token economics:* In LLM-based systems, coordination carries direct financial cost through token consumption. Conversational coordination between N agents generates O(N^2) message pairs, each consuming inference tokens. As agent count grows, coordination token costs can dominate task-execution costs, creating economic pressure toward sparse communication topologies, hierarchical delegation, or shared-memory approaches that reduce pairwise message exchange [109].
+
 *Emergence management:* Emergent coordination can produce beneficial novelty or harmful unexpected behavior. SE contexts may require bounds on emergence through hybrid approaches.
+
+### 4.8 Coordination Failures and Mitigations
+
+Multi-agent coordination introduces failure modes absent in single-agent systems. Understanding these failure patterns is essential for engineering reliable swarms.
+
+**Agent echo chambers** occur when agents reinforce each other's errors through positive feedback loops. An agent producing an incorrect analysis may receive validation from peer agents that lack independent grounding, causing the error to propagate and become entrenched in the collective output [110].
+
+**Degenerate consensus** arises when agents converge prematurely on a suboptimal solution. Group pressure dynamics—even among artificial agents—can suppress exploratory behavior, particularly when majority-voting or debate-based coordination mechanisms are employed without diversity safeguards.
+
+**Coordination overhead exceeding task benefit** represents a practical failure where the computational and financial cost of multi-agent coordination surpasses the quality improvement over a single-agent baseline. This is especially prevalent in tasks with limited decomposability.
+
+**Cascading failures** result from tight agent dependencies: when an upstream agent produces malformed output, downstream agents that depend on it may fail in sequence, potentially amplifying a minor error into a system-wide breakdown [111].
+
+**Mitigations** include: diversity injection through varied model temperatures or distinct foundation models; independent verification where agents cross-check results against ground truth rather than peer output; graceful degradation that allows the system to produce partial results when individual agents fail; and circuit breakers that halt coordination when error indicators exceed defined thresholds.
 
 ---
 
-**Word count:** ~980 words
-**Subsections:** 7
+**Word count:** ~1,200 words
+**Subsections:** 8
 **Tables:** 1
-**References cited:** [45]-[54]
+**References cited:** [45]-[54], [104]-[111]
 
 ---
 
 ## Revision Notes
 
-- [ ] Add specific examples from LLM multi-agent frameworks
-- [ ] Consider adding coordination diagram
-- [ ] Expand trade-off analysis with quantitative considerations
-- [ ] Add discussion of coordination failures and mitigations
+- [x] Add specific examples from LLM multi-agent frameworks
+- [x] Consider adding coordination diagram
+- [x] Expand trade-off analysis with quantitative considerations
+- [x] Add discussion of coordination failures and mitigations
 
