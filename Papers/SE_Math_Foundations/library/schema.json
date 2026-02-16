@@ -1,0 +1,169 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/se-math-foundations/catalog-entry.schema.json",
+  "title": "Catalog Entry",
+  "description": "Schema for cross-domain isomorphism/homomorphism catalog entries",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^I-[0-9]+$",
+      "description": "Entry identifier in I-N format"
+    },
+    "name": {
+      "type": "string"
+    },
+    "tier": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 3
+    },
+    "status": {
+      "type": "string",
+      "enum": ["established", "partial", "to_investigate"]
+    },
+    "domain_a": {
+      "$ref": "#/$defs/domain"
+    },
+    "domain_b": {
+      "$ref": "#/$defs/domain"
+    },
+    "variable_mapping": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "isomorphism_type": {
+      "type": "string",
+      "enum": ["exact", "partial", "to_investigate"]
+    },
+    "analogy_convention": {
+      "type": "string"
+    },
+    "mathematical_characterizations": {
+      "type": "object",
+      "properties": {
+        "continuous_ode": { "type": "string" },
+        "discrete_moore": { "type": "string" },
+        "probabilistic": { "type": "string" },
+        "bond_graph": { "type": "string" },
+        "port_hamiltonian": { "type": "string" },
+        "category_theory": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "degradation_analysis": {
+      "type": "object",
+      "properties": {
+        "euler_discretization": { "type": "string" },
+        "rk4_discretization": { "type": "string" },
+        "exact_discretization": { "type": "string" },
+        "nonlinear_extension": { "type": "string" },
+        "stochastic_extension": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "t3sd_connection": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": ["id", "name", "tier", "status", "isomorphism_type"],
+  "allOf": [
+    {
+      "properties": {
+        "domain_a": {
+          "required": ["name"]
+        },
+        "domain_b": {
+          "required": ["name"]
+        }
+      },
+      "required": ["domain_a", "domain_b"]
+    },
+    {
+      "if": {
+        "properties": {
+          "tier": { "const": 1 }
+        }
+      },
+      "then": {
+        "properties": {
+          "domain_a": {
+            "required": ["name", "governing_equation_continuous"]
+          },
+          "domain_b": {
+            "required": ["name", "governing_equation_continuous"]
+          }
+        },
+        "required": ["domain_a", "domain_b", "variable_mapping"]
+      }
+    }
+  ],
+  "$defs": {
+    "domain": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "effort_variable": {
+          "type": "string"
+        },
+        "flow_variable": {
+          "type": "string"
+        },
+        "energy_storage_potential": {
+          "type": "string"
+        },
+        "energy_storage_kinetic": {
+          "type": "string"
+        },
+        "dissipation": {
+          "type": "string"
+        },
+        "governing_equation_continuous": {
+          "type": "string"
+        },
+        "governing_equation_transfer": {
+          "type": "string"
+        },
+        "state_space": {
+          "type": "object",
+          "properties": {
+            "states": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "inputs": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "outputs": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "next_state": {
+              "type": "string"
+            },
+            "readout": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "required": ["name"],
+      "additionalProperties": false
+    }
+  }
+}
