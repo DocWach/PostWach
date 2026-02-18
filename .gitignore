@@ -5,9 +5,12 @@
 claude-flow.config.json
 .swarm/
 .hive-mind/
-# Claude-flow directory (ignore most, keep research agents)
+# Claude-flow directory (ignore runtime state, keep config)
 .claude-flow/*
 !.claude-flow/research-agents/
+!.claude-flow/guidance-bridge.json
+!.claude-flow/swarm-config.json
+!.claude-flow/pipeline-config.json
 memory/
 coordination/
 memory/claude-flow-data.json
