@@ -1,0 +1,132 @@
+course:
+  name: "Systems Engineering Foundations"
+  id: "syse-foundations-s26"
+  semester: "Spring 2026"
+  evaluator: "threshold"
+
+blocks:
+  - id: "fundamentals"
+    name: "Block A: Fundamentals"
+    description: "Core systems engineering concepts and processes"
+    outcomes:
+      - id: "F1"
+        name: "Systems Thinking"
+        description: "Apply systems thinking principles to analyze emergent behavior and interdependencies"
+        mastery_criteria:
+          type: "threshold"
+          min_score: 0.80
+      - id: "F2"
+        name: "SE Lifecycle Models"
+        description: "Compare and apply Vee, spiral, and agile systems engineering lifecycle models"
+        mastery_criteria:
+          type: "threshold"
+          min_score: 0.80
+      - id: "F3"
+        name: "Stakeholder Analysis"
+        description: "Identify stakeholders, elicit needs, and translate them into measurable requirements"
+        mastery_criteria:
+          type: "threshold"
+          min_score: 0.80
+      - id: "F4"
+        name: "Technical Reviews"
+        description: "Plan and conduct SRR, PDR, and CDR following standard review processes"
+        mastery_criteria:
+          type: "threshold"
+          min_score: 0.80
+
+  - id: "analysis"
+    name: "Block B: Analysis & Architecture"
+    description: "Requirements analysis and system architecture"
+    outcomes:
+      - id: "A1"
+        name: "Requirements Engineering"
+        description: "Develop, trace, and validate a complete requirements set using structured techniques"
+        mastery_criteria:
+          type: "threshold"
+          min_score: 0.80
+      - id: "A2"
+        name: "Functional Architecture"
+        description: "Decompose system functions and allocate them to physical components using SysML/MBSE"
+        mastery_criteria:
+          type: "threshold"
+          min_score: 0.80
+      - id: "A3"
+        name: "Trade Study Analysis"
+        description: "Conduct weighted trade studies with clearly defined criteria and sensitivity analysis"
+        mastery_criteria:
+          type: "threshold"
+          min_score: 0.80
+      - id: "A4"
+        name: "Interface Management"
+        description: "Define, document, and control internal and external system interfaces"
+        mastery_criteria:
+          type: "threshold"
+          min_score: 0.80
+
+  - id: "implementation"
+    name: "Block C: Integration & Verification"
+    description: "System integration, test, and verification"
+    outcomes:
+      - id: "I1"
+        name: "Verification Planning"
+        description: "Develop a verification cross-reference matrix mapping requirements to test methods"
+        mastery_criteria:
+          type: "threshold"
+          min_score: 0.80
+      - id: "I2"
+        name: "Test Design"
+        description: "Design system-level tests including test procedures, success criteria, and data collection plans"
+        mastery_criteria:
+          type: "threshold"
+          min_score: 0.80
+      - id: "I3"
+        name: "Integration Strategy"
+        description: "Plan and execute incremental system integration with defined build sequences"
+        mastery_criteria:
+          type: "checklist"
+          required_items:
+            - "Integration sequence defined"
+            - "Interface verification complete"
+            - "Build-level test executed"
+      - id: "I4"
+        name: "Risk Management"
+        description: "Maintain a risk register with likelihood/consequence scoring and mitigation plans"
+        mastery_criteria:
+          type: "threshold"
+          min_score: 0.80
+
+  - id: "advanced"
+    name: "Block D: Advanced Topics"
+    description: "Advanced systems engineering practices"
+    outcomes:
+      - id: "D1"
+        name: "Model-Based Systems Engineering"
+        description: "Construct an integrated SysML model linking requirements, behavior, and structure"
+        mastery_criteria:
+          type: "threshold"
+          min_score: 0.85
+      - id: "D2"
+        name: "Reliability & Resilience"
+        description: "Perform FMEA/FTA and design for reliability, maintainability, and graceful degradation"
+        mastery_criteria:
+          type: "threshold"
+          min_score: 0.85
+      - id: "D3"
+        name: "Technical Leadership"
+        description: "Lead a cross-functional team through a complete SE milestone cycle with lessons learned"
+        mastery_criteria:
+          type: "manual"
+
+grade_rules:
+  - grade: "A"
+    required_blocks: ["fundamentals", "analysis", "implementation", "advanced"]
+    display_order: 1
+  - grade: "B"
+    required_blocks: ["fundamentals", "analysis", "implementation"]
+    display_order: 2
+  - grade: "C"
+    required_blocks: ["fundamentals", "analysis"]
+    display_order: 3
+  - grade: "D"
+    required_blocks: ["fundamentals"]
+    display_order: 4
