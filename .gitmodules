@@ -1,3 +1,3 @@
-[submodule "Papers/SE_Math_Foundations"]
-	path = Papers/SE_Math_Foundations
+[submodule "Papers/SE_Math_Foundations/isomorphism-library"]
+	path = Papers/SE_Math_Foundations/isomorphism-library
 	url = https://github.com/DocWach/Isomorphism-Library.git
