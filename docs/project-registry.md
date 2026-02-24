@@ -78,7 +78,7 @@
 
 - **Purpose:** Systems engineering analysis and design — codebase analysis, infrastructure-as-code, monitoring
 - **Domain:** Systems engineering practice, DevOps/IaC
-- **Governance:** SPARC boilerplate (no rule annotations)
+- **Governance:** V3 [D001-D006]
 - **Skills:** 29 total (3 domain-specific: `sead-codebase-analysis`, `sead-iac-generator`, `sead-monitoring-setup`)
 - **Agents:** 81 total (5 domain-specific: s-agent, e-agent, a-agent, d-agent, sead-orchestrator)
 - **Status:** Active
@@ -183,11 +183,11 @@
 
 | Level | Count | Projects | Upgrade Action |
 |---|---|---|---|
-| V3 (annotated rules) | 5 | PostWach, MACQ, GI-JOE, SysMLv2, COSYSMO | None — gold standard |
-| SPARC boilerplate | 4 | SEAD, BP Marketing, Claude_code_test_setup, PLM | Add [Rxxx] rule annotations, risk tags |
+| V3 (annotated rules) | 6 | PostWach, MACQ, GI-JOE, SysMLv2, COSYSMO, SEAD | None — gold standard |
+| SPARC boilerplate | 3 | BP Marketing, Claude_code_test_setup, PLM | Add [Rxxx] rule annotations, risk tags |
 | None | 2+ | Alpha Empress, UAOS cluster | Create CLAUDE.md with rules |
 
-**Priority upgrades:** SEAD (Tier 1, SPARC boilerplate)
+**Priority upgrades:** All Tier 1 projects now V3. Next: BP Marketing, PLM (Tier 2)
 
 ---
 
@@ -196,7 +196,7 @@
 | Date | Reviewer | Changes |
 |---|---|---|
 | 2026-02-24 | PostWach CTO (initial) | Created registry from full project landscape exploration |
-| 2026-02-24 | PostWach CTO | V3 governance upgrades: GI-JOE [G001-G007], SysMLv2 [S001-S006], COSYSMO [C001-C006] |
+| 2026-02-24 | PostWach CTO | V3 governance upgrades: GI-JOE [G001-G007], SysMLv2 [S001-S006], COSYSMO [C001-C006], SEAD [D001-D006] |
 
 ---
 
