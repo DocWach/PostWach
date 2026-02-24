@@ -23,12 +23,12 @@ For each proposed capability, three questions determine placement:
 
 | # | Capability | Tier | Home | Status | Phase | Target |
 |---|---|---|---|---|---|---|
-| 1 | Bayesian / Utility-Driven Research Strategy | 1-High | PostWach | Not Started | Phase 1 | Immediate |
+| 1 | Bayesian / Utility-Driven Research Strategy | 1-High | PostWach | Done | Phase 1 | Immediate |
 | 2 | Biology (Biomimetics, Physiology, Biophysics) | 1-High | PostWach | Not Started | Phase 2 | Q1-Q2 2026 |
 | 3 | Psychology / Cognitive Science | 1-High | PostWach | Not Started | Phase 4 | Q3 2026 |
 | 4 | Transfer Learning | 1-High | PostWach | Not Started | Phase 3 | Q2 2026 |
 | 5 | Ontology | 2-Med | GI-JOE | Existing | Phase 5 | When needed |
-| 6 | Economics / Utility Theory | 2-Med | PostWach | Not Started | (with #1) | Immediate |
+| 6 | Economics / Utility Theory | 2-Med | PostWach | Done | (with #1) | Immediate |
 | 7 | Gamification / Progress Tracking | 2-Med | PostWach | Not Started | Phase 6 | When needed |
 | 8 | Blockchain | 3-Low | Defer | -- | Deferred | When Idea 15 active |
 | 9 | Quantum | 3-Low | Defer | -- | Deferred | Existing agents suffice |
