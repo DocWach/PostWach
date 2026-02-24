@@ -99,14 +99,15 @@
 
 ### 01_Alpha_Impress_Disruptor (Alpha Empress)
 
-- **Type:** Hive (dormant)
+- **Type:** Hive
 - **Purpose:** COO-type governance compliance — configuration auditing, rule enforcement
 - **Domain:** Project governance, V3 compliance
-- **Governance:** None (no CLAUDE.md, no .claude/ skills or agents)
-- **Skills/Agents:** None
-- **Status:** Dormant (V3 Governance Proposal exists but is unimplemented)
+- **Governance:** V3 [A001-A008]
+- **Skills/Agents:** None (Phase B will add compliance-checker skill)
+- **Status:** Active (Phase A — foundation)
+- **Key assets:** V3 governance templates, adoption tracker, compliance assessment protocol
 - **Key asset:** `V3_Guidance_Governance_Proposal.md` — defines the target governance enforcement model
-- **Phase 2 note:** When activated, Alpha Empress handles COO (rule compliance) while PostWach handles CTO (capability quality). See cross-project-reviewer skill for integration design.
+- **Phase A complete.** Phase B (compliance-checker skill) and Phase C (CTO/COO integration) pending.
 
 ### PLM
 
@@ -207,11 +208,11 @@ Output repositories are artifacts produced by one or more hives. They contain de
 
 | Level | Count | Projects | Upgrade Action |
 |---|---|---|---|
-| V3 (annotated rules) | 7 | PostWach, MACQ, GI-JOE, SysMLv2, COSYSMO, SEAD, PLM | None — gold standard |
+| V3 (annotated rules) | 8 | PostWach, MACQ, GI-JOE, SysMLv2, COSYSMO, SEAD, PLM, Alpha Empress | None — gold standard |
 | SPARC boilerplate | 2 | BP Marketing, Claude_code_test_setup | Add [Rxxx] rule annotations, risk tags |
-| None | 2+ | Alpha Empress, UAOS cluster | Create CLAUDE.md with rules |
+| None | 1+ | UAOS cluster | Create CLAUDE.md with rules |
 
-**Tier 1 complete. PLM upgraded.** Remaining Tier 2 upgrades (low priority, on-demand): BP Marketing, Claude_code_test_setup. Dormant projects (activate first): Alpha Empress, UAOS cluster.
+**Tier 1 complete. PLM upgraded. Alpha Empress activated (Phase A).** Remaining Tier 2 upgrades (low priority, on-demand): BP Marketing, Claude_code_test_setup. Dormant projects (activate first): UAOS cluster.
 
 ---
 
@@ -223,6 +224,7 @@ Output repositories are artifacts produced by one or more hives. They contain de
 | 2026-02-24 | PostWach CTO | V3 governance upgrades: GI-JOE [G001-G007], SysMLv2 [S001-S006], COSYSMO [C001-C006], SEAD [D001-D006] |
 | 2026-02-24 | PostWach CTO | V3 governance upgrade: PLM [L001-L007] |
 | 2026-02-24 | PostWach CTO | Add Hive/Output type classification; reclassify Lego-EV3 and INCOSE_FuSE as outputs |
+| 2026-02-24 | PostWach CTO | Alpha Empress Phase A activation: [A001-A008], templates, adoption tracker |
 
 ---
 
