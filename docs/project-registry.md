@@ -11,8 +11,9 @@
 
 | Field | Values |
 |---|---|
+| **Type** | Hive (agent orchestration environment) / Output (artifact produced by a hive) |
 | **Tier** | 1 (Active Research) / 2 (Support) / 3 (Archive) |
-| **Governance** | V3 (annotated rules, risk tags) / SPARC (boilerplate config) / None |
+| **Governance** | V3 (annotated rules, risk tags) / SPARC (boilerplate config) / None / N/A (outputs) |
 | **Status** | Active / Maintenance / Dormant / Archive |
 
 ---
@@ -21,6 +22,7 @@
 
 ### 01 PostWach
 
+- **Type:** Hive
 - **Purpose:** SE math foundations — formal isomorphisms/morphisms across engineering domains
 - **Domain:** Systems engineering, category theory, mathematical modeling
 - **Governance:** V3 [R101-R107]
@@ -32,6 +34,7 @@
 
 ### 04 MACQ
 
+- **Type:** Hive
 - **Purpose:** Defense acquisition lifecycle modeling and decision support
 - **Domain:** DoD acquisition (DBS, MTA, software pathway), program management
 - **Governance:** V3 [P001-P007]
@@ -43,6 +46,7 @@
 
 ### 05 GI-JOE
 
+- **Type:** Hive
 - **Purpose:** Ontology engineering platform — OWL/RDF/SPARQL, BFO alignment, semantic reasoning
 - **Domain:** Ontology engineering, knowledge representation
 - **Governance:** V3 [G001-G007]
@@ -54,6 +58,7 @@
 
 ### 06 COSYSMO
 
+- **Type:** Hive
 - **Purpose:** Constructive systems engineering cost estimation
 - **Domain:** Cost estimation, parametric modeling
 - **Governance:** V3 [C001-C006]
@@ -65,9 +70,11 @@
 
 ### 07 SysMLv2
 
+- **Type:** Hive
 - **Purpose:** SysML v2 grammar development, library integration, and semantic analysis
 - **Domain:** Model-based systems engineering, SysML v2 specification
 - **Governance:** V3 [S001-S006]
+- **Outputs:** Lego-EV3-Mindstorm-Models (SysML v2 models), INCOSE_FuSE_Vision2035 (INCOSE FuSE model)
 - **Skills:** 37 total (3 domain-specific: `sysml-grammar-development`, `sysml-library-integration`, `sysml-semantic-analysis`)
 - **Agents:** 21 total (0 domain-specific agents visible; sysml agent directory exists but is empty)
 - **Status:** Active
@@ -76,6 +83,7 @@
 
 ### SEAD
 
+- **Type:** Hive
 - **Purpose:** Systems engineering analysis and design — codebase analysis, infrastructure-as-code, monitoring
 - **Domain:** Systems engineering practice, DevOps/IaC
 - **Governance:** V3 [D001-D006]
@@ -91,6 +99,7 @@
 
 ### 01_Alpha_Impress_Disruptor (Alpha Empress)
 
+- **Type:** Hive (dormant)
 - **Purpose:** COO-type governance compliance — configuration auditing, rule enforcement
 - **Domain:** Project governance, V3 compliance
 - **Governance:** None (no CLAUDE.md, no .claude/ skills or agents)
@@ -101,9 +110,11 @@
 
 ### PLM
 
+- **Type:** Hive
 - **Purpose:** Product lifecycle management co-pilot
 - **Domain:** PLM, BOM management, change control, compliance
 - **Governance:** V3 [L001-L007]
+- **Outputs:** Lego-EV3-Mindstorm-Models (parts data, kit inventories)
 - **Skills:** 30 total (1 domain-specific: `plm`)
 - **Agents:** 101 total (8 domain-specific: bom-manager, change-control, compliance, cost-estimator, queen, requirements-manager, risk-analyst, supplier-manager)
 - **Status:** Maintenance
@@ -111,6 +122,7 @@
 
 ### BP Marketing
 
+- **Type:** Hive
 - **Purpose:** Marketing orchestration and visual content creation
 - **Domain:** Marketing strategy, visual design, content creation
 - **Governance:** SPARC boilerplate (no rule annotations)
@@ -120,6 +132,7 @@
 
 ### UAOS Cluster (Core / Domain / Foundation / Libraries)
 
+- **Type:** Hive (dormant)
 - **Purpose:** University of Arizona operating system — modular architecture across four repositories
 - **Domain:** Institutional platform
 - **Governance:** None (no .claude/ setup in any of the four repos)
@@ -129,12 +142,24 @@
 
 ### Claude_code_test_setup
 
+- **Type:** Hive
 - **Purpose:** Test environment for Claude Code configuration patterns
 - **Domain:** Tooling validation
 - **Governance:** SPARC boilerplate
 - **Skills:** 26 total (0 domain-specific; common infrastructure only)
 - **Agents:** Common infrastructure only
 - **Status:** Active (utility)
+
+---
+
+## Hive Outputs
+
+Output repositories are artifacts produced by one or more hives. They contain deliverables (models, data, reports) but no agent orchestration infrastructure. Governance is inherited from parent hives — outputs do not need their own CLAUDE.md.
+
+| Output | Parent Hives | Content | Status |
+|---|---|---|---|
+| Lego-EV3-Mindstorm-Models | PLM (parts data, kit inventories), SysMLv2 (SysML v2 models) | 172-part reusable library: JSON catalog, kit inventories, SysML v2 behavioral models, LDraw geometry refs | Active |
+| INCOSE_FuSE_Vision2035 | SysMLv2 (INCOSE FuSE/Vision 2035 model) | Single SysML v2 model output for INCOSE FuSE standards | Active |
 
 ---
 
@@ -147,7 +172,6 @@
 | 03 Background info | Reference materials (read-only) | Utility |
 | Buzz | Local claude-flow install with templates | Archive (test) |
 | GST-Co-Pilot-Test / temp | GST co-pilot prototype (two repos) | Archive (test) |
-| Lego-EV3-Mindstorm-Models | EV3 robotics models | Archive |
 | MS4 | License/install guide only | Archive |
 | STA_test_setup_2 | STA simulation project (has .claude/) | Dormant |
 | STA_v1 | STA simulation project v1 (has .claude/) | Dormant |
@@ -198,6 +222,7 @@
 | 2026-02-24 | PostWach CTO (initial) | Created registry from full project landscape exploration |
 | 2026-02-24 | PostWach CTO | V3 governance upgrades: GI-JOE [G001-G007], SysMLv2 [S001-S006], COSYSMO [C001-C006], SEAD [D001-D006] |
 | 2026-02-24 | PostWach CTO | V3 governance upgrade: PLM [L001-L007] |
+| 2026-02-24 | PostWach CTO | Add Hive/Output type classification; reclassify Lego-EV3 and INCOSE_FuSE as outputs |
 
 ---
 
