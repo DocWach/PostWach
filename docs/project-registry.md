@@ -103,11 +103,11 @@
 
 - **Purpose:** Product lifecycle management co-pilot
 - **Domain:** PLM, BOM management, change control, compliance
-- **Governance:** Claude Flow V3 header (no rule annotations)
+- **Governance:** V3 [L001-L007]
 - **Skills:** 30 total (1 domain-specific: `plm`)
 - **Agents:** 101 total (8 domain-specific: bom-manager, change-control, compliance, cost-estimator, queen, requirements-manager, risk-analyst, supplier-manager)
 - **Status:** Maintenance
-- **Note:** Uses older CLI pattern; may need modernization if reactivated
+- **Note:** V3 governance applied 2026-02-24; ITAR security rule [L007] added
 
 ### BP Marketing
 
@@ -183,11 +183,11 @@
 
 | Level | Count | Projects | Upgrade Action |
 |---|---|---|---|
-| V3 (annotated rules) | 6 | PostWach, MACQ, GI-JOE, SysMLv2, COSYSMO, SEAD | None — gold standard |
-| SPARC boilerplate | 3 | BP Marketing, Claude_code_test_setup, PLM | Add [Rxxx] rule annotations, risk tags |
+| V3 (annotated rules) | 7 | PostWach, MACQ, GI-JOE, SysMLv2, COSYSMO, SEAD, PLM | None — gold standard |
+| SPARC boilerplate | 2 | BP Marketing, Claude_code_test_setup | Add [Rxxx] rule annotations, risk tags |
 | None | 2+ | Alpha Empress, UAOS cluster | Create CLAUDE.md with rules |
 
-**Priority upgrades:** All Tier 1 projects now V3. Next: BP Marketing, PLM (Tier 2)
+**Tier 1 complete. PLM upgraded.** Remaining Tier 2 upgrades (low priority, on-demand): BP Marketing, Claude_code_test_setup. Dormant projects (activate first): Alpha Empress, UAOS cluster.
 
 ---
 
@@ -197,6 +197,7 @@
 |---|---|---|
 | 2026-02-24 | PostWach CTO (initial) | Created registry from full project landscape exploration |
 | 2026-02-24 | PostWach CTO | V3 governance upgrades: GI-JOE [G001-G007], SysMLv2 [S001-S006], COSYSMO [C001-C006], SEAD [D001-D006] |
+| 2026-02-24 | PostWach CTO | V3 governance upgrade: PLM [L001-L007] |
 
 ---
 
