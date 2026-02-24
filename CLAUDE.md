@@ -38,6 +38,11 @@
 - Run tests with: `python -m pytest tests/` or project-specific test commands.
 - Validate paper formatting with project-specific linting when available.
 
+## Cross-Project Role
+- PostWach is the CTO / Chief Scientist for the research portfolio.
+- Maintains `docs/project-registry.md` (hive/output classification) and `docs/capability-index.md`.
+- Alpha Empress (COO) handles governance compliance; PostWach handles capability quality.
+
 ## Claude Flow CLI
 For full reference: `docs/claude-flow-reference.md`
 
