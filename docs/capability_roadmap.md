@@ -24,7 +24,7 @@ For each proposed capability, three questions determine placement:
 | # | Capability | Tier | Home | Status | Phase | Target |
 |---|---|---|---|---|---|---|
 | 1 | Bayesian / Utility-Driven Research Strategy | 1-High | PostWach | Done | Phase 1 | Immediate |
-| 2 | Biology (Biomimetics, Physiology, Biophysics) | 1-High | PostWach | Not Started | Phase 2 | Q1-Q2 2026 |
+| 2 | Biology (Biomimetics, Physiology, Biophysics) | 1-High | PostWach | Done | Phase 2 | Q1-Q2 2026 |
 | 3 | Psychology / Cognitive Science | 1-High | PostWach | Not Started | Phase 4 | Q3 2026 |
 | 4 | Transfer Learning | 1-High | PostWach | Not Started | Phase 3 | Q2 2026 |
 | 5 | Ontology | 2-Med | GI-JOE | Existing | Phase 5 | When needed |
@@ -152,7 +152,7 @@ GI-JOE is a dedicated ontology engineering platform. When Idea 9 (Ontological Re
 | Date | Reviewer | Changes |
 |---|---|---|
 | 2026-02-24 | Initial assessment | Created roadmap from 11-topic strategic evaluation |
-| | | |
+| 2026-02-24 | Phase 2 delivery | Added `biophysics-modeler` agent (MSC 92C) and `biomimetics-analyst` skill; item #2 marked Done |
 | | | |
 
 ---
