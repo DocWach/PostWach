@@ -37,7 +37,7 @@
 - **Type:** Hive
 - **Purpose:** Defense acquisition lifecycle modeling and decision support
 - **Domain:** DoD acquisition (DBS, MTA, software pathway), program management
-- **Governance:** V3 [P001-P007]
+- **Governance:** V3 [P001-P008]
 - **Skills:** 30 total (10 domain-specific under `acquisition/`: acquisition-lifecycle, acquisition-training, deliverable-generator, document-automation, far-compliance-checker, ipt-assembler, milestone-readiness, pathway-selector, persona-router, protest-prevention)
 - **Agents:** 145 total (52 domain-specific: 16 acquisition roles, 19 acquisition swarms, 7 oversight bodies, 10 archetypes)
 - **Status:** Active
