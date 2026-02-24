@@ -56,7 +56,7 @@
 
 - **Purpose:** Constructive systems engineering cost estimation
 - **Domain:** Cost estimation, parametric modeling
-- **Governance:** SPARC boilerplate (no rule annotations)
+- **Governance:** V3 [C001-C006]
 - **Skills:** 27 total (1 domain-specific: `cosysmo-estimation`)
 - **Agents:** 82 total (6 domain-specific: effort-multiplier-analyst, size-driver-analyst in `specialists/`; cost-analyst, estimation-queen, historical-learner, sensitivity-analyst in `core/`)
 - **Status:** Active
@@ -183,11 +183,11 @@
 
 | Level | Count | Projects | Upgrade Action |
 |---|---|---|---|
-| V3 (annotated rules) | 4 | PostWach, MACQ, GI-JOE, SysMLv2 | None — gold standard |
-| SPARC boilerplate | 4 | COSYSMO, SEAD, BP Marketing, Claude_code_test_setup, PLM | Add [Rxxx] rule annotations, risk tags |
+| V3 (annotated rules) | 5 | PostWach, MACQ, GI-JOE, SysMLv2, COSYSMO | None — gold standard |
+| SPARC boilerplate | 4 | SEAD, BP Marketing, Claude_code_test_setup, PLM | Add [Rxxx] rule annotations, risk tags |
 | None | 2+ | Alpha Empress, UAOS cluster | Create CLAUDE.md with rules |
 
-**Priority upgrades:** COSYSMO (Tier 1, SPARC boilerplate), SEAD (Tier 1, SPARC boilerplate)
+**Priority upgrades:** SEAD (Tier 1, SPARC boilerplate)
 
 ---
 
@@ -196,7 +196,7 @@
 | Date | Reviewer | Changes |
 |---|---|---|
 | 2026-02-24 | PostWach CTO (initial) | Created registry from full project landscape exploration |
-| 2026-02-24 | PostWach CTO | V3 governance upgrades: GI-JOE [G001-G007], SysMLv2 [S001-S006] |
+| 2026-02-24 | PostWach CTO | V3 governance upgrades: GI-JOE [G001-G007], SysMLv2 [S001-S006], COSYSMO [C001-C006] |
 
 ---
 
