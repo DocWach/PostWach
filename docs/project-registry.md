@@ -45,7 +45,7 @@
 
 - **Purpose:** Ontology engineering platform — OWL/RDF/SPARQL, BFO alignment, semantic reasoning
 - **Domain:** Ontology engineering, knowledge representation
-- **Governance:** SPARC boilerplate (no rule annotations)
+- **Governance:** V3 [G001-G007]
 - **Skills:** 36 total (0 domain-specific skills; ontology capability is agent-based)
 - **Agents:** 116 total (5 domain-specific: ontology-swarm-coordinator, ontology-alignment, ontology-evaluator, ontology-metrics, ontoclean-validator)
 - **Status:** Active
@@ -67,7 +67,7 @@
 
 - **Purpose:** SysML v2 grammar development, library integration, and semantic analysis
 - **Domain:** Model-based systems engineering, SysML v2 specification
-- **Governance:** None (no CLAUDE.md)
+- **Governance:** V3 [S001-S006]
 - **Skills:** 37 total (3 domain-specific: `sysml-grammar-development`, `sysml-library-integration`, `sysml-semantic-analysis`)
 - **Agents:** 21 total (0 domain-specific agents visible; sysml agent directory exists but is empty)
 - **Status:** Active
@@ -183,11 +183,11 @@
 
 | Level | Count | Projects | Upgrade Action |
 |---|---|---|---|
-| V3 (annotated rules) | 2 | PostWach, MACQ | None — gold standard |
-| SPARC boilerplate | 6 | GI-JOE, COSYSMO, SEAD, BP Marketing, Claude_code_test_setup, PLM | Add [Rxxx] rule annotations, risk tags |
-| None | 3+ | SysMLv2, Alpha Empress, UAOS cluster | Create CLAUDE.md with rules |
+| V3 (annotated rules) | 4 | PostWach, MACQ, GI-JOE, SysMLv2 | None — gold standard |
+| SPARC boilerplate | 4 | COSYSMO, SEAD, BP Marketing, Claude_code_test_setup, PLM | Add [Rxxx] rule annotations, risk tags |
+| None | 2+ | Alpha Empress, UAOS cluster | Create CLAUDE.md with rules |
 
-**Priority upgrades:** SysMLv2 (Tier 1, no CLAUDE.md), GI-JOE (Tier 1, no rule annotations)
+**Priority upgrades:** COSYSMO (Tier 1, SPARC boilerplate), SEAD (Tier 1, SPARC boilerplate)
 
 ---
 
@@ -196,6 +196,7 @@
 | Date | Reviewer | Changes |
 |---|---|---|
 | 2026-02-24 | PostWach CTO (initial) | Created registry from full project landscape exploration |
+| 2026-02-24 | PostWach CTO | V3 governance upgrades: GI-JOE [G001-G007], SysMLv2 [S001-S006] |
 
 ---
 
