@@ -3,9 +3,9 @@
 ## Summary
 | Metric | Value |
 |--------|-------|
-| Sessions to date | 5 |
+| Sessions to date | 6 |
 | Papers in progress | 1 (Idea 5: Iso/Homo Library) |
-| Current phase | Infrastructure complete; Portfolio ontology D1-D2; next: morphism metrics + remaining notebooks |
+| Current phase | Infrastructure complete; Portfolio ontology D1-D3; next: D4 enforcement + morphism metrics + remaining notebooks |
 
 ## Session Log
 ### Session 2026-02-13
@@ -53,3 +53,11 @@
 - **Decisions:** Representative skill samples (not full enumeration); forward references for non-pilot hives; SHACL warning severity for skill subtype constraint
 - **Metrics:** turns: ~15, corrections: 0, artifacts: 5, validation: 4-agent swarm (syntax PASS, SHACL PASS, 5/5 SPARQL CQs PASS, cross-ref PASS)
 - **Open items:** Phase D3 (SPARQL competency queries); Phase D4 (enforcement); Phase D5 (expand to all 8 hives)
+
+### Session 2026-02-25 (Portfolio Ontology D3)
+- **Phase(s) worked:** Formalize (SPARQL Competency Queries)
+- **Tasks completed:** Created 20 SPARQL competency queries across 4 domains (governance=7, capability=5, process-research=4, structural=4); YAML manifest for automated execution; edited ontology-validation SKILL.md with manifest-driven sparql-verifier; ran validation swarm — 20/20 CQs PASS; calibrated CQ-S02 (25 object properties) and CQ-S04 (54 individuals, owl:Ontology excluded)
+- **Artifacts:** 20 `.rq` files, `manifest.yaml`, SKILL.md edit, session archive, effort report update, MEMORY.md update
+- **Decisions:** Exclude enumerated quality classes from structural counts (owl:equivalentClass/owl:oneOf filter); dark-class query excludes parent classes with populated subclasses; CQ-S04 counts 54 (not 55 — owl:Ontology declaration correctly excluded by class filter)
+- **Metrics:** turns: ~10, corrections: 2 (CQ-S02 calibration, CQ-S04 off-by-one), artifacts: 22, validation: 20/20 PASS
+- **Open items:** Phase D4 (enforcement — wire validation skill into hooks); Phase D5 (expand to all 8 hives)
