@@ -3,9 +3,9 @@
 ## Summary
 | Metric | Value |
 |--------|-------|
-| Sessions to date | 6 |
+| Sessions to date | 7 |
 | Papers in progress | 1 (Idea 5: Iso/Homo Library) |
-| Current phase | Infrastructure complete; Portfolio ontology D1-D3; next: D4 enforcement + morphism metrics + remaining notebooks |
+| Current phase | Infrastructure complete; Portfolio ontology D1-D4; next: D5 expand to all 8 hives + morphism metrics + remaining notebooks |
 
 ## Session Log
 ### Session 2026-02-13
@@ -61,3 +61,11 @@
 - **Decisions:** Exclude enumerated quality classes from structural counts (owl:equivalentClass/owl:oneOf filter); dark-class query excludes parent classes with populated subclasses; CQ-S04 counts 54 (not 55 — owl:Ontology declaration correctly excluded by class filter)
 - **Metrics:** turns: ~10, corrections: 2 (CQ-S02 calibration, CQ-S04 off-by-one), artifacts: 22, validation: 20/20 PASS
 - **Open items:** Phase D4 (enforcement — wire validation skill into hooks); Phase D5 (expand to all 8 hives)
+
+### Session 2026-02-25 (Portfolio Ontology D4)
+- **Phase(s) worked:** Enforcement (hooks + gate script)
+- **Tasks completed:** Created `ontology-gate.sh` (two-mode validation gate: syntax advisory + full blocking); added PostToolUse hook in `settings.json` for automatic Tier 1 syntax check on `.ttl` edits; added Gate/Enforcement section and quick commands to `ontology-validation` SKILL.md; tested all paths (Tier 1 OK, Tier 2 20/20, failure detection, revert)
+- **Artifacts:** `GI-JOE/.claude/helpers/ontology-gate.sh` (new), `settings.json` (edit), `SKILL.md` (edit), effort report (edit), MEMORY.md (edit)
+- **Decisions:** `python` not `python3` on Windows (Store stub); scalar aggregate CQs extract value from single-row result; Tier 1 always exit 0 (advisory); Tier 2 exit 2 on failure (blocking)
+- **Metrics:** turns: ~10, corrections: 2 (python3 → python resolution, scalar aggregate handling for CQ-S04), artifacts: 5
+- **Open items:** Phase D5 (expand ABox to all 8 hives); governance rules for local tool execution vs. Task agents vs. swarms
