@@ -3,9 +3,9 @@
 ## Summary
 | Metric | Value |
 |--------|-------|
-| Sessions to date | 7 |
+| Sessions to date | 8 |
 | Papers in progress | 1 (Idea 5: Iso/Homo Library) |
-| Current phase | Infrastructure complete; Portfolio ontology D1-D4; next: D5 expand to all 8 hives + morphism metrics + remaining notebooks |
+| Current phase | Infrastructure complete; Portfolio ontology D1-D5; next: morphism metrics + remaining notebooks |
 
 ## Session Log
 ### Session 2026-02-13
@@ -69,3 +69,11 @@
 - **Decisions:** `python` not `python3` on Windows (Store stub); scalar aggregate CQs extract value from single-row result; Tier 1 always exit 0 (advisory); Tier 2 exit 2 on failure (blocking)
 - **Metrics:** turns: ~10, corrections: 2 (python3 → python resolution, scalar aggregate handling for CQ-S04), artifacts: 5
 - **Open items:** Phase D5 (expand ABox to all 8 hives); governance rules for local tool execution vs. Task agents vs. swarms
+
+### Session 2026-02-25 (Portfolio Ontology D5)
+- **Phase(s) worked:** Expand (ABox to all 8 hives)
+- **Tasks completed:** Added 64 new ABox individuals (5 hives, 36 rules, 11 skills, 5 governance upgrades, 5 compliance reports, 2 HiveOutputs) covering MACQ, SysMLv2, COSYSMO, SEAD, PLM; recalibrated 12 of 20 CQs in manifest + .rq headers; verified 20/20 PASS + SHACL PASS; resolved 2 forward references (SysMLv2, Macq); first usage of po:Severity_Low (P007, P011)
+- **Artifacts:** portfolio-abox.ttl (edit, 509→~1000 lines, 344→772 triples), manifest.yaml (edit, 12 expected_counts), 12 .rq header edits, effort report (edit), MEMORY.md (edit)
+- **Decisions:** Omitted skillCount/agentCount for hives without confirmed totals (SHACL allows optional); CQ-G06=4 (not 3) because LegoEV3Models has 2 parent hives; CQ-P01=8 (not 3) because new upgrades also on 2026-02-24
+- **Metrics:** turns: ~10, corrections: 0, artifacts: 16 edits, validation: Tier 1 (772 triples), Tier 2 (20/20 PASS, SHACL PASS)
+- **Open items:** Governance rules for local tool execution vs. Task agents vs. swarms; publication target (FOIS or AAMAS workshop)
