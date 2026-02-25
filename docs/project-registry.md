@@ -37,7 +37,7 @@
 - **Type:** Hive
 - **Purpose:** Defense acquisition lifecycle modeling and decision support
 - **Domain:** DoD acquisition (DBS, MTA, software pathway), program management
-- **Governance:** V3 [P001-P008]
+- **Governance:** V3 [P001-P011] (P001-P006 standard, P007-P011 MACQ-specific)
 - **Skills:** 30 total (10 domain-specific under `acquisition/`: acquisition-lifecycle, acquisition-training, deliverable-generator, document-automation, far-compliance-checker, ipt-assembler, milestone-readiness, pathway-selector, persona-router, protest-prevention)
 - **Agents:** 145 total (52 domain-specific: 16 acquisition roles, 19 acquisition swarms, 7 oversight bodies, 10 archetypes)
 - **Status:** Active
@@ -133,13 +133,14 @@
 
 ### UAOS Cluster (Core / Domain / Foundation / Libraries)
 
-- **Type:** Hive (dormant)
-- **Purpose:** University of Arizona operating system — modular architecture across four repositories
-- **Domain:** Institutional platform
-- **Governance:** None (no .claude/ setup in any of the four repos)
-- **Skills/Agents:** None
+- **Type:** Output (reviewed ontology / OML models — not a Hive)
+- **Purpose:** University of Arizona operating system — modular OML/OpenCaesar ontology architecture across four repositories
+- **Domain:** Institutional platform, ontology engineering (OML)
+- **Governance:** N/A (output — governance inherited from GI-JOE as reviewing hive)
+- **Parent Hive:** GI-JOE (ontology review and evaluation)
+- **Skills/Agents:** None (no Claude Flow integration; ontology-only repos)
 - **Status:** Dormant
-- **Note:** Four-repo architecture but no Claude Flow integration yet
+- **Note:** Reclassified from Hive to Output (2026-02-24). Contains OML models reviewed by GI-JOE's ontology evaluation swarm. No agent orchestration infrastructure.
 
 ### Claude_code_test_setup
 
@@ -161,6 +162,7 @@ Output repositories are artifacts produced by one or more hives. They contain de
 |---|---|---|---|
 | Lego-EV3-Mindstorm-Models | PLM (parts data, kit inventories), SysMLv2 (SysML v2 models) | 172-part reusable library: JSON catalog, kit inventories, SysML v2 behavioral models, LDraw geometry refs | Active |
 | INCOSE_FuSE_Vision2035 | SysMLv2 (INCOSE FuSE/Vision 2035 model) | Single SysML v2 model output for INCOSE FuSE standards | Active |
+| UAOS Cluster | GI-JOE (ontology review and evaluation) | OML/OpenCaesar ontology models across four repositories | Dormant |
 
 ---
 
@@ -226,6 +228,8 @@ Output repositories are artifacts produced by one or more hives. They contain de
 | 2026-02-24 | PostWach CTO | Add Hive/Output type classification; reclassify Lego-EV3 and INCOSE_FuSE as outputs |
 | 2026-02-24 | PostWach CTO | Alpha Empress Phase A activation: [A001-A008], templates, adoption tracker |
 | 2026-02-24 | PostWach CTO | Alpha Empress Phase C: CTO/COO integration active, 1 skill (compliance-checker) |
+| 2026-02-24 | PostWach CTO | MACQ governance pattern merge: P001-P006 standard + P007-P011 MACQ-specific |
+| 2026-02-24 | PostWach CTO | UAOS cluster reclassified: Output (reviewed by GI-JOE), not Hive |
 
 ---
 
