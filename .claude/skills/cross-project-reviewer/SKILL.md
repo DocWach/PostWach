@@ -5,7 +5,7 @@ description: Review capabilities from any project for governance compliance, dup
 
 # Cross-Project Reviewer
 
-A CTO-level review protocol for evaluating capabilities across the research portfolio. PostWach (CTO/Chief Scientist) assesses what is built and how well; Alpha Empress (COO, Phase 2) will assess whether rules are followed and governance is configured. This skill covers the CTO scope.
+A CTO-level review protocol for evaluating capabilities across the research portfolio. PostWach (CTO/Chief Scientist) assesses what is built and how well; Alpha Empress (COO) assesses whether rules are followed and governance is configured. This skill covers the CTO scope.
 
 ## When to Use This Skill
 
@@ -42,29 +42,27 @@ claude-flow hive-mind spawn "Execute quarterly CTO review across all Tier 1 proj
 
 ### 4-Step CTO Review Protocol
 
-#### Step 1: Governance Compliance
+#### Step 1: Governance Compliance (delegated to Alpha Empress)
 
-Check the project's configuration against V3 governance standards.
+Governance compliance is assessed by Alpha Empress (COO) using the 12-check compliance-checker skill. The CTO consumes the Alpha Empress report as Step 1 input rather than running its own checklist.
 
-**Checklist (Phase 1 — manual):**
+**To invoke:** Run the Alpha Empress compliance-checker against the target project path. The skill is defined at `01_Alpha_Impress_Disruptor/.claude/skills/compliance-checker/SKILL.md`.
 
-- [ ] CLAUDE.md exists at project root
-- [ ] Rules have `[Rxxx]` or `[Pxxx]` annotations
-- [ ] Rules include `@category [scope] risk:level` tags
-- [ ] `.gitignore` separates build artifacts from source
-- [ ] No secrets, credentials, or .env files committed
-- [ ] Uses globally installed `claude-flow` command (not npx)
-- [ ] File organization follows `/src`, `/tests`, `/docs`, `/config`, `/scripts` convention
+**What it checks (4 severity levels, 12 checks):**
+- **Critical:** CLAUDE.md exists, no committed secrets
+- **High:** V3 rule annotations, security rule at risk:critical, claude-flow CLI rule
+- **Medium:** Standard sections, Cross-Project Role, no npx references, .gitignore
+- **Low:** Conciseness (<80 lines), no emoji, type classification in registry
 
-**Output classification:**
+**Output classification (consumed as Step 1 rating):**
 
-| Rating | Criteria |
+| Alpha Empress Rating | CTO Step 1 Rating |
 |---|---|
-| V3 Compliant | CLAUDE.md with annotated rules, risk tags, proper file organization |
-| Partially Compliant | CLAUDE.md exists but missing annotations or risk tags |
-| Non-Compliant | No CLAUDE.md, or SPARC boilerplate only |
+| COMPLIANT | V3 Compliant |
+| PARTIALLY COMPLIANT | Partially Compliant |
+| NON-COMPLIANT | Non-Compliant |
 
-**Phase 2 integration:** When Alpha Empress governance tooling is activated (`01_Alpha_Impress_Disruptor/V3_Guidance_Governance_Proposal.md`), this step delegates to Alpha Empress and consumes its compliance report rather than running the manual checklist. The CTO review still includes governance as context but does not duplicate the COO's enforcement role.
+**Fallback:** If no Alpha Empress report is available, the CTO may assess governance using the criteria above as a manual checklist.
 
 #### Step 2: Capability Duplicate Detection
 
@@ -131,11 +129,11 @@ Based on Steps 1-3, recommend updates to the reference documents.
 |---|---|---|
 | **Question** | What is built? How well? | Are rules followed? Is governance configured? |
 | **Scope** | Capability quality, duplication, reuse, technical design | CLAUDE.md compliance, rule annotations, file organization |
-| **Method** | 4-step review protocol (this skill) | V3 Governance Proposal enforcement (Phase 2) |
+| **Method** | 4-step review protocol (this skill) | 12-check compliance-checker skill |
 | **Authority** | Recommends; project owners decide | Enforces; flags non-compliance |
-| **Status** | Active (Phase 1) | Dormant (Phase 2, pending activation) |
+| **Status** | Active | Active |
 
-These roles are complementary and non-overlapping. Step 1 of the CTO review protocol performs a lightweight governance check (Phase 1) that will be replaced by Alpha Empress's authoritative assessment (Phase 2).
+These roles are complementary and non-overlapping. Step 1 of the CTO review protocol has been replaced by Alpha Empress's authoritative compliance assessment.
 
 ---
 
@@ -146,7 +144,7 @@ These roles are complementary and non-overlapping. Step 1 of the CTO review prot
 ```bash
 # Single-project review
 claude-flow hive-mind spawn "Execute CTO review protocol for [project name]. \
-  Step 1: Check governance compliance (CLAUDE.md, rules, risk tags). \
+  Step 1: Read Alpha Empress compliance report (or run compliance-checker if no report available). \
   Step 2: Check capabilities against docs/capability-index.md for duplicates. \
   Step 3: Assess technical quality of domain-specific skills/agents. \
   Step 4: Recommend registry/index updates. \
@@ -163,12 +161,12 @@ claude-flow hive-mind spawn "Review new capability: [name] in [project]. \
   --queen research-strategic \
   --workers methodology-advisor,code-analyzer
 
-# Quarterly portfolio review
+# Quarterly portfolio review (Alpha Empress runs compliance on each project first, then CTO runs Steps 2-4)
 claude-flow hive-mind spawn "Execute quarterly CTO portfolio review. \
   For each Tier 1 project (PostWach, MACQ, GI-JOE, COSYSMO, SysMLv2, SEAD): \
-  run the full 4-step protocol. \
+  consume Alpha Empress compliance report as Step 1, then run Steps 2-4. \
   For each Tier 2 project (Alpha Empress, PLM, BP Marketing, UAOS, Claude_code_test_setup): \
-  run Steps 1 and 2 only. \
+  consume Alpha Empress compliance report as Step 1, then run Step 2 only. \
   Produce a Quarterly Portfolio Report with cross-project findings." \
   --queen research-strategic \
   --workers methodology-advisor,research-architect,code-analyzer
@@ -202,11 +200,10 @@ Date: [YYYY-MM-DD]
 Project: [name]
 Reviewer: PostWach CTO Protocol
 
-STEP 1 — GOVERNANCE COMPLIANCE
+STEP 1 — GOVERNANCE COMPLIANCE (Alpha Empress)
   Rating: [V3 Compliant / Partially Compliant / Non-Compliant]
-  CLAUDE.md: [Present / Missing]
-  Rule annotations: [Yes / No / Partial]
-  Risk tags: [Yes / No]
+  Source: Alpha Empress compliance-checker report
+  Critical: [2/2] High: [3/3] Medium: [X/4] Low: [X/3]
   Issues: ___
 
 STEP 2 — DUPLICATE DETECTION
@@ -234,40 +231,18 @@ SUMMARY
     2. ___
 ```
 
-### Governance Compliance Report (Step 1 Only)
+---
 
-```
-GOVERNANCE COMPLIANCE REPORT
-Date: [YYYY-MM-DD]
-Project: [name]
+## CTO/COO Integration (Active)
 
-CHECKLIST
-  [x/o] CLAUDE.md exists
-  [x/o] Rule annotations present ([Rxxx] format)
-  [x/o] Risk tags present (@category [scope] risk:level)
-  [x/o] .gitignore separates artifacts
-  [x/o] No committed secrets
-  [x/o] Uses global claude-flow CLI
-  [x/o] Standard file organization
+Alpha Empress governance tooling is active. The integration works as follows:
 
-RATING: [V3 Compliant / Partially Compliant / Non-Compliant]
-UPGRADE PATH: ___
-```
+1. **Step 1 delegation:** The CTO review consumes Alpha Empress's compliance report as Step 1 input. The manual checklist is retained as fallback only.
+2. **Dual-review trigger:** When any project adds skills/agents, both Alpha Empress (governance) and PostWach (capability) review it.
+3. **No changes to Steps 2-4.** The CTO's capability assessment, quality review, and index updates remain independent.
+
+Activated 2026-02-24.
 
 ---
 
-## Phase 2 Integration Points
-
-When Alpha Empress governance tooling is activated:
-
-1. **Step 1 changes:** Replace manual checklist with Alpha Empress compliance API call. The CTO review consumes the COO's compliance report as input rather than running its own checks.
-
-2. **New trigger:** When any project adds skills/agents, it notifies both Alpha Empress (governance check) and PostWach (capability review). This is the dual-approval pattern described in the plan.
-
-3. **Governance proposal location:** `01_Alpha_Impress_Disruptor/V3_Guidance_Governance_Proposal.md`
-
-4. **No changes needed to Steps 2-4.** The CTO's capability assessment, quality review, and index update process remain independent of governance enforcement.
-
----
-
-*Maintained by PostWach (CTO role). Part of the Cross-Project Intelligence Foundation (Phase 1).*
+*Maintained by PostWach (CTO role). CTO/COO integration active (Phase C, 2026-02-24).*
