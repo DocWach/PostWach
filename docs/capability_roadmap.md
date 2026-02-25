@@ -155,6 +155,7 @@ GI-JOE is a dedicated ontology engineering platform. When Idea 9 (Ontological Re
 | 2026-02-24 | Phase 2 delivery | Added `biophysics-modeler` agent (MSC 92C) and `biomimetics-analyst` skill; item #2 marked Done |
 | 2026-02-24 | Phase 3 delivery | Added `transfer-learning-analyst` skill (no new agent — reuses `ml-developer`); item #4 marked Done |
 | 2026-02-24 | Phase 4 delivery | Added `psychometrics-analyst` agent and `cognitive-study-designer` skill for Ideas 20-25; item #3 marked Done |
+| 2026-02-25 | Ontology infra delivery | Portfolio ontology D1-D5 complete in GI-JOE (TBox, ABox 772 triples / 8 hives, SHACL, 20 SPARQL CQs, enforcement gate); Phase 5 capability confirmed operational |
 
 ---
 
