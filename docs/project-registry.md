@@ -103,11 +103,11 @@
 - **Purpose:** COO-type governance compliance — configuration auditing, rule enforcement
 - **Domain:** Project governance, V3 compliance
 - **Governance:** V3 [A001-A008]
-- **Skills/Agents:** None (Phase B will add compliance-checker skill)
-- **Status:** Active (Phase A — foundation)
+- **Skills/Agents:** 1 skill (compliance-checker)
+- **Status:** Active (Phase C — CTO/COO integration)
 - **Key assets:** V3 governance templates, adoption tracker, compliance assessment protocol
 - **Key asset:** `V3_Guidance_Governance_Proposal.md` — defines the target governance enforcement model
-- **Phase A complete.** Phase B (compliance-checker skill) and Phase C (CTO/COO integration) pending.
+- **Phase C complete.** CTO/COO integration active.
 
 ### PLM
 
@@ -225,6 +225,7 @@ Output repositories are artifacts produced by one or more hives. They contain de
 | 2026-02-24 | PostWach CTO | V3 governance upgrade: PLM [L001-L007] |
 | 2026-02-24 | PostWach CTO | Add Hive/Output type classification; reclassify Lego-EV3 and INCOSE_FuSE as outputs |
 | 2026-02-24 | PostWach CTO | Alpha Empress Phase A activation: [A001-A008], templates, adoption tracker |
+| 2026-02-24 | PostWach CTO | Alpha Empress Phase C: CTO/COO integration active, 1 skill (compliance-checker) |
 
 ---
 
