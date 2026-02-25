@@ -48,8 +48,8 @@
 
 ### Session 2026-02-25 (Portfolio Ontology D2)
 - **Phase(s) worked:** Populate (ABox + SHACL)
-- **Tasks completed:** Created 55 ABox individuals (3 hives, 22 rules, 9 skills, 3 processes, 4 reports, 3 research ideas, 3 reuse opportunities, 3 roles, 1 output, 2 documents, 1 review protocol); created 8 SHACL validation shapes; effort report updated
-- **Artifacts:** portfolio-abox.ttl (~400 lines), portfolio-shacl.ttl (~300 lines), session archive, effort report update
+- **Tasks completed:** Created 55 ABox individuals (3 hives, 22 rules, 9 skills, 3 processes, 4 reports, 3 research ideas, 3 reuse opportunities, 3 roles, 1 output, 2 documents, 1 review protocol); created 8 SHACL validation shapes; created reusable ontology-validation skill (4-agent conformance swarm); effort report updated
+- **Artifacts:** portfolio-abox.ttl (~400 lines), portfolio-shacl.ttl (~300 lines), ontology-validation SKILL.md (288 lines), session archive, effort report update
 - **Decisions:** Representative skill samples (not full enumeration); forward references for non-pilot hives; SHACL warning severity for skill subtype constraint
-- **Metrics:** turns: ~15, corrections: 0, artifacts: 4, validation: 4-agent swarm (syntax PASS, SHACL PASS, 5/5 SPARQL CQs PASS, cross-ref PASS)
+- **Metrics:** turns: ~15, corrections: 0, artifacts: 5, validation: 4-agent swarm (syntax PASS, SHACL PASS, 5/5 SPARQL CQs PASS, cross-ref PASS)
 - **Open items:** Phase D3 (SPARQL competency queries); Phase D4 (enforcement); Phase D5 (expand to all 8 hives)
