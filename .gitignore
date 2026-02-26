@@ -44,7 +44,8 @@ _ul*
 
 # Work products and works in progress (live on OneDrive, not git)
 Papers/AI_Investing_Platform/
-Papers/Dissertation_Journal/
+Papers/Dissertation_Journal/*
+!Papers/Dissertation_Journal/future_research_ideas.md
 docs/add_watermark.mjs
 docs/ai_history.md
 docs/ai_history_timeline.mmd
