@@ -1,13 +1,18 @@
 ---
-name: "AgentDB Learning Plugins"
-description: "Create and train AI learning plugins with AgentDB's 9 reinforcement learning algorithms. Includes Decision Transformer, Q-Learning, SARSA, Actor-Critic, and more. Use when building self-learning agents, implementing RL, or optimizing agent behavior through experience."
+name: AgentDB Learning Plugins
+description: Create and train AI learning plugins with AgentDB's 9 reinforcement learning algorithms. Includes Decision Transformer, Q-Learning, SARSA, Actor-Critic, and more. Use when building self-learning agents, implementing RL, or optimizing agent behavior through experience.
 ---
 
 # AgentDB Learning Plugins
 
-## What This Skill Does
+## When to Use This Skill
 
-Provides access to 9 reinforcement learning algorithms via AgentDB's plugin system. Create, train, and deploy learning plugins for autonomous agents that improve through experience. Includes offline RL (Decision Transformer), value-based learning (Q-Learning), policy gradients (Actor-Critic), and advanced techniques.
+- Building self-learning agents that improve through experience (offline or online RL)
+- Implementing reinforcement learning pipelines with Decision Transformer, Q-Learning, SARSA, or Actor-Critic
+- Training plugins for autonomous agents using WASM-accelerated neural inference (10-100x faster)
+- Setting up experience replay, prioritized sampling, or incremental learning workflows
+- Deploying multi-agent training with shared models and domain-partitioned experiences
+- Combining learned behaviors with reasoning agents for confidence-weighted decision-making
 
 **Performance**: Train models 10-100x faster with WASM-accelerated neural inference.
 
@@ -19,13 +24,14 @@ Provides access to 9 reinforcement learning algorithms via AgentDB's plugin syst
 
 ---
 
-## Quick Start with CLI
+## Quick Start
 
-### Create Learning Plugin
+### CLI: Create Learning Plugin
 
 ```bash
 # Interactive wizard
 npx agentdb@latest create-plugin
+claude-flow memory store --key "agentdb/learning/init" --value "$(date +%Y-%m-%d)" --namespace agentdb
 
 # Use specific template
 npx agentdb@latest create-plugin -t decision-transformer -n my-agent
@@ -37,7 +43,7 @@ npx agentdb@latest create-plugin -t q-learning --dry-run
 npx agentdb@latest create-plugin -t actor-critic -o ./plugins
 ```
 
-### List Available Templates
+### CLI: List Available Templates
 
 ```bash
 # Show all plugin templates
@@ -51,7 +57,7 @@ npx agentdb@latest list-templates
 # - curiosity-driven (exploration-based)
 ```
 
-### Manage Plugins
+### CLI: Manage Plugins
 
 ```bash
 # List installed plugins
@@ -63,9 +69,7 @@ npx agentdb@latest plugin-info my-agent
 # Shows: algorithm, configuration, training status
 ```
 
----
-
-## Quick Start with API
+### API: Initialize and Train
 
 ```typescript
 import { createAgentDBAdapter } from 'agentic-flow/reasoningbank';
@@ -531,6 +535,89 @@ await adapter.retrieveWithReasoning(queryEmbedding, {
 
 ---
 
+## Integration with Claude Flow
+
+### Spawn Commands
+
+```bash
+# Train a learning plugin on collected experiences
+claude-flow hive-mind spawn "Create and train AgentDB learning plugin. \
+  Use decision-transformer template for offline RL. \
+  Collect experiences from domain, train with validation split. \
+  Report training metrics and convergence status." \
+  --queen research-strategic \
+  --workers coder,ml-engineer
+
+# Evaluate trained agent across multiple domains
+claude-flow hive-mind spawn "Evaluate trained AgentDB learning agent. \
+  Run inference on test states across [domains]. \
+  Compare suggested actions against ground truth. \
+  Generate confidence distribution report." \
+  --queen research-strategic \
+  --workers researcher,performance-engineer
+```
+
+### Memory Storage
+
+```bash
+# Store training run metadata
+claude-flow memory store \
+  --key "agentdb/learning/training-run" \
+  --value '{"algorithm": "decision-transformer", "epochs": 100, "loss": 0.023, "date": "2026-02-26"}' \
+  --namespace agentdb
+
+# Store plugin configuration
+claude-flow memory store \
+  --key "agentdb/learning/plugin-config" \
+  --value '{"template": "actor-critic", "actor_lr": 0.001, "critic_lr": 0.002, "gamma": 0.99}' \
+  --namespace agentdb
+```
+
+### Related Skills
+
+- **agentdb-vector-search** -- semantic vector search, HNSW indexing
+- **agentdb-optimization** -- quantization tuning, HNSW parameter optimization, caching strategies
+- **agentdb-memory-patterns** -- persistent memory patterns, session/long-term storage, consolidation
+- **agentdb-advanced** -- QUIC sync, hybrid search, sharding, distance metrics
+- **reasoningbank-agentdb** -- trajectory tracking, verdict judgment, memory distillation
+- **reasoningbank-intelligence** -- meta-learning, adaptive agents, strategy optimization
+
+---
+
+## Output Templates
+
+### Training Report
+
+```
+LEARNING PLUGIN TRAINING REPORT
+Date: [YYYY-MM-DD]
+Plugin: [name]
+Algorithm: [decision-transformer|q-learning|sarsa|actor-critic|...]
+
+CONFIGURATION
+  Learning Rate: [value]
+  Batch Size: [value]
+  Epochs: [completed]/[total]
+  Validation Split: [%]
+
+TRAINING METRICS
+  Final Loss: [value]
+  Validation Loss: [value]
+  Duration: [ms]
+  Convergence: [yes|no] at epoch [N]
+
+EVALUATION
+  Test States: [N]
+  Mean Confidence: [value]
+  Action Accuracy: [%]
+  Domain: [domain]
+
+RECOMMENDATIONS
+  - [tuning suggestion based on metrics]
+```
+
+---
+
 ## Learn More
 
 - **Algorithm Papers**: See docs/algorithms/ for detailed papers
@@ -540,6 +627,4 @@ await adapter.retrieveWithReasoning(queryEmbedding, {
 
 ---
 
-**Category**: Machine Learning / Reinforcement Learning
-**Difficulty**: Intermediate to Advanced
-**Estimated Time**: 30-60 minutes
+*Role: Infrastructure. Maintained by PostWach (CTO). Dependencies: agentdb-vector-search, agentdb-optimization, agentdb-memory-patterns, reasoningbank-agentdb.*

@@ -1,15 +1,20 @@
 ---
-name: "AgentDB Performance Optimization"
-description: "Optimize AgentDB performance with quantization (4-32x memory reduction), HNSW indexing (150x faster search), caching, and batch operations. Use when optimizing memory usage, improving search speed, or scaling to millions of vectors."
+name: AgentDB Performance Optimization
+description: Optimize AgentDB performance with quantization (4-32x memory reduction), HNSW indexing (150x faster search), caching, and batch operations. Use when optimizing memory usage, improving search speed, or scaling to millions of vectors.
 ---
 
 # AgentDB Performance Optimization
 
-## What This Skill Does
+## When to Use This Skill
 
-Provides comprehensive performance optimization techniques for AgentDB vector databases. Achieve 150x-12,500x performance improvements through quantization, HNSW indexing, caching strategies, and batch operations. Reduce memory usage by 4-32x while maintaining accuracy.
+- Reducing memory footprint of vector databases via quantization (binary 32x, scalar 4x, product 8-16x)
+- Tuning HNSW index parameters (M, efConstruction, efSearch) for search speed vs. recall trade-offs
+- Configuring in-memory caching strategies to achieve sub-millisecond pattern retrieval
+- Scaling AgentDB from small (<10K vectors) to massive (>1M vectors) deployments
+- Running performance benchmarks to validate optimization changes
+- Pruning and consolidating stale or low-confidence patterns to reclaim storage
 
-**Performance**: <100µs vector search, <1ms pattern retrieval, 2ms batch insert for 100 vectors.
+**Performance**: <100us vector search, <1ms pattern retrieval, 2ms batch insert for 100 vectors.
 
 ## Prerequisites
 
@@ -21,20 +26,21 @@ Provides comprehensive performance optimization techniques for AgentDB vector da
 
 ## Quick Start
 
-### Run Performance Benchmarks
+### CLI: Run Performance Benchmarks
 
 ```bash
 # Comprehensive performance benchmarking
 npx agentdb@latest benchmark
+claude-flow memory store --key "agentdb/optimization/benchmark-run" --value "$(date +%Y-%m-%d)" --namespace agentdb
 
 # Results show:
-# ✅ Pattern Search: 150x faster (100µs vs 15ms)
-# ✅ Batch Insert: 500x faster (2ms vs 1s for 100 vectors)
-# ✅ Large-scale Query: 12,500x faster (8ms vs 100s at 1M vectors)
-# ✅ Memory Efficiency: 4-32x reduction with quantization
+# Pattern Search: 150x faster (100us vs 15ms)
+# Batch Insert: 500x faster (2ms vs 1s for 100 vectors)
+# Large-scale Query: 12,500x faster (8ms vs 100s at 1M vectors)
+# Memory Efficiency: 4-32x reduction with quantization
 ```
 
-### Enable Optimizations
+### API: Enable Optimizations
 
 ```typescript
 import { createAgentDBAdapter } from 'agentic-flow/reasoningbank';
@@ -150,7 +156,7 @@ const adapter = await createAgentDBAdapter({
   // HNSW automatically enabled
 });
 
-// Search with HNSW (100µs vs 15ms linear scan)
+// Search with HNSW (100us vs 15ms linear scan)
 const results = await adapter.retrieveWithReasoning(queryEmbedding, {
   k: 10,
 });
@@ -224,12 +230,12 @@ console.log('Cache Hit Rate:', stats.cacheHitRate);
 ### Batch Insert (500x Faster)
 
 ```typescript
-// ❌ SLOW: Individual inserts
+// SLOW: Individual inserts
 for (const doc of documents) {
   await adapter.insertPattern({ /* ... */ });  // 1s for 100 docs
 }
 
-// ✅ FAST: Batch insert
+// FAST: Batch insert
 const patterns = documents.map(doc => ({
   id: '',
   type: 'document',
@@ -355,7 +361,7 @@ const adapter = await createAgentDBAdapter({
   hnswEfSearch: 50,            // Low search quality = faster
 });
 
-// Expected: <50µs search, 90-95% accuracy
+// Expected: <50us search, 90-95% accuracy
 ```
 
 ### Recipe 2: Balanced Performance
@@ -368,7 +374,7 @@ const adapter = await createAgentDBAdapter({
   hnswEfSearch: 100,           // Balanced quality
 });
 
-// Expected: <100µs search, 98-99% accuracy
+// Expected: <100us search, 98-99% accuracy
 ```
 
 ### Recipe 3: Maximum Accuracy
@@ -381,7 +387,7 @@ const adapter = await createAgentDBAdapter({
   hnswEfSearch: 200,           // High search quality
 });
 
-// Expected: <200µs search, 100% accuracy
+// Expected: <200us search, 100% accuracy
 ```
 
 ### Recipe 4: Memory-Constrained (Mobile/Edge)
@@ -393,7 +399,7 @@ const adapter = await createAgentDBAdapter({
   hnswM: 8,                    // Minimal connections
 });
 
-// Expected: <100µs search, ~10MB for 100K vectors
+// Expected: <100us search, ~10MB for 100K vectors
 ```
 
 ---
@@ -487,11 +493,97 @@ const adapter = await createAgentDBAdapter({
 
 | Operation | Vector Count | No Optimization | Optimized | Improvement |
 |-----------|-------------|-----------------|-----------|-------------|
-| Search | 10K | 15ms | 100µs | 150x |
-| Search | 100K | 150ms | 120µs | 1,250x |
+| Search | 10K | 15ms | 100us | 150x |
+| Search | 100K | 150ms | 120us | 1,250x |
 | Search | 1M | 100s | 8ms | 12,500x |
 | Batch Insert (100) | - | 1s | 2ms | 500x |
 | Memory Usage | 1M | 3GB | 96MB | 32x (binary) |
+
+---
+
+## Integration with Claude Flow
+
+### Spawn Commands
+
+```bash
+# Optimize an existing AgentDB database
+claude-flow hive-mind spawn "Profile AgentDB database performance. \
+  Run benchmarks, analyze memory usage, recommend quantization strategy. \
+  Tune HNSW parameters for the target dataset size. \
+  Report before/after metrics." \
+  --queen research-strategic \
+  --workers performance-engineer,coder
+
+# Scale database for production deployment
+claude-flow hive-mind spawn "Scale AgentDB from development to production. \
+  Evaluate current vector count and growth trajectory. \
+  Apply appropriate scaling recipe (small/medium/large/massive). \
+  Configure caching, pruning, and consolidation schedules." \
+  --queen research-strategic \
+  --workers performance-engineer,infrastructure
+```
+
+### Memory Storage
+
+```bash
+# Store optimization configuration
+claude-flow memory store \
+  --key "agentdb/optimization/config" \
+  --value '{"quantization": "binary", "hnswM": 16, "efSearch": 100, "cacheSize": 1000}' \
+  --namespace agentdb
+
+# Store benchmark comparison results
+claude-flow memory store \
+  --key "agentdb/optimization/benchmark-results" \
+  --value '{"before": {"searchMs": 15, "memoryMB": 3072}, "after": {"searchUs": 100, "memoryMB": 96}}' \
+  --namespace agentdb
+```
+
+### Related Skills
+
+- **agentdb-vector-search** -- semantic vector search, HNSW indexing, distance metrics
+- **agentdb-memory-patterns** -- persistent memory, session/long-term storage, consolidation
+- **agentdb-learning** -- 9 RL algorithms, training plugins
+- **agentdb-advanced** -- QUIC sync, hybrid search, sharding
+- **reasoningbank-agentdb** -- trajectory tracking, verdict judgment, memory distillation
+- **reasoningbank-intelligence** -- meta-learning, adaptive agents, strategy optimization
+
+---
+
+## Output Templates
+
+### Optimization Report
+
+```
+OPTIMIZATION REPORT
+Date: [YYYY-MM-DD]
+Database: [path]
+Vector Count: [N]
+
+BEFORE
+  Quantization: [none|scalar|binary|product]
+  HNSW M: [N]  efSearch: [N]
+  Cache Size: [N]
+  Search Latency: [ms]
+  Memory Usage: [MB]
+
+AFTER
+  Quantization: [type applied]
+  HNSW M: [N]  efSearch: [N]
+  Cache Size: [N]
+  Search Latency: [us]
+  Memory Usage: [MB]
+
+IMPROVEMENT
+  Search Speed: [X]x faster
+  Memory Reduction: [X]x smaller
+  Accuracy Delta: [+/- %]
+  Cache Hit Rate: [%]
+
+RECOMMENDATIONS
+  1. [recommendation]
+  2. [recommendation]
+```
 
 ---
 
@@ -504,6 +596,4 @@ const adapter = await createAgentDBAdapter({
 
 ---
 
-**Category**: Performance / Optimization
-**Difficulty**: Intermediate
-**Estimated Time**: 20-30 minutes
+*Role: Infrastructure. Maintained by PostWach (CTO). Dependencies: agentdb-vector-search, agentdb-memory-patterns, agentdb-advanced.*

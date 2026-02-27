@@ -1,13 +1,19 @@
 ---
-name: "AgentDB Vector Search"
-description: "Implement semantic vector search with AgentDB for intelligent document retrieval, similarity matching, and context-aware querying. Use when building RAG systems, semantic search engines, or intelligent knowledge bases."
+name: AgentDB Vector Search
+description: Implement semantic vector search with AgentDB for intelligent document retrieval, similarity matching, and context-aware querying. Use when building RAG systems, semantic search engines, or intelligent knowledge bases.
 ---
 
 # AgentDB Vector Search
 
-## What This Skill Does
+## When to Use This Skill
 
-Implements vector-based semantic search using AgentDB's high-performance vector database with **150x-12,500x faster** operations than traditional solutions. Features HNSW indexing, quantization, and sub-millisecond search (<100µs).
+- Building RAG (Retrieval Augmented Generation) pipelines requiring semantic search
+- Implementing similarity matching for document retrieval or knowledge bases
+- Setting up vector databases with HNSW indexing for sub-millisecond search (<100us)
+- Deploying hybrid search (vector + metadata) for filtered semantic queries
+- Configuring quantization (4-32x memory reduction) for large-scale vector storage
+
+**Performance**: 150x-12,500x faster operations than traditional solutions. HNSW indexing, quantization, and sub-millisecond search (<100us).
 
 ## Prerequisites
 
@@ -15,13 +21,16 @@ Implements vector-based semantic search using AgentDB's high-performance vector 
 - AgentDB v1.0.7+ (via agentic-flow or standalone)
 - OpenAI API key (for embeddings) or custom embedding model
 
-## Quick Start with CLI
+---
 
-### Initialize Vector Database
+## Quick Start
+
+### CLI: Initialize Vector Database
 
 ```bash
 # Initialize with default dimensions (1536 for OpenAI ada-002)
 npx agentdb@latest init ./vectors.db
+claude-flow memory store --key "agentdb/vector-db/init" --value "$(date +%Y-%m-%d)" --namespace agentdb
 
 # Custom dimensions for different embedding models
 npx agentdb@latest init ./vectors.db --dimension 768  # sentence-transformers
@@ -36,7 +45,7 @@ npx agentdb@latest init ./vectors.db --preset large   # >100K vectors
 npx agentdb@latest init ./vectors.db --in-memory
 ```
 
-### Query Vector Database
+### CLI: Query Vector Database
 
 ```bash
 # Basic similarity search
@@ -59,7 +68,7 @@ npx agentdb@latest query ./vectors.db "[...]" -f json -k 5
 npx agentdb@latest query ./vectors.db "[...]" -v
 ```
 
-### Import/Export Vectors
+### CLI: Import/Export Vectors
 
 ```bash
 # Export vectors to JSON
@@ -72,7 +81,7 @@ npx agentdb@latest import ./backup.json
 npx agentdb@latest stats ./vectors.db
 ```
 
-## Quick Start with API
+### API: Initialize and Search
 
 ```typescript
 import { createAgentDBAdapter, computeEmbedding } from 'agentic-flow/reasoningbank';
@@ -115,6 +124,8 @@ const results = await adapter.retrieveWithReasoning(queryEmbedding, {
   synthesizeContext: true,    // Rich context
 });
 ```
+
+---
 
 ## Core Features
 
@@ -201,10 +212,10 @@ claude mcp add agentdb npx agentdb@latest mcp
 npx agentdb@latest benchmark
 
 # Results:
-# ✅ Pattern Search: 150x faster (100µs vs 15ms)
-# ✅ Batch Insert: 500x faster (2ms vs 1s for 100 vectors)
-# ✅ Large-scale Query: 12,500x faster (8ms vs 100s at 1M vectors)
-# ✅ Memory Efficiency: 4-32x reduction with quantization
+# Pattern Search: 150x faster (100us vs 15ms)
+# Batch Insert: 500x faster (2ms vs 1s for 100 vectors)
+# Large-scale Query: 12,500x faster (8ms vs 100s at 1M vectors)
+# Memory Efficiency: 4-32x reduction with quantization
 ```
 
 ## Quantization Options
@@ -214,21 +225,21 @@ AgentDB provides multiple quantization strategies for memory efficiency:
 ### Binary Quantization (32x reduction)
 ```typescript
 const adapter = await createAgentDBAdapter({
-  quantizationType: 'binary',  // 768-dim → 96 bytes
+  quantizationType: 'binary',  // 768-dim -> 96 bytes
 });
 ```
 
 ### Scalar Quantization (4x reduction)
 ```typescript
 const adapter = await createAgentDBAdapter({
-  quantizationType: 'scalar',  // 768-dim → 768 bytes
+  quantizationType: 'scalar',  // 768-dim -> 768 bytes
 });
 ```
 
 ### Product Quantization (8-16x reduction)
 ```typescript
 const adapter = await createAgentDBAdapter({
-  quantizationType: 'product',  // 768-dim → 48-96 bytes
+  quantizationType: 'product',  // 768-dim -> 48-96 bytes
 });
 ```
 
@@ -249,7 +260,7 @@ npx agentdb@latest query ./db.sqlite "[...]" -m dot
 
 ### HNSW Indexing
 - **O(log n) search complexity**
-- **Sub-millisecond retrieval** (<100µs)
+- **Sub-millisecond retrieval** (<100us)
 - **Automatic index building**
 
 ### Caching
@@ -278,7 +289,7 @@ npx agentdb@latest query ./db.sqlite "[...]" -m dot
 # Check if HNSW indexing is enabled (automatic)
 npx agentdb@latest stats ./vectors.db
 
-# Expected: <100µs search time
+# Expected: <100us search time
 ```
 
 ### Issue: High memory usage
@@ -322,12 +333,90 @@ npx agentdb@latest stats ./vectors.db
 
 ## Performance Characteristics
 
-- **Vector Search**: <100µs (HNSW indexing)
+- **Vector Search**: <100us (HNSW indexing)
 - **Pattern Retrieval**: <1ms (with cache)
 - **Batch Insert**: 2ms for 100 vectors
 - **Memory Efficiency**: 4-32x reduction with quantization
 - **Scalability**: Handles 1M+ vectors efficiently
 - **Latency**: Sub-millisecond for most operations
+
+---
+
+## Integration with Claude Flow
+
+### Spawn Commands
+
+```bash
+# Initialize vector search for a project
+claude-flow hive-mind spawn "Initialize AgentDB vector search database. \
+  Set up HNSW indexing with appropriate dimensions for the embedding model. \
+  Configure quantization based on dataset size. \
+  Run benchmark to verify performance." \
+  --queen research-strategic \
+  --workers coder,performance-engineer
+
+# Semantic search across project knowledge
+claude-flow hive-mind spawn "Search project knowledge base for [query]. \
+  Use vector similarity with MMR for diverse results. \
+  Apply metadata filters for [domain]. \
+  Return top-k results with confidence scores." \
+  --queen research-strategic \
+  --workers researcher,memory-specialist
+```
+
+### Memory Storage
+
+```bash
+# Store search configuration
+claude-flow memory store \
+  --key "agentdb/vector-search/config" \
+  --value '{"dimension": 1536, "quantization": "binary", "cacheSize": 1000}' \
+  --namespace agentdb
+
+# Store benchmark results
+claude-flow memory store \
+  --key "agentdb/vector-search/benchmark" \
+  --value '{"searchLatency": "100us", "batchInsert": "2ms/100", "memoryReduction": "32x"}' \
+  --namespace agentdb
+```
+
+### Related Skills
+
+- **agentdb-optimization** — quantization tuning, HNSW parameter optimization, caching strategies
+- **agentdb-memory-patterns** — persistent memory patterns built on vector search
+- **agentdb-advanced** — QUIC sync, hybrid search, sharding
+- **reasoningbank-agentdb** — trajectory tracking and verdict judgment using vector search
+
+---
+
+## Output Templates
+
+### Search Results Report
+
+```
+VECTOR SEARCH REPORT
+Date: [YYYY-MM-DD]
+Database: [path]
+Query: [description]
+
+CONFIGURATION
+  Dimensions: [N]
+  Quantization: [binary|scalar|product|none]
+  Distance Metric: [cosine|euclidean|dot]
+  HNSW: [enabled|disabled]
+
+RESULTS (top [k])
+  1. [id] — similarity: [score] — [summary]
+  2. [id] — similarity: [score] — [summary]
+  ...
+
+PERFORMANCE
+  Search Latency: [us]
+  Cache Hit: [yes|no]
+  Vectors Scanned: [N]
+```
+
+---
 
 ## Learn More
 
@@ -337,3 +426,7 @@ npx agentdb@latest stats ./vectors.db
 - Website: https://agentdb.ruv.io
 - CLI Help: `npx agentdb@latest --help`
 - Command Help: `npx agentdb@latest help <command>`
+
+---
+
+*Role: Infrastructure. Maintained by PostWach (CTO). Dependencies: agentdb-optimization, agentdb-memory-patterns.*
