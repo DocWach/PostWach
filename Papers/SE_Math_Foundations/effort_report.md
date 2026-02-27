@@ -84,4 +84,5 @@
 - **Artifacts:** 56 SKILL.md files (7 updated in PostWach, 49 propagated to 7 hives), MEMORY.md update, session archive
 - **Decisions:** Skills are identical across hives (confirmed by diff), so propagation is a copy not independent update; Alpha Empress skills directory existed but had no AgentDB skills; v3 changes add +84-115 lines per skill (new sections, preserved all code examples)
 - **Metrics:** turns: ~15, corrections: 0, artifacts: 56, agents: 3 parallel (2 skills each), validation: 7/7 structural checks PASS, 3/3 hive spot-checks PASS (diff=0)
+- **Commits:** PostWach `944fa6e` + `88933b2`, MACQ `4f3fd19`, GI-JOE `d3689ab`, COSYSMO `b766a54`, SysMLv2 `5fe80a5`, PLM `b8e3747`, SEAD `8f9cb6e`, Alpha Empress `02815d1` — all pushed
 - **Open items:** Governance rules for local tool execution vs. Task agents vs. swarms; PaperBanana deferred (no Gemini API key)
