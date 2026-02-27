@@ -3,9 +3,9 @@
 ## Summary
 | Metric | Value |
 |--------|-------|
-| Sessions to date | 8 |
+| Sessions to date | 9 |
 | Papers in progress | 1 (Idea 5: Iso/Homo Library) |
-| Current phase | Infrastructure complete; Portfolio ontology D1-D5; next: morphism metrics + remaining notebooks |
+| Current phase | Infrastructure complete; Portfolio ontology D1-D5; AgentDB v3 skills done; next: morphism metrics + remaining notebooks |
 
 ## Session Log
 ### Session 2026-02-13
@@ -77,3 +77,11 @@
 - **Decisions:** Omitted skillCount/agentCount for hives without confirmed totals (SHACL allows optional); CQ-G06=4 (not 3) because LegoEV3Models has 2 parent hives; CQ-P01=8 (not 3) because new upgrades also on 2026-02-24
 - **Metrics:** turns: ~10, corrections: 0, artifacts: 16 edits, validation: Tier 1 (772 triples), Tier 2 (20/20 PASS, SHACL PASS)
 - **Open items:** Governance rules for local tool execution vs. Task agents vs. swarms; publication target (FOIS or AAMAS workshop)
+
+### Session 2026-02-27 (AgentDB v3 Skill Update)
+- **Phase(s) worked:** Infrastructure (skill modernization)
+- **Tasks completed:** Updated 7 AgentDB/ReasoningBank skills to v3 conventions across all 8 V3 hives (56 files total); created v3 template from agentdb-vector-search; launched 3 parallel agents for remaining 6 PostWach skills; propagated to MACQ, GI-JOE, SysMLv2, COSYSMO, SEAD, PLM, Alpha Empress; Alpha Empress received AgentDB skills for the first time (7 new skill directories); spot-checked 3 hives (diff=0); verified cross-skill references; updated MEMORY.md
+- **Artifacts:** 56 SKILL.md files (7 updated in PostWach, 49 propagated to 7 hives), MEMORY.md update, session archive
+- **Decisions:** Skills are identical across hives (confirmed by diff), so propagation is a copy not independent update; Alpha Empress skills directory existed but had no AgentDB skills; v3 changes add +84-115 lines per skill (new sections, preserved all code examples)
+- **Metrics:** turns: ~15, corrections: 0, artifacts: 56, agents: 3 parallel (2 skills each), validation: 7/7 structural checks PASS, 3/3 hive spot-checks PASS (diff=0)
+- **Open items:** Governance rules for local tool execution vs. Task agents vs. swarms; PaperBanana deferred (no Gemini API key)
