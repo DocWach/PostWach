@@ -1,13 +1,18 @@
 ---
-name: "AgentDB Advanced Features"
-description: "Master advanced AgentDB features including QUIC synchronization, multi-database management, custom distance metrics, hybrid search, and distributed systems integration. Use when building distributed AI systems, multi-agent coordination, or advanced vector search applications."
+name: AgentDB Advanced Features
+description: Master advanced AgentDB features including QUIC synchronization, multi-database management, custom distance metrics, hybrid search, and distributed systems integration. Use when building distributed AI systems, multi-agent coordination, or advanced vector search applications.
 ---
 
 # AgentDB Advanced Features
 
-## What This Skill Does
+## When to Use This Skill
 
-Covers advanced AgentDB capabilities for distributed systems, multi-database coordination, custom distance metrics, hybrid search (vector + metadata), QUIC synchronization, and production deployment patterns. Enables building sophisticated AI systems with sub-millisecond cross-node communication and advanced search capabilities.
+- Deploying distributed AgentDB instances with QUIC synchronization (<1ms cross-node latency)
+- Building hybrid search pipelines that combine vector similarity with metadata filtering
+- Implementing database sharding for horizontal scaling across multiple domains
+- Configuring custom distance metrics (weighted Euclidean, domain-specific) beyond cosine/L2/dot
+- Setting up multi-database architectures for separated knowledge, conversation, and code stores
+- Running production deployments requiring connection pooling, error handling, and monitoring
 
 **Performance**: <1ms QUIC sync, hybrid search with filters, custom distance metrics.
 
@@ -20,20 +25,32 @@ Covers advanced AgentDB capabilities for distributed systems, multi-database coo
 
 ---
 
-## QUIC Synchronization
+## Quick Start
 
-### What is QUIC Sync?
+### CLI: Initialize and Configure
 
-QUIC (Quick UDP Internet Connections) enables sub-millisecond latency synchronization between AgentDB instances across network boundaries with automatic retry, multiplexing, and encryption.
+```bash
+# Initialize database for advanced features
+npx agentdb@latest init ./advanced.db
+claude-flow memory store --key "agentdb/advanced/init" --value "$(date +%Y-%m-%d)" --namespace agentdb
 
-**Benefits**:
-- <1ms latency between nodes
-- Multiplexed streams (multiple operations simultaneously)
-- Built-in encryption (TLS 1.3)
-- Automatic retry and recovery
-- Event-based broadcasting
+# Export with compression
+npx agentdb@latest export ./vectors.db ./backup.json.gz --compress
 
-### Enable QUIC Sync
+# Import from backup
+npx agentdb@latest import ./backup.json.gz --decompress
+
+# Merge databases
+npx agentdb@latest merge ./db1.sqlite ./db2.sqlite ./merged.sqlite
+
+# Database optimization
+npx agentdb@latest reindex ./vectors.db
+
+# Get database statistics
+npx agentdb@latest stats ./advanced.db
+```
+
+### API: Initialize with QUIC Sync
 
 ```typescript
 import { createAgentDBAdapter } from 'agentic-flow/reasoningbank';
@@ -57,6 +74,21 @@ await adapter.insertPattern({
 
 // Available on all peers within ~1ms
 ```
+
+---
+
+## QUIC Synchronization
+
+### What is QUIC Sync?
+
+QUIC (Quick UDP Internet Connections) enables sub-millisecond latency synchronization between AgentDB instances across network boundaries with automatic retry, multiplexing, and encryption.
+
+**Benefits**:
+- <1ms latency between nodes
+- Multiplexed streams (multiple operations simultaneously)
+- Built-in encryption (TLS 1.3)
+- Automatic retry and recovery
+- Event-based broadcasting
 
 ### QUIC Configuration
 
@@ -119,7 +151,7 @@ const result = await adapter.retrieveWithReasoning(queryEmbedding, {
 - Document similarity
 - Most general-purpose applications
 
-**Formula**: `cos(θ) = (A · B) / (||A|| × ||B||)`
+**Formula**: `cos(theta) = (A . B) / (||A|| x ||B||)`
 **Range**: [-1, 1] (1 = identical, -1 = opposite)
 
 ### Euclidean Distance (L2)
@@ -143,8 +175,8 @@ const result = await adapter.retrieveWithReasoning(queryEmbedding, {
 - Computer vision
 - When vector magnitude matters
 
-**Formula**: `d = √(Σ(ai - bi)²)`
-**Range**: [0, ∞] (0 = identical, ∞ = very different)
+**Formula**: `d = sqrt(sum((ai - bi)^2))`
+**Range**: [0, inf] (0 = identical, inf = very different)
 
 ### Dot Product
 
@@ -166,8 +198,8 @@ const result = await adapter.retrieveWithReasoning(queryEmbedding, {
 - Fast similarity computation
 - When vectors are already unit-length
 
-**Formula**: `dot = Σ(ai × bi)`
-**Range**: [-∞, ∞] (higher = more similar)
+**Formula**: `dot = sum(ai x bi)`
+**Range**: [-inf, inf] (higher = more similar)
 
 ### Custom Distance Metrics
 
@@ -536,6 +568,92 @@ const result = await adapter.retrieveWithReasoning(queryEmbedding, {
 
 ---
 
+## Integration with Claude Flow
+
+### Spawn Commands
+
+```bash
+# Deploy distributed AgentDB with QUIC sync across nodes
+claude-flow hive-mind spawn "Set up distributed AgentDB cluster. \
+  Configure QUIC synchronization between 3 nodes. \
+  Enable hybrid search with metadata filtering. \
+  Verify sub-millisecond sync latency with benchmark." \
+  --queen research-strategic \
+  --workers coder,infrastructure-engineer
+
+# Run cross-shard search and merge results
+claude-flow hive-mind spawn "Execute federated search across AgentDB shards. \
+  Query all domain shards for [topic]. \
+  Merge results with MMR for diversity. \
+  Report per-shard hit counts and latency." \
+  --queen research-strategic \
+  --workers researcher,performance-engineer
+```
+
+### Memory Storage
+
+```bash
+# Store cluster topology
+claude-flow memory store \
+  --key "agentdb/advanced/cluster-topology" \
+  --value '{"nodes": 3, "syncPort": 4433, "shards": ["domain-a", "domain-b", "domain-c"]}' \
+  --namespace agentdb
+
+# Store hybrid search configuration
+claude-flow memory store \
+  --key "agentdb/advanced/hybrid-config" \
+  --value '{"vectorWeight": 0.7, "metadataWeight": 0.3, "mmrLambda": 0.5}' \
+  --namespace agentdb
+```
+
+### Related Skills
+
+- **agentdb-vector-search** -- semantic vector search, HNSW indexing
+- **agentdb-optimization** -- quantization tuning, HNSW parameter optimization, caching strategies
+- **agentdb-memory-patterns** -- persistent memory patterns, session/long-term storage, consolidation
+- **agentdb-learning** -- 9 RL algorithms, training plugins
+- **reasoningbank-agentdb** -- trajectory tracking, verdict judgment, memory distillation
+- **reasoningbank-intelligence** -- meta-learning, adaptive agents, strategy optimization
+
+---
+
+## Output Templates
+
+### Distributed System Status Report
+
+```
+AGENTDB ADVANCED STATUS REPORT
+Date: [YYYY-MM-DD]
+Cluster: [name]
+
+TOPOLOGY
+  Nodes: [N]
+  Shards: [list]
+  QUIC Port: [port]
+  Sync Interval: [ms]
+
+QUIC SYNC STATUS
+  Node 1 ([ip]): [connected|disconnected] — latency: [ms]
+  Node 2 ([ip]): [connected|disconnected] — latency: [ms]
+  Node 3 ([ip]): [connected|disconnected] — latency: [ms]
+  Last Sync: [timestamp]
+  Patterns Synced: [N]
+
+HYBRID SEARCH CONFIG
+  Vector Weight: [value]
+  Metadata Weight: [value]
+  MMR Lambda: [value]
+  Active Filters: [list]
+
+PERFORMANCE
+  Avg Sync Latency: [ms]
+  Avg Search Latency: [ms]
+  Cache Hit Rate: [%]
+  Total Patterns: [N]
+```
+
+---
+
 ## Learn More
 
 - **QUIC Protocol**: docs/quic-synchronization.pdf
@@ -545,6 +663,4 @@ const result = await adapter.retrieveWithReasoning(queryEmbedding, {
 
 ---
 
-**Category**: Advanced / Distributed Systems
-**Difficulty**: Advanced
-**Estimated Time**: 45-60 minutes
+*Role: Infrastructure. Maintained by PostWach (CTO). Dependencies: agentdb-vector-search, agentdb-optimization, agentdb-memory-patterns, agentdb-learning.*

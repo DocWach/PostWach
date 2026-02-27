@@ -1,13 +1,17 @@
 ---
-name: "ReasoningBank Intelligence"
-description: "Implement adaptive learning with ReasoningBank for pattern recognition, strategy optimization, and continuous improvement. Use when building self-learning agents, optimizing workflows, or implementing meta-cognitive systems."
+name: ReasoningBank Intelligence
+description: Implement adaptive learning with ReasoningBank for pattern recognition, strategy optimization, and continuous improvement. Use when building self-learning agents, optimizing workflows, or implementing meta-cognitive systems.
 ---
 
 # ReasoningBank Intelligence
 
-## What This Skill Does
+## When to Use This Skill
 
-Implements ReasoningBank's adaptive learning system for AI agents to learn from experience, recognize patterns, and optimize strategies over time. Enables meta-cognitive capabilities and continuous improvement.
+- Building self-learning agents that adapt strategies based on accumulated experience
+- Implementing meta-learning to discover cross-task optimization principles
+- Comparing and selecting optimal strategies across multiple approaches for a task type
+- Transferring learned knowledge from one domain to another (e.g., backend to frontend optimization)
+- Setting up continuous auto-learning pipelines with confidence thresholds and update schedules
 
 ## Prerequisites
 
@@ -16,6 +20,19 @@ Implements ReasoningBank's adaptive learning system for AI agents to learn from 
 - Node.js 18+
 
 ## Quick Start
+
+### CLI: Initialize Intelligence Database
+
+```bash
+# Initialize AgentDB for ReasoningBank Intelligence
+npx agentdb@latest init ./.agentdb/intelligence.db --dimension 1536
+claude-flow memory store --key "agentdb/intelligence/init" --value "$(date +%Y-%m-%d)" --namespace agentdb
+
+# Start MCP server for Claude Code integration
+npx agentdb@latest mcp
+```
+
+### API: Initialize and Record
 
 ```typescript
 import { ReasoningBank } from 'agentic-flow/reasoningbank';
@@ -194,8 +211,96 @@ console.log(`
 ### Issue: Memory growing large
 **Solution**: Set TTL for old experiences or enable pruning
 
+---
+
+## Integration with Claude Flow
+
+### Spawn Commands
+
+```bash
+# Deploy adaptive learning pipeline for a new domain
+claude-flow hive-mind spawn "Initialize ReasoningBank Intelligence for [domain]. \
+  Configure pattern recognition with confidence threshold 0.8. \
+  Enable auto-learning with update frequency 100. \
+  Record baseline strategy comparison for [task_type]." \
+  --queen research-strategic \
+  --workers coder,researcher
+
+# Run meta-learning analysis across accumulated experiences
+claude-flow hive-mind spawn "Analyze all recorded experiences across domains. \
+  Identify cross-domain meta-learning patterns. \
+  Evaluate transfer learning opportunities between similar domains. \
+  Report strategy optimization recommendations." \
+  --queen research-strategic \
+  --workers researcher,performance-engineer
+```
+
+### Memory Storage
+
+```bash
+# Store intelligence configuration
+claude-flow memory store \
+  --key "agentdb/intelligence/config" \
+  --value '{"learningRate": 0.1, "threshold": 0.7, "updateFrequency": 100}' \
+  --namespace agentdb
+
+# Store strategy comparison results
+claude-flow memory store \
+  --key "agentdb/intelligence/strategy-results" \
+  --value '{"task": "code_review", "best": "static_analysis_first", "score": 0.92}' \
+  --namespace agentdb
+```
+
+### Related Skills
+
+- **agentdb-vector-search** -- semantic vector search, HNSW indexing
+- **agentdb-optimization** -- quantization, HNSW tuning, caching, pruning
+- **agentdb-memory-patterns** -- persistent memory, session/long-term storage, consolidation
+- **agentdb-learning** -- 9 RL algorithms, training plugins
+- **agentdb-advanced** -- QUIC sync, hybrid search, sharding, distance metrics
+- **reasoningbank-agentdb** -- trajectory tracking, verdict judgment, memory distillation
+
+---
+
+## Output Templates
+
+### Intelligence Assessment Report
+
+```
+REASONINGBANK INTELLIGENCE REPORT
+Date: [YYYY-MM-DD]
+Domain: [domain]
+
+EXPERIENCE SUMMARY
+  Total Experiences: [N]
+  Patterns Learned: [N]
+  Strategy Success Rate: [%]
+
+STRATEGY COMPARISON ([task_type])
+  1. [strategy_name] -- score: [score] -- trials: [N]
+  2. [strategy_name] -- score: [score] -- trials: [N]
+  ...
+
+META-LEARNING INSIGHTS
+  - [observation] (confidence: [score], applies to: [task_types])
+  - [observation] (confidence: [score], applies to: [task_types])
+
+TRANSFER LEARNING CANDIDATES
+  [source_domain] -> [target_domain] (similarity: [score])
+
+RECOMMENDATIONS
+  - [actionable recommendation]
+  - [actionable recommendation]
+```
+
+---
+
 ## Learn More
 
 - ReasoningBank Guide: agentic-flow/src/reasoningbank/README.md
 - AgentDB Integration: packages/agentdb/docs/reasoningbank.md
 - Pattern Learning: docs/reasoning/patterns.md
+
+---
+
+*Role: Infrastructure. Maintained by PostWach (CTO). Dependencies: reasoningbank-agentdb, agentdb-learning, agentdb-memory-patterns.*

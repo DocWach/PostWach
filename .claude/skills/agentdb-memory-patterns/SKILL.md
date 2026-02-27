@@ -1,13 +1,18 @@
 ---
-name: "AgentDB Memory Patterns"
-description: "Implement persistent memory patterns for AI agents using AgentDB. Includes session memory, long-term storage, pattern learning, and context management. Use when building stateful agents, chat systems, or intelligent assistants."
+name: AgentDB Memory Patterns
+description: Implement persistent memory patterns for AI agents using AgentDB. Includes session memory, long-term storage, pattern learning, and context management. Use when building stateful agents, chat systems, or intelligent assistants.
 ---
 
 # AgentDB Memory Patterns
 
-## What This Skill Does
+## When to Use This Skill
 
-Provides memory management patterns for AI agents using AgentDB's persistent storage and ReasoningBank integration. Enables agents to remember conversations, learn from interactions, and maintain context across sessions.
+- Building stateful AI agents that need to remember conversations across sessions
+- Implementing long-term memory storage for user preferences, facts, and learned patterns
+- Consolidating and pruning agent memory to keep databases lean and relevant
+- Migrating from legacy ReasoningBank to AgentDB persistent storage
+- Setting up hierarchical memory (immediate, short-term, long-term, semantic) for agent architectures
+- Integrating learning plugins (Decision Transformer, Q-Learning, etc.) with memory patterns
 
 **Performance**: 150x-12,500x faster than traditional solutions with 100% backward compatibility.
 
@@ -17,13 +22,16 @@ Provides memory management patterns for AI agents using AgentDB's persistent sto
 - AgentDB v1.0.7+ (via agentic-flow or standalone)
 - Understanding of agent architectures
 
-## Quick Start with CLI
+---
 
-### Initialize AgentDB
+## Quick Start
+
+### CLI: Initialize AgentDB
 
 ```bash
 # Initialize vector database
 npx agentdb@latest init ./agents.db
+claude-flow memory store --key "agentdb/memory-patterns/init" --value "$(date +%Y-%m-%d)" --namespace agentdb
 
 # Or with custom dimensions
 npx agentdb@latest init ./agents.db --dimension 768
@@ -35,7 +43,7 @@ npx agentdb@latest init ./agents.db --preset large
 npx agentdb@latest init ./memory.db --in-memory
 ```
 
-### Start MCP Server for Claude Code
+### CLI: Start MCP Server for Claude Code
 
 ```bash
 # Start MCP server (integrates with Claude Code)
@@ -45,7 +53,7 @@ npx agentdb@latest mcp
 claude mcp add agentdb npx agentdb@latest mcp
 ```
 
-### Create Learning Plugin
+### CLI: Create Learning Plugin
 
 ```bash
 # Interactive plugin wizard
@@ -62,7 +70,7 @@ npx agentdb@latest create-plugin -t decision-transformer -n my-agent
 # - curiosity-driven (exploration-based)
 ```
 
-## Quick Start with API
+### API: Initialize and Store Memory
 
 ```typescript
 import { createAgentDBAdapter } from 'agentic-flow/reasoningbank';
@@ -104,6 +112,8 @@ const context = await adapter.retrieveWithReasoning(queryEmbedding, {
   synthesizeContext: true,    // Generate rich context
 });
 ```
+
+---
 
 ## Memory Patterns
 
@@ -183,6 +193,8 @@ await memory.consolidate({
 });
 ```
 
+---
+
 ## CLI Operations
 
 ### Query Database
@@ -221,10 +233,12 @@ npx agentdb@latest stats ./agents.db
 npx agentdb@latest benchmark
 
 # Results show:
-# - Pattern Search: 150x faster (100µs vs 15ms)
+# - Pattern Search: 150x faster (100us vs 15ms)
 # - Batch Insert: 500x faster (2ms vs 1s)
 # - Large-scale Query: 12,500x faster (8ms vs 100s)
 ```
+
+---
 
 ## Integration with ReasoningBank
 
@@ -237,7 +251,7 @@ const result = await migrateToAgentDB(
   '.agentdb/reasoningbank.db'   // Destination (AgentDB)
 );
 
-console.log(`✅ Migrated ${result.patternsMigrated} patterns`);
+console.log(`Migrated ${result.patternsMigrated} patterns`);
 
 // Train learning model
 const adapter = await createAgentDBAdapter({
@@ -256,6 +270,8 @@ const result = await adapter.retrieveWithReasoning(queryEmbedding, {
   optimizeMemory: true,
 });
 ```
+
+---
 
 ## Learning Plugins
 
@@ -283,6 +299,8 @@ npx agentdb@latest list-templates
 # Get plugin info
 npx agentdb@latest plugin-info <name>
 ```
+
+---
 
 ## Reasoning Agents (4 Modules)
 
@@ -314,7 +332,7 @@ npx agentdb@latest stats ./agents.db
 ### Issue: Slow search performance
 ```bash
 # Enable HNSW indexing and caching
-# Results: <100µs search time
+# Results: <100us search time
 ```
 
 ### Issue: Migration from legacy ReasoningBank
@@ -325,11 +343,98 @@ npx agentdb@latest migrate --source .swarm/memory.db
 
 ## Performance Characteristics
 
-- **Vector Search**: <100µs (HNSW indexing)
+- **Vector Search**: <100us (HNSW indexing)
 - **Pattern Retrieval**: <1ms (with cache)
 - **Batch Insert**: 2ms for 100 patterns
 - **Memory Efficiency**: 4-32x reduction with quantization
 - **Backward Compatibility**: 100% compatible with ReasoningBank API
+
+---
+
+## Integration with Claude Flow
+
+### Spawn Commands
+
+```bash
+# Set up persistent memory for an agent swarm
+claude-flow hive-mind spawn "Initialize AgentDB memory patterns for agent swarm. \
+  Configure session memory, long-term storage, and pattern learning. \
+  Set up hierarchical memory organization. \
+  Verify consolidation and pruning schedules." \
+  --queen research-strategic \
+  --workers memory-specialist,coder
+
+# Migrate legacy ReasoningBank to AgentDB
+claude-flow hive-mind spawn "Migrate existing ReasoningBank database to AgentDB. \
+  Validate pattern count and data integrity after migration. \
+  Configure quantization and caching for the migrated data. \
+  Run benchmarks to confirm performance improvement." \
+  --queen research-strategic \
+  --workers infrastructure,performance-engineer
+```
+
+### Memory Storage
+
+```bash
+# Store memory pattern configuration
+claude-flow memory store \
+  --key "agentdb/memory-patterns/config" \
+  --value '{"sessionMemory": true, "longTerm": true, "consolidation": "importance", "maxSize": 10000}' \
+  --namespace agentdb
+
+# Store migration status
+claude-flow memory store \
+  --key "agentdb/memory-patterns/migration" \
+  --value '{"source": "reasoningbank", "patternsMigrated": 5430, "date": "2026-02-26"}' \
+  --namespace agentdb
+```
+
+### Related Skills
+
+- **agentdb-vector-search** -- semantic vector search, HNSW indexing, distance metrics
+- **agentdb-optimization** -- quantization tuning, HNSW parameter optimization, caching strategies
+- **agentdb-learning** -- 9 RL algorithms, training plugins
+- **agentdb-advanced** -- QUIC sync, hybrid search, sharding
+- **reasoningbank-agentdb** -- trajectory tracking, verdict judgment, memory distillation
+- **reasoningbank-intelligence** -- meta-learning, adaptive agents, strategy optimization
+
+---
+
+## Output Templates
+
+### Memory Status Report
+
+```
+MEMORY STATUS REPORT
+Date: [YYYY-MM-DD]
+Database: [path]
+Agent/Swarm: [name]
+
+STORAGE SUMMARY
+  Total Patterns: [N]
+  Session Memories: [N]
+  Long-Term Facts: [N]
+  Learned Patterns: [N]
+  Database Size: [MB]
+
+HEALTH
+  Avg Confidence: [0.0-1.0]
+  Cache Hit Rate: [%]
+  Stale Patterns (>30d): [N]
+  Low-Confidence (<0.5): [N]
+
+CONSOLIDATION
+  Last Run: [YYYY-MM-DD]
+  Patterns Merged: [N]
+  Patterns Pruned: [N]
+  Quality Improvement: [+/- %]
+
+RECOMMENDATIONS
+  1. [recommendation]
+  2. [recommendation]
+```
+
+---
 
 ## Learn More
 
@@ -337,3 +442,7 @@ npx agentdb@latest migrate --source .swarm/memory.db
 - Documentation: node_modules/agentic-flow/docs/AGENTDB_INTEGRATION.md
 - MCP Integration: `npx agentdb@latest mcp` for Claude Code
 - Website: https://agentdb.ruv.io
+
+---
+
+*Role: Infrastructure. Maintained by PostWach (CTO). Dependencies: agentdb-vector-search, agentdb-optimization, agentdb-learning.*

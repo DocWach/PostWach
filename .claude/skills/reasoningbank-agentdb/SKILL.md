@@ -1,13 +1,18 @@
 ---
-name: "ReasoningBank with AgentDB"
-description: "Implement ReasoningBank adaptive learning with AgentDB's 150x faster vector database. Includes trajectory tracking, verdict judgment, memory distillation, and pattern recognition. Use when building self-learning agents, optimizing decision-making, or implementing experience replay systems."
+name: ReasoningBank with AgentDB
+description: Implement ReasoningBank adaptive learning with AgentDB's 150x faster vector database. Includes trajectory tracking, verdict judgment, memory distillation, and pattern recognition. Use when building self-learning agents, optimizing decision-making, or implementing experience replay systems.
 ---
 
 # ReasoningBank with AgentDB
 
-## What This Skill Does
+## When to Use This Skill
 
-Provides ReasoningBank adaptive learning patterns using AgentDB's high-performance backend (150x-12,500x faster). Enables agents to learn from experiences, judge outcomes, distill memories, and improve decision-making over time with 100% backward compatibility.
+- Building self-learning agents that improve decision-making from past experiences
+- Implementing trajectory tracking to record and analyze agent execution paths
+- Judging outcomes of agent actions using verdict-based reasoning over similar past trajectories
+- Distilling large collections of experiences into high-level reusable patterns
+- Migrating from legacy ReasoningBank to the AgentDB-backed backend (150x-12,500x faster)
+- Setting up experience replay systems with hierarchical or multi-domain memory
 
 **Performance**: 150x faster pattern retrieval, 500x faster batch operations, <1ms memory access.
 
@@ -19,20 +24,21 @@ Provides ReasoningBank adaptive learning patterns using AgentDB's high-performan
 
 ---
 
-## Quick Start with CLI
+## Quick Start
 
-### Initialize ReasoningBank Database
+### CLI: Initialize ReasoningBank Database
 
 ```bash
 # Initialize AgentDB for ReasoningBank
 npx agentdb@latest init ./.agentdb/reasoningbank.db --dimension 1536
+claude-flow memory store --key "agentdb/reasoningbank/init" --value "$(date +%Y-%m-%d)" --namespace agentdb
 
 # Start MCP server for Claude Code integration
 npx agentdb@latest mcp
 claude mcp add agentdb npx agentdb@latest mcp
 ```
 
-### Migrate from Legacy ReasoningBank
+### CLI: Migrate from Legacy ReasoningBank
 
 ```bash
 # Automatic migration with validation
@@ -42,9 +48,7 @@ npx agentdb@latest migrate --source .swarm/memory.db
 npx agentdb@latest stats ./.agentdb/reasoningbank.db
 ```
 
----
-
-## Quick Start with API
+### API: Initialize and Search
 
 ```typescript
 import { createAgentDBAdapter, computeEmbedding } from 'agentic-flow/reasoningbank';
@@ -297,7 +301,7 @@ const newMemories = await distillMemories(
 
 ## Performance Characteristics
 
-- **Pattern Search**: 150x faster (100µs vs 15ms)
+- **Pattern Search**: 150x faster (100us vs 15ms)
 - **Memory Retrieval**: <1ms (with cache)
 - **Batch Insert**: 500x faster (2ms vs 1s for 100 patterns)
 - **Trajectory Judgment**: <5ms (including retrieval + analysis)
@@ -432,6 +436,89 @@ await rb.optimize();
 
 ---
 
+## Integration with Claude Flow
+
+### Spawn Commands
+
+```bash
+# Set up ReasoningBank for a new agent learning pipeline
+claude-flow hive-mind spawn "Initialize ReasoningBank with AgentDB backend. \
+  Configure trajectory tracking for [domain]. \
+  Set up verdict judgment thresholds and memory distillation schedule. \
+  Verify migration from any legacy memory stores." \
+  --queen research-strategic \
+  --workers coder,memory-specialist
+
+# Distill and consolidate agent experiences across domains
+claude-flow hive-mind spawn "Retrieve all trajectories in [domain]. \
+  Run verdict judgment on recent experiences. \
+  Distill successful patterns into high-level reusable knowledge. \
+  Report consolidation metrics and pruning results." \
+  --queen research-strategic \
+  --workers researcher,performance-engineer
+```
+
+### Memory Storage
+
+```bash
+# Store ReasoningBank configuration
+claude-flow memory store \
+  --key "agentdb/reasoningbank/config" \
+  --value '{"dbPath": ".agentdb/reasoningbank.db", "enableLearning": true, "cacheSize": 1000}' \
+  --namespace agentdb
+
+# Store distillation results
+claude-flow memory store \
+  --key "agentdb/reasoningbank/distillation" \
+  --value '{"consolidated": 15, "pruned": 3, "domains": ["api-optimization", "debugging"]}' \
+  --namespace agentdb
+```
+
+### Related Skills
+
+- **agentdb-vector-search** -- semantic vector search, HNSW indexing
+- **agentdb-optimization** -- quantization, HNSW tuning, caching, pruning
+- **agentdb-memory-patterns** -- persistent memory, session/long-term storage, consolidation
+- **agentdb-learning** -- 9 RL algorithms, training plugins
+- **agentdb-advanced** -- QUIC sync, hybrid search, sharding, distance metrics
+- **reasoningbank-intelligence** -- meta-learning, adaptive agents, strategy optimization
+
+---
+
+## Output Templates
+
+### Trajectory Analysis Report
+
+```
+REASONINGBANK TRAJECTORY REPORT
+Date: [YYYY-MM-DD]
+Database: [path]
+Domain: [domain]
+
+TRAJECTORIES ANALYZED
+  Total: [N]
+  Successful: [N] ([%])
+  Needs Review: [N] ([%])
+
+TOP DISTILLED PATTERNS
+  1. [pattern] -- confidence: [score] -- sample size: [N]
+  2. [pattern] -- confidence: [score] -- sample size: [N]
+  ...
+
+VERDICT SUMMARY
+  High Confidence (>0.8): [N]
+  Medium Confidence (0.5-0.8): [N]
+  Low Confidence (<0.5): [N]
+
+PERFORMANCE
+  Avg Judgment Latency: [ms]
+  Distillation Time: [ms]
+  Patterns Consolidated: [N]
+  Patterns Pruned: [N]
+```
+
+---
+
 ## Learn More
 
 - **AgentDB Integration**: node_modules/agentic-flow/docs/AGENTDB_INTEGRATION.md
@@ -441,6 +528,4 @@ await rb.optimize();
 
 ---
 
-**Category**: Machine Learning / Reinforcement Learning
-**Difficulty**: Intermediate
-**Estimated Time**: 20-30 minutes
+*Role: Infrastructure. Maintained by PostWach (CTO). Dependencies: agentdb-vector-search, agentdb-memory-patterns, reasoningbank-intelligence.*
