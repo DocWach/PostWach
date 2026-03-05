@@ -1,0 +1,79 @@
+%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#1a365d', 'primaryTextColor': '#fff', 'primaryBorderColor': '#2d4a7a', 'lineColor': '#4a5568', 'secondaryColor': '#e2e8f0', 'tertiaryColor': '#f7fafc', 'fontSize': '14px'}}}%%
+
+graph TB
+    subgraph GOVERNANCE["GOVERNANCE LAYER"]
+        direction LR
+        PostWach["<b>PostWach</b><br/>CTO / Chief Scientist<br/>V3 [R101-R107]<br/>110 skills | 237 agents"]
+        AlphaEmpress["<b>Alpha Empress</b><br/>COO / Governance<br/>V3 [A001-A008]<br/>Compliance checker"]
+    end
+
+    subgraph TIER1["TIER 1: ACTIVE RESEARCH HIVES"]
+        direction TB
+
+        subgraph SE_DOMAIN["Systems Engineering Domain"]
+            MACQ["<b>MACQ</b><br/>Defense Acquisition<br/>V3 [P001-P011]<br/>30 skills | 145 agents"]
+            SysMLv2["<b>SysMLv2</b><br/>SysML v2 Grammar<br/>V3 [S001-S006]<br/>37 skills | 21 agents"]
+            COSYSMO["<b>COSYSMO</b><br/>Cost Estimation<br/>V3 [C001-C006]<br/>27 skills | 82 agents"]
+            SEAD["<b>SEAD</b><br/>SE Analysis & Design<br/>V3 [D001-D007]<br/>29 skills | 81 agents"]
+        end
+
+        subgraph KR_DOMAIN["Knowledge Representation Domain"]
+            GIJOE["<b>GI-JOE</b><br/>Ontology Engineering<br/>V3 [G001-G007]<br/>36 skills | 116 agents"]
+        end
+    end
+
+    subgraph TIER2["TIER 2: SUPPORT"]
+        PLM["<b>PLM</b><br/>Product Lifecycle Mgmt<br/>V3 [L001-L007]<br/>30 skills | 101 agents"]
+    end
+
+    subgraph OUTPUTS["HIVE OUTPUTS (No Agents)"]
+        Lego["Lego-EV3-Mindstorm<br/>Models"]
+        FuSE["INCOSE FuSE<br/>Vision 2035"]
+        UAOS["UAOS Cluster<br/>(OML Models)"]
+    end
+
+    subgraph SHARED["SHARED INFRASTRUCTURE"]
+        OntologyStack["Portfolio Ontology<br/>TBox + ABox + SHACL<br/>119 individuals | 778 triples"]
+        Scorecards["Productivity Scorecards<br/>Schema v1.0 | 4 dimensions<br/>R014 enforcement"]
+        Memory["Claude Flow Memory<br/>Persistent cross-session"]
+    end
+
+    %% Governance relationships
+    PostWach -->|"architecture<br/>decisions"| TIER1
+    PostWach -->|"capability<br/>quality"| TIER2
+    AlphaEmpress -->|"compliance<br/>audits"| TIER1
+    AlphaEmpress -->|"compliance<br/>audits"| TIER2
+    PostWach <-->|"CTO/COO<br/>coordination"| AlphaEmpress
+
+    %% Cross-hive research flows
+    PostWach -.->|"morphism theory"| MACQ
+    PostWach -.->|"WySE Metamodel"| GIJOE
+    PostWach -.->|"isomorphism library"| SysMLv2
+    GIJOE -.->|"ontology validation"| PostWach
+    GIJOE -.->|"OML review"| UAOS
+    MACQ -.->|"acquisition models"| COSYSMO
+    SysMLv2 -.->|"grammar/semantics"| SEAD
+
+    %% Output production
+    PLM -->|"parts data"| Lego
+    SysMLv2 -->|"SysML models"| Lego
+    SysMLv2 -->|"FuSE model"| FuSE
+    GIJOE -->|"ontology review"| UAOS
+
+    %% Shared infrastructure usage
+    OntologyStack ---|"governs all<br/>8 V3 hives"| GOVERNANCE
+    Scorecards ---|"data collection<br/>all hives"| PostWach
+    Memory ---|"persistent<br/>knowledge"| TIER1
+
+    %% Styling
+    classDef governance fill:#1a365d,stroke:#2d4a7a,color:#fff,font-weight:bold
+    classDef tier1 fill:#2b6cb0,stroke:#2d4a7a,color:#fff
+    classDef tier2 fill:#4a7ab5,stroke:#2d4a7a,color:#fff
+    classDef output fill:#e2e8f0,stroke:#a0aec0,color:#2d3748
+    classDef infra fill:#f0fff4,stroke:#68d391,color:#2d3748
+
+    class PostWach,AlphaEmpress governance
+    class MACQ,SysMLv2,COSYSMO,SEAD,GIJOE tier1
+    class PLM tier2
+    class Lego,FuSE,UAOS output
+    class OntologyStack,Scorecards,Memory infra
