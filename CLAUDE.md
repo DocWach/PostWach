@@ -6,7 +6,8 @@
 - [R103] NEVER proactively create documentation files (*.md) unless explicitly requested. @quality [edit] risk:medium
 - [R104] NEVER save working files, text/mds, or tests to the root folder. @quality [edit] risk:medium
 - [R105] NEVER commit .env, API keys, credentials, or secrets. @security [bash,edit] risk:critical
-- [R106] ALWAYS use the globally installed `claude-flow` command, never `npx @claude-flow/cli@latest`. @quality [bash] risk:medium
+- [R106] ALWAYS use the globally installed `claude-flow` command in shell usage and MCP registrations (`.mcp.json`). Never use `npx`-based invocations (`npx @claude-flow/cli@latest`, `npx claude-flow@alpha`). Implements global [R017]. @quality [bash,edit] risk:high
+- [R108] When PostWach's code compiles and tests pass, create the SEAD handoff within 30 minutes. Do not debug deployment, rendering, or infrastructure issues beyond initial diagnosis. PostWach owns architecture; SEAD owns build engineering. @process [all] risk:medium
 
 ## File Organization
 - `/src` - Source code
