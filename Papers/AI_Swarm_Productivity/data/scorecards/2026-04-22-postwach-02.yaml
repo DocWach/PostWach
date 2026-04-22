@@ -1,0 +1,181 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-04-22-postwach-02
+  date: 2026-04-22
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "10:00"           # approximate
+  end_time: "13:00"             # approximate
+  task_summary: >
+    Warm up ruflo; diagnose silent MCP bridge failure (Claude Code registration
+    pointed at npx-invoked parallel server instead of local ruflo MCP); roll
+    permanent portfolio-wide fix across 9 V3 hives; neutralize SysMLv2
+    incose-fuse contamination threat via push guards; capture portability
+    principle and SysMLv2 near-miss in memory.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: config
+      name: .mcp.json normalization across 10 hives (2 new, 8 modified)
+      action: modified
+      lines: 190            # ~19 lines per file net, 10 files
+      files: 10
+    - type: config
+      name: .mcp.json created for Fort Wachs + Alpha Empress
+      action: created
+      lines: 38             # 2 new files, 19 lines each
+      files: 2
+    - type: config
+      name: CLAUDE.md rule strengthening across 9 V3 hives
+      action: modified
+      lines: 27             # ~3 lines net per hive
+      files: 9
+    - type: config
+      name: .gitignore un-ignore .mcp.json across 5 hives
+      action: modified
+      lines: 5
+      files: 5
+    - type: config
+      name: ~/.claude/CLAUDE.md — new [R017], line-12 cleanup
+      action: modified
+      lines: 3
+      files: 1
+    - type: config
+      name: ~/.claude.json — normalize 7 per-project MCP scopes
+      action: modified
+      lines: 35             # replace_all edited 7 blocks
+      files: 1
+    - type: config
+      name: SysMLv2 git guards (branch config + remote.push refspec)
+      action: created
+      lines: 4              # 4 git config entries
+      files: 0              # config, not file
+    - type: analysis
+      name: memory/project_sysmlv2_two_remotes_nearmiss.md
+      action: created
+      lines: 40
+      files: 1
+    - type: analysis
+      name: memory/project_hos_governance_composition.md (portability append)
+      action: modified
+      lines: 55             # appended section
+      files: 1
+    - type: analysis
+      name: memory/MEMORY.md (3 surgical updates)
+      action: modified
+      lines: 8
+      files: 1
+    - type: other
+      name: .claude/scheduled_tasks.lock (orphan delete)
+      action: modified
+      lines: 0
+      files: 1
+    - type: spec
+      name: SESSION_ARCHIVE_2026-04-22_postwach-02.md
+      action: created
+      lines: 150
+      files: 1
+    - type: spec
+      name: 2026-04-22-postwach-02.yaml (this scorecard)
+      action: created
+      lines: 100
+      files: 1
+  total_files_created: 5
+  total_files_modified: 27
+  total_lines_written: 655
+  pages_produced: 16             # approx at 40 lines/page
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 0              # direct tool use only, no Task agents
+  swarm_topology: none
+  model_primary: claude-opus-4-7
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls:
+  context_compressions:
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: JSON validity check across all 12 .mcp.json files
+      result: pass
+      details: All 12 files parsed cleanly via Python json.load.
+    - gate: Claude Code MCP connection (proof of life)
+      result: pass
+      details: >
+        `claude mcp list` shows `claude-flow: claude-flow mcp start - ✓ Connected`.
+        First time MCP bridge is live in this portfolio.
+    - gate: SysMLv2 contamination audit
+      result: pass
+      details: >
+        `incose-fuse/main` contains only LICENSE, README, docs, models.
+        `git merge-base origin/main incose-fuse/main` returned empty
+        (histories disjoint). No hive code ever pushed to public repo.
+    - gate: SysMLv2 push-guard config installed
+      result: pass
+      details: >
+        branch.main.pushRemote=origin, branch.batch1.pushRemote=incose-fuse,
+        remote.incose-fuse.push=refs/heads/batch1:refs/heads/main. Verified
+        by re-read before SysMLv2 commit push.
+    - gate: Per-hive surgical commit (no unrelated files staged)
+      result: pass
+      details: >
+        All 9 V3 hives committed only .gitignore/.mcp.json/CLAUDE.md (plus
+        [S007] in SysMLv2). Pre-existing WIP on PostWach/GI-JOE/SEAD untouched.
+    - gate: Per-hive push to origin only (no cross-remote accidents)
+      result: pass
+      details: >
+        SysMLv2 push explicitly targeted origin; incose-fuse untouched.
+        All 9 commits delivered to intended remotes.
+    - gate: ~/.claude.json cleanup residue check
+      result: pass
+      details: Zero `claude-flow@alpha` strings remain; JSON still valid.
+    - gate: Memory capture (3 priority items)
+      result: pass
+      details: >
+        HOS thread portability section appended; SysMLv2 near-miss created;
+        MEMORY.md index updated (3 surgical edits).
+  tests_passed: 8
+  tests_failed: 0
+  reviewer_comments_addressed: 0
+  first_pass_quality_pct: 95
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 2                     # Edit-before-Read retries on .mcp.json and ~/.claude.json
+  rework_files: 0
+  blocked_minutes: 5             # brief pause to check SysMLv2 .mcp.json tracking state
+  blockers: >
+    Two surprises flipped the plan mid-stream but did not block execution:
+    (1) .mcp.json gitignored in 5 of 9 V3 hives meant initial fix was
+    local-only; had to un-ignore and track. (2) SysMLv2 batch1 carried stray
+    hive commit one push from public repo; pivoted to contamination audit
+    and guard installation before continuing commits.
+  perception_note: >
+    Investigation work (finding the npx root cause, the gitignore trap,
+    the batch1 stray commit) was where AI leverage mattered most; grep +
+    cross-file correlation across 12 configs in seconds vs hours manually.
+    The discrete fix-commit-push per hive was rote but benefited from
+    uniform pattern application without drift. User's "discuss before
+    executing" discipline caught two would-be mistakes (auto-commit risk;
+    folder-move scope creep). Portability principle capture emerged
+    organically from user's observation about multi-machine and
+    collaboration — strong memory entry even though it creates a deferred
+    planning debt rather than closing one.
+
+# --- DERIVED (do not fill — computed by script) ---
+# derived:
+#   wall_clock_hours:
+#   pages_per_hour:
+#   lines_per_hour:
+#   cost_per_page:
+#   cost_per_file:
+#   agent_utilization:
+#   tokens_per_artifact:
+#   rework_ratio:
