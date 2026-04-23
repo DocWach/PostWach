@@ -1,9 +1,7 @@
 {
   "statusLine": {
     "type": "command",
-    "command": "claude-flow hooks statusline 2>/dev/null || node .claude/helpers/statusline.cjs 2>/dev/null || echo \"▊ Claude Flow V3\"",
-    "refreshMs": 5000,
-    "enabled": true
+    "command": "claude-flow hooks statusline 2>/dev/null || node .claude/helpers/statusline.cjs 2>/dev/null || echo \"▊ Claude Flow V3\""
   },
   "attribution": {
     "commit": "Co-Authored-By: claude-flow <ruv@ruv.net>",
@@ -22,7 +20,16 @@
     },
     "memory": {
       "backend": "hybrid",
-      "enableHNSW": true
+      "enableHNSW": true,
+      "learningBridge": {
+        "enabled": true
+      },
+      "memoryGraph": {
+        "enabled": true
+      },
+      "agentScopes": {
+        "enabled": true
+      }
     },
     "neural": {
       "enabled": true
@@ -103,6 +110,67 @@
       "scanOnEdit": true,
       "cveCheck": true,
       "threatModel": true
+    },
+    "agentTeams": {
+      "enabled": true,
+      "teammateMode": "auto",
+      "taskListEnabled": true,
+      "mailboxEnabled": true,
+      "coordination": {
+        "autoAssignOnIdle": true,
+        "trainPatternsOnComplete": true,
+        "notifyLeadOnComplete": true,
+        "sharedMemoryNamespace": "agent-teams"
+      },
+      "hooks": {
+        "teammateIdle": {
+          "enabled": true,
+          "autoAssign": true,
+          "checkTaskList": true
+        },
+        "taskCompleted": {
+          "enabled": true,
+          "trainPatterns": true,
+          "notifyLead": true
+        }
+      }
     }
+  },
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
+    "CLAUDE_FLOW_V3_ENABLED": "true",
+    "CLAUDE_FLOW_HOOKS_ENABLED": "true"
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"var c=require('child_process'),p=require('path'),u=require('url'),r;try{r=c.execSync('git rev-parse --show-toplevel',{encoding:'utf8'}).trim()}catch(e){r=process.cwd()}var f=p.join(r,'.claude/helpers/auto-memory-hook.mjs');import(u.pathToFileURL(f).href)\" import",
+            "timeout": 20000,
+            "continueOnError": true
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"var c=require('child_process'),p=require('path'),u=require('url'),r;try{r=c.execSync('git rev-parse --show-toplevel',{encoding:'utf8'}).trim()}catch(e){r=process.cwd()}var f=p.join(r,'.claude/helpers/auto-memory-hook.mjs');import(u.pathToFileURL(f).href)\" sync",
+            "timeout": 5000,
+            "continueOnError": true
+          },
+          {
+            "type": "command",
+            "command": "node -e \"var c=require('child_process'),p=require('path'),u=require('url'),r;try{r=c.execSync('git rev-parse --show-toplevel',{encoding:'utf8'}).trim()}catch(e){r=process.cwd()}var f=p.join(r,'.claude/helpers/terminate-idle-agents.mjs');import(u.pathToFileURL(f).href)\"",
+            "timeout": 30000,
+            "continueOnError": true
+          }
+        ]
+      }
+    ]
   }
 }
