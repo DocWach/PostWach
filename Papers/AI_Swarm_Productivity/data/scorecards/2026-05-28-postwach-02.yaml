@@ -1,0 +1,111 @@
+# =============================================================================
+# Session Productivity Scorecard
+# =============================================================================
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-05-28-postwach-02
+  date: 2026-05-28
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "08:53"            # ET, ~T-1h12m to 10:05 ET STIDS talk
+  end_time: "09:25"              # approximate; includes archive + scorecard close-out
+  task_summary: >
+    Urgent pre-STIDS-talk review of DocWach/MTA-Workbench (David Kamien's
+    Mission Thread Authoring Workbench). Warmed up ruflo, ran three concurrent
+    native subagents (security, code quality, architecture) over a fresh shallow
+    clone, delivered a severity-ranked, externally-clean talking-points brief
+    ~50 min before the 10:05 ET joint talk. Seq 02 because scorecard 01 is the
+    separate talk-delivery wrap session for the same day.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: review
+      name: MTA-Workbench security audit (3 CRITICAL, 5 HIGH, ZT Pillar 7 mapping)
+      action: created
+      lines: 60                  # subagent output, retained verbatim in synthesis
+      files: 0                   # in-conversation; not persisted as a standalone file
+    - type: review
+      name: MTA-Workbench code-quality pass (13 findings + headline strength)
+      action: created
+      lines: 50
+      files: 0
+    - type: review
+      name: MTA-Workbench architecture read (4 strengths, 4 risks/questions, 5 STIDS talking points)
+      action: created
+      lines: 50
+      files: 0
+    - type: review
+      name: Consolidated synthesis brief (strengths-led, severity-ranked, STIDS-ready)
+      action: created
+      lines: 95
+      files: 0
+    - type: other
+      name: Session archive (this session)
+      action: created
+      lines: 130
+      files: 1
+    - type: other
+      name: Session scorecard (this file)
+      action: created
+      lines: 90
+      files: 1
+  total_files_created: 2          # archive + scorecard; subagent + synthesis output lived in-conversation
+  total_files_modified: 0
+  total_lines_written: 475        # ~255 subagent + synthesis brief + ~220 archive/scorecard
+  pages_produced: 6               # synthesis brief is presentation-ready; ~250 words/page equivalent
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 3               # native Claude Code subagents: security-auditor, code-analyzer, system-architect
+  swarm_topology: star            # one orchestrator, three independent backgrounded leaves, no inter-agent coordination
+  model_primary: claude-opus-4-7  # orchestrator and all three subagents
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: 73                  # 17 architect + 24 code-quality + 32 security per task-notification metadata
+  context_compressions: 0
+  # per-agent totals from notifications: arch 76909 tokens / 70.9s; code-quality 62857 / 98.7s;
+  # security 90277 / 129.8s. Sum ~230k tokens, all three concurrent backgrounded.
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: Externally-clean framing on all findings
+      result: pass
+      details: Strengths-first scaffold; CRITICAL items reported as plain file:line facts without blame language; v1.1 backlog framed as "owned, not hidden"
+    - gate: R016 integration-status discipline
+      result: pass
+      details: Review distinguishes documented v1.0-out-of-scope items (e.g., OIDC, IL-4) from undisclosed gaps; does not re-report what the README already calls out
+    - gate: R018 provenance stamping on session artifacts
+      result: pass
+      details: Archive carries PROVENANCE line (Claude Opus 4.7, Claude Code agent mode, subagent inheritance); scorecard carries this metadata block
+    - gate: No-hallucination on file:line citations
+      result: pass
+      details: All file:line references emitted by subagents map to real source locations in the cloned repo; orchestrator did not synthesize additional citations beyond what subagents reported
+  tests_passed: 0                 # n/a - review of external code, no test execution
+  tests_failed: 0
+  reviewer_comments_addressed: 0  # n/a - generating reviewer comments, not addressing them
+  first_pass_quality_pct: 100     # all three subagent reports usable verbatim in synthesis; zero rework, no second pass
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 0
+  rework_files: 0
+  blocked_minutes: 0
+  blockers: >
+    None. One mild friction: the prior 2026-05-26 MTA feedback package
+    referenced in memory was not locally accessible (folder not synced to this
+    OneDrive view). Worked around by treating this session as an independent
+    fresh review of latest main rather than an extension of the prior package.
+  perception_note: >
+    Strongly faster than manual. Three concurrent backgrounded subagents over
+    a fresh clone produced a presentation-ready, severity-ranked code review of
+    a 17.6k-LoC polyglot codebase in ~25 minutes wall clock, with no second
+    pass and externally-clean framing intact. A manual single-thread read of
+    19 backend services + 50+ frontend components would not have been
+    feasible inside the 1h12m window before the talk; the parallel-subagent
+    pattern is the only thing that made this possible.
