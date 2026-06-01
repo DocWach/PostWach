@@ -55,3 +55,29 @@ docs/session_archives/
 docs/titanium_supply_chain_analyzer_user_manual.md
 docs/white_paper_ai_capability_tiers.md
 docs/white_paper_ai_capability_tiers.pdf
+
+# ORCiD workflow state (token cache, put-code map; never commit)
+scripts/orcid/state/
+
+# PaperBanana tool-generated figures (curate finals into paper folders)
+paperbanana-output/
+
+# Node.js (root package.json adds Playwright)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Reverse-engineered / extracted third-party source — keep local, never commit
+claude-leaked-files/
+
+# Root-level scratch playgrounds — relocate before tracking ([R104])
+Disruption-Swarm-Playground-*/
+
+# Gemini local config (mirrors .claude/settings.local.json pattern)
+.gemini/
