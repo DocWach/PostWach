@@ -83,3 +83,9 @@ Disruption-Swarm-Playground-*/
 
 # Gemini local config (mirrors .claude/settings.local.json pattern)
 .gemini/
+
+# Claude agents — auto-generated framework boilerplate (hybrid policy 2026-06-01)
+.claude/agents/*
+!.claude/agents/custom/
+!.claude/agents/MANIFEST.md
+!.claude/agents/.gitkeep
