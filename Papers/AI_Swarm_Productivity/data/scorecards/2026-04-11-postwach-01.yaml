@@ -1,0 +1,96 @@
+schema_version: "1.0"
+
+session:
+  id: 2026-04-11-postwach-01
+  date: 2026-04-11
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "10:00"
+  end_time: "16:00"
+  task_summary: >
+    PD Workbench: fixed LLM merge logic (3 bugs), restructured UI (4 tabs to 2,
+    assessment dashboard with C1-C9 heatmap), added OpenAI + Custom providers,
+    parser extension, unified dispositions. Spent ~3h debugging Streamlit
+    session_state bug (not resolved, shipped to SEAD as D4). Baselined as v2.1.
+
+output:
+  artifacts:
+    - type: code
+      name: pd_workbench.py UI restructure (dashboard, merged tabs, providers, dispositions)
+      action: modified
+      lines: 833
+      files: 1
+    - type: other
+      name: README.md
+      action: created
+      lines: 200
+      files: 1
+    - type: other
+      name: CHEATSHEET.md
+      action: created
+      lines: 80
+      files: 1
+    - type: config
+      name: .streamlit/config.toml (file watcher disabled)
+      action: modified
+      lines: 4
+      files: 1
+    - type: spec
+      name: SEAD ticket addendum (D4, D5, D6)
+      action: modified
+      lines: 80
+      files: 1
+  total_files_created: 2
+  total_files_modified: 3
+  total_lines_written: 1197
+  pages_produced: 30
+
+ai_efficiency:
+  agents_spawned: 3
+  swarm_topology: star
+  model_primary: claude-opus-4-6
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls:
+  context_compressions:
+
+quality:
+  gates_run:
+    - gate: py_compile
+      result: pass
+      details: pd_workbench.py compiles clean
+    - gate: pytest (rule_checker)
+      result: pass
+      details: 60/60 tests pass in 0.11s
+    - gate: Direct LLM test
+      result: pass
+      details: Claude returns correct suggested_full_text when called directly
+    - gate: Session_state persistence
+      result: fail
+      details: st.session_state values set in button handler not visible in display section. Shipped to SEAD as D4.
+  tests_passed: 60
+  tests_failed: 0
+  reviewer_comments_addressed: 4
+  first_pass_quality_pct: 75
+
+process:
+  agent_failures: 0
+  retries: 7
+  rework_files: 2
+  blocked_minutes: 180
+  blockers: >
+    Streamlit session_state bug consumed ~3 hours. Seven different approaches
+    attempted (st.rerun, widget keys, HTML rendering, button handler restructure,
+    raw_requirements fallback, file watcher disable, removing rerun entirely).
+    None resolved the issue. Root cause likely OneDrive file sync triggering
+    Streamlit server restarts. Shipped to SEAD as D4.
+  perception_note: >
+    Productive first half (merge fixes, dashboard, multi-provider, dispositions).
+    Second half was frustrating: debugging a platform-level issue (Streamlit +
+    OneDrive interaction) that is outside PostWach's architecture scope. The key
+    lesson is that PostWach should have handed to SEAD 3 hours earlier, immediately
+    after the tab restructure compiled and tests passed. The architecture was done;
+    the remaining work was deployment debugging. This pattern should be captured as
+    a governance rule: "when architecture compiles and tests pass, hand to SEAD
+    within 30 minutes."

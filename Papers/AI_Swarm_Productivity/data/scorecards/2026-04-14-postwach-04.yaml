@@ -1,0 +1,65 @@
+schema_version: "1.0"
+
+session:
+  id: 2026-04-14-postwach-04
+  date: 2026-04-14
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: ""
+  end_time: ""
+  task_summary: Build a generic reference deck explaining how to design agentic workflows in a swarm AI toolset, in response to Tom McDermott's inquiry about workflow design, UI integration, and human-interaction staging. Deck is for Tom but also reusable for future similar inquiries.
+
+output:
+  artifacts:
+    - type: other
+      name: Agentic swarm workflow design deck (deck_v0.1.md, 24 slides — 10 main, 7 backup, 2 private, 5 topology diagrams)
+      action: created
+      lines: ~600
+      files: 1
+    - type: other
+      name: Rendered deck artifacts (PDF 214 KB, DOCX 70 KB, PPTX)
+      action: created
+      lines: 0
+      files: 3
+    - type: other
+      name: Five topology Mermaid diagrams (PNG, embedded in deck)
+      action: created
+      lines: 0
+      files: 5
+    - type: analysis
+      name: Session archive for 2026-04-14 postwach-04 (written and updated twice)
+      action: created
+      lines: ~120
+      files: 1
+  total_files_created: 10
+  total_files_modified: 1
+  total_lines_written: ~720
+  pages_produced: ~24
+
+ai_efficiency:
+  agents_spawned: 4
+  swarm_topology: none
+  model_primary: claude-opus-4-6
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls:
+  context_compressions: 0
+
+quality:
+  gates_run:
+    - gate: User approval per slide (iterative bullet-debate)
+      result: pass
+      details: All 24 slides accepted through iterative drafting
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed:
+  first_pass_quality_pct:
+
+process:
+  agent_failures: 0
+  retries: 0
+  rework_files: 1
+  blocked_minutes: 0
+  blockers: none
+  perception_note: Iterative bullet-debate approach worked well; user remained steadily engaged through all 24 slides with no scope reset. Parallel agents (PDF render + archive update; Mermaid render + deck update + PDF regen; PPTX + archive finalize + scorecard) kept session-end overhead low. Key decisions D1-D16 tracked in archive. Governance compliance clean (generic scope preserved, hive-of-hives moved to private slides per R016-style boundary). Open threads raised: SE-specific human roles and minimum role set — ontology-adjacent questions for future session. Mid-session break between deck draft and rendering. ~3 hours total. No rule violations.

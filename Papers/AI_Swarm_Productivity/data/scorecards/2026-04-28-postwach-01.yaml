@@ -1,0 +1,171 @@
+# =============================================================================
+# Session Productivity Scorecard
+# DOE Genesis Mission Phase I submission night (DE-FOA-0003612)
+# =============================================================================
+
+schema_version: "1.0"
+
+session:
+  id: 2026-04-28-postwach-01
+  date: 2026-04-28
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "16:07"
+  end_time: "21:00"
+  task_summary: >
+    Race-the-clock support for RTSync's DOE Genesis Phase I (DE-FOA-0003612, Topic 19-A
+    Trustworthy Mathematical and Symbolic Reasoning) submission. Paul as PI on RTSync's
+    DEVS-TR proposal. Deliverables: SciENcv Biosketch, SciENcv Current & Pending Support,
+    DOE Collaborators List Excel, Phase I DMSP, and proposal docx in RTSync template format
+    with four content edits (NeSy framing, stoic-devs grounding, IS 2026 citations, Trust
+    Delta metric).
+
+output:
+  artifacts:
+    - type: review
+      name: FOA Section IV.C + IX.B.9-12 (Biosketch / CPS / Collaborators / DMSP)
+      action: reviewed
+      lines: ~1800 (extracted from FOA pages 63-122 via PDF Read)
+      files: 1
+    - type: spec
+      name: top10_products.md (Wach Biosketch product short-list)
+      action: created
+      lines: 145
+      files: 1
+    - type: spec
+      name: sciencv_paste_blocks.md (manual-entry crib for SciENcv)
+      action: created
+      lines: 178
+      files: 1
+    - type: spec
+      name: appointments_outside_primary.md
+      action: created
+      lines: 60
+      files: 1
+    - type: spec
+      name: disclosure_checklist.md (NSPM-33 walkthrough)
+      action: created
+      lines: 145
+      files: 1
+    - type: spec
+      name: collaborators_list_DRAFT.md (markdown precursor)
+      action: created
+      lines: 175
+      files: 1
+    - type: spec
+      name: DMSP_DRAFT.md (Phase I, use-case-agnostic, 5 standard + 3 Genesis-specific elements)
+      action: created
+      lines: 130
+      files: 1
+    - type: code
+      name: wach_top10_products.ris (RIS bulk import for SciENcv)
+      action: created
+      lines: 116
+      files: 1
+    - type: code
+      name: wach_top10_products.nbib (NBIB fallback)
+      action: created
+      lines: 130
+      files: 1
+    - type: code
+      name: Wach_Collaborators_List.xlsx (DOE template populated, 46 collaborators + 2 senior/key)
+      action: created
+      lines: ~50 data rows
+      files: 1
+    - type: paper_section
+      name: DEVS-TR_Proposal_FINAL.pdf (markdown→pandoc→PDF route, Bernie's draft + 4 edits)
+      action: created
+      lines: ~480 (markdown)
+      files: 2
+    - type: paper_section
+      name: DEVS-TR_Proposal_FINAL.docx (RTSync-template-format Word doc, final form)
+      action: created
+      lines: 127 paragraphs
+      files: 1
+    - type: code
+      name: _build_collaborators.py + _build_proposal_docx.py (working scripts)
+      action: created
+      lines: ~470
+      files: 2
+    - type: review
+      name: Red/Blue/White team review of biosketch + CPS + proposal (multiple passes)
+      action: reviewed
+      lines: ~600 review notes across messages
+      files: 0
+  total_files_created: 13
+  total_files_modified: 4   # biosketch reviewed 3x; proposal docx patched 2x
+  total_lines_written: ~2400
+  pages_produced: ~12  # proposal narrative (4 pp) + DMSP (~3 pp) + biosketch + CPS + collaborators tabular
+
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: none
+  model_primary: claude-opus-4-7
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: ~75
+  context_compressions: 0
+
+quality:
+  gates_run:
+    - gate: FOA Section IV.C compliance check (5-page narrative limit, 1in margins, 11pt, Buy America)
+      result: pass
+      details: Verified via pypdf page count and pandoc geometry settings; final docx in template format.
+    - gate: FOA Section IX.B.9 Biosketch DOE/NNSA-specific compliance
+      result: pass
+      details: SciENcv DOE form used, primary org RTSync after R1 fix, ORCiD PID, products list capped at 10, MFTRP and research security training certified.
+    - gate: FOA Section IX.B.10 Collaborators List (Field 12 Excel)
+      result: partial
+      details: 46 entries populated from CV co-authors past 48 months; ~30 [VERIFY] cells remain for institutional affiliations; advisees + close-associates sections left as user-fill.
+    - gate: FOA Section IX.B.11 CPS completeness
+      result: partial
+      details: 2 entries (SE Beyond the Horizon current; Adaptive PWSA T&E pending). User confirmed (correctly) that the proposal-being-submitted does NOT belong on its own CPS — corrected my prior R2 over-claim. Other actively-pending grants flagged for user verification.
+    - gate: FOA Appendix 4 DMSP (Phase I — pre-award only, not submission appendix)
+      result: pass
+      details: 5 standard elements + 3 Genesis-specific (FAIR / SPDX Apache-2.0 / BSSW) addressed; use-case-agnostic per user feedback.
+    - gate: Red/Blue/White team review on biosketch
+      result: partial
+      details: R1 (PI primary org) FIXED; R5 (typos) mostly fixed; R6 (Best Paper Award) eventually addressed via user iteration (initial fix was malformed); R7 (WRT-2406 ID) FIXED; R9 (accepted markers) FIXED; R10 (SERC AI4SE format) acceptable.
+    - gate: Red/Blue/White team review on CPS
+      result: partial
+      details: R2 partially-corrected (proposal-itself entry not needed; other-pending verification still user-side); R3 (person-months overcommit) flagged but not numerically resolved; R4 (generic Statements of Potential Overlap) flagged but not rewritten.
+    - gate: Final docx format match to RTSync template
+      result: pass
+      details: Letter, 1in margins, Calibri 11pt, Normal style for body, List Paragraph for refs, references explicitly numbered [1]-[49] after correction, metrics merged onto single line per template style.
+  tests_passed: 6
+  tests_failed: 0
+  reviewer_comments_addressed: 14   # 4 biosketch iterations + 4 proposal edits + 4 CPS clarifications + 2 R-team passes
+  first_pass_quality_pct: 35   # significant rework on biosketch product list, references numbering, topic line, Best Paper, CPS scope
+
+process:
+  agent_failures: 0   # no Task agents spawned
+  retries: 12   # roughly: pandoc unicode-filename retry; openpyxl heredoc apostrophe retry; biosketch product list 4 iterations; proposal topic-line 2 iterations; references numbering 1 retry; metric format 1 retry
+  rework_files: 4   # top10_products.md (3x), sciencv_paste_blocks.md (3x), DEVS-TR_Proposal_FINAL.docx (3x), DMSP_DRAFT.md (2x)
+  blocked_minutes: ~25   # Word file lock blocking 1 patch attempt; pandoc U+2011 filename block requiring workaround; mimecast URL HEAD-405 wasted ~5 min on the SERC URL search
+  blockers: >
+    Three repeating frictions: (1) pandoc on Windows drops U+2011 non-breaking-hyphen
+    characters in input filenames, requiring shutil.copy2 to a safe filename; (2) python-docx
+    cannot write to docx files that are open in Word, requiring user to close-and-reopen;
+    (3) bash heredoc with embedded apostrophes (Python source) parses incorrectly, requiring
+    Write-to-file-then-execute pattern.
+  perception_note: >
+    User repeatedly flagged frustration with quality and pacing. Specific failures: (a) used
+    "19-C Composable and Modular Foundation Models" as topic by lifting from RTSync template
+    filename without verifying — actual topic is 19-A "Trustworthy Mathematical and Symbolic
+    Reasoning" per user's existing solution-analysis Excel; (b) did not check user's
+    pre-existing Topic 19 analysis spreadsheet at session start, would have surfaced 19-A
+    immediately; (c) lost reference auto-numbering when generating the docx via python-docx,
+    forcing post-hoc patch to add [1]-[49] prefixes; (d) initial Best Paper Award handling
+    created a malformed standalone product entry instead of annotating the existing Item 6,
+    later corrected; (e) consistently over-estimated task completion time. Biosketch
+    materials genuinely useful (RIS file imported, Collaborators Excel scaffold accepted),
+    but the path to good output required more user oversight than acceptable. Net: AI
+    accelerated the bookkeeping (product list, RIS, Excel scaffold, FOA extraction, CPS
+    format reference) but introduced enough errors to require near-continuous user QC. Lesson
+    for future sessions: (1) survey user's existing analysis docs in target folder at session
+    start before assuming context; (2) for federal-form work, validate every field-format
+    claim against the FOA before drafting; (3) prefer smaller, faster iterations with user
+    confirmation over larger drafts.
+
+# --- DERIVED (do not fill — computed by script) ---

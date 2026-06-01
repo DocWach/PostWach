@@ -1,0 +1,118 @@
+schema_version: "1.0"
+
+session:
+  id: "2026-04-23-postwach-01"
+  date: "2026-04-23"
+  hive: "PostWach"
+  researcher: "Wach"
+  start_time: ""
+  end_time: ""
+  task_summary: >
+    Diagnosed Auto Memory Bridge silent-failure (session-start "Package: Not
+    found" banner). Found two overlapping root causes: missing
+    @claude-flow/memory package in claude-flow v3.5.80 AND a process.argv[2]
+    dispatch bug causing SessionStart/SessionEnd/Stop hooks to default to
+    `status` for ~62 days. Designed and implemented MCP-based replacement
+    (Option A-trim). Discovered the broken hook had been byte-identically
+    cloned to 11 hives; per user Option Z scoped fix to 7 Tier-1 V3 hives.
+    Propagated, committed, and pushed across 8 repos. Logged as Motivating
+    Example #2 in HOS portability thread.
+
+output:
+  artifacts:
+    - type: code
+      name: "mcp-client.mjs — stdio JSON-RPC MCP client (new, × 8 hives)"
+      action: created
+      lines: 132
+      files: 8
+    - type: code
+      name: "auto-memory-hook.mjs — rewritten MCP-only Option A-trim (× 8 hives)"
+      action: modified
+      lines: 158
+      files: 8
+    - type: code
+      name: "terminate-idle-agents.mjs — SessionEnd cleanup (new, × 8 hives)"
+      action: created
+      lines: 46
+      files: 8
+    - type: config
+      name: ".claude/settings.json — timeout bumps + terminate-idle wiring (× 8 hives)"
+      action: modified
+      lines: 14
+      files: 8
+    - type: other
+      name: "project_hos_governance_composition.md — Motivating Example #2 section"
+      action: modified
+      lines: 40
+      files: 1
+    - type: other
+      name: "SESSION_ARCHIVE_2026-04-23_postwach-01.md"
+      action: created
+      lines: 120
+      files: 1
+    - type: other
+      name: "2026-04-23-postwach-01.yaml scorecard (this file)"
+      action: created
+      lines: 90
+      files: 1
+  total_files_created: 17    # 3 new helpers × 8 hives minus 7 pre-existing auto-memory-hook.mjs files = 17 truly new, plus archive + scorecard
+  total_files_modified: 9    # 8 settings.json + 1 HOS memory file
+  total_lines_written: 2934  # ~336 logical lines × 8 hives + memory + archive + scorecard
+  pages_produced: 3          # archive (~3 pages of prose)
+
+ai_efficiency:
+  agents_spawned: 1          # one test-long-runner for initial diagnostic
+  swarm_topology: "none"
+  model_primary: "claude-opus-4-7"
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls:
+  context_compressions: 0
+
+quality:
+  gates_run:
+    - gate: "Hive sweep test (JSON valid + 3 helpers + import returns Imported + terminate exits clean)"
+      result: "pass"
+      details: "8/8 hives passed on first sequential run; SysMLv2 auto-cleaned 5 orphan agents as bonus"
+    - gate: "settings.json JSON parse check per hive"
+      result: "pass"
+      details: "All 8 hives parsed; hook counts match expected Shape 1/Shape 2 structure"
+    - gate: "End-to-end MCP import via real session-start invocation shape"
+      result: "pass"
+      details: "node -e '...import' invocation replicating Claude Code hook command succeeded on PostWach, MACQ, GI-JOE, SEAD pilot checks"
+    - gate: "Git commit scope discipline (no git add . or -A)"
+      result: "pass"
+      details: "Explicit 4-file staging per hive; no stray unrelated helpers committed"
+    - gate: "SysMLv2 push guard verified before push"
+      result: "pass"
+      details: "branch.main.pushRemote=origin and remote.incose-fuse.push=batch1->main confirmed live"
+    - gate: "8 × git push to origin"
+      result: "pass"
+      details: "All 8 pushes accepted; commit hashes b2b5450, ca73ffb, 73d7bf0, 5307fb8, ce6c69f, 637c913, 5d51916, 74df8fa"
+    - gate: "Pre-commit assertion: argv dispatch works via all 3 invocation shapes (node script, node -e, node -e with splice)"
+      result: "pass"
+      details: "VALID.has() + argv.slice(1).find() handles node -e cases that put command at argv[1] AND node direct-invoke cases at argv[2] AND splice-form cases"
+  tests_passed: 8
+  tests_failed: 0
+  reviewer_comments_addressed: 0
+  first_pass_quality_pct: 85   # 4 Edits failed first pass due to SEAD/GI-JOE shape misassignment; recovered by re-reading source of truth
+
+process:
+  agent_failures: 0
+  retries: 4                   # 4 failed Edit calls when SEAD and GI-JOE shapes were swapped; recovered within one retry cycle
+  rework_files: 2              # SEAD and GI-JOE settings.json each had two edits reattempted with corrected shape
+  blocked_minutes: 0
+  blockers: "none"
+  perception_note: >
+    High-value session. What started as "warm up ruflo" surfaced a 62-day
+    silent failure, uncovered a classic hive-of-hives duplication pattern,
+    produced concrete HOS-portability evidence (Motivating Example #2), and
+    shipped across 8 repos. The test-long-runner agent's diagnostic was
+    crisp (identified package + argv bugs + fallback gap in one pass). Pushback
+    on user proposals happened twice and improved the outcome both times:
+    (a) declining the "vendor the package" framing in favor of Option A-trim;
+    (b) substituting sequential bash sweep for 8 parallel test-agents to avoid
+    sql.js AgentDB contention. Sequential commit+push with explicit file
+    staging (no wildcards) meant clean per-repo diffs despite each hive
+    having dozens of unrelated untracked helpers.

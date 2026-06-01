@@ -1,0 +1,169 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-04-22-postwach-03
+  date: 2026-04-22
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "16:30"           # approximate; session began shortly after user assembled the 4 PDFs at 16:16-16:17
+  end_time: "00:30"             # approximate; session crossed midnight into 2026-04-23
+  task_summary: >
+    Catalog INCOSE IS 2026 reviewer feedback for 4 submitted papers (13
+    reviewers total) into per-paper YAML + MD files; establish a reusable
+    cataloging convention with canonical schema stored in memory; resolve a
+    folder misfile flagged by the extraction and clean up stale references
+    after the user relocated files.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: analysis
+      name: IS 2026 reviewer feedback catalogs (4 papers, YAML primary)
+      action: created
+      lines: 820            # ~200 lines per YAML x 4 + 20 lines post-move cleanup
+      files: 4
+    - type: analysis
+      name: IS 2026 reviewer feedback catalogs (4 papers, MD companion)
+      action: created
+      lines: 1000           # sizes 9.3, 10.3, 13.6, 12.2 KB; ~250 lines avg
+      files: 4
+    - type: spec
+      name: memory/feedback_reviewer_feedback_cataloging.md (canonical schema + rules)
+      action: created
+      lines: 110
+      files: 1
+    - type: config
+      name: memory/MEMORY.md (index entry for new convention)
+      action: modified
+      lines: 1
+      files: 1
+    - type: analysis
+      name: post-move cleanup (#479 YAML+MD after user relocated to Vision for RE)
+      action: modified
+      lines: 20             # 2 edits in YAML, 3 in MD
+      files: 2
+    - type: spec
+      name: SESSION_ARCHIVE_2026-04-22_postwach-03.md
+      action: created
+      lines: 120
+      files: 1
+    - type: spec
+      name: 2026-04-22-postwach-03.yaml (this scorecard)
+      action: created
+      lines: 110
+      files: 1
+  total_files_created: 11
+  total_files_modified: 3
+  total_lines_written: 2181
+  pages_produced: 54             # approx at 40 lines/page
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 4              # general-purpose, one per reviewer_comments PDF, background parallel
+  swarm_topology: none           # 4 independent agents, no inter-agent coordination; single-burst parallel spawn
+  model_primary: claude-opus-4-7
+  tokens_input:                  # orchestrator context not measured; per-agent totals below
+  tokens_output:
+  total_cost_usd:
+  tool_calls:
+  context_compressions:
+  # per-agent extraction metrics (from background agent completion notifications):
+  agent_detail:
+    - id: AI4RE (ultimately Vision for RE / #479)
+      tokens_total: 58202
+      tool_uses: 4
+      duration_ms: 134579
+    - id: DEVS and ME (#427)
+      tokens_total: 57211
+      tool_uses: 3
+      duration_ms: 123852
+    - id: Morphisms (#492)
+      tokens_total: 62715
+      tool_uses: 4
+      duration_ms: 187392
+    - id: Philipbar DEVS (#490)
+      tokens_total: 61875
+      tool_uses: 3
+      duration_ms: 141811
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: YAML parse validity across all 4 catalogs
+      result: pass
+      details: Python yaml.safe_load on all 4 files; zero parse errors.
+    - gate: YAML schema consistency (required top-level + subfield keys)
+      result: pass
+      details: >
+        All 4 files contain required paper/reviewers/synthesis/extraction_metadata
+        top keys, all required subfields per section, and reviewer schema on
+        every reviewer entry.
+    - gate: Reviewer count consistency (synthesis.reviewer_count vs len(reviewers))
+      result: pass
+      details: 3/3, 3/3, 4/4, 3/3 matches across all 4 papers.
+    - gate: MD companion files exist
+      result: pass
+      details: 4/4 present; sizes 9.3-13.6 KB.
+    - gate: Submission ID extraction
+      result: pass
+      details: 4 distinct IDs (#427, #479, #490, #492) cleanly extracted from source PDFs.
+    - gate: Folder misfile detection
+      result: pass
+      details: >
+        Extraction agent for the AI4RE folder correctly flagged that the
+        reviewer PDF (#479 Vision 2035) did not match the draft in the folder
+        (Broken Clock). User relocated the PDF to the correct folder on
+        confirmation. This kind of cross-check is a win for the schema
+        (title captured from reviewer PDF, not folder name).
+    - gate: Post-move YAML re-validation
+      result: pass
+      details: Re-parsed relocated YAML after track + fidelity_notes edits; clean.
+    - gate: No-fabrication compliance
+      result: pass
+      details: >
+        All 4 agents used null or [PLACEHOLDER] for unknown fields
+        (overall_recommendation, criteria_ratings, confidence, authors for
+        anonymized drafts, track where not stated). Fidelity_notes document
+        caveats in each file.
+  tests_passed: 8
+  tests_failed: 0
+  reviewer_comments_addressed: 0    # this session cataloged reviews rather than responding to them
+  first_pass_quality_pct: 90        # 4/4 schema-clean; 1 folder misfile caught but caused post-move cleanup; no other rework
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 0
+  rework_files: 2                 # Vision for RE YAML and MD both edited twice (initial creation + post-move cleanup)
+  blocked_minutes: 0
+  blockers: >
+    None. One surprise (folder misfile) was detected during extraction and
+    resolved collaboratively, without blocking progress. Three items remain
+    open (R2 truncation on #490, decisions missing from all 4 PDFs, author
+    confirmation on #492) but are handoff-friendly, not blockers.
+  perception_note: >
+    Parallel extraction worked well here: 4 independent PDFs, same schema,
+    no cross-agent dependencies. Wall-clock for the extraction phase was
+    roughly the slowest agent (~3 minutes on Morphisms), not the sum. The
+    pattern to lock in is schema-spec-in-prompt: each agent got the full
+    canonical schema in its prompt, which is why 4/4 produced
+    schema-consistent output on first pass. One concrete AI leverage win:
+    the AI4RE extraction agent spotted the folder/draft mismatch purely by
+    comparing the paper title in the reviewer PDF to the draft filename in
+    the folder; a human would likely have assumed the folder was correctly
+    labeled and produced a silently-wrong catalog entry. Memory-first
+    behavior paid off: the Morphisms agent got the "rejected, Sandman/Wach,
+    #492" hint from memory in its prompt and used it to confirm against the
+    PDF rather than as fact, matching the intent of the no-fabrication rule.
+
+# --- DERIVED (do not fill — computed by script) ---
+# derived:
+#   wall_clock_hours:
+#   pages_per_hour:
+#   lines_per_hour:
+#   cost_per_page:
+#   cost_per_file:
+#   agent_utilization:
+#   tokens_per_artifact:
+#   rework_ratio:

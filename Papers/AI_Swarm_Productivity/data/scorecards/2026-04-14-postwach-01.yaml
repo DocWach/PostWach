@@ -1,0 +1,131 @@
+schema_version: "1.0"
+
+session:
+  id: 2026-04-14-postwach-01
+  date: 2026-04-14
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "08:30"
+  end_time: "11:40"
+  task_summary: Resumed VT Supply Chain bug fixes from yesterday; added disruption-window overrun warning; rewrote 8 failing tests to lock correct semantics; wrote 12-test stress harness; ran red/blue/white review (0 HIGH findings); spawned 4 parallel agents to fix all 10 review items; produced 12-scenario student test strategy for the Streamlit/LLM layer PostWach cannot exercise directly; updated README with v2.1.0 release notes, committed (d9a6c13), and pushed to DocWach/Supplychain-Analysis-VT-ISE-Senior-Design.
+
+output:
+  artifacts:
+    - type: code
+      name: supply_chain_sim.py -- window-overrun warning, R3 guard, max_horizon_weeks kwarg, PLANNING_BUFFER_WEEKS, 1kg tolerance, infeasibility_reasons field
+      action: modified
+      lines: 60
+      files: 1
+    - type: code
+      name: llm_analyst.py -- _normalize helper, validate_recommendation word-boundary match
+      action: modified
+      lines: 35
+      files: 1
+    - type: code
+      name: app.py -- SUPPLIER_KEYWORDS wiring, hardcoded dict removed
+      action: modified
+      lines: 15
+      files: 1
+    - type: code
+      name: supplier_loader.py -- new module with load_supplier_data and build_supplier_keywords
+      action: created
+      lines: 90
+      files: 1
+    - type: test
+      name: test_model_fixes.py -- 8 tests rewritten for new semantics + 6 new TestSeverityMapping tests
+      action: modified
+      lines: 80
+      files: 1
+    - type: test
+      name: test_stress.py -- 12 stress tests + TestVTScenariosReplay fixture (9 parametrized invocations)
+      action: created
+      lines: 280
+      files: 1
+    - type: test
+      name: test_llm_validator.py -- 8 fuzzy-match tests
+      action: created
+      lines: 95
+      files: 1
+    - type: test
+      name: test_app_wiring.py -- 6 loader + keyword-builder tests
+      action: created
+      lines: 85
+      files: 1
+    - type: config
+      name: conftest.py -- sys.path + collect_ignore
+      action: created
+      lines: 10
+      files: 1
+    - type: analysis
+      name: _rbw_review.py -- 14 red probes + 6 blue verifications + 10 white methodology checks
+      action: created
+      lines: 275
+      files: 1
+    - type: spec
+      name: Student_Test_Strategy_2026-04-14.md -- 4-layer strategy, 12-scenario battery, scoring rubric, red-team checklist
+      action: created
+      lines: 200
+      files: 1
+    - type: other
+      name: README.md -- v2.1.0 release notes section (12 fix items + updated project structure + test inventory)
+      action: modified
+      lines: 115
+      files: 1
+    - type: other
+      name: Git commit d9a6c13 on main (12 files, +1711/-102) pushed to DocWach/Supplychain-Analysis-VT-ISE-Senior-Design
+      action: created
+      lines: 0
+      files: 0
+    - type: other
+      name: Session archive SESSION_ARCHIVE_2026-04-14_postwach-01.md
+      action: created
+      lines: 155
+      files: 1
+    - type: other
+      name: This scorecard
+      action: created
+      lines: 115
+      files: 1
+  total_files_created: 8
+  total_files_modified: 5
+  total_lines_written: 1605
+  pages_produced: 9
+
+ai_efficiency:
+  agents_spawned: 4
+  swarm_topology: star
+  model_primary: claude-opus-4-6
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: 48
+  context_compressions: 0
+
+quality:
+  gates_run:
+    - gate: pytest tests/ (full suite)
+      result: pass
+      details: 65/65 passed across 5 test files (test_model_fixes 30, test_stress 21, test_llm_validator 8, test_app_wiring 6). Started the session at 16 passed / 8 failed.
+    - gate: Red/Blue/White review (_rbw_review.py)
+      result: pass
+      details: 0 BLUE failures (all 6 fixes verified against the 3 VT scenarios); 0 HIGH findings in red or white teams. 10 informational findings (2 medium, 8 low) — all were fixed by the parallel-agent cleanup pass except R11b, which was fixed as a design decision (tightened tolerance).
+    - gate: End-to-end smoke test against 3 VT scenarios
+      result: pass
+      details: All 6 strategies feasible in all 3 scenarios; fastest_first non-empty; optimal_* differentiated (cost $110k vs ~$160k); window-overrun notes present on scenarios 1 and 3 as expected.
+    - gate: Git commit + push to origin/main
+      result: pass
+      details: Commit d9a6c13 (12 files, +1711/-102), pushed 306a873 -> d9a6c13 to DocWach/Supplychain-Analysis-VT-ISE-Senior-Design. README v2.1.0 release notes documenting all 12 items included in the commit.
+  tests_passed: 65
+  tests_failed: 0
+  reviewer_comments_addressed: 10
+  first_pass_quality_pct: 100
+
+process:
+  agent_failures: 0
+  retries: 1
+  rework_files: 0
+  blocked_minutes: 0
+  blockers: |
+    One agent (LLM validator) reported a collection error running pytest against its owned files -- a pre-existing forward-reference bug (MAX_PLANNING_HORIZON_WEEKS used before defined in supply_chain_sim.py). The sim-cleanup agent fixed it in its own scope by moving the constants above _allocate_order. Not a true blocker, just a cross-agent ordering artifact. Full suite ran clean after all 4 agents finished.
+  perception_note: |
+    Parallel-agent work was faster than sequential by roughly 3x wall-clock. Strict file ownership (rather than git worktrees) kept coordination overhead near zero. Biggest win was the red/blue/white review before committing -- it surfaced 10 real improvements that would otherwise have lived as "tech debt" indefinitely. The time investment (~15 min to write the review script) paid for itself by the end of the parallel-agent pass.

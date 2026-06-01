@@ -1,0 +1,99 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA ---
+session:
+  id:                    2026-04-21-sead-01
+  date:                  2026-04-21
+  hive:                  SEAD
+  researcher:            Paul Wach
+  start_time:            "09:30"   # approximate; session start not timestamped
+  end_time:              "14:57"
+  task_summary:          Executed SEAD-VTSC-001 handoff from PostWach — VT Supply Chain Analyzer memory diagnosis (S1), nondeterminism fix (S2), reproducible-build audit (S3); filed return ticket SEAD-VTSC-001-R1; received follow-up SEAD-VTSC-002 (lock regen + Dockerfile, x86_64-required) and deferred per operator decision.
+
+# --- D1: OUTPUT VOLUME ---
+output:
+  artifacts:
+    - type:              code
+      name:              llm_analyst.py S2 temperature/seed fix + S1-H2 analyst session_state cache
+      action:            modified
+      lines:             35   # -14 / +21 net +7
+      files:             1
+    - type:              config
+      name:              dependency-audit.md (S3 audit — 6 CVEs, ARM64 pyarrow finding, lock/src divergence)
+      action:            created
+      lines:             130
+      files:             1
+    - type:              test
+      name:              probe_determinism.py (ad-hoc classifier determinism probe)
+      action:            created
+      lines:             90
+      files:             1
+    - type:              test
+      name:              probe_memory.py (decomposed per-hypothesis memory probe with tracemalloc)
+      action:            created
+      lines:             140
+      files:             1
+    - type:              other
+      name:              VTSupplyChain_PostWach_Completion_2026-04-21.md (return ticket)
+      action:            created
+      lines:             170
+      files:             1
+    - type:              other
+      name:              SESSION-ARCHIVE.md VTSC session entry + pending cleanup note
+      action:            modified
+      lines:             75
+      files:             1
+    - type:              other
+      name:              user_nickname_ruflo.md (ruflo version bump to v3.5.80)
+      action:            modified
+      lines:             1
+      files:             1
+  total_files_created:   4
+  total_files_modified:  3
+  total_lines_written:   640
+  pages_produced:        10   # prose only (audit + return ticket + archive entry ~ 400 prose lines / 40 lines per page)
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned:        0         # single-context execution, no subagent delegation
+  swarm_topology:        none
+  model_primary:         claude-opus-4-7
+  tokens_input:                    # not tracked
+  tokens_output:                   # not tracked
+  total_cost_usd:                  # not tracked
+  tool_calls:            ~55       # estimated: Reads, Greps, Bashes, Edits, Writes, TaskCreate/Update
+  context_compressions:  0
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate:              pytest (src-repo tests/)
+      result:            pass
+      details:           65/65 passing after S2 + S1-H2 edits; no regressions
+    - gate:              pip-audit --strict -r requirements.lock
+      result:            partial
+      details:           6 CVEs across 5 packages found (anthropic, pillow, pygments, pytest, requests); all have fix versions; documented in dependency-audit.md for PostWach to bump
+    - gate:              S2 byte-identical acceptance (5-run probe, live Ollama + llama3.1)
+      result:            pass
+      details:           Before fix 5/5 unique outputs (duration_weeks drift 24↔26); after fix 1/5 unique (byte-identical)
+    - gate:              Clean-venv reproducibility (pip install --require-hashes)
+      result:            fail
+      details:           Windows ARM64 — pyarrow 23.0.1 has no ARM64 wheel, sdist build requires cmake; x86_64 not verified in-session. Documented as PostWach architecture decision.
+    - gate:              50-run memory stress (headless, decomposed)
+      result:            pass
+      details:           Post-warmup H2 +4.3 KB/iter, H3 +24 KB/iter; no OOM; H2 fix eliminates H2 path in real Streamlit usage
+  tests_passed:          65
+  tests_failed:          0
+  reviewer_comments_addressed:     # n/a — no review yet (return ticket just filed)
+  first_pass_quality_pct:  95   # one rework (probe_memory.py needed warmup pass added); everything else first-pass
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures:        0
+  retries:               0
+  rework_files:          1    # probe_memory.py edited to add warmup pass after initial probe showed misleading import-overhead-as-leak
+  blocked_minutes:       0
+  blockers:              |
+    SEAD-VTSC-001 itself had no blockers. One in-session constraint surfaced: no x86_64 host for S3 reproducibility verification — documented and deferred rather than blocked. Later in the session, SEAD-VTSC-002 landed (lock regen + Dockerfile, both x86_64-required); operator chose Option 1 (Docker Desktop linux/amd64 emulation) and deferred execution to a future session. Ticket-002 is pending, not blocked.
+  perception_note:       |
+    Fast for SEAD-VTSC-001. The hardest work was S1's static audit and deciding what NOT to fix (declined gc.collect band-aid on app.py, deferred Dockerfile, left Scenario #7 silent-fallback alone per R108). Live Ollama availability was the force multiplier — turned S2 from code-change-only into before/after-verified in <5 min. Single-context execution worked better for this ticket than TRAK's 4-way parallel would have; these tasks had too many diagnostic judgment calls to fan out cleanly. Cross-hive ticket roundtrip (001 → R1 → 002) happened within a single session — encouraging sign for Option C workflow in D36.

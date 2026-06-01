@@ -1,0 +1,90 @@
+schema_version: "1.0"
+
+session:
+  id: 2026-04-13-postwach-03
+  date: 2026-04-13
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "15:45"
+  end_time: "17:15"
+  task_summary: Review VT-delivered scenarios.csv and Apr 7 meeting notes for the Titanium Supply Chain project; implement fixes for six flagged bugs (suppliers.csv wiring, fastest_first empty, planning horizon conflation, proportional feasibility, LLM recommends infeasible, optimal_* collapse); stress test in progress, handoff to tomorrow.
+
+output:
+  artifacts:
+    - type: code
+      name: supply_chain_sim.py -- _allocate_order rewrite, _delivery_planning_horizon helper, dual-gate feasibility, MAX_PLANNING_HORIZON_WEEKS
+      action: modified
+      lines: 80
+      files: 1
+    - type: code
+      name: supply_chain_optimizer.py -- removed disruption_weeks horizon coupling in optimize_allocation and optimal_allocate
+      action: modified
+      lines: 14
+      files: 1
+    - type: code
+      name: llm_analyst.py -- feasibility preamble, validate_recommendation, SYSTEM_PROMPT_ANALYST hardened, analyze_with_comparison rewired
+      action: modified
+      lines: 70
+      files: 1
+    - type: code
+      name: app.py -- SUPPLIERS/SUPPLIER_SOURCE load, 4 call sites threaded suppliers=, pipeline routed through analyze_with_comparison
+      action: modified
+      lines: 35
+      files: 1
+    - type: analysis
+      name: CSV review + meeting notes review; bug triage matrix (B1-B5 + student TODOs)
+      action: created
+      lines: 0
+      files: 0
+    - type: other
+      name: File moves -- 2026-04-07_Meeting_Agenda.docx and 2026-04-13_scenarios.csv relocated from Downloads to VT Test Runs/
+      action: created
+      lines: 0
+      files: 2
+    - type: other
+      name: Session archive SESSION_ARCHIVE_2026-04-13_postwach-03.md
+      action: created
+      lines: 130
+      files: 1
+    - type: other
+      name: This scorecard
+      action: created
+      lines: 80
+      files: 1
+  total_files_created: 4
+  total_files_modified: 4
+  total_lines_written: 409
+  pages_produced: 3
+
+ai_efficiency:
+  agents_spawned: 2
+  swarm_topology: none
+  model_primary: claude-opus-4-6
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: 42
+  context_compressions: 0
+
+quality:
+  gates_run:
+    - gate: pytest tests/test_model_fixes.py -v (existing suite)
+      result: partial
+      details: 16 passed, 8 failed. The 8 failures are pinning the OLD (buggy) behavior that the fixes deliberately changed. Tests to be rewritten tomorrow.
+    - gate: Python smoke test of new semantics (9 scenarios covering all failing test inputs + stress cases)
+      result: pass
+      details: Confirmed B1, B2, B5 fixes produce expected allocations. Revealed that horizon-uncapped also made B4 disappear but made any order feasible, which motivated adding MAX_PLANNING_HORIZON_WEEKS=52 ceiling.
+  tests_passed: 16
+  tests_failed: 8
+  reviewer_comments_addressed: 5
+  first_pass_quality_pct:
+
+process:
+  agent_failures: 0
+  retries: 2
+  rework_files: 2
+  blocked_minutes: 0
+  blockers: |
+    Design tension discovered mid-fix: decoupling planning horizon from disruption_weeks (B2 fix) initially made every order feasible given enough runway, defeating the feasibility signal. Resolved by adding a 52-week business ceiling, but this surfaced a larger open question (see archive Open Questions #2) about whether disruption-window overrun should be a separate flag. Not blocking today; will resolve tomorrow with student input.
+  perception_note: |
+    Faster than manual would have been. Parallel Explore subagents found both the project layout and the canonical requirement sources on first pass. Biggest time sink was realizing the existing pytest was pinning the bug rather than testing correct behavior, which required reversing the "test failure = my bug" assumption.

@@ -1,0 +1,73 @@
+schema_version: "1.0"
+
+session:
+  id: 2026-04-13-postwach-01
+  date: 2026-04-13
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "14:30"
+  end_time: "15:00"
+  task_summary: Extract Berserker (MQ-99 UCAV) requirements and context brief from IGNITE '26 artifacts; seed them into DocWach/Requirements-Assistant GitHub repo and reorganize existing samples into a samples/ folder.
+
+output:
+  artifacts:
+    - type: analysis
+      name: Berserker_Requirements_All.txt (233 reqs extracted from berserker_model.json, sorted by ID)
+      action: created
+      lines: 709
+      files: 1
+    - type: analysis
+      name: Berserker_Context.txt (1-page system brief, subsystems, requirement families, IGNITE role)
+      action: created
+      lines: 60
+      files: 1
+    - type: other
+      name: DocWach/Requirements-Assistant -- 2 file adds + 1 atomic rename commit via GitHub API
+      action: created
+      lines: 0
+      files: 3
+    - type: other
+      name: Session archive SESSION_ARCHIVE_2026-04-13_postwach-01.md
+      action: created
+      lines: 75
+      files: 1
+    - type: other
+      name: This scorecard
+      action: created
+      lines: 60
+      files: 1
+  total_files_created: 5
+  total_files_modified: 0
+  total_lines_written: 904
+  pages_produced: 3
+
+ai_efficiency:
+  agents_spawned: 2
+  swarm_topology: none
+  model_primary: claude-opus-4-6
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: 16
+  context_compressions: 0
+
+quality:
+  gates_run:
+    - gate: GitHub commit verification (contents listing post-rename)
+      result: pass
+      details: Root shows samples/ directory; samples/ contains all 4 expected files.
+    - gate: Requirements count sanity check
+      result: pass
+      details: 233 requirements in JSON confirmed; SysML v2 source reports 268 blocks (difference flagged to user, not reconciled).
+  tests_passed: 2
+  tests_failed: 0
+  reviewer_comments_addressed: 0
+  first_pass_quality_pct: 100
+
+process:
+  agent_failures: 0
+  retries: 1
+  rework_files: 0
+  blocked_minutes: 0
+  blockers: One gh CLI call failed with "Argument list too long" when passing base64 content as -f flag; resolved in one retry by switching to stdin JSON input via subprocess from Python.
+  perception_note: Fast session. Two Explore subagents located all Berserker artifacts in parallel; Git Data API rename was cleaner than four separate Contents API operations and produced a single auditable commit.

@@ -1,0 +1,68 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: "2026-04-01-postwach-01"
+  date: "2026-04-01"
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "14:00"
+  end_time: "21:15"
+  task_summary: "Convert INSIGHT article to Word format and insert 5 glossy publication-quality figures with captions."
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: paper_section
+      name: "INSIGHT article markdown -- 3 figure insertions with captions"
+      action: modified
+      lines: 12
+      files: 1
+    - type: other
+      name: "Word document generation (pandoc, 14.3 MB, 5 figures embedded)"
+      action: created
+      lines: 0
+      files: 1
+    - type: other
+      name: "Image assets copied to article directory"
+      action: created
+      lines: 0
+      files: 4
+  total_files_created: 5
+  total_files_modified: 1
+  total_lines_written: 12
+  pages_produced: 0.3
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 1
+  swarm_topology: none
+  model_primary: claude-opus-4-6
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls:
+  context_compressions: 0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: "pandoc Word conversion"
+      result: pass
+      details: "14.3 MB docx generated, all 5 images embedded"
+    - gate: "Image resolution check"
+      result: pass
+      details: "All figures >= 3495px wide, RGBA, print-ready at 300 DPI"
+  tests_passed: 2
+  tests_failed: 0
+  reviewer_comments_addressed: 0
+  first_pass_quality_pct: 90
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 1
+  rework_files: 0
+  blocked_minutes: 0
+  blockers: "none"
+  perception_note: "Efficient session. Bulk of time was asset discovery and figure selection (collaborative with user). Pandoc conversion was straightforward. One retry on initial pandoc call due to empty --reference-doc flag."

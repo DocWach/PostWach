@@ -1,0 +1,92 @@
+schema_version: "1.0"
+
+session:
+  id: "2026-04-23-postwach-02"
+  date: "2026-04-23"
+  hive: "PostWach"
+  researcher: "Wach"
+  start_time: ""
+  end_time: ""
+  task_summary: >
+    Rethink the STIDS 2026 (Kamien & Mantravadi) review approach. Pivot from
+    "wait and validate David's TTL" (GI-JOE-MTO-001) to "build the MTO TBox +
+    SHACL + CQ harness ourselves and populate ABox from Berserker +
+    DesertStorm" (GI-JOE-MTO-002). Scope, file the new ticket, and supersede
+    the old one. PostWach owns David coordination; GI-JOE owns scope-review
+    response.
+
+output:
+  artifacts:
+    - type: spec
+      name: "MTO_STIDS_Kamien_Buildout_2026-04-23.md (GI-JOE-MTO-002 ticket)"
+      action: created
+      lines: 180
+      files: 1
+    - type: spec
+      name: "MTO_STIDS_Kamien_Validation_Intake_2026-04-20.md (superseded header + status block)"
+      action: modified
+      lines: 12
+      files: 1
+    - type: other
+      name: "SESSION_ARCHIVE_2026-04-23_postwach-02.md"
+      action: created
+      lines: 95
+      files: 1
+    - type: other
+      name: "2026-04-23-postwach-02.yaml scorecard (this file)"
+      action: created
+      lines: 75
+      files: 1
+  total_files_created: 3
+  total_files_modified: 1
+  total_lines_written: 362
+  pages_produced: 4
+
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: "none"
+  model_primary: "claude-opus-4-7"
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls:
+  context_compressions: 0
+
+quality:
+  gates_run:
+    - gate: "[R016] artifact-status discipline (DesertStorm tagged as (a) research artifact, not assumed reachable)"
+      result: "pass"
+      details: "Found Berserker reachable; DesertStorm not in local tree; flagged as Phase D precondition with three options"
+    - gate: "Discuss-before-executing on multi-step ticket scoping"
+      result: "pass"
+      details: "Three open scoping decisions surfaced before drafting; user response interpreted; ticket then written in one pass"
+    - gate: "Supersede-versus-overwrite decision for GI-JOE-MTO-001"
+      result: "pass"
+      details: "Held open as contingent dormant rather than closed; rationale documented in ticket header"
+    - gate: "Source-material catalog completeness in archive"
+      result: "pass"
+      details: "Five source-material paths recorded in §7 Next session entry hints to avoid re-discovery cost"
+  tests_passed: 4
+  tests_failed: 0
+  reviewer_comments_addressed: 0
+  first_pass_quality_pct: 100
+
+process:
+  agent_failures: 0
+  retries: 0
+  rework_files: 0
+  blocked_minutes: 0
+  blockers: "none"
+  perception_note: >
+    Short, focused scoping session. Strategic reframe (review -> buildout)
+    was the high-leverage move; ticket-writing was mechanical follow-through.
+    Pre-write surfacing of three scoping decisions kept the ticket clean and
+    correctly inverted scope rather than overwriting. The DesertStorm
+    [R016] flag was important: assuming it was in our tree would have
+    produced a ticket with a hidden blocker; surfacing it as a Phase D
+    precondition with three explicit options gives GI-JOE actionable
+    decision space. Backlog from 2026-04-20 (email draft to David) correctly
+    deferred because user is handling David contact directly. Net result is
+    a ticket GI-JOE can act on without follow-up clarification, plus a
+    contingent dormant ticket preserving optionality if David independently
+    ships TTL.

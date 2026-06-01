@@ -1,0 +1,147 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA ---
+session:
+  id: 2026-04-12-postwach-02
+  date: 2026-04-12
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: ~13:00
+  end_time: ~22:00
+  task_summary: TRAK Practitioner Guide v9 -> v11. Addressed reviewer feedback (6 items v9, 3 items v10), then external ChatGPT reviewer Tier 1 revisions (v10->v11). Built sponsor-ready Word docx via pandoc + python-docx template merge pipeline. Implemented full table/figure captioning (Option C), Word Caption styles, dynamic List of Figures and Tables via SEQ-indexed TOC fields, fully-justified text, table bottom borders, user layout preservation (title split, page breaks, Scope of Validation as Section 1).
+
+# --- D1: OUTPUT VOLUME ---
+output:
+  artifacts:
+    - type: paper_section
+      name: TRAK Appendix C (Evidence Quality Taxonomy Reference)
+      action: created
+      lines: 23
+      files: 1
+    - type: paper_section
+      name: TRAK References section
+      action: created
+      lines: 16
+      files: 1
+    - type: paper_section
+      name: Scope of Validation subsection (Executive Summary)
+      action: created
+      lines: 8
+      files: 1
+    - type: paper_section
+      name: Multi-Assessor Adjudication subsection (Section 6)
+      action: created
+      lines: 6
+      files: 1
+    - type: paper_section
+      name: Conway Exploratory Prototype disclaimer (Section 8)
+      action: created
+      lines: 3
+      files: 1
+    - type: paper_section
+      name: Reviewer-item edits across guide (6 items v9, AI-narrowing, section-retitles, §4.6 collapse, §9.4 fold, §9.10 fix)
+      action: modified
+      lines: 60
+      files: 4
+    - type: paper_section
+      name: Figure/table captioning with cross-references (Option C)
+      action: modified
+      lines: 120
+      files: 6
+    - type: paper_section
+      name: Appendix B caption revert (49 tables kept informal to avoid LoT clutter)
+      action: modified
+      lines: 0
+      files: 1
+    - type: code
+      name: build_trak_docx.py (consolidated single-command docx build)
+      action: created
+      lines: 310
+      files: 1
+    - type: code
+      name: build_trak_v11.sh (PDF build via pandoc+xelatex)
+      action: created
+      lines: 35
+      files: 1
+    - type: spec
+      name: SESSION_ARCHIVE_2026-04-12_postwach-02.md
+      action: created
+      lines: 180
+      files: 1
+    - type: spec
+      name: Memory files for inter-hive policy discussion (doc-merge, artifact storage)
+      action: created
+      lines: 65
+      files: 2
+    - type: other
+      name: TRAK_Practitioner_Guide_v9 PDF + docx (sponsor-ready)
+      action: created
+      lines: 0
+      files: 2
+    - type: other
+      name: TRAK_Practitioner_Guide_v10 PDF + docx (full captioning)
+      action: created
+      lines: 0
+      files: 2
+    - type: other
+      name: TRAK_Practitioner_Guide_v11 PDF + docx (Tier 1 reviewer revisions + dynamic LoF/LoT)
+      action: created
+      lines: 0
+      files: 2
+  total_files_created: 15
+  total_files_modified: 10
+  total_lines_written: 826
+  pages_produced: ~12    # 70-page final PDF minus ~58 pages pre-existing = ~12 new pages of content
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 1      # write-appendix-c; balance via direct edits and Python scripts
+  swarm_topology: none
+  model_primary: claude-opus-4-6
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls:            # approximate; many Edit + Read + Bash calls
+  context_compressions: 0
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: Reviewer feedback round 1 (user, 6 items a-f)
+      result: pass
+      details: All 6 items addressed in v9
+    - gate: Reviewer feedback round 2 (user, 3 items)
+      result: pass
+      details: Figures/tables captioning, PD outcomes table, Appendix B revert
+    - gate: External reviewer (ChatGPT red/blue/white) Tier 1
+      result: pass
+      details: Section numbering bug, AI lesson narrowing, Scope of Validation callout, Exploratory Prototype disclaimer, Multi-Assessor Adjudication
+    - gate: External reviewer Tier 2/3
+      result: deferred
+      details: Empirical validation, inter-rater reliability, Bayesian calibration - all in §8 as future work
+    - gate: Word docx dynamic List of Figures/Tables
+      result: pass
+      details: SEQ fields + TOC \c "Figure"/"Table" filters; F9-updateable
+    - gate: Layout preservation (title split, page breaks, Scope of Validation as H1)
+      result: pass
+      details: Baked into build_trak_docx.py so rebuilds do not clobber
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed: 15    # 6 (round 1) + 3 (round 2) + 5 (ChatGPT Tier 1) + 1 (title split)
+  first_pass_quality_pct: 85          # Several iterations: diff-misread once, SEQ caption numbering once
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 0
+  retries: 3     # diff-misread (page break direction); SEQ caption all-"1" bug; appendix caption regex bug
+  rework_files: 3   # build_trak_docx.py, Executive_Summary.md, Section_8_Conway_Insert.md
+  blocked_minutes: 0
+  blockers: none
+  perception_note: |
+    Build pipeline infrastructure (pandoc --reference-doc + python-docx front-matter merge + SEQ field injection)
+    was significantly faster than manual Word editing would have been. Single-command rebuild preserves all
+    layout preferences on every revision. Recognized as reusable pattern across hives (logged for inter-hive
+    policy discussion). Two mis-steps cost time: (1) misread diff direction on first preservation attempt
+    (assumed user removed page breaks, actually added); (2) SEQ field cached values all "1" because did not
+    count sequentially at write time. Both caught quickly by external feedback. Net: faster than manual
+    reformatting would have been even counting rework.

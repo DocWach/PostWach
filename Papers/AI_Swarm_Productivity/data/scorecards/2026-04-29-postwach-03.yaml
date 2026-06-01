@@ -1,0 +1,117 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-04-29-postwach-03
+  date: 2026-04-29
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "09:30"
+  end_time: "12:00"
+  task_summary: |
+    Resume the ORCiD-and-PostWach workflow flagged as next-session hint (c) in
+    the 2026-04-28 Genesis archive. Scope a push-only sync workflow, register
+    an ORCiD developer client, run a P1 OAuth + read smoke test. Recover from
+    a scoping error when Public API tier turned out not to support write
+    scopes. Reach P1 PASS; push capability blocked at Public API tier; user
+    emails UA Libraries for Path B (Member API write) determination.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: spec
+      name: ORCiD workflow scope doc (docs/orcid-workflow.md), 12 sections
+      action: created
+      lines: 175
+      files: 1
+    - type: code
+      name: scripts/orcid/auth.py — OAuth + read smoke-test helper
+      action: created
+      lines: 190
+      files: 1
+    - type: config
+      name: ~/.config/postwach/orcid.env (off-repo) + .gitignore append
+      action: created
+      lines: 8
+      files: 2
+    - type: other
+      name: PostWach project memory entry for ORCiD workflow + MEMORY.md index line
+      action: created
+      lines: 32
+      files: 2
+    - type: other
+      name: Session archive (postwach-03)
+      action: created
+      lines: 145
+      files: 1
+    - type: config
+      name: This scorecard
+      action: created
+      lines: 80
+      files: 1
+  total_files_created: 7
+  total_files_modified: 2
+  total_lines_written: 630
+  pages_produced: 4   # ~250 words/page; scope doc + archive dominate
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: none
+  model_primary: claude-opus-4-7
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: 60   # approximate
+  context_compressions: 0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: ORCiD P1 OAuth smoke test (auth + read)
+      result: pass
+      details: |
+        Token cached, scope=/authenticate, lifetime ~7305 days. Record summary
+        read: 4 works, 0 employments, 0 education, 0 distinctions. Identity
+        verified as "Paul Wach" against managed ID 0000-0002-3085-2883.
+    - gate: API tier capability check (write scopes vs Public API)
+      result: fail
+      details: |
+        Discovered mid-session that Public API does not allow /activities/update
+        or /person/update scopes. Required SCOPES correction and scope-doc
+        rewrite. Caught by ORCiD's authorize endpoint, not by pre-flight check.
+  tests_passed: 1     # P1 smoke test
+  tests_failed: 0     # no automated tests written
+  reviewer_comments_addressed: 0   # no peer review this session
+  first_pass_quality_pct: 60   # scope-doc claim about Public API write was wrong; auth.py needed 4 patches
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 4   # Edge launch fix; output buffering fix; SCOPES correction; HTTP response hygiene
+  rework_files: 1   # auth.py edited 4 times across the session
+  blocked_minutes: 25   # ~15 min on the Public API scoping recovery + ~10 min cumulative on cmd-shell, buffering, HTTP-handler bugs
+  blockers: |
+    Initial Public API + 3-legged OAuth claim (push-capable) was wrong. ORCiD's
+    Member API gates the write scopes. Pivoted mid-session to Path A/B/C
+    decision tree; Path B (UA Member API via UA Libraries) is the preferred
+    next move pending Ellen Dubinsky's reply.
+  perception_note: |
+    Read-side delivery (scope doc + working OAuth + record summary) was faster
+    than manual would have been; ~3 hours of AI work vs ~6+ hours manually
+    setting up OAuth client, env loader, callback handler, token cache, and
+    record reader. The scoping error and three smaller patch cycles cost
+    perceived velocity; the user was patient through them but visibly
+    skeptical when ORCiD returned the second OAuth error. Net: still faster
+    than manual, but the trust budget got drawn down.
+
+# --- DERIVED (do not fill — computed by script) ---
+# derived:
+#   wall_clock_hours:
+#   pages_per_hour:
+#   lines_per_hour:
+#   cost_per_page:
+#   cost_per_file:
+#   agent_utilization:
+#   tokens_per_artifact:
+#   rework_ratio:

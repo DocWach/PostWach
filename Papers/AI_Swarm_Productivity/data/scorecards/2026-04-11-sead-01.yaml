@@ -1,0 +1,97 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: "2026-04-11-sead-01"
+  date: "2026-04-11"
+  hive: SEAD
+  researcher: "Paul Wach"
+  start_time: ""
+  end_time: ""
+  task_summary: >
+    Debugged and fixed LLM suggested rewrite not appearing in PD Workbench.
+    Root cause: prompt caused 65 evaluations instead of 9, truncating JSON.
+    Also fixed export ValueError and filed PostWach ticket for prompt quality.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: code
+      name: "LLM prompt restructure + mock provider + debug expander + suggestion display"
+      action: modified
+      lines: 200
+      files: 1
+    - type: code
+      name: "ontology_service.py export fix (criterion-level ID guard)"
+      action: modified
+      lines: 7
+      files: 1
+    - type: config
+      name: "Mock LLM fixture (uav_navigation_mock_llm_responses.json)"
+      action: created
+      lines: 150
+      files: 1
+    - type: config
+      name: "README.md + CHEATSHEET.md (Mock provider docs)"
+      action: modified
+      lines: 5
+      files: 2
+    - type: other
+      name: "PostWach prompt quality ticket (POSTWACH-PD-001)"
+      action: created
+      lines: 95
+      files: 1
+  total_files_created: 2
+  total_files_modified: 4
+  total_lines_written: 457
+  pages_produced: 0
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 1
+  swarm_topology: star
+  model_primary: "claude-opus-4-6"
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls:
+  context_compressions: 0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: "py_compile syntax check"
+      result: pass
+      details: "pd_workbench.py compiles clean after all edits"
+    - gate: "ontology_service import check"
+      result: pass
+      details: "OntologyService imports clean after export fix"
+    - gate: "Mock LLM provider UI test"
+      result: pass
+      details: "Suggested rewrites display correctly with mock fixture"
+    - gate: "Real LLM (Claude) UI test"
+      result: pass
+      details: "Suggested rewrites display after prompt restructure"
+    - gate: "Export report"
+      result: pass
+      details: "Fixed ValueError; criterion-level IDs handled gracefully"
+  tests_passed: 5
+  tests_failed: 0
+  reviewer_comments_addressed: 0
+  first_pass_quality_pct: 60
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 3
+  rework_files: 1
+  blocked_minutes: 0
+  blockers: "none"
+  perception_note: >
+    Multi-round debugging session. Initial fixes (max_tokens, suggestion display)
+    were necessary but insufficient. The debug expander was the key diagnostic
+    that revealed the real root cause (42-rule evaluation instead of 9-criteria).
+    First-pass quality was low (60%) — needed the user's real LLM test to surface
+    the prompt structure issue. Mock provider was valuable for isolating display
+    from LLM quality. VT React app prompt comparison identified the path forward
+    for PostWach.

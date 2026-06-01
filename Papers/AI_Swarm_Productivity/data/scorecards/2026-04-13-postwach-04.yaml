@@ -1,0 +1,203 @@
+schema_version: "1.0"
+
+session:
+  id: 2026-04-13-postwach-04
+  date: 2026-04-13
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "~17:30"
+  end_time: "~20:30"
+  task_summary: |
+    Drive TRAK Practitioner Guide from v11 (after Taylan v6 review) to submission-ready
+    v16. Sweeps: abbreviation audit, AI-voice rewrite, clarity on 7 Taylan comments,
+    Mermaid workflow diagrams, Section 5 to Appendix D, worked 9-cell matrix for
+    Section 7.2, Table 2 to 4 capabilities, cover author lines (Task Lead +
+    Co-PIs + Key Team Members), DoD figure swap on Conway content, landscape workflow
+    diagram, Q-before-D swap (Alejandro), Conway content removal, Section 8 trimmed,
+    acronyms table (57 entries), 2-page TRAK flyer (three iterations v1/v2/v3),
+    red/blue/white review, worked-matrix data bug fix.
+
+output:
+  artifacts:
+    - type: paper_section
+      name: Executive_Summary.md (condensed to one page, ported v12/v14 manual edits)
+      action: modified
+      lines: 60
+      files: 1
+    - type: paper_section
+      name: Section_1_2.md -> Section_1.md + Section_2_3.md (Q-before-D swap, Table 2 to 4 capabilities)
+      action: modified
+      lines: 120
+      files: 3
+    - type: paper_section
+      name: Section_3_4.md -> Section_4.md (new Gap Analysis table, clarity edits across Taylan 10.1/11.2/12.2/12.3/13.2)
+      action: modified
+      lines: 160
+      files: 2
+    - type: paper_section
+      name: Section_6.md (new Figure 2 workflow diagram, ~20 Q/D cross-ref fixes)
+      action: modified
+      lines: 30
+      files: 1
+    - type: paper_section
+      name: Section_7_8.md (worked 9-cell matrix for O1 I1, Iteration 4 condensed, Section 8 trimmed to 7 bullets, data bug fix on Q3-D1/D2)
+      action: modified
+      lines: 200
+      files: 1
+    - type: paper_section
+      name: Appendix_A/B/C/D .md (unnumbered markers, AI-voice openers)
+      action: modified
+      lines: 10
+      files: 4
+    - type: paper_section
+      name: Appendix_D_Quantitative.md (new from Section 5 split)
+      action: created
+      lines: 73
+      files: 1
+    - type: paper_section
+      name: List_of_Acronyms.md (57 acronyms, auto-compiled from prose)
+      action: created
+      lines: 65
+      files: 1
+    - type: code
+      name: build_trak_docx_v14/v15/v16.py + build_trak_v14/v15/v16.sh (version bumps, acronyms insert, cover author lines via add_additional_authors, Q/D swap parts list, Attachment A path, unnumbered fixes)
+      action: created
+      lines: 300
+      files: 6
+    - type: other
+      name: TRAK_Section6_Workflow.png + diagram_3_v2.mmd/_LR.mmd (Mermaid workflow candidates, landscape variant)
+      action: created
+      lines: 0
+      files: 3
+    - type: other
+      name: Attachment_A_Organizational_Data_Sharing.md (reframed from Conway's Law, 1928 words) + Appendix_E_Attachments.md (both later superseded by user)
+      action: created
+      lines: 180
+      files: 2
+    - type: other
+      name: TRAK Flyer v1, v2, v3 (weasyprint/Edge, 2-page overview, v3 with landscape workflow)
+      action: created
+      lines: 400
+      files: 9
+    - type: review
+      name: review_blue_v16 + review_white_v16 + review_red_v16 (red/blue/white review memos)
+      action: created
+      lines: 900
+      files: 3
+    - type: review
+      name: taylan_v14_status_audit_2026-04-13.md (47-comment status report: 36 CLOSED / 3 PARTIAL / 7 OPEN / 1 N/A)
+      action: created
+      lines: 200
+      files: 1
+    - type: other
+      name: TRAK_Practitioner_Guide_v14/v15/v16.docx (pipeline-built final deliverables)
+      action: created
+      lines: 0
+      files: 3
+    - type: other
+      name: TRAK_Flyer_v3_2026-04-13.pdf (submitted version)
+      action: created
+      lines: 0
+      files: 1
+    - type: other
+      name: Session archive + scorecard
+      action: created
+      lines: 250
+      files: 2
+  total_files_created: ~40
+  total_files_modified: ~12
+  total_lines_written: ~2950
+  pages_produced: 90  # TRAK v16 docx estimated + 2-page flyer
+
+ai_efficiency:
+  agents_spawned: 11
+  swarm_topology: hybrid
+  model_primary: claude-opus-4-6
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls:
+  context_compressions: 1  # one compaction during long session
+
+quality:
+  gates_run:
+    - gate: v14 build pipeline (pandoc + docxcompose)
+      result: pass
+      details: 3 additional author lines inserted, 34 captions styled, 75 tables with borders.
+    - gate: v15 build pipeline (with acronyms)
+      result: pass
+      details: 57 acronyms, content diff vs v14_dif clean (only SEQ-field + new acronyms section).
+    - gate: v16 build pipeline (with Q/D swap + Conway removed + user-deleted Attachment/Appendix E)
+      result: pass
+      details: 34 tables, 2 figures, 448 body paragraphs, 75 tables with booktabs borders.
+    - gate: Worked-example numeric reconciliation (WHITE verified independently)
+      result: pass
+      details: O1 I1 = 6/3/0, O1 I2 = 4/3/2, O2 I1 = 3/5/1, I1 aggregate Y=27/P=29/N=16 all reconcile to Appendix B per-cell data.
+    - gate: Q/D swap cross-reference audit (11 files edited)
+      result: pass
+      details: Every "Section 2" / "Section 3" reference pointed to the correct new section.
+    - gate: Red/Blue/White review cycle
+      result: partial
+      details: BLUE shipped SHIP-WITH-MINOR-POLISH with 10/10 Taylan spot-checks genuine. WHITE shipped SHIP-WITH-MINOR-EDITS with 4-item punch list. RED delivered 9 CRITICAL / 12 MAJOR late (after WHITE had closed out). One RED CRITICAL confirmed valid (C5 worked-matrix data bug), fixed before ship.
+    - gate: Taylan 47-comment audit
+      result: pass
+      details: 36 CLOSED / 3 PARTIAL / 7 OPEN / 1 N/A. Top OPEN items are pipeline-level (Figure 1 icon centering, page-break styling) not content-level.
+    - gate: AI-voice sweep v2 (partial re-run)
+      result: pass
+      details: 3 formulaic openers rewritten in Appendix B and Section 7; Executive Summary explicitly held off-limits per user; context-appropriate hedging preserved.
+  tests_passed: 7
+  tests_failed: 0
+  reviewer_comments_addressed: 36  # Taylan closures confirmed in v14 audit + 3 Alejandro items (Q-before-D swap, Conway removal, scope simplification)
+  first_pass_quality_pct: 75  # RED caught 1 real data-contradiction bug (Section 7.2 Q3-D1/D2 swap) that BLUE and WHITE both missed. Pipeline artifacts (SEQ fields, TOC) were correctly flagged as pandoc/Word concerns.
+
+process:
+  agent_failures: 1  # RED team agent timed out on internal polling; delivered late after WHITE had already issued recommendation
+  retries: 3  # v15 rebuilt twice (post-acronyms, post-landscape-image), v16 rebuilt twice (after Conway removal, after data-bug fix)
+  rework_files: 4  # Executive Summary (condense + manual-edit port), Section_7_8.md (Iteration 4 + worked matrix + data bug), build script v14/v15/v16 (version bumps + parts list changes), Section_8 (Conway insert added then removed)
+  blocked_minutes: 0
+  blockers: |
+    No blockers halted progress. Two design-level questions surfaced during the
+    session that were resolved interactively with the user:
+
+    (1) Alejandro's "mirror hypothesis" comment initially could not be located
+    in the guide; grep showed no matches. The author clarified Alejandro meant
+    the Conway's Law content in Section 8. Resolution: reframe around data
+    sharing (executed), then user made executive decision to remove entirely.
+
+    (2) The TRAK flyer required three iterations: v1 with small portrait
+    workflow (unreadable), v2 with both diagrams at half-page (still hard to
+    read on 2 pages), v3 with landscape workflow diagram (approved for submission).
+    Created a new `diagram_3_v2_LR.mmd` Mermaid source as part of this.
+
+    (3) Red team agent delivered 9 CRITICAL findings AFTER White had already
+    issued a SHIP recommendation. Of the 9 CRITICAL, one was a real content
+    bug (worked-matrix Q3-D1/D2 swap contradicting Appendix B), most were
+    pandoc/Word SEQ-field rendering artifacts, several were known-deferred items.
+    Real bug was caught and fixed before ship. Process deviation worth flagging
+    in the audit trail for productivity scorecard honesty.
+
+  perception_note: |
+    Highest-throughput session of the TRAK delivery arc. Started with v11 as baseline
+    after Taylan's 47-comment v6 review, ended with v16 submitted to Alejandro and
+    Taylan plus a 2-page flyer submitted to the sponsor. Parallelization was the
+    productivity lever: at peak four agents ran concurrently (acronyms, flyer,
+    AI-voice sweep, Taylan 47-comment audit), each returning self-contained reports
+    with evidence and disposition. Main session handled coordination, build-script
+    updates, cross-reference verification, and decision adjudication.
+
+    Agent reliability was much better than the 2026-04-12 session (14 of 24 returned
+    plans instead of executing). In this session 10 of 11 spawned agents executed
+    and returned useful output; the one failure was RED team exceeding its polling
+    window rather than returning plans. Attribution: agents were given explicit
+    "do not open / do not commit" constraints and clear file-domain scoping upfront.
+
+    Red/blue/white review validated the ship decision. Importantly, RED's late
+    delivery exposed a real data bug (worked matrix contradicting Appendix B)
+    that BLUE and WHITE independently missed because they sample-checked aggregate
+    totals rather than individual cells. Lesson for future RBW cycles: require
+    at least one per-cell verification when the document has tabular data that
+    feeds narrative walkthroughs.
+
+    Token consumption high but within limits. One context compaction during the
+    session preserved all pending state cleanly because the summary was written
+    with deliberate attention to file paths, version numbers, and pending decisions.
