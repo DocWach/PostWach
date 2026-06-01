@@ -1,0 +1,108 @@
+# =============================================================================
+# AI-Swarm Productivity Scorecard Schema v1.0
+# =============================================================================
+# Copy scorecard-template.yaml per session. Fill required fields. Optional
+# fields improve analysis fidelity but are not blocking.
+#
+# Derived metrics are computed by the analysis script, not entered manually.
+# =============================================================================
+
+schema_version: "1.0"
+
+# ---------------------------------------------------------------------------
+# SESSION METADATA (all required)
+# ---------------------------------------------------------------------------
+session:
+  id: string            # Format: YYYY-MM-DD-<hive>-<seq> (e.g., 2026-03-03-postwach-01)
+  date: date            # YYYY-MM-DD
+  hive: string          # Hive name (PostWach, GI-JOE, SysMLv2, MACQ, COSYSMO, SEAD, PLM, AlphaEmpress)
+  researcher: string    # Name
+  start_time: time      # HH:MM (local)
+  end_time: time        # HH:MM (local)
+  task_summary: string  # 1-2 sentence description of what the session aimed to accomplish
+
+# ---------------------------------------------------------------------------
+# D1: OUTPUT VOLUME (required)
+# ---------------------------------------------------------------------------
+# What was produced this session?
+output:
+  artifacts:            # List each distinct artifact created or substantially modified
+    - type: enum        # paper_section | ontology | code | analysis | spec | test | config | review | other
+      name: string      # Short description (e.g., "Ch 6 GRL derivation", "portfolio-abox.ttl")
+      action: enum      # created | modified | reviewed
+      lines: integer    # Approximate lines written or changed (0 if not applicable)
+      files: integer    # Number of files involved
+
+  # Aggregate counts (fill from artifact list)
+  total_files_created: integer
+  total_files_modified: integer
+  total_lines_written: integer       # New lines (not counting deletions)
+  pages_produced: float              # For prose: ~40 lines/page or word count / 250
+
+# ---------------------------------------------------------------------------
+# D2: AI EFFICIENCY (required where known, optional detail)
+# ---------------------------------------------------------------------------
+# What did the AI cost to produce this output?
+ai_efficiency:
+  # Required
+  agents_spawned: integer            # Total agents launched (swarm + task agents)
+  swarm_topology: enum               # hierarchical | mesh | star | hybrid | none (no swarm)
+  model_primary: string              # Primary model used (e.g., claude-opus-4-20250514)
+
+  # Optional (capture if available from claude-flow or session summary)
+  tokens_input: integer              # Total input tokens
+  tokens_output: integer             # Total output tokens
+  total_cost_usd: float              # Estimated session cost
+  tool_calls: integer                # Total tool invocations across all agents
+  context_compressions: integer      # Number of times context was compressed
+
+# ---------------------------------------------------------------------------
+# D3: QUALITY GATES (required where applicable)
+# ---------------------------------------------------------------------------
+# Did the output pass validation?
+quality:
+  gates_run:                         # List each validation gate executed
+    - gate: string                   # Gate name (e.g., "pytest", "SHACL validation", "CQ suite")
+      result: enum                   # pass | partial | fail | skipped
+      details: string               # Optional: "20/20 CQs pass", "3 tests failed"
+
+  # Aggregate
+  tests_passed: integer              # 0 if no tests applicable
+  tests_failed: integer
+  reviewer_comments_addressed: integer  # For revision sessions
+  first_pass_quality_pct: float      # % of output passing gates without rework (estimate)
+
+# ---------------------------------------------------------------------------
+# D4: PROCESS HEALTH (required)
+# ---------------------------------------------------------------------------
+# What went wrong and what slowed us down?
+process:
+  agent_failures: integer            # Agents that errored, timed out, or produced unusable output
+  retries: integer                   # Deliberate re-runs of failed operations
+  rework_files: integer              # Files edited 3+ times (symptom of churn)
+  blocked_minutes: integer           # Time spent waiting on external factors (not AI processing)
+  blockers: string                   # 1-2 sentence description of what blocked progress (or "none")
+  perception_note: string            # Subjective: did AI feel faster/slower than doing it manually?
+                                     # (Captures METR perception bias signal)
+
+# ---------------------------------------------------------------------------
+# DERIVED METRICS (computed by analysis script — do not fill manually)
+# ---------------------------------------------------------------------------
+derived:
+  wall_clock_hours: float            # end_time - start_time
+  pages_per_hour: float              # pages_produced / wall_clock_hours
+  lines_per_hour: float              # total_lines_written / wall_clock_hours
+  cost_per_page: float               # total_cost_usd / pages_produced
+  cost_per_file: float               # total_cost_usd / (files_created + files_modified)
+  agent_utilization: float           # (agents_spawned - agent_failures) / agents_spawned
+  tokens_per_artifact: float         # (tokens_in + tokens_out) / artifact_count
+  rework_ratio: float                # rework_files / (files_created + files_modified)
+
+# ---------------------------------------------------------------------------
+# BASELINE COMPARISONS (populated by analysis script from reference data)
+# ---------------------------------------------------------------------------
+baseline:
+  academic_pages_per_hour: 0.75      # Literature baseline: 0.5-1.0 pages/hr technical writing
+  copilot_speedup_factor: 1.55      # Peng et al. 2023: 55.8% faster on constrained tasks
+  metr_experienced_factor: 0.81     # METR 2025: 19% slower for experienced devs
+  senior_copilot_factor: 1.10       # Copilot studies: 8-13% gain for senior devs
