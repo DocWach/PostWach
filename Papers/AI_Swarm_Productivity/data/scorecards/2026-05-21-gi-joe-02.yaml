@@ -1,0 +1,117 @@
+# PROVENANCE [R018]: authored by Claude Opus 4.7 (claude-opus-4-7), Claude Code
+# interactive, GI-JOE hive, on behalf of researcher Paul Wach. Clock times left
+# blank (not tracked this session) rather than fabricated — research-data integrity.
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-05-21-gi-joe-02
+  date: 2026-05-21
+  hive: GI-JOE
+  researcher: Paul Wach
+  start_time:            # not tracked
+  end_time:              # not tracked
+  task_summary: >
+    Warm up ruflo; pick up PostWach ticket GI-JOE-FMPROV-001 (Foundation-Model
+    Provenance ontology extension implementing global rule [R018]). Build all 6
+    deliverables PROV-O-aligned (mirroring the po:Hive/prov:Agent precedent),
+    validate via ontology-gate, and stage the new fm set advisory.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: ontology
+      name: fm-provenance.ttl — TBox (fm:FoundationModel, po:poweredBy, fm:SharedMemoryArtifact, FM descriptors)
+      action: created
+      lines: 210
+      files: 1
+    - type: ontology
+      name: fm-provenance.shapes.ttl — SHACL (FoundationModelShape + ProvenanceCompletenessShape = the [R018] check)
+      action: created
+      lines: 130
+      files: 1
+    - type: ontology
+      name: fm-fixture.ttl — review-v1 fixture, 12 attributed shared-memory artifacts (3 FMs)
+      action: created
+      lines: 150
+      files: 1
+    - type: test
+      name: CQ-FM01 + CQ-FM02 competency queries (artifact->FM; distribution by FM)
+      action: created
+      lines: 55
+      files: 2
+    - type: config
+      name: fm-manifest.yaml — CQ manifest for the advisory fm gate set
+      action: created
+      lines: 45
+      files: 1
+    - type: ontology
+      name: 3 seed FM individuals + po:poweredBy links appended to portfolio-abox.ttl
+      action: modified
+      lines: 45
+      files: 1
+    - type: config
+      name: ontology-gate.sh — new advisory fm set (advisory_set non-blocking flag, run-all wiring)
+      action: modified
+      lines: 35
+      files: 1
+    - type: spec
+      name: ontology-validation SKILL.md scope + ticket implementation-notes table
+      action: modified
+      lines: 32
+      files: 2
+    - type: other
+      name: project_fmprov.md memory note + MEMORY.md index
+      action: created
+      lines: 34
+      files: 2
+  total_files_created: 8        # 6 deliverable files + fixture + memory note
+  total_files_modified: 5       # portfolio-abox, ontology-gate.sh, SKILL.md, ticket, MEMORY.md
+  total_lines_written: 736
+  pages_produced: 2             # prose only (ticket notes, memory, archive); bulk is ontology/code
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 0             # single-agent direct execution; no Task subagents
+  swarm_topology: none
+  model_primary: claude-opus-4-7
+  tokens_input:                 # not tracked
+  tokens_output:                # not tracked
+  total_cost_usd:               # not tracked
+  tool_calls:                   # not tracked (~32 est.)
+  context_compressions: 0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: ontology-gate.sh (fm set, full)
+      result: pass
+      details: "SHACL conforms; CQ-FM01=12, CQ-FM02=3 (2/2)"
+    - gate: ontology-gate.sh (run-all, full)
+      result: pass
+      details: "Portfolio 20/20 + SHACL conforms (UNCHANGED — no regression); TRAK 15/15; FM 2/2"
+    - gate: CQ-FM01/02 result inspection on fixture
+      result: pass
+      details: "12 artifacts attributed; distribution Google 6 / Anthropic 3 / OpenAI 3 — matches review-v1 manifest"
+  tests_passed: 37              # CQ checks across sets: portfolio 20 + trak 15 + fm 2
+  tests_failed: 0
+  reviewer_comments_addressed: 0   # PostWach review pending (acceptance step intentionally left open)
+  first_pass_quality_pct: 90       # one fix: sh:in enum literals needed xsd:string typing
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 1                    # re-ran gate after the sh:in datatype fix
+  rework_files: 1               # ontology-gate.sh — 4 planned multi-region edits (not error-driven)
+  blocked_minutes: 5
+  blockers: >
+    SHACL sh:in enumeration rejected the access-mode values due to an rdflib
+    term-equality quirk (untyped vs xsd:string literals); resolved in one
+    iteration by typing the sh:in members. No external blockers; the source
+    proposal + fixture were located read-only in 02 My Outreach/Tri_model_review.
+  perception_note: >
+    Faster than manual. The existing portfolio/trak ontology + two-tier gate gave
+    a clean template to mirror, so most files were first-pass clean. Choosing to
+    stage the fm set ADVISORY (vs blocking) per the ticket avoided gate-breakage
+    risk on a shared file while still proving CQ-FM01/02 green — the artifact is a
+    (c) integrated deliverable (wired into the gate), pending PostWach review.

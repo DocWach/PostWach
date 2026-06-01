@@ -1,0 +1,126 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-05-04-postwach-02
+  date: 2026-05-04
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "10:00"
+  end_time: "14:30"
+  task_summary: |
+    Draft a 1-page white paper for the MOCRA (Mission-based Ontology Cyber Risk
+    Assessment) proposal in response to the sponsor's IGNITE follow-up meeting.
+    Produced four alternative 1-pagers as upstream options, then iterated a
+    selected path through outline evaluation, debate, and three rounds of user
+    edits. 1-pager sent to coworker; typo correction applied post-send.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: paper_section
+      name: Four alternative MOCRA white papers (markdown + 1-page PDF each)
+      action: created
+      lines: 380   # ~95 lines × 4 markdown files; PDFs derived
+      files: 8
+    - type: paper_section
+      name: MOCRA_WhitePaper_MissionFitness_CyberFirst.md (selected path)
+      action: created
+      lines: 25
+      files: 1
+    - type: paper_section
+      name: MOCRA_WhitePaper_MissionFitness_CyberFirst.docx (sent file, typo-patched)
+      action: created
+      lines: 12   # docx body, 7 paragraphs after byline + affiliation added
+      files: 1
+    - type: other
+      name: Two intermediate docx artifacts (tight + v2) superseded by sent file
+      action: created
+      lines: 0
+      files: 2
+    - type: other
+      name: PostWach project memory entry for MOCRA proposal + MEMORY.md index line
+      action: created
+      lines: 28
+      files: 2
+    - type: other
+      name: Session archive (postwach-02)
+      action: created
+      lines: 130
+      files: 1
+    - type: config
+      name: This scorecard
+      action: created
+      lines: 90
+      files: 1
+  total_files_created: 16
+  total_files_modified: 2
+  total_lines_written: 665
+  pages_produced: 5   # one selected 1-pager + four alternates as printed pages
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: none
+  model_primary: claude-opus-4-7
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: 45   # approximate
+  context_compressions: 0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: TRAK acronym sourcing (no-hallucinated-expansions rule)
+      result: partial
+      details: |
+        Initial draft used [PLACEHOLDER] correctly. Filled from TRAK_combined_v16.md.
+        Pass once user prompted; would have shipped with placeholder otherwise.
+    - gate: OQuaRE expansion verification
+      result: fail
+      details: |
+        Inferred "Ontology Quality Requirements" by analogy with SQuaRE without
+        a portfolio source. User caught it. Removed entirely per user direction
+        ("not our work"). No-hallucinated-expansions rule violated and corrected
+        in-session; user reinforcement noted.
+    - gate: 1-page page-fit check (PDF rendering)
+      result: pass
+      details: |
+        First xelatex pass produced 2 pages per alt; tightened header (custom
+        titlespacing + parskip 4pt + 0.6in margins + 10pt) brought all 4 alts to
+        1 page. v2 docx tightened to 0.6in/0.7in margins, 10.5pt body, single
+        line spacing, 4pt space-after.
+    - gate: Sent-file typo audit
+      result: partial
+      details: |
+        "Depart of Systems & Industrial Engineering" flagged after send; patched
+        locally via python-docx find-and-replace. Sent copy to coworker carries
+        the typo unless user re-sends.
+  tests_passed: 1   # page-fit
+  tests_failed: 1   # OQuaRE expansion sourcing
+  reviewer_comments_addressed: 0   # no peer review this session
+  first_pass_quality_pct: 70   # OQuaRE slip + initial 2-page bleed + initial team-section misread
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 4   # 2-page LaTeX bleed; OneDrive online-only docx open; printf unicode escape in pandoc header inline; Word lock on first docx tighten save
+  rework_files: 1   # MOCRA_WhitePaper_MissionFitness_CyberFirst.md/.docx — three substantive iterations
+  blocked_minutes: 15   # OneDrive cloud-fetch retry (~5 min) + LaTeX header escape recovery (~5 min) + Word lock recovery (~5 min)
+  blockers: |
+    OneDrive online-only attribute on the IGNITE follow-up docx; first read
+    failed and required PowerShell ZIP-API extraction. Word held a lock on the
+    first tightened docx during save-back; resolved by writing to a versioned
+    filename. None of these blockers affected the user-visible delivery path.
+  perception_note: |
+    First proposal (action plan + portfolio inventory pitch) was off-target;
+    user wanted pure-content drafts immediately. Recovered by producing four
+    alternative 1-pagers in a single pass, which gave the user concrete
+    options to react to. The OQuaRE catch was a real trust hit; the user's
+    "Where did this come from?" was diagnostic and direct, and the audit
+    showed a small but genuine acronym-inference shortcut. Owning it
+    quickly and offering three fixes preserved forward velocity. Net: the
+    session still delivered a sent 1-pager in one wall-clock window, but
+    the no-hallucinated-expansions rule was tested and the answer was
+    "use a placeholder, then source from a file the user has on disk."

@@ -1,0 +1,96 @@
+schema_version: "1.0"
+
+session:
+  id: "2026-05-18-postwach-01"
+  date: "2026-05-18"
+  hive: "PostWach"
+  researcher: "Paul Wach"
+  start_time: "10:00"
+  end_time: "11:30"
+  task_summary: "Pickup from 2026-05-07 plan: completed NSF 25-540 (TTP) RTSync/Dahlgren proposal artifacts (COA xlsx + Synergistic Activities PDF) under deadline pressure (NSF 25-540 due 2026-05-19). Surfaced and corrected a collaborator-name fabrication pattern in the Wach_Collaborators_List.xlsx (right initial + invented full name)."
+
+output:
+  artifacts:
+    - type: "spec"
+      name: "Wach_NSF_COA.xlsx — NSF Collaborators & Other Affiliations, 5 tables filled"
+      action: "created"
+      lines: 80
+      files: 1
+    - type: "paper_section"
+      name: "Wach_NSF_Synergistic_Activities.pdf — 5-entry single-page NSF PAPPG-format PDF"
+      action: "created"
+      lines: 28
+      files: 1
+    - type: "paper_section"
+      name: "Wach_NSF_Synergistic_Activities.md — markdown source for the PDF"
+      action: "created"
+      lines: 16
+      files: 1
+    - type: "code"
+      name: "_build_synergistic_pdf.py — reportlab build script (NSF template layout)"
+      action: "created"
+      lines: 194
+      files: 1
+    - type: "analysis"
+      name: "NSF COA name verification table (33 entries cross-checked via CrossRef + faculty pages + ORCiD)"
+      action: "created"
+      lines: 0
+      files: 0
+    - type: "review"
+      name: "Wach affiliation fact-check (VT end date, Aerospace current status, Zeigler UA appointment)"
+      action: "created"
+      lines: 0
+      files: 0
+  total_files_created: 4
+  total_files_modified: 0
+  total_lines_written: 318
+  pages_produced: 4
+
+ai_efficiency:
+  agents_spawned: 3
+  swarm_topology: "none"
+  model_primary: "claude-opus-4-7"
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls:
+  context_compressions:
+
+quality:
+  gates_run:
+    - gate: "NSF COA Table 1 (Wach affiliations) populated"
+      result: "pass"
+      details: "4 affiliations from biosketch: RTSync, UA, Aerospace, VT; VT end month and Aerospace current status flagged for user"
+    - gate: "NSF COA Table 2 (personal preclusion) populated"
+      result: "pass"
+      details: "Karson Sandman as personal preclusion (VT/Aerospace)"
+    - gate: "NSF COA Table 3 (PhD advisors + advisees) populated"
+      result: "partial"
+      details: "2 advisors (Salado, Beling) + 10 advisees written; PhD-vs-MS filter still owed by user; 3 advisee first names flagged [VERIFY first name]"
+    - gate: "NSF COA Table 4 (co-authors) populated"
+      result: "pass"
+      details: "21 co-authors written; 6 fabricated first names corrected against CrossRef metadata"
+    - gate: "NSF COA Table 5 (editorial) populated"
+      result: "pass"
+      details: "Marked 'None within 24-month window' per user direction"
+    - gate: "Collaborator name verification against authoritative sources"
+      result: "pass"
+      details: "33 names cross-checked; 6 WRONG corrected (Gregory→Joe, Philipbar→Brad M., Jugan→Brady, Sonanis→Atharva, Sherburne→Tim, See Tao→Hoong Yan); 3 UNVERIFIED (Iyer, Anderson, Ashok) flagged for user"
+    - gate: "Synergistic Activities single-page"
+      result: "pass"
+      details: "Verified via pypdf: 1 page"
+    - gate: "Synergistic Activities entry 5 internal-records sourcing"
+      result: "pass"
+      details: "WRT-2406 + WRT-2516 'Systems Engineering Beyond the Horizon' / TRAK pulled from biosketch top10_products.md, CSER 2026 paper acknowledgment, SEAD handoff tickets, TRAK_combined_v16.md"
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed:
+  first_pass_quality_pct: 75
+
+process:
+  agent_failures: 0
+  retries: 2
+  rework_files: 1
+  blocked_minutes: 0
+  blockers: "Wach_Collaborators_List.xlsx had ~6 fabricated first names following the pattern: correct first initial + invented full name (Gregory Jared→Joe was the user's trigger correction). Required pivot from 'use the xlsx as source of truth' to 'verify every name against authoritative web sources via background agent before writing to NSF artifact'. Resolved by spawning verification agent in parallel with structural fill."
+  perception_note: "Parallel agent fan-out (3 concurrent: name verification, affiliation fact-check, Synergistic Activities draft+render) was the right call under deadline pressure. The two-pass Synergistic Activities approach (PLACEHOLDER first, internal-records pull second) cost one extra build cycle but preserved the no-fabrication rule. Inline Bash heredoc broke once on quote escaping; switching to script-file + Edit + python invocation was reliable."

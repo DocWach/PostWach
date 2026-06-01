@@ -1,0 +1,121 @@
+# =============================================================================
+# Session Productivity Scorecard
+# =============================================================================
+# PROVENANCE: claude-opus-4-7[1m] (Anthropic, Claude Code CLI)
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-05-28-postwach-03
+  date: 2026-05-28
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "~13:00"           # approximate; session began with NNSA project-review request
+  end_time: "~17:00"             # approximate; includes archive + scorecard close-out
+  task_summary: >
+    NNSA project review session. Warmed ruflo, inventoried and launched TRAK
+    Excel + Streamlit workbench + MACQ demo. Then built a new "TRAK Framework
+    Overview" demo for NNSA decision-makers across five discuss-before-execute
+    review rounds: re-skinned the WRT-2516_v2 framework demo to TRAK palette and
+    branding, reframed Section 5 from 4D to TRAK 3D, added new sections on the
+    3 Questions and the 9-Cell D×Q Matrix, removed the 4D Worked Example,
+    inserted a Quantifying Uncertainty section with a before/after posterior
+    SVG + ETV ranking table, reworked NNSA Tailoring to lead with a
+    Generic→Instance Q layered diagram on shall-statements, and scrubbed all
+    remaining 4D vestiges. Section count went from 10 (original framework demo)
+    to 12 (new TRAK framework demo).
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: code
+      name: TRAK Framework Overview demo (HTML + inline CSS + SVG + JS)
+      action: created
+      lines: 1900               # final size; included multiple iterations from initial ~1897-line copy
+      files: 1
+    - type: config
+      name: NNSA logo asset copied to framework-demo/assets/img/
+      action: created
+      lines: 0                   # binary asset
+      files: 1
+    - type: other
+      name: Session archive (this session)
+      action: created
+      lines: 130
+      files: 1
+    - type: other
+      name: Session scorecard (this file)
+      action: created
+      lines: 95
+      files: 1
+    - type: other
+      name: Memory update (project_trak.md)
+      action: modified
+      lines: 15                  # appended framework-demo location + tagline observation
+      files: 1
+  total_files_created: 3         # demo HTML + logo asset + scorecard + archive
+  total_files_modified: 1        # memory file
+  total_lines_written: 2140      # ~1900 demo + 130 archive + 95 scorecard + ~15 memory
+  pages_produced: 9              # rendered demo is multi-section explainer; ~250-word/page equivalent
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 0              # orchestrator-only; no subagent spawns this session
+  swarm_topology: none           # single orchestrator
+  model_primary: claude-opus-4-7 # 1M context variant
+  tokens_input:                  # not tracked
+  tokens_output:                 # not tracked
+  total_cost_usd:                # not tracked
+  tool_calls:                    # ~80-100 estimated (file edits, reads, greps, PowerShell launches, AskUserQuestion x4)
+  context_compressions: 0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: Internal-vN string scrub (per project_trak rule)
+      result: pass
+      details: "WRT-2516 v2" stripped from title, sidebar h2, landing badge, footer, and citation block; SysML v2 retained (real external version, not internal enumerator); SERC report number WRT-2516 retained as external citation
+    - gate: 4D vestige scrub
+      result: pass
+      details: All user-visible D4 references converted to TRAK 3D or removed (Section 5 reframed, Worked Example deleted, Section 9 Dimensional Gaps rewritten, Section 12 "Instrument D4" → "Instrument D3 Quality", orphan .axis-d4 CSS deleted); only false-positives remain (hex codes containing "d4")
+    - gate: Data-provenance discipline (illustrative vs real)
+      result: pass
+      details: ETV ranking table explicitly tagged "Illustrative example — values are notional" so the $3.45M governance shadow price isn't mistaken for real NNSA data
+    - gate: Discuss-before-execute on multi-step work
+      result: pass
+      details: Every round of substantive content change preceded by an AskUserQuestion or written debate (5 rounds total); user redirected scope twice (pd_workbench is not TRAK; remove Worked Example) and approach once (Section 8 folded into Section 11 instead of new section)
+    - gate: R016 integration-status discipline
+      result: pass
+      details: New demo correctly cataloged as (b) demonstrated capability in the archive; not claimed as (c) integrated deliverable
+    - gate: R018 provenance stamping
+      result: pass
+      details: Archive and scorecard both carry PROVENANCE: line at top
+    - gate: No-hallucination on TRAK Guide content
+      result: pass
+      details: Section 11 Q-instance language verified against Practitioner_Assessment_Guide_Draft_2026-04-10.md via grep before drafting (Q1 = Can use?, Q2 = Do use?, Q3 = Trust? confirmed verbatim; shall-statements as worked method confirmed at line 720; "Q1, Q2, Q3 assess method potential: the domain-agnostic question" confirmed at line 339)
+  tests_passed: 0                # n/a — UI demo, not test-bearing
+  tests_failed: 0
+  reviewer_comments_addressed: 0 # n/a
+  first_pass_quality_pct: 75     # most edits landed first-pass; one bash launcher failure required PowerShell switch; sidebar logo required two iterations; otherwise no rework
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 1                     # cmd /c start launcher silently failed on first try; switched to PowerShell Start-Process
+  rework_files: 1                # framework-demo/index.html edited many times — but iterations were content additions per user review, not rework of bad output
+  blocked_minutes: 0
+  blockers: >
+    None. One small friction: the `Bash` tool's `cmd /c start` did not reliably
+    spawn user-visible processes (Excel, browser) on Windows from this shell
+    context; PowerShell `Start-Process` worked first try and was used for all
+    subsequent launches.
+  perception_note: >
+    Strongly faster than manual on the content side; comparable to manual on the
+    layout side. The TRAK Guide grep, the 4D→3D dimensional mapping, the
+    Generic→Instance Q layering pattern, the SVG-based before/after posterior,
+    and the ETV table all came together in single-pass drafts because the model
+    could hold the full demo structure in 1M context. The slower part was
+    discipline: five distinct discuss-before-execute checkpoints, each with
+    AskUserQuestion or written debate, ate wall-clock time but caught two
+    scope-saving redirects (removing the Worked Example; folding the
+    generic-vs-domain story into Section 11 instead of a new section).

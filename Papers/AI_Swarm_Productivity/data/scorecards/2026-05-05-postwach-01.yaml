@@ -1,0 +1,103 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id:                    2026-05-05-postwach-01
+  date:                  2026-05-05
+  hive:                  PostWach
+  researcher:            Paul Wach
+  start_time:            13:00       # approximate
+  end_time:              15:30       # approximate
+  task_summary:          Catapult repo review with comparison PDF; portfolio rollout of Internal + External hive one-pagers (9 hives x 2 versions = 18 one-pagers, all rendered to PDF).
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type:              analysis
+      name:              Catapult four-track methods/outputs comparison
+      action:            created
+      lines:             ~80
+      files:             2          # md + pdf
+    - type:              spec
+      name:              SysMLv2 hive one-pager pair (prototype)
+      action:            created
+      lines:             ~140       # internal + external markdown
+      files:             6          # 2 md + 4 pdf rev cycles
+    - type:              spec
+      name:              Hive one-pager pairs (full portfolio rollout)
+      action:            created
+      lines:             ~1100      # 18 markdown files
+      files:             36         # 18 md + 18 pdf
+    - type:              other
+      name:              email-for-deliverables feedback memory
+      action:            created
+      lines:             14
+      files:             1
+    - type:              config
+      name:              MEMORY.md index update
+      action:            modified
+      lines:             1
+      files:             1
+    - type:              other
+      name:              Catapult local clone fast-forward + submodule init
+      action:            modified
+      lines:             0
+      files:             0          # git operation, not file edit
+  total_files_created:   45
+  total_files_modified:  2
+  total_lines_written:   ~1335
+  pages_produced:        20         # ~1 page per one-pager + Catapult comparison + archive
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned:        0
+  swarm_topology:        none
+  model_primary:         claude-opus-4-7
+  tokens_input:                     # not tracked
+  tokens_output:                    # not tracked
+  total_cost_usd:                   # not tracked
+  tool_calls:            ~75
+  context_compressions:  0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate:              pandoc xelatex render (Catapult comparison)
+      result:            pass
+      details:           Initial portrait overflowed tables; landscape + proportional dash widths + Track 3 mechanism qualifier resolved.
+    - gate:              pandoc xelatex render (SysMLv2 one-pager pair)
+      result:            pass
+      details:           Unicode arrow/box chars replaced with ASCII to satisfy mono font.
+    - gate:              pandoc xelatex render (18 portfolio one-pagers)
+      result:            pass
+      details:           17 of 18 rendered cleanly first try; COSYSMO External hung on transient MiKTeX package-install pause; standalone retry succeeded.
+    - gate:              git fast-forward (Catapult clone)
+      result:            pass
+      details:           3 commits ff'd; Track 4 submodule init'd at 4798f04.
+    - gate:              redaction policy (External one-pagers)
+      result:            pass
+      details:           3-bucket policy applied: safe/OSS named, methodology IP withheld, strategic/relational withheld.
+  tests_passed:          5
+  tests_failed:          0
+  reviewer_comments_addressed: 0
+  first_pass_quality_pct: 89        # 17/18 PDFs first-pass + Catapult PDF needed two iterations
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures:        0
+  retries:               2          # COSYSMO External rerun + Catapult landscape rework
+  rework_files:          [SysMLv2_Hive_OnePager_Internal_2026-05-05.md, SysMLv2_Hive_OnePager_External_2026-05-05.md]
+  blocked_minutes:       3          # MiKTeX package-install hang on COSYSMO External
+  blockers:              Transient MiKTeX package-install pause silently hung pandoc on a single PDF; resolved by killing the batch and re-running the offender standalone.
+  perception_note:       Templated batch generation (1 prototype + mechanical sanitization for 8 more hives) was substantially faster than per-hive manual drafting would have been; the redaction-policy upfront discussion saved rework.
+
+# --- DERIVED (do not fill — computed by script) ---
+# derived:
+#   wall_clock_hours:
+#   pages_per_hour:
+#   lines_per_hour:
+#   cost_per_page:
+#   cost_per_file:
+#   agent_utilization:
+#   tokens_per_artifact:
+#   rework_ratio:

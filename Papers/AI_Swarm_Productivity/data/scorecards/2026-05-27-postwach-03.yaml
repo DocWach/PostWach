@@ -1,0 +1,98 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-05-27-postwach-03
+  date: 2026-05-27
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "14:00"   # approximate; continuation of the 2026-05-26 session
+  end_time: "19:30"     # approximate
+  task_summary: >
+    STIDS 2026 talk prep (continuation of the 2026-05-26 session). Closed the
+    paper as final; finalized the externally-clean David code-feedback package;
+    ran a red/blue/white cross-CLI swarm to build a Q&A defense sheet; debated and
+    drafted a demo-first speaker script against the v4 deck; rendered the deck to
+    images to script image-only slides accurately.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: other
+      name: Speaker script (full word-for-word, Paul's slides) + Word render
+      action: created
+      lines: 250
+      files: 2
+    - type: review
+      name: Q&A defense sheet (12 ranked questions + answers + language-tightening), MD + PDF
+      action: created
+      lines: 90
+      files: 2
+    - type: other
+      name: Demo-first speaker script against v4 deck (David notes reused + Paul v2 correlated), MD + Word
+      action: created
+      lines: 210
+      files: 2
+    - type: config
+      name: Red/blue/white swarm prompts (Codex red, Gemini white) + captured outputs
+      action: created
+      lines: 120
+      files: 6
+    - type: other
+      name: Session archive continuation (section 12) + memory updates (paper FINAL/closed)
+      action: modified
+      lines: 60
+      files: 5
+  total_files_created: 12
+  total_files_modified: 5
+  total_lines_written: 1200
+  pages_produced: 14
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 2          # Codex (red), Gemini (white); Claude = orchestrator/blue
+  swarm_topology: star       # Claude hub; Codex + Gemini spokes, cross-CLI
+  model_primary: claude-opus-4-7
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls:
+  context_compressions: 1
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: Red/blue/white Q&A swarm (Codex + Gemini + Claude)
+      result: pass
+      details: Both external CLIs produced ranked questions; all three converged on OML/Rosetta, action-as-Process, and circularity as the top threats
+    - gate: Em-dash compliance scan on all deliverables
+      result: pass
+      details: 0 em dashes across scripts, defense sheet, README, TTLs
+    - gate: External-sharing sanitization (no hive names / ticket IDs / proprietary terms)
+      result: pass
+      details: Code-feedback package + reconciliation TTLs scrubbed and grep-verified clean
+    - gate: Slide-content verification (rendered v4 1-25 to PNG)
+      result: partial
+      details: Done after an initial blind-scripting miss; caught and corrected the S14-19 demo-arc error after viewing the rendered slides
+  tests_passed:
+  tests_failed: 0
+  reviewer_comments_addressed: 22   # swarm-surfaced audience questions folded into the defense sheet
+  first_pass_quality_pct: 80
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 1     # Codex headless run failed on prompt arg-parse
+  retries: 1            # fixed by piping the prompt via stdin with '-'
+  rework_files: 1       # v4 speaker script (write, em-dash fix, demo-arc correction, time-strategy/open-items)
+  blocked_minutes: 0
+  blockers: >
+    Codex `exec` rejected the multiline prompt as positional args; resolved by
+    piping it via stdin with '-'. Otherwise none; both swarm CLIs ran in the
+    background without blocking the main thread.
+  perception_note: >
+    Faster for multi-document production and, notably, for genuine multi-model
+    Q&A diversity (Codex and Gemini each surfaced angles Claude alone missed,
+    e.g. negative objectives and translation-semantics reproducibility). The real
+    cost this session was scripting image-only slides without looking at them
+    first; rendering the deck to PNG via PowerPoint COM fixed it. Lesson: render
+    the deck before scripting to visuals.

@@ -1,0 +1,82 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-05-21-postwach-02
+  date: 2026-05-21
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "10:30"
+  end_time: "11:05"
+  task_summary: >
+    Warm up ruflo and resume PaperBanana. Confirmed MCP tools live post-restart,
+    attempted first figure (WySE mass-spring/RLC morphism), diagnosed a Google
+    quota/key block to account-side billing, archived session for restart.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: review
+      name: PaperBanana smoke-test attempt + Google 429/400 diagnosis
+      action: created
+      lines: 0
+      files: 0
+    - type: other
+      name: Session archive (Session 3 append) + memory note refresh
+      action: modified
+      lines: 70
+      files: 2
+    - type: config
+      name: Productivity scorecard
+      action: created
+      lines: 70
+      files: 1
+  total_files_created: 1
+  total_files_modified: 2
+  total_lines_written: 140
+  pages_produced: 0.6
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: none
+  model_primary: claude-opus-4-7
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: 14
+  context_compressions: 0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: PaperBanana smoke test (figure render)
+      result: fail
+      details: >
+        Blocked at Google API. First 429 free_tier limit:0 (no allocation),
+        then after user enabled billing, 400 API-key-expired. No figure produced.
+    - gate: MCP tool availability (resume step 1)
+      result: pass
+      details: all three mcp__paperbanana__* tools present after restart.
+    - gate: integration wiring (end-to-end to Google gate)
+      result: pass
+      details: key authenticates, models resolve, pipeline reaches Google API.
+  tests_passed: 2
+  tests_failed: 1
+  reviewer_comments_addressed:
+  first_pass_quality_pct:
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 3
+  rework_files: 0
+  blocked_minutes: 20
+  blockers: >
+    External: Google free-tier quota=0, then expired API key, then user
+    accidentally deleted the replacement key. Requires user to mint a fresh
+    key in the billed project and restart Claude Code. Not a code/config issue.
+  perception_note: >
+    AI fast and decisive on diagnosis — isolated 429 vs 400 vs caption-ordering
+    bug quickly via direct google-genai probes, avoiding a blind retry loop.
+    Found the harness caption-before-context arg quirk. All blockers external.

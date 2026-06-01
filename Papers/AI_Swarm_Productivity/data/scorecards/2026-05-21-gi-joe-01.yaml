@@ -1,0 +1,118 @@
+# PROVENANCE [R018]: authored by Claude Opus 4.7 (claude-opus-4-7), Claude Code
+# interactive, GI-JOE hive, on behalf of researcher Paul Wach. Clock times left
+# blank (not tracked this session) rather than fabricated — research-data integrity.
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-05-21-gi-joe-01
+  date: 2026-05-21
+  hive: GI-JOE
+  researcher: Paul Wach
+  start_time:            # not tracked
+  end_time:              # not tracked
+  task_summary: >
+    Warm up ruflo; review the Kamien & Mantravadi STIDS 2026 paper; execute the
+    MTO buildout (ticket GI-JOE-MTO-002) Phases A-D — construct the Mission Thread
+    Ontology TBox + SHACL + 12 CQs from the paper, then populate and validate an
+    ABox from the DesertStorm UAOS mission model (MQ-99 Berserker SEAD thread).
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: ontology
+      name: mto.ttl — MTO TBox (17 classes, 18 obj + 4 data props, OWL 2 DL)
+      action: created
+      lines: 290
+      files: 1
+    - type: spec
+      name: mto-design-decisions.md — 12 sections, all departures from paper + validation log
+      action: created
+      lines: 210
+      files: 1
+    - type: ontology
+      name: mto.shapes.ttl — 8 SHACL NodeShapes incl. deontic kinetic->O-6 cross-check
+      action: created
+      lines: 165
+      files: 1
+    - type: spec
+      name: 12 SPARQL competency queries (CQ-*.rq) + manifest.yaml
+      action: created
+      lines: 250
+      files: 13
+    - type: ontology
+      name: mto-berserker-desertstorm-abox.ttl — Berserker-MET SEAD thread, prov-linked
+      action: created
+      lines: 210
+      files: 1
+    - type: analysis
+      name: abox-provenance.md — DesertStorm source mapping table + commit pin
+      action: created
+      lines: 85
+      files: 1
+    - type: other
+      name: session-archive-2026-05-21.md + memory updates (project_mto_kamien, MEMORY)
+      action: modified
+      lines: 130
+      files: 3
+  total_files_created: 18
+  total_files_modified: 3
+  total_lines_written: 1340
+  pages_produced: 10        # prose-equivalent across the .md specs/analysis
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 0          # done directly in main thread; no Task subagents
+  swarm_topology: none
+  model_primary: claude-opus-4-7
+  tokens_input:              # not tracked
+  tokens_output:             # not tracked
+  total_cost_usd:            # not tracked
+  tool_calls:                # not tracked (~70-90 est.)
+  context_compressions: 0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: rdflib Turtle syntax (TBox, shapes, 12 CQs, ABox)
+      result: pass
+      details: all parse; TBox 287 triples, ABox+TBox 429 triples
+    - gate: HermiT OWL-DL consistency + satisfiability
+      result: pass
+      details: consistent, 0 unsatisfiable classes; confirms FIX-1 (Constraint) and FIX-3 (DL-simple dependsOn)
+    - gate: pyshacl SHACL validation (negative test + DesertStorm ABox)
+      result: pass
+      details: shapes fire on broken data; ABox conforms with 0 violations / 0 warnings
+    - gate: SPARQL 12 competency queries on ABox
+      result: pass
+      details: 11/12 invariants pass; CQ-MM01 returns 4 (recon steps lack MOPs) — defensible/permissive per manifest, not a failure
+    - gate: OntoClean metaproperty pass
+      result: pass
+      details: no backbone violations; 3 review red-flags (Target, OperationalGoal, Constraint) resolved
+    - gate: OQuaRE structural metrics
+      result: pass
+      details: INROnto 1.00, RROnto 0.51, AROnto 0.24; versionIRI + full labels/comments. Full 8-char score deferred.
+    - gate: OOPS! pitfall scanner (external)
+      result: skipped
+      details: public REST API returns HTML homepage regardless of envelope; local pitfall self-check (P04/P08/P11/P13) used instead — found+fixed Environment P04
+  tests_passed: 11
+  tests_failed: 0
+  reviewer_comments_addressed: 6   # the 6 TBox-review judgment calls debated + resolved
+  first_pass_quality_pct: 88       # TBox needed review-driven retypes + 1 validation-found defect (Environment P04)
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 5                # HermiT file:// path, OOPS! envelope x3, bash heredoc backslash
+  rework_files: 2           # mto.ttl and mto-design-decisions.md edited 3+ times (review + fixes)
+  blocked_minutes: 10
+  blockers: >
+    OOPS! public REST API non-functional (returns homepage) — could not run the external
+    semantic-pitfall scan. Locating the DesertStorm artifact required a user pointer to the
+    SIE-Disruption-Lab GitHub org (not in the local tree or the IGNITE repo).
+  perception_note: >
+    AI markedly faster than manual ontology engineering, and — more importantly — the
+    reasoner (HermiT) and SHACL gave genuine verification rather than assertion: the
+    OWL-2-DL profile correction (FIX-3) and the Environment P04 defect were caught by
+    running tools, not by inspection. End-to-end conformance on authentic DesertStorm
+    mission data turned the artifact from (a) research artifact into (b) demonstrated capability.

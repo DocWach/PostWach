@@ -1,0 +1,74 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id:                    2026-05-04-postwach-04
+  date:                  2026-05-04
+  hive:                  PostWach
+  researcher:            Gemini CLI
+  start_time:            16:15
+  end_time:              16:45
+  task_summary:          Troubleshot and fixed broken 'claude' and 'claude-flow' environment.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type:              config
+      name:              claude-flow.cmd wrapper patch
+      action:            modified
+      lines:             20
+      files:             1
+    - type:              other
+      name:              claude.exe restoration
+      action:            created
+      lines:             0
+      files:             1
+  total_files_created:   0
+  total_files_modified:  1
+  total_lines_written:   20
+  pages_produced:        0
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned:        0
+  swarm_topology:        none
+  model_primary:         gemini-2.0-flash-exp
+  tokens_input:          
+  tokens_output:         
+  total_cost_usd:        
+  tool_calls:            25
+  context_compressions:  0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate:              version check
+      result:            pass
+      details:           Verified both claude and claude-flow versions run.
+    - gate:              help check
+      result:            pass
+      details:           Verified 'claude help' runs.
+  tests_passed:          2
+  tests_failed:          0
+  reviewer_comments_addressed: 0
+  first_pass_quality_pct: 100
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures:        0
+  retries:               1
+  rework_files:          []
+  blocked_minutes:       0
+  blockers:              none
+  perception_note:       Manual restoration was fast once the backup was identified.
+
+# --- DERIVED (do not fill — computed by script) ---
+# derived:
+#   wall_clock_hours:
+#   pages_per_hour:
+#   lines_per_hour:
+#   cost_per_page:
+#   cost_per_file:
+#   agent_utilization:
+#   tokens_per_artifact:
+#   rework_ratio:

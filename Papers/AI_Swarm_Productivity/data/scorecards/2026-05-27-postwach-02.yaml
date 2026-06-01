@@ -1,0 +1,68 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-05-27-postwach-02
+  date: 2026-05-27
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "20:45"   # approximate (evening session)
+  end_time: "21:35"     # approximate
+  task_summary: >
+    Begin INF-2026-17 SERC abstract "STOIC Road to a Hive Operating System and
+    ZynWorld" using the AI Circuit Breaker v0.6 abstract as template. Establish
+    the conceptual stack, debate the framing, produce a section-by-section
+    outline. No prose written.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: config
+      name: capability-index.md fix (mark stoic-gst archived; stale-source root cause)
+      action: modified
+      lines: 1
+      files: 1
+    - type: spec
+      name: Section-by-section outline for STOIC-HOS abstract (in-conversation, not saved)
+      action: created
+      lines: 0
+      files: 0
+  total_files_created: 0
+  total_files_modified: 1
+  total_lines_written: 1
+  pages_produced: 0   # planning/framing session; no prose artifact saved
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: none
+  model_primary: claude-opus-4-7
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: 13   # approximate
+  context_compressions: 0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: stoic-gst stale-entry correctness check (memory vs capability-index)
+      result: pass
+      details: Memory archival (2026-04-23) confirmed; capability-index corrected to match.
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed:
+  first_pass_quality_pct:
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 1   # one early Bash call returned an internal error and was re-run
+  rework_files: 0
+  blocked_minutes: 0
+  blockers: none
+  perception_note: >
+    Framing/planning session, not production. AI was notably faster than manual
+    at surfacing the stoic-gst stale-source root cause via memory cross-check,
+    and at structuring the three-way framing debate. Times are approximate; this
+    was a short evening session ending in a deliberate park before prose.

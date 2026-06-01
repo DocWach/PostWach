@@ -1,0 +1,117 @@
+# PROVENANCE [R018]: authored by Claude Opus 4.7 (claude-opus-4-7), Claude Code
+# interactive orchestrator + a 4-agent claude-flow swarm (mesh; 1 sonnet worker,
+# 3 opus workers), GI-JOE hive, on behalf of researcher Paul Wach. Clock times
+# left blank (not tracked) rather than fabricated — research-data integrity.
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-05-23-gi-joe-01
+  date: 2026-05-23
+  hive: GI-JOE
+  researcher: Paul Wach
+  start_time:            # not tracked
+  end_time:              # not tracked
+  task_summary: >
+    Resume the STIDS / Mission Thread Ontology buildout (GI-JOE-MTO-002). Phases
+    A-D were done; this session completed Phase E (full GI-JOE validation suite
+    run for real on the DesertStorm ABox) and Phase F (synthesis advisory to
+    PostWach), executed via a parallel claude-flow swarm. Ticket CLOSED COMPLETE.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: code
+      name: validate-mto.py — reproducible Phase E runner (syntax+owl-rl+HermiT+pyshacl+12 CQs+OOPS! local+OQuaRE)
+      action: created
+      lines: 195
+      files: 1
+    - type: analysis
+      name: gate-report.md — Tier-1/Tier-2 GI-JOE gate outcome (PASS)
+      action: created
+      lines: 150
+      files: 1
+    - type: analysis
+      name: ontoclean-analysis.md — metaproperty analysis, 17 classes, 0 backbone violations
+      action: created
+      lines: 400
+      files: 1
+    - type: analysis
+      name: oquare-score.md — OQuaRE 8-characteristic score ~4.4/5.0
+      action: created
+      lines: 300
+      files: 1
+    - type: review
+      name: GI-JOE_Advisory_MTO_Buildout.md — Phase F load-bearing synthesis advisory to PostWach
+      action: created
+      lines: 181
+      files: 1
+    - type: config
+      name: oops-scan.json + phase-e-results.json — machine-readable validation records
+      action: created
+      lines: 60
+      files: 2
+    - type: other
+      name: session archive + ticket acceptance/Phase-E-F table + memory (project_mto_kamien, MEMORY)
+      action: modified
+      lines: 180
+      files: 4
+  total_files_created: 8        # 7 buildout deliverables + session archive
+  total_files_modified: 4       # ticket, project_mto_kamien.md, MEMORY.md, advisory (post-edit)
+  total_lines_written: 1466
+  pages_produced: 12            # prose-equivalent across advisory + 3 validation docs + archive
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 4             # parallel deliverable swarm
+  swarm_topology: mesh          # claude-flow swarm-1779559431726-uegh4h, specialized strategy
+  model_primary: claude-opus-4-7   # orchestrator; workers: 1 sonnet (gate-report) + 3 opus
+  tokens_input:                 # not tracked (orchestrator)
+  tokens_output:                # not tracked (orchestrator)
+  total_cost_usd:               # not tracked
+  tool_calls: 60                # ~40 orchestrator + 20 across the 4 sub-agents
+  context_compressions: 0
+  worker_token_totals: 209131   # sum of 4 sub-agents (ontoclean 42412 + oquare 42212 + gate-report 27511 + advisory 96996)
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: Full GI-JOE validation suite (validate-mto.py) on real DesertStorm ABox
+      result: pass
+      details: "owl-rl CONSISTENT (0 owl:Nothing); HermiT CONSISTENT 0 unsatisfiable (confirms FIX-1+FIX-3); pyshacl 0 violations/0 warnings; 12 CQs 0 strict failures"
+    - gate: Canonical scripts/validate-ontology.py on mto.ttl
+      result: pass
+      details: "syntax PASS (287 triples), OWL-RL PASS (55,654 inferred); SHACL/CQ SKIP for external paths (documented)"
+    - gate: OntoClean meta-property analysis
+      result: pass
+      details: "NO backbone violations; 16/17 rigid, Target the lone anti-rigid Role; 3 review red-flags resolved, Effect/Risk parked"
+    - gate: OQuaRE 8-characteristic scoring
+      result: pass
+      details: "~4.4/5.0 — passes 4.0 floor, on par with 4.35 portfolio baseline"
+    - gate: OOPS! pitfall scan
+      result: partial
+      details: "external API non-functional; local rdflib self-check used per principal direction (P04/P08/P11 clean); web-UI re-run flagged for camera-ready"
+  tests_passed: 12              # 12 CQs execute; 9 strict-invariant PASS, MM01 permissive, 3 reporting
+  tests_failed: 0              # 0 strict-invariant failures
+  reviewer_comments_addressed: 0   # PostWach accepted the advisory as delivered (ticket CLOSED COMPLETE)
+  first_pass_quality_pct: 80       # deliverable docs first-pass clean; runner needed 4 iterations (owlready2 Windows quirks)
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0             # all 4 swarm agents completed
+  retries: 4                    # runner fixes: HermiT file-URI, owl:imports fetch, stdout->JSON corruption, regen
+  rework_files: 1               # validate-mto.py (4 edits, all owlready2/Windows toolchain fixes)
+  blocked_minutes: 10
+  blockers: >
+    owlready2/HermiT on Windows: file:// URI quirk (fixed via fileobj loader),
+    import-IRI network fetch (fixed by stripping owl:imports — BFO/CCO merged
+    inline), and owlready2 stdout chatter corrupting the JSON redirect (fixed by
+    redirecting to stderr). External OOPS! REST API still dead — local self-check
+    substitute used per principal direction.
+  perception_note: >
+    The swarm collapsed four substantial deliverables into a single parallel wave
+    (~3 min wall) with zero agent failures and no file collisions (achieved by
+    feeding each worker the authoritative results so they stayed independent). The
+    real cost was orchestrator-side toolchain debugging (owlready2 on Windows), not
+    the writing. Net markedly faster than serial authoring. The artifact moved from
+    (b) demonstrated capability to a PostWach-accepted, closed deliverable.

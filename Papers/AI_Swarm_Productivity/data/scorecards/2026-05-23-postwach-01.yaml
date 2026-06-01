@@ -1,0 +1,107 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-05-23-postwach-01
+  date: 2026-05-23
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "13:15"   # approximate
+  end_time: "16:45"     # approximate
+  task_summary: >
+    Close the GI-JOE MTO buildout ticket, then perform the full co-authored
+    revision of the Kamien & Mantravadi STIDS 2026 paper (four formalization
+    corrections, new computational-validation section, honesty pass), with two
+    rounds of tri-model red/blue/white review, citation verification, Figure 1
+    redraw, and PDF/Word production. Word sent to David.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: paper_section
+      name: Revised STIDS manuscript (abstract, sec 3.6 corrections, sec 6 validation, sec 9-10 restructure, honesty pass)
+      action: modified
+      lines: 360
+      files: 1
+    - type: review
+      name: Co-author change log
+      action: created
+      lines: 120
+      files: 1
+    - type: other
+      name: Figure 1 redraw script + vector/PNG image
+      action: created
+      lines: 70
+      files: 3
+    - type: review
+      name: Tri-model RBW records (round 1 + verification round 2; codex/gemini/synthesis/prior_findings)
+      action: created
+      lines: 220
+      files: 7
+    - type: other
+      name: Word + PDF renders (pandoc/xelatex)
+      action: created
+      lines: 0
+      files: 2
+    - type: other
+      name: Session archive + this scorecard + 1 memory file
+      action: created
+      lines: 180
+      files: 3
+    - type: spec
+      name: GI-JOE-MTO-002 ticket closure note + acceptance review
+      action: modified
+      lines: 25
+      files: 1
+  total_files_created: 16
+  total_files_modified: 3
+  total_lines_written: 975
+  pages_produced: 15   # manuscript new/edited prose + change log + archive
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 1            # 1 claude-flow background agent (docx structure extractor)
+  swarm_topology: none         # no ruflo swarm; cross-model review was orchestrator-mediated
+  model_primary: claude-opus-4-7
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls:
+  context_compressions:
+  cross_model_passes: 4        # Codex (gpt-5.5) x2 + Gemini (gemini-2.5-pro) x2, red/blue/white + verification
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: GI-JOE-MTO-002 acceptance review (advisory + Phase E)
+      result: pass
+      details: Buildout accepted; (b) demonstrated capability; ticket closed complete
+    - gate: MTO validation suite re-run (validate-mto.py)
+      result: pass
+      details: HermiT + owl-rl CONSISTENT, SHACL 0/0, 0 strict CQ failures, OQuaRE 1.0/0.51 reproduced
+    - gate: Tri-model RBW round 1
+      result: partial
+      details: Codex major-revise, Gemini minor-revise; all claim-control; 10 converged fixes applied
+    - gate: Tri-model RBW round 2 (focused verification)
+      result: pass
+      details: Gemini accept; Codex 10/12 resolved + caught residual inconsistencies (fixed, 0 residuals)
+  tests_passed: 1              # validation suite reproduced
+  tests_failed: 0
+  reviewer_comments_addressed: 13
+  first_pass_quality_pct: 70   # first draft needed a claim-control pass before camera-ready
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 0
+  retries: 4                   # Figure 1 layout (2x), PDF file-lock, docx PermissionError/encoding workarounds
+  rework_files: 2              # manuscript (edited many times), figure script (2x)
+  blocked_minutes: 10
+  blockers: >
+    OneDrive file locks on the open PDF blocked re-rendering twice (worked around
+    with alternate filenames, then resolved when closed); docx was locked for
+    extraction (copied to temp). No substantive blockers.
+  perception_note: >
+    Substantially faster than manual for a full paper revision plus cross-model
+    review and rendering. The round-2 verification pass was high value: it caught
+    residual "released/inspectable" and "Desert Storm" inconsistencies that a
+    single review pass had missed, before the paper went external.

@@ -1,0 +1,73 @@
+schema_version: "1.0"
+
+session:
+  id: 2026-05-08-sysmlv2-01
+  date: 2026-05-08
+  hive: SysMLv2
+  researcher: Paul Wach
+  start_time: ""        # not tracked precisely; ~15 min total
+  end_time: ""
+  task_summary: |
+    Health-check + situational awareness. Ran `ruflo doctor` and reviewed the
+    PostWach 2026-05-08 diagnostic-repair session archive to understand what
+    had broken earlier (and confirm it was now fixed).
+
+output:
+  artifacts:
+    - type: review
+      name: PostWach 2026-05-08 diagnostic-repair-01 archive review
+      action: reviewed
+      lines: 45
+      files: 1
+    - type: review
+      name: ruflo doctor diagnostic
+      action: reviewed
+      lines: 0
+      files: 0
+    - type: other
+      name: SysMLv2 session archive (this session)
+      action: created
+      lines: 50
+      files: 1
+    - type: other
+      name: Productivity scorecard (this file)
+      action: created
+      lines: 60
+      files: 1
+  total_files_created: 2
+  total_files_modified: 0
+  total_lines_written: 110
+  pages_produced: 0.5
+
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: none
+  model_primary: claude-opus-4-7
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: ~12
+  context_compressions: 0
+
+quality:
+  gates_run: []
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed:
+  first_pass_quality_pct:
+
+process:
+  agent_failures: 0
+  retries: 3            # bash quoting/path-expansion friction on Windows; one denied tool call early on
+  rework_files: 0
+  blocked_minutes: 1
+  blockers: |
+    Initial path lookup assumed PostWach lived under `02 Hives`; user
+    corrected with the actual path under `00 My Research`. Two PowerShell
+    invocations failed because Bash expanded `$_` before reaching the
+    PowerShell process. Resolved by switching to the Glob tool.
+  perception_note: |
+    AI faster than manual for the archive review itself (one Read after one
+    Glob); the path-discovery friction up front was self-inflicted (wrong
+    assumption about hive layout) and would have been avoided by asking the
+    user up front.

@@ -1,0 +1,112 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-05-21-postwach-04
+  date: 2026-05-21
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "15:00"
+  end_time: "16:45"
+  task_summary: >
+    Warm up ruflo and resume PaperBanana. Rendered the first two figures
+    (fresh key worked), root-caused and fixed the broken critic/refinement
+    loop, promoted PaperBanana to (b) demonstrated, then ran a curiosity-driven
+    ownership/hive-of-hives analysis; captured the recurring tool-adoption
+    process and recorded the open thread.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: other
+      name: PaperBanana figures (mass-spring↔RLC, RC↔hydraulic, critic-test) — tool-generated PNGs
+      action: created
+      lines: 0
+      files: 3
+    - type: config
+      name: .mcp.json paperbanana VLM_MODEL (added gemini-2.5-flash, then →lite)
+      action: modified
+      lines: 2
+      files: 1
+    - type: review
+      name: capability-index.md — PaperBanana (b) entry + reuse row + review log
+      action: modified
+      lines: 12
+      files: 1
+    - type: spec
+      name: cross-project-reviewer skill — External Tool Adoption Protocol (5-step ladder)
+      action: modified
+      lines: 35
+      files: 1
+    - type: spec
+      name: inter-hive-policy-considerations.md — Topic 7 (external-tool adoption / shared hosting)
+      action: modified
+      lines: 40
+      files: 1
+    - type: other
+      name: Memory — project_paperbanana.md + project_paperbanana_ownership.md + MEMORY.md (2 entries)
+      action: created
+      lines: 60
+      files: 3
+    - type: other
+      name: Session archive (Session 4 append)
+      action: modified
+      lines: 65
+      files: 1
+  total_files_created: 5
+  total_files_modified: 5
+  total_lines_written: 215
+  pages_produced: 1.5
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: none
+  model_primary: claude-opus-4-7
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: 42
+  context_compressions: 0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: fresh GOOGLE_API_KEY validity precheck (User scope)
+      result: pass
+      details: >
+        Process-inherited key was the expired one; User-scope key fresh + valid.
+        Resolved by using the User-scope value directly (R105, never printed).
+    - gate: PaperBanana figure render (end-to-end)
+      result: pass
+      details: 2 publication-grade morphism diagrams produced via CLI.
+    - gate: critic / refinement-loop functional
+      result: pass
+      details: >
+        Root-caused thinking-token truncation; fixed via gemini-2.5-flash-lite;
+        verified loop iterates 2/2 and iter-2 improved on iter-1.
+    - gate: .mcp.json JSON valid + R017/R106 intact
+      result: pass
+      details: claude-flow block unchanged; ${GOOGLE_API_KEY} expansion preserved.
+  tests_passed: 4
+  tests_failed: 0
+  reviewer_comments_addressed:
+  first_pass_quality_pct:
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 2
+  rework_files: 0
+  blocked_minutes: 5
+  blockers: >
+    Process had inherited the expired key (resolved by reading User scope
+    directly). First image-open failed silently due to a OneDrive cloud
+    placeholder. PowerShell quoting mangled an inline probe (rewritten as a
+    script file). All minor; none external this time.
+  perception_note: >
+    AI fast and decisive on root-cause: isolated the critic truncation to the
+    thinking-token budget via direct model probes, and found gemini-2.5-flash-lite
+    (thinking off) as a durable fix instead of a fragile site-packages patch.
+    Ownership analysis correctly reframed "reverse engineer" (MIT, readable) and
+    surfaced the owned-vs-rented distinction the user cared about.

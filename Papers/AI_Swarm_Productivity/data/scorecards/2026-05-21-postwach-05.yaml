@@ -1,0 +1,138 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-05-21-postwach-05
+  date: 2026-05-21
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "11:35"   # local (MST)
+  end_time: "16:30"
+  task_summary: >
+    Installed Codex CLI and integrated it with ruflo; built and ran a tri-model
+    (Claude/Codex/Gemini) red/blue/white review pipeline on shared ruflo memory
+    (V1 + V1.5 + cross-review layer, full 3-way verified); enacted FM-provenance
+    rule [R018] and handed off ontology + notifications to GI-JOE / Fort Wachs / Alpha Empress.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: config
+      name: Codex CLI install + ~/.codex/config.toml ruflo MCP registration; gemini mcp add
+      action: created
+      lines: 8
+      files: 2
+    - type: spec
+      name: Tri-model pipeline design_v1.md
+      action: created
+      lines: 70
+      files: 1
+    - type: other
+      name: Synthetic fixture + ground-truth ledger
+      action: created
+      lines: 90
+      files: 2
+    - type: review
+      name: red/blue/white passes (claude, codex, gemini, gemini-direct = 12) + synthesis
+      action: created
+      lines: 420
+      files: 13
+    - type: analysis
+      name: metrics v1 + v1.5 + provenance manifest
+      action: created
+      lines: 180
+      files: 3
+    - type: spec
+      name: FM-provenance governance (findings + ontology proposal + rule proposal)
+      action: created
+      lines: 230
+      files: 3
+    - type: config
+      name: CLI review prompts (codex, gemini, gemini-direct)
+      action: created
+      lines: 60
+      files: 3
+    - type: other
+      name: Session archive + memory threads (codex, tri-model)
+      action: created
+      lines: 240
+      files: 3
+    - type: other
+      name: MEMORY.md index + memory thread edits
+      action: modified
+      lines: 40
+      files: 2
+    - type: review
+      name: Cross-review layer (2 audit prompts, 2 audits, cross_review_results.md)
+      action: created
+      lines: 120
+      files: 5
+    - type: other
+      name: Cross-hive handoffs (GI-JOE ticket, Fort Wachs notification, Alpha Empress tracker) + [R018] global rule enacted
+      action: created
+      lines: 180
+      files: 4
+  total_files_created: 35
+  total_files_modified: 9
+  total_lines_written: 1650
+  pages_produced: 41
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 4        # external FM agents: Codex (gpt-5.5), Gemini mediated, Gemini direct; + Claude orchestrator
+  swarm_topology: none     # sequential hand-off via shared ruflo memory, not a ruflo swarm
+  model_primary: claude-opus-4-7
+  tokens_input:
+  tokens_output:
+  total_cost_usd: 0        # Codex on ChatGPT subscription, Gemini on free OAuth, no API spend
+  tool_calls: 70
+  context_compressions: 0
+  multi_fm_note: "Heterogeneous: claude-opus-4-7 (orchestrator), gpt-5.5 (Codex, ~83k tokens on its review), gemini-cli-0.42. Cross-FM shared memory the key result."
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: Codex->ruflo MCP validation
+      result: pass
+      details: system_status returned real data after approval-bypass diagnosis
+    - gate: V1 G1 ecosystem (cross-CLI shared memory)
+      result: pass
+      details: Codex wrote review-v1/codex/*, Claude read it back
+    - gate: V1 G2 signal (blind detection)
+      result: pass
+      details: Codex 5/6, Gemini 4/6 planted flaws; precision high
+    - gate: V1 G3 provenance capture
+      result: pass
+    - gate: V1.5 full 3-way shared memory
+      result: pass
+      details: Gemini wrote review-v1/gemini-direct/*, verified read-back
+    - gate: Cross-review layer (peer audit)
+      result: pass
+      details: >
+        Codex caught Gemini's confabulated rationale + 5 invented justifications;
+        Gemini's audit added a flaw (paired-test carry-over) nobody caught.
+    - gate: FM-provenance enacted + handed off
+      result: pass
+      details: >
+        [R018] enacted (global, principal override); GI-JOE/Fort Wachs/Alpha Empress
+        notified, committed locally (unpushed).
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed:
+  first_pass_quality_pct: 85
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 3        # Gemini long-prompt arg error; Codex stdin-EOF hang; Gemini first launch
+  retries: 3
+  rework_files: 1          # MEMORY.md (3+ edits)
+  blocked_minutes: 10
+  blockers: >
+    Codex headless cancelled MCP calls until --dangerously-bypass diagnosed;
+    Codex stdin-EOF hang (fixed with '' |); Gemini long prompt must come via
+    stdin not the -p arg. All resolved within the session.
+  perception_note: >
+    Dramatically faster than manual. A heterogeneous-model adversarial review plus
+    the governance scaffolding to account for it would be several days of manual
+    work; done in one session. Codex's unprompted CrossRef citation falsification
+    was a capability the orchestrator did not have.

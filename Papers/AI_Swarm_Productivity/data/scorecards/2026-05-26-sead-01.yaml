@@ -1,0 +1,124 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id:                    2026-05-26-sead-01
+  date:                  2026-05-26
+  hive:                  SEAD
+  researcher:            Paul Wach
+  start_time:            "19:00"   # approximate (local)
+  end_time:              "20:45"   # approximate (local)
+  task_summary:          >
+    Build-engineering assist on David Kamien's MTA Workbench (ticket SEAD-MTA-001).
+    Reviewed a 45,860-file Replit export, ran a path-forward debate, and executed
+    Approach C (safe branch + recommendations memo): repo hygiene, dependency pinning,
+    CI, and a containerized hosting recipe — delivered as a branch/bundle + memo + handoff.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type:              config
+      name:              "backend/requirements.txt (real pip-compile lock)"
+      action:            created
+      lines:             80
+      files:             1
+    - type:              config
+      name:              "scripts/bootstrap.sh one-command bootstrap"
+      action:            created
+      lines:             100
+      files:             1
+    - type:              config
+      name:              ".github/workflows/ci.yml (backend pytest + vitest + seed-validate, JDK21, gated)"
+      action:            created
+      lines:             110
+      files:             1
+    - type:              config
+      name:              "Dockerfile (multi-stage, Chainguard wolfi-base [R013]) + .dockerignore + docker-compose.yml + .env.example"
+      action:            created
+      lines:             280
+      files:             4
+    - type:              analysis
+      name:              "docs/DEPLOY.md hosting recipe"
+      action:            created
+      lines:             150
+      files:             1
+    - type:              review
+      name:              "MTA_Workbench_SEAD_Recommendations_2026-05-26.md (two-layer finding, roadmap->ZT pillars)"
+      action:            created
+      lines:             175
+      files:             1
+    - type:              other
+      name:              "HANDOFF-SEAD.md (folder handoff doc for David)"
+      action:            created
+      lines:             130
+      files:             1
+    - type:              config
+      name:              ".gitignore hardening + Makefile/README/DEMO doc-bug fixes"
+      action:            modified
+      lines:             60
+      files:             4
+    - type:              other
+      name:              "Repo hygiene: 45,860 -> 433 files (stripped .local scaffolding); 4-commit clean branch"
+      action:            modified
+      lines:             0
+      files:             433
+  total_files_created:   11
+  total_files_modified:  6
+  total_lines_written:   1185      # authored config + prose; excludes the 433 imported files
+  pages_produced:        9         # prose only (memo + handoff + DEPLOY.md), ~40 lines/page
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned:        3         # researcher (memo), cicd-engineer (build/CI), cicd-engineer (deploy); + orchestrator
+  swarm_topology:        hierarchical
+  model_primary:         claude-opus-4-7
+  tokens_input:                    # not separately captured
+  tokens_output:                   # not separately captured
+  total_cost_usd:                  # not captured
+  tool_calls:            ~45        # orchestrator; subagents additional
+  context_compressions:  0
+  notes:                 >
+    Subagent token totals reported by ruflo: memo 40,772; build 58,100; deploy 59,192
+    (~158k subagent tokens). Orchestrator usage additional, not separately metered.
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate:              "Dependency lock generation (pip-compile)"
+      result:            pass
+      details:           "Real full transitive lock; pyproject stays source of truth."
+    - gate:              "CI pipeline green"
+      result:            skipped
+      details:           "CI authored but NOT executed — no GitHub Actions run performed."
+    - gate:              "Docker build + container smoke test"
+      result:            skipped
+      details:           "Dockerfile/compose authored but never built or run."
+    - gate:              "seed-validate entrypoint verification"
+      result:            pass
+      details:           "Found documented 'app.scripts.seed_validate' module does NOT exist; reconciled docs to real backend/scripts/validate-seed.py."
+    - gate:              "env-var verification against backend code"
+      result:            pass
+      details:           "Grepped backend/app; found SESSION_SECRET unused (marked reserved), healthcheck /healthz."
+    - gate:              "Agent scope compliance (no edits to backend/app, frontend/src, artifacts/*, lib/*)"
+      result:            pass
+      details:           "git status confirmed only expected files changed."
+  tests_passed:          0         # backend pytest (~92 cases) NOT executed this session
+  tests_failed:          0
+  reviewer_comments_addressed: 0
+  first_pass_quality_pct: 90       # subagents self-corrected brief errors; only the memo needed orchestrator edits
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures:        0         # all 3 subagents succeeded
+  retries:               2         # Glob path glitch re-run; one Bash permission re-issue
+  rework_files:          1         # recommendations memo: created + 2 edits (seed-validate correction, changelog finalize)
+  blocked_minutes:       5
+  blockers:              >
+    AgentDB shared store was malformed ("database disk image is malformed") — memory_store
+    writes failed; fell back to file-based provenance per [R018]. Background unzip with
+    exclude flags died (exit 134); used a foreground full extract + selective delete instead.
+  perception_note:       >
+    Faster than manual. Running Phase B (build/CI) and Phase C (deploy) as parallel
+    subagents while the memo agent ran independently compressed the bulk of the work into
+    one round-trip. The subagents catching the brief's own errors (nonexistent seed module,
+    unused env var) was higher-value than expected — verification, not just generation.
