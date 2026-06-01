@@ -114,14 +114,39 @@ The 3 residual U=1 entries are the gitignore negation rule (`!.claude/agents/cus
 
 ---
 
-## 5. Deferred / open items
+## 5. Late-session: attempted umbrella rename `00_Hive_Empire` → `00 Hive Empire`
+
+User authorized the underscore-styling rename (formerly deferred item #4). Attempted but **could not complete from inside this session**:
+- `PowerShell Rename-Item`: failed with "The process cannot access the file because it is being used by another process"
+- `cmd /c move`: same error
+- 108,194 files inside the umbrella; lock holders inferred to be (a) this Claude Code session (project root inside the tree), (b) the `claude-flow mcp start` server registered in PostWach `.mcp.json`, (c) AgentDB sql.js file handles, (d) OneDrive sync engine. None releasable from inside the session.
+
+**Key insight verified**: Claude Code's project-key encoding converts both `_` and ` ` to `-`, so the encoded key `00-Hive-Empire` is identical for either form. The just-migrated memory keys remain valid after the rename.
+
+**Procedure handed off via task #30** (must be run with Claude Code closed):
+```powershell
+Set-Location 'C:\Users\pfwac\OneDrive - University of Arizona\Documents\03 Projects'
+Get-Process -Name node -ErrorAction SilentlyContinue | Where-Object { $_.Path -match 'claude' } | Stop-Process -Force
+Get-Process -Name claude* -ErrorAction SilentlyContinue | Stop-Process -Force
+Rename-Item -Path '00_Hive_Empire' -NewName '00 Hive Empire'
+```
+Pause OneDrive sync first if available. Fallback: restart Windows, run Rename-Item on login before opening anything else.
+
+**Post-rename cleanup queued as task #31** (blocked by #30):
+- Path rewrites pass 2: `00_Hive_Empire/` → `00 Hive Empire/` in the 6 memory files rewritten this session, plus portfolio-wide grep for the underscore form
+- Address #28 `~/.claude.json` deferred rewrite with the mapping table translated to spaced form
+- Verify memory key continuity on first open
+
+---
+
+## 6. Deferred / open items (after rename attempt)
 
 | # | Item | Owner / next step |
 |---|---|---|
-| 1 | `~/.claude.json` mcpServers rewrite | Own session. 22 project keys identified, mapping table in task #28 description. Risk: duplicate keys with the 2 existing `00_Hive_Empire` entries (umbrella + PostWach). Backup at `.claude.json.pre-restructure-2026-06-01.bak`. |
+| 1 | `~/.claude.json` mcpServers rewrite | Own session (#28 deferred). 22 project keys identified, mapping table in task #28 description. Now also needs `_` → ` ` translation in the destination paths once #30 is done. Backup at `.claude.json.pre-restructure-2026-06-01.bak`. |
 | 2 | PostWach submodule cleanup | Own session inside `Papers/SE_Math_Foundations/isomorphism-library/`. 8 modified sections + many untracked figures, drafts, simulation code, CSER2026 revision PDFs. |
-| 3 | Hive Empire umbrella governance | No CLAUDE.md or rules at `00_Hive_Empire/`. Question: distinct portfolio-level guidance vs. PostWach's CTO role? |
-| 4 | `00_Hive_Empire` underscore styling | Cosmetic. Diverges from sibling `01 NNSA/`, `02 My Outreach/`. Apply convention to all or revert. |
+| 3 | Hive Empire umbrella governance | No CLAUDE.md or rules at the umbrella. Question: distinct portfolio-level guidance vs. PostWach's CTO role? |
+| 4 | `00_Hive_Empire` underscore styling | **In flight** — task #30. Cannot complete from inside this session. |
 | 5 | Lawson scope | Per user: intentionally empty placeholder for legal/law focused hive. "Lawson" is a working title. No action until scope defined. |
 | 6 | PostWach `.claude/agents/*` cleanup | Has 90+ tracked agents that contradict the hybrid policy adopted this session. Separate decision — keep grandfathered or `git rm --cached` like GI-JOE/SEAD. |
 | 7 | SysMLv2 root oddities (residual) | Tracked at root by prior commits: `test-scenarios.sysml`, `test-stdlib.cjs`, and a zero-byte `100%)` file. The first two were relocated to `tests/scratch/` this session; the third was deleted. |
@@ -129,7 +154,7 @@ The 3 residual U=1 entries are the gitignore negation rule (`!.claude/agents/cus
 
 ---
 
-## 6. Cross-cutting observations
+## 7. Cross-cutting observations
 
 1. **The `.claude/*` tracked-vs-ignored question is portfolio-wide**, not per-hive. PostWach committed 287 `.claude/*` files (127 commands, 43 helpers, 117 skills). GI-JOE/SEAD/SysMLv2 sub-agents committed their `.claude/{commands,helpers,skills}/` as project work (treating like PostWach). The hybrid policy this session resolved only `.claude/agents/*`, not commands/helpers/skills. A future portfolio decision on commands/helpers/skills could either align everything with hybrid (untrack ~300 files per hive) or formalize commit-everything as the canonical pattern.
 2. **Auto-memory imports 200 entries at session start.** This is the new MCP-based hook (commit `b2b5450`). It reads from multiple project memory dirs and pushes into AgentDB. The CWD-keyed file-based MEMORY.md system is now a backup / staging area; AgentDB is canonical. This reduces the urgency of memory key migration but doesn't eliminate it (file-based MEMORY.md still needs the new location for future writes).
@@ -139,17 +164,17 @@ The 3 residual U=1 entries are the gitignore negation rule (`!.claude/agents/cus
 
 ---
 
-## 7. References
+## 8. References
 
 - Capture / intent doc: `00 Planning and Execution/Directory_Restructure_Assessment_2026-06-01.md`
 - Backup: `~/.claude.json.pre-restructure-2026-06-01.bak`
 - Memory key archive: `~/.claude/projects/_archived-pre-restructure-2026-06-01/` (15 keys)
 - PostWach session range: `076fa51..HEAD` covers all session commits
 - All other hive session ranges: each hive's last commit (see §4 final state table) traces back to the gitignore-template commit at start of Phase 1
-- Open tasks: #28 (restructure remaining items); #25, #26, #27, #29 closed
+- Open tasks at session close: #28 (restructure remaining items, in_progress), #30 (umbrella rename, pending external), #31 (post-rename cleanup, blocked by #30). Tasks #23–#27, #29 closed.
 
 ---
 
-## 8. Scorecard
+## 9. Scorecard
 
 Per user direction (turn 14), scorecard ([R014]) on hold pending user review of the session.
