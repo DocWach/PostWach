@@ -14,6 +14,16 @@
         "CLAUDE_FLOW_MEMORY_BACKEND": "hybrid"
       },
       "autoStart": false
+    },
+    "paperbanana": {
+      "command": "paperbanana-mcp",
+      "args": [],
+      "env": {
+        "GOOGLE_API_KEY": "${GOOGLE_API_KEY}",
+        "VLM_MODEL": "gemini-2.5-flash-lite",
+        "OUTPUT_DIR": "C:\\Users\\pfwac\\OneDrive - University of Arizona\\Documents\\03 Projects\\00 My Research\\01 PostWach\\paperbanana-output"
+      },
+      "autoStart": false
     }
   }
 }

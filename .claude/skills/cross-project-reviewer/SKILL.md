@@ -123,6 +123,33 @@ Based on Steps 1-3, recommend updates to the reference documents.
 
 ---
 
+## External Tool Adoption Protocol
+
+A second CTO protocol, parallel to the 4-step review above, for deciding whether and how to take ownership of an external (usually open-source) tool the portfolio depends on. This is a recurring inquiry; treat it as a repeatable process, not a one-off. First worked example: PaperBanana (academic figure generation), 2026-05-21.
+
+### When to use
+- The portfolio adopts an external tool that becomes load-bearing for research output
+- An external dependency carries maintenance or single-maintainer risk
+- A tool is wanted by more than one hive (cross-hive sharing question)
+- Any recurring "should we fork or own this?" question
+
+### 5-step ladder
+1. **Evaluate.** Verify it works; classify on the R016 ladder (a research artifact / b demonstrated / c integrated); check license, LOC, and repo health. Reuse the 4-step review's quality lens.
+2. **Choose ownership posture** (least to most effort): use-as-is, fork-and-fix, wrap-and-extend, reimplement, replace-core. Pick the lowest rung that meets the goal. Reimplementing a thin wrapper around a rented model is rarely worth it.
+3. **Taxonomy.** Hive or Output? Tool repos are Outputs / shared services (no agents, no CLAUDE.md); governance inherited from the curating hive.
+4. **Custody and hosting.** PostWach (CTO) curates capability quality; Alpha Empress (COO) governs; consuming hives are clients. Host code in a standalone portable repo (`DocWach/*`), repo-tracked, never user-home-only (HOS portability constraint).
+5. **Cross-hive sharing.** Expose via one thin MCP server over the canonical install (H1-hybrid pattern), not per-hive copies. This avoids the N-times-N duplication cost.
+
+### Distinguish "owned" from "rented"
+State plainly which layer becomes ours (orchestration, prompts, config, reference data) versus which stays an external dependency (the generative model or API). Never present a wrapper as ownership of the core (R016).
+
+### Precedent instances
+- **PaperBanana** (figure generation), 2026-05-21: fork-and-fix recommended; image model stays rented.
+- **doc-merge** (pandoc + docx report builder): PostWach-curates + standalone repo recommended (inter-hive policy thread).
+Both feed the inter-hive policy / HOS agenda as evidence the portfolio needs a shared-capability layer, not just shared governance.
+
+---
+
 ## CTO vs. COO Distinction
 
 | Aspect | PostWach (CTO) | Alpha Empress (COO) |
