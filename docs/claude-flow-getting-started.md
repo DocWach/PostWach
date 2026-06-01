@@ -49,19 +49,20 @@ You do not need to understand all of these on day one. Start with Claude Code al
 
 Before installing, make sure you have the following on your machine.
 
-### Required
+### Required (install in this order)
 
-| Tool | Minimum Version | How to Check |
-|------|----------------|--------------|
-| **Node.js** | v18 or later | `node --version` |
-| **npm** | Comes with Node.js | `npm --version` |
-| **A terminal** | -- | Windows Terminal, VS Code integrated terminal, or Git Bash |
+| # | Tool | Minimum Version | How to Check | Install From |
+|---|------|----------------|--------------|--------------|
+| 1 | **Git for Windows** (includes Git Bash) | v2.40+ | `git --version` | [git-scm.com/download/win](https://git-scm.com/download/win) |
+| 2 | **Node.js** | v18 or later | `node --version` | [nodejs.org](https://nodejs.org) (LTS recommended) |
+| 3 | **npm** | Comes with Node.js | `npm --version` | Included with Node.js |
+
+**Important:** Git for Windows must be installed first. It provides Git Bash, which Claude Code uses as its shell on Windows. Without it, Claude Code will not function correctly.
 
 ### Recommended
 
 | Tool | Why |
 |------|-----|
-| **Git** | Version control for your projects; many claude-flow features integrate with git repositories |
 | **VS Code** | Popular editor with an integrated terminal; claude-flow works well alongside it |
 
 ---

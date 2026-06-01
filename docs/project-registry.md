@@ -81,12 +81,24 @@
 - **Research relevance:** Supporting for Idea 1 (SE morphisms expressed in SysML v2); grammar/semantics directly relevant to formal specification
 - **Key assets:** SysML v2 grammar skills, semantic analysis capability
 
+### 01 Fort Wachs
+
+- **Type:** Hive
+- **Purpose:** Security policy authority (CISO) for the research portfolio; NSA Zero Trust posture, compliance mapping, vendor evaluation
+- **Domain:** Security operations, Zero Trust architecture, compliance frameworks (CMMC 2.0, NIST 800-171)
+- **Governance:** V3 [X001-X010]
+- **Skills:** 3 domain-specific (security-posture, vendor-evaluation, compliance-mapper)
+- **Agents:** 3 domain-specific (threat-modeler, compliance-auditor, vendor-evaluator)
+- **Status:** Active
+- **Research relevance:** Cross-cutting; security credibility for DARPA CLARA, NNSA proposals, UofA institutional recommendations
+- **Key assets:** ZT 7-pillar policy framework, Chainguard vendor evaluation, CMMC 2.0 control mapping
+
 ### SEAD
 
 - **Type:** Hive
-- **Purpose:** Systems engineering analysis and design — codebase analysis, infrastructure-as-code, monitoring
-- **Domain:** Systems engineering practice, DevOps/IaC
-- **Governance:** V3 [D001-D006]
+- **Purpose:** Software Engineering, Architecture, Development, Deployment, Operations, and Security — codebase analysis, infrastructure-as-code, monitoring, security
+- **Domain:** Software engineering practice, DevOps/IaC, security
+- **Governance:** V3 [D001-D009]
 - **Skills:** 29 total (3 domain-specific: `sead-codebase-analysis`, `sead-iac-generator`, `sead-monitoring-setup`)
 - **Agents:** 81 total (5 domain-specific: s-agent, e-agent, a-agent, d-agent, sead-orchestrator)
 - **Status:** Active
@@ -163,6 +175,8 @@ Output repositories are artifacts produced by one or more hives. They contain de
 | Lego-EV3-Mindstorm-Models | PLM (parts data, kit inventories), SysMLv2 (SysML v2 models) | 172-part reusable library: JSON catalog, kit inventories, SysML v2 behavioral models, LDraw geometry refs | Active |
 | INCOSE_FuSE_Vision2035 | SysMLv2 (INCOSE FuSE/Vision 2035 model) | Single SysML v2 model output for INCOSE FuSE standards | Active |
 | UAOS Cluster | GI-JOE (ontology review and evaluation) | OML/OpenCaesar ontology models across four repositories | Dormant |
+| IGNITE '26 Hackathon | MACQ (DTE&A knowledge, T&E metrics), GI-JOE (ontology patterns, validation pipeline), PostWach (morphism engine, Wymore models) | DTE&A assessment demo: Berserker MQ-99 ontology, morphism quality heatmap, traceability queries, Streamlit dashboard | Active |
+| VT Supply Chain Analyzer | PostWach (faculty advisor, architecture ownership) | Streamlit + SimPy + LP titanium supply chain disruption analyzer. VT ISE Senior Design Team 4 (AY 25-26). Sponsor: The Aerospace Corporation. Tier 2 service project. Repo: `DocWach/Supplychain-Analysis-VT-ISE-Senior-Design` (private). Current release: v2.1.0 (commit `d9a6c13`, 65/65 tests). | Active |
 
 ---
 
@@ -210,7 +224,7 @@ Output repositories are artifacts produced by one or more hives. They contain de
 
 | Level | Count | Projects | Upgrade Action |
 |---|---|---|---|
-| V3 (annotated rules) | 8 | PostWach, MACQ, GI-JOE, SysMLv2, COSYSMO, SEAD, PLM, Alpha Empress | None — gold standard |
+| V3 (annotated rules) | 9 | PostWach, MACQ, GI-JOE, SysMLv2, COSYSMO, Fort Wachs, SEAD, PLM, Alpha Empress | None — gold standard |
 | SPARC boilerplate | 2 | BP Marketing, Claude_code_test_setup | Add [Rxxx] rule annotations, risk tags |
 | None | 1+ | UAOS cluster | Create CLAUDE.md with rules |
 
@@ -230,6 +244,7 @@ Output repositories are artifacts produced by one or more hives. They contain de
 | 2026-02-24 | PostWach CTO | Alpha Empress Phase C: CTO/COO integration active, 1 skill (compliance-checker) |
 | 2026-02-24 | PostWach CTO | MACQ governance pattern merge: P001-P006 standard + P007-P011 MACQ-specific |
 | 2026-02-24 | PostWach CTO | UAOS cluster reclassified: Output (reviewed by GI-JOE), not Hive |
+| 2026-03-10 | PostWach CTO | Add Fort Wachs (CISO) as Tier 1 hive [X001-X010]; update SEAD governance [D001-D009] |
 
 ---
 

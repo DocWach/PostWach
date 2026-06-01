@@ -1,8 +1,13 @@
 # Claude Flow v3.1.0 Quick-Start Cheat Sheet
 
-## Setup (one-time)
+## Setup (one-time, in order)
 
 ```bash
+# 1. Install Git for Windows first (git-scm.com/download/win)
+git --version                             # verify git + git bash
+# 2. Install Node.js (nodejs.org LTS)
+node --version                            # verify v18+
+# 3. Install tools
 npm install -g @anthropic-ai/claude-code
 claude                                    # first launch → sign in
 npm install -g @claude-flow/cli
@@ -98,6 +103,7 @@ Note: Claude Code handles authentication interactively on first launch -- no API
 | Swarm won't start | `claude-flow doctor --fix` |
 | Stale agents | `claude-flow agent list` then `agent stop <id>` |
 | Session lost | `claude-flow hooks session-restore --latest` |
+| Daemon dies on `daemon start` (Windows) | Use `claude-flow daemon start --foreground` — known `ps -o` bug, see [ruvnet/ruflo#1635](https://github.com/ruvnet/ruflo/issues/1635). Affects v3.5.7 and v3.5.80. |
 
 ## Key Rules
 

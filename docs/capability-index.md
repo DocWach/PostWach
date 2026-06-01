@@ -41,6 +41,7 @@ Plus standalone: base-template-generator.md
 | SEAD | 26 | No | Yes (3) | No |
 | PLM | 29 | Yes (9) | No | No |
 | BP Marketing | 26 | No | Yes (3) | No |
+| Fort Wachs | ~26 | No | No | No |
 | Claude_code_test_setup | 26 | No | Yes (3) | No |
 
 ---
@@ -69,9 +70,18 @@ biomimetics-analyst, transfer-learning-analyst, cognitive-study-designer
 - Research (8): methodology-advisor, research-architect, research-synthesizer, literature-reviewer, publication-strategist, peer-review-responder, collaboration-coordinator, psychometrics-analyst
 - Custom (1): test-long-runner
 
+**Portfolio Tooling (demonstrated capability):**
+- **PaperBanana** — automated academic figure generation. `paperbanana 0.1.0`; ships an MCP server (`paperbanana-mcp`) plus 3 Claude Code skills (`generate-diagram`, `generate-plot`, `evaluate-diagram`). Planner→Stylist→Critic→Visualizer pipeline with iterative refinement; image model `gemini-3-pro-image-preview` (nano-banana Pro). **R016 status: (b) demonstrated capability** including the multi-iteration refinement loop — figures rendered 2026-05-21 (mass-spring-damper ↔ series RLC, and RC ↔ hydraulic tank-pipe morphisms; tool-generated, physically correct). Requires a billed `GOOGLE_API_KEY` (image generation spends paid Gemini quota).
+  - **VLM model must be `gemini-2.5-flash-lite`** (set in `.mcp.json` `VLM_MODEL`, or `--vlm-model` on the CLI). The package default `gemini-2.0-flash` is 404 for new Cloud projects, and full thinking models (`gemini-2.5-flash`) silently truncate the critic's JSON output (thinking tokens consume the 4096 budget), which disables the refinement loop. `-lite` has thinking off by default → complete JSON → working critic/refinement.
+  - **Known limitation:** the pipeline returns the *last* iteration, not a score-selected best; image regeneration is stochastic text-to-image (no img2img conditioning on the prior frame), so refinement usually improves but can occasionally regress.
+  - Hosted in PostWach; available portfolio-wide for any manuscript needing figures.
+
 ### GI-JOE — Ontology Engineering
 
-**0 domain-specific skills** (ontology capability is entirely agent-based)
+**12 domain-specific skills:**
+- knowledge-graph, oml-description, oml-owl-converter, oml-project-generator,
+  oml-validation, oml-vocabulary, ontology-evaluation, ontology-evaluation-swarm,
+  ontology-expert, ontology-validation, owl-export, semantic-reasoning, sparql-query
 
 **5 domain-specific agents:**
 - ontology-swarm-coordinator — multi-agent ontology evaluation orchestration
@@ -80,7 +90,18 @@ biomimetics-analyst, transfer-learning-analyst, cognitive-study-designer
 - ontology-metrics — quantitative ontology metrics
 - ontoclean-validator — OntoClean metaproperty validation (rigidity, identity, unity, dependence)
 
-**Infrastructure:** OWL/RDF/SPARQL processing, BFO alignment, OML workflow, semantic reasoning, knowledge graph construction
+**Ontology validation infrastructure (2026-03-07):**
+- `scripts/validate-ontology.py` — 4-layer validation suite (syntax, OWL RL reasoning, SHACL, SPARQL CQs)
+- `ontologies/imports/bfo.owl` — Local BFO 2020 (ISO 21838-2), 35 classes
+- `ontologies/imports/cco-merged.ttl` — Local CCO (Common Core Ontologies), 1,539 classes
+- `ontologies/shapes/` — SHACL shape files for structural validation
+- `ontologies/queries/` — SPARQL competency query library
+
+**STOIC ontology family (2026-03-07):**
+- ~~`ontologies/domain/stoic-gst.ttl` — General Systems Theory core~~ — **ARCHIVED 2026-04-23** (wrong approach; GST re-framed for SE through WySE, with T3SD and DEVS as the operational formalisms)
+- `ontologies/domain/stoic-devs.ttl` — DEVS/TMS formalization (v0.4.0, 69+ classes, stochastic DEVS, SES, EF)
+- `ontologies/domain/stoic-t3sd.ttl` — Wymore's T3SD (v0.2.0, SDR, 3 cotyledon spaces, design elaboration, IA)
+- `ontologies/domain/stoic-bridge.ttl` — T3SD↔DEVS correspondence (v0.1.0, gap declarations, convergence recommendations)
 
 ### MACQ — Defense Acquisition
 
@@ -119,7 +140,19 @@ biomimetics-analyst, transfer-learning-analyst, cognitive-study-designer
 
 **0 domain-specific agents** (sysml agent directory exists but is empty)
 
-### SEAD — Systems Engineering Analysis & Design
+### Fort Wachs -- Security Operations (CISO)
+
+**3 domain-specific skills:**
+- security-posture -- cross-hive ZT posture assessment (read-only audit of configs, Dockerfiles, CI pipelines)
+- vendor-evaluation -- structured vendor comparison with evidence collection (Chainguard pattern)
+- compliance-mapper -- map portfolio state to CMMC 2.0, NIST 800-171, NSA ZT frameworks
+
+**3 domain-specific agents:**
+- threat-modeler -- STRIDE analysis and attack surface mapping per hive
+- compliance-auditor -- audit hive configurations against ZT policies (read-only)
+- vendor-evaluator -- structured vendor assessment with cost-benefit analysis
+
+### SEAD — Software Engineering, Architecture, Development, Deployment, Operations, and Security
 
 **3 domain-specific skills:**
 - sead-codebase-analysis
@@ -153,13 +186,20 @@ biomimetics-analyst, transfer-learning-analyst, cognitive-study-designer
 
 | Opportunity | Source Project | Consumer Project | Status |
 |---|---|---|---|
-| Ontology for SE Morphisms | GI-JOE | PostWach (Idea 9) | Documented in capability_roadmap.md Phase 5 |
+| Ontology for SE Morphisms | GI-JOE | PostWach (Idea 9) | Active — STOIC family (2026-03-07) |
+| Ontology validation infrastructure | GI-JOE | Any project with .ttl/.owl | Available now (2026-03-07) |
+| BFO/CCO local imports | GI-JOE | Any BFO-aligned project | Available now (2026-03-07) |
+| STOIC-DEVS for SE Morphisms | GI-JOE | PostWach (Idea 9) | In development |
 | SysML v2 Grammar/Semantics | SysMLv2 | PostWach (Idea 1) | Newly identified |
 | Cost Estimation for Portfolio | COSYSMO | PostWach (portfolio optimizer) | Newly identified |
 | SE Analysis for Verification | SEAD | PostWach (Idea 14) | Newly identified |
 | Math/Research Methods for all | PostWach | Any project | Available on request |
 | Acquisition Context for Verification | MACQ | PostWach (Ideas 15-19) | Newly identified |
 | PLM Cost Estimation | PLM (cost-estimator) | COSYSMO | Potential overlap — review |
+| ZT security policy framework | Fort Wachs | All hives | New -- Fort Wachs provides policy, hives implement |
+| Chainguard vendor decision | Fort Wachs | SEAD (implementation) | New -- transferred from SEAD |
+| Compliance mapping for grants | Fort Wachs | PostWach (DARPA CLARA), MACQ (NNSA) | New -- security credibility narrative |
+| Academic figure generation (PaperBanana) | PostWach | Any project with manuscripts | Demonstrated (b) — 2026-05-21 |
 
 ---
 
@@ -178,6 +218,9 @@ biomimetics-analyst, transfer-learning-analyst, cognitive-study-designer
 | Date | Reviewer | Changes |
 |---|---|---|
 | 2026-02-24 | PostWach CTO (initial) | Created index from full capability exploration across all projects |
+| 2026-03-07 | PostWach CTO | GI-JOE: added 12 skills, validation infrastructure, STOIC ontology family, 4 cross-project reuse entries |
+| 2026-03-10 | PostWach CTO | Add Fort Wachs (CISO): 3 skills, 3 agents, 3 cross-project reuse entries |
+| 2026-05-21 | PostWach CTO | Add PaperBanana (figure generation) as PostWach demonstrated capability (b); cross-project reuse entry |
 
 ---
 
