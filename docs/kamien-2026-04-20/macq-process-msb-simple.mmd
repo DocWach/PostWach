@@ -1,0 +1,34 @@
+%%{init: {'theme':'base', 'themeVariables': {'fontSize':'22px', 'primaryColor':'#e8f1fb', 'primaryBorderColor':'#1f3a68', 'lineColor':'#425466'}}}%%
+flowchart LR
+  PM["PM initiates MS-B Review"]
+  ORCH["MS-B Review Swarm (orchestrator)"]
+  AGENTS["<b>8 Specialist Agents (parallel)</b><br/>Systems Engineer · Cybersecurity · T&E Lead · Cost Estimator<br/>Schedule · Risk · Logistics · Contracting Officer"]
+  ART["Consolidated MS-B Artifacts<br/>SEP · TEMP · LCSP · APB · RMF · PoE · IMS · AS"]
+  CHECK["<b>Validation + HITL Gates</b><br/>① SHACL + SPARQL (automated)<br/>② PM → Chief Engineer → MDA (human)"]
+  DEC{"MS-B Decision"}
+  GO(["GO: enter EMD"])
+  NOGO(["NO-GO"])
+  RED(["REDIRECT"])
+
+  PM --> ORCH --> AGENTS --> ART --> CHECK
+  CHECK -. fail / rework .-> ORCH
+  CHECK --> DEC
+  DEC --> GO
+  DEC --> NOGO
+  DEC --> RED
+
+  classDef start fill:#d8ebf7,stroke:#0b3d66,stroke-width:2.5px,color:#061d33;
+  classDef orch fill:#e6e0f8,stroke:#3d2a7a,stroke-width:2.5px,color:#1c134d;
+  classDef agent fill:#d9ead3,stroke:#274e13,stroke-width:2.5px,color:#0f2a05;
+  classDef art fill:#fff6d6,stroke:#8a6d0b,stroke-width:2.5px,color:#3a2d00;
+  classDef check fill:#fff0b3,stroke:#8a5a00,stroke-width:3px,color:#3a2500;
+  classDef decision fill:#f6d6ff,stroke:#5c138d,stroke-width:2.5px,color:#250638;
+  classDef result fill:#ffffff,stroke:#1f3a68,stroke-width:2.5px,color:#0b2446;
+
+  class PM start;
+  class ORCH orch;
+  class AGENTS agent;
+  class ART art;
+  class CHECK check;
+  class DEC decision;
+  class GO,NOGO,RED result;

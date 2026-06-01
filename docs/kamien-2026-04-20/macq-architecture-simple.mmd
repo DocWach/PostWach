@@ -1,0 +1,37 @@
+%%{init: {'theme':'base', 'themeVariables': {'fontSize':'22px', 'primaryColor':'#e8f1fb', 'primaryBorderColor':'#1f3a68', 'lineColor':'#425466'}}}%%
+flowchart LR
+  REQ["PM / Sponsor Request<br/>(Phase or Milestone)"]
+  KB[("Knowledge Base<br/>FAR/DFARS · Pathways<br/>Templates · Governance Ontology")]
+  MACQ["<b>MACQ Swarm</b> &nbsp;·&nbsp; 52 specialized agents<br/>Oversight · PMO · Phase Swarms"]
+  ART["Draft Acquisition Artifacts<br/>SEP · TEMP · LCSP · APB · RMF · PoE · IMS · AS"]
+  CHECK["<b>Validation + HITL Gates</b><br/>① SHACL + SPARQL (automated)<br/>② PM → Chief Engineer → MDA (human)"]
+  DEC{"Decision"}
+  GO(["GO"])
+  NOGO(["NO-GO"])
+  RED(["REDIRECT"])
+
+  REQ --> MACQ
+  KB --> MACQ
+  KB -. governs .-> CHECK
+  MACQ --> ART --> CHECK
+  CHECK -. fail / rework .-> MACQ
+  CHECK --> DEC
+  DEC --> GO
+  DEC --> NOGO
+  DEC --> RED
+
+  classDef req fill:#d8ebf7,stroke:#0b3d66,stroke-width:2.5px,color:#061d33;
+  classDef swarm fill:#d9ead3,stroke:#274e13,stroke-width:2.5px,color:#0f2a05;
+  classDef kb fill:#e6e0f8,stroke:#3d2a7a,stroke-width:2.5px,color:#1c134d;
+  classDef art fill:#fff6d6,stroke:#8a6d0b,stroke-width:2.5px,color:#3a2d00;
+  classDef check fill:#fff0b3,stroke:#8a5a00,stroke-width:3px,color:#3a2500;
+  classDef decision fill:#f6d6ff,stroke:#5c138d,stroke-width:2.5px,color:#250638;
+  classDef result fill:#ffffff,stroke:#1f3a68,stroke-width:2.5px,color:#0b2446;
+
+  class REQ req;
+  class MACQ swarm;
+  class KB kb;
+  class ART art;
+  class CHECK check;
+  class DEC decision;
+  class GO,NOGO,RED result;

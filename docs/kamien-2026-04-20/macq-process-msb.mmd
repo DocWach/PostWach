@@ -1,0 +1,83 @@
+%%{init: {'theme':'base', 'themeVariables': {'fontSize':'14px', 'primaryColor':'#e8f1fb', 'primaryBorderColor':'#1f3a68', 'lineColor':'#425466'}}}%%
+flowchart TB
+  START(["PM initiates MS-B Review<br/>(TMRR → EMD entry)"])
+
+  ORCH["milestone-b-review swarm<br/>orchestrator agent"]
+
+  subgraph PAR["Parallel Specialist Agents"]
+    direction LR
+    A_SE["Systems Engineer<br/>→ SEP, technical baseline"]
+    A_CY["Cybersecurity Lead<br/>→ RMF package, ATO path"]
+    A_TE["T&E Lead<br/>→ TEMP, test strategy"]
+    A_CO["Cost Estimator<br/>→ Program Office Estimate"]
+    A_SCH["Schedule Analyst<br/>→ Integrated Master Schedule"]
+    A_RSK["Risk Manager<br/>→ Risk register, burn-down"]
+    A_LOG["Logistician<br/>→ LCSP, sustainment plan"]
+    A_CON["Contracting Officer<br/>→ Acquisition Strategy, J&A"]
+  end
+
+  ART["Consolidated MS-B Artifact Set<br/>SEP · TEMP · LCSP · APB · RMF · PoE · IMS · AS"]
+
+  SHACL{"SHACL Validation<br/>governance + structural shape"}
+  SPARQL{"SPARQL Completeness<br/>traceability + cross-artifact<br/>consistency queries"}
+
+  G1[["HITL Gate 1<br/>PM Review<br/>(artifact coherence)"]]
+  G2[["HITL Gate 2<br/>Chief Engineer Sign-off<br/>(technical adequacy)"]]
+  G3[["HITL Gate 3<br/>Milestone Decision Authority<br/>(programmatic decision)"]]
+
+  DEC{"MS-B Decision"}
+  GO(["GO:<br/>enter EMD"])
+  NOGO(["NO-GO:<br/>targeted rework"])
+  RED(["REDIRECT:<br/>re-scope / pathway change"])
+
+  START --> ORCH
+  ORCH --> A_SE
+  ORCH --> A_CY
+  ORCH --> A_TE
+  ORCH --> A_CO
+  ORCH --> A_SCH
+  ORCH --> A_RSK
+  ORCH --> A_LOG
+  ORCH --> A_CON
+
+  A_SE --> ART
+  A_CY --> ART
+  A_TE --> ART
+  A_CO --> ART
+  A_SCH --> ART
+  A_RSK --> ART
+  A_LOG --> ART
+  A_CON --> ART
+
+  ART --> SHACL
+  SHACL -->|pass| SPARQL
+  SHACL -->|fail: governance violation| ORCH
+  SPARQL -->|pass| G1
+  SPARQL -->|gap: missing traceability| ORCH
+
+  G1 -->|approved| G2
+  G2 -->|approved| G3
+  G3 --> DEC
+  DEC --> GO
+  DEC --> NOGO
+  DEC --> RED
+  NOGO -. targeted artifact rework .-> ORCH
+  RED -. pathway swap .-> START
+
+  classDef start fill:#d8ebf7,stroke:#0b3d66,stroke-width:2px,color:#061d33;
+  classDef orch fill:#e6e0f8,stroke:#3d2a7a,stroke-width:1.5px,color:#1c134d;
+  classDef agent fill:#d9ead3,stroke:#274e13,stroke-width:1.2px,color:#0f2a05;
+  classDef art fill:#fff6d6,stroke:#8a6d0b,stroke-width:1.5px,color:#3a2d00;
+  classDef valid fill:#d8ebf7,stroke:#0b3d66,stroke-width:1.5px,color:#061d33;
+  classDef gate fill:#fff0b3,stroke:#8a5a00,stroke-width:2px,color:#3a2500;
+  classDef decision fill:#f6d6ff,stroke:#5c138d,stroke-width:1.5px,color:#250638;
+  classDef result fill:#ffffff,stroke:#1f3a68,stroke-width:1.5px,color:#0b2446;
+
+  class START start;
+  class ORCH orch;
+  class A_SE,A_CY,A_TE,A_CO,A_SCH,A_RSK,A_LOG,A_CON agent;
+  class ART art;
+  class SHACL,SPARQL valid;
+  class G1,G2,G3 gate;
+  class DEC decision;
+  class GO,NOGO,RED result;

@@ -1,0 +1,94 @@
+%%{init: {'theme':'base', 'themeVariables': {'fontSize':'14px', 'primaryColor':'#e8f1fb', 'primaryBorderColor':'#1f3a68', 'lineColor':'#425466'}}}%%
+flowchart TB
+  REQ["PM / Sponsor Request<br/>(Phase or Milestone)"]
+
+  subgraph MACQ["MACQ Hive (52 agents)"]
+    direction LR
+
+    subgraph OV["Oversight - 7 agents"]
+      direction TB
+      OV1["DOT&E"]
+      OV2["DTE&A"]
+      OV3["TRMC"]
+      OV4["PEO / MDA"]
+      OV5["Congressional /<br/>NSC / Contractor"]
+    end
+
+    subgraph PMO["PMO Roles - 16 agents"]
+      direction TB
+      PM["Program Manager"]
+      CE["Chief Engineer"]
+      SE["Systems Engineer"]
+      TE["T&E Lead"]
+      PMORE["+ 12 more<br/>(Cyber, Cost, Risk, ...)"]
+    end
+
+    subgraph SW["Phase Swarms - 19 agents"]
+      direction TB
+      MSABC["MS-A · MS-B · MS-C"]
+      TMRR["TMRR · EMD"]
+      MTA["MTA RP · MTA RF"]
+      SOFT["Software · Services · PD"]
+      SMORE["+ UCA, DBS, FRP,<br/>T&E-* swarms"]
+    end
+
+    subgraph KB["Knowledge Base"]
+      direction TB
+      FAR["FAR / DFARS<br/>95 compliance rules"]
+      PATH["6 Acquisition Pathways<br/>18 thresholds"]
+      PROT["34 Protest Risk Indicators<br/>(GAO / COFC)"]
+      TPL["50+ Deliverable Templates"]
+      ONT["Governance Ontology<br/>SHACL + SPARQL"]
+    end
+  end
+
+  ART["Artifact Drafts<br/>SEP · TEMP · LCSP · APB · RMF · PoE · IMS · AS"]
+  SHACL{"SHACL Validation<br/>governance + structural shape"}
+  SPARQL{"SPARQL Completeness<br/>traceability queries"}
+  G1[["HITL Gate 1<br/>PM Review"]]
+  G2[["HITL Gate 2<br/>Chief Engineer Sign-off"]]
+  G3[["HITL Gate 3<br/>Milestone Decision Authority"]]
+  DEC{"Decision"}
+  GO(["GO"])
+  NOGO(["NO-GO"])
+  RED(["REDIRECT"])
+
+  REQ --> SW
+  OV -. governs .-> SW
+  PMO --> SW
+  KB --> SW
+  SW --> ART
+  KB --> SHACL
+  ART --> SHACL
+  SHACL -->|pass| SPARQL
+  SHACL -->|fail| ART
+  SPARQL -->|pass| G1
+  SPARQL -->|gap| ART
+  G1 --> G2
+  G2 --> G3
+  G3 --> DEC
+  DEC --> GO
+  DEC --> NOGO
+  DEC --> RED
+  NOGO -. rework .-> ART
+  RED -. re-scope .-> SW
+
+  classDef oversight fill:#fde2e2,stroke:#a33,stroke-width:1.2px,color:#3b0d0d;
+  classDef pmo fill:#fff6d6,stroke:#8a6d0b,stroke-width:1.2px,color:#3a2d00;
+  classDef swarm fill:#d9ead3,stroke:#274e13,stroke-width:1.2px,color:#0f2a05;
+  classDef kb fill:#e6e0f8,stroke:#3d2a7a,stroke-width:1.2px,color:#1c134d;
+  classDef pipe fill:#d8ebf7,stroke:#0b3d66,stroke-width:1.2px,color:#061d33;
+  classDef gate fill:#fff0b3,stroke:#8a5a00,stroke-width:2px,color:#3a2500;
+  classDef decision fill:#f6d6ff,stroke:#5c138d,stroke-width:1.5px,color:#250638;
+  classDef result fill:#ffffff,stroke:#1f3a68,stroke-width:1.5px,color:#0b2446;
+  classDef req fill:#d8ebf7,stroke:#0b3d66,stroke-width:2px,color:#061d33;
+
+  class REQ req;
+  class OV1,OV2,OV3,OV4,OV5 oversight;
+  class PM,CE,SE,TE,PMORE pmo;
+  class MSABC,TMRR,MTA,SOFT,SMORE swarm;
+  class FAR,PATH,PROT,TPL,ONT kb;
+  class ART,SHACL,SPARQL pipe;
+  class G1,G2,G3 gate;
+  class DEC decision;
+  class GO,NOGO,RED result;
