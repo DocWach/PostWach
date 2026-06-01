@@ -1,0 +1,5 @@
+Diagram 6: Terminology Hierarchy
+
+Shows how all the morphism quality terms relate to each other.
+D_h is the master vector. D_s and D_b are its two axes (design-time
+and runtime). d_cos is a fast runtime proxy. MTBH is longitudinal.

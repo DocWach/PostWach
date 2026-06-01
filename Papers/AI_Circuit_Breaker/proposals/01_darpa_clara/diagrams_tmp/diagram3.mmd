@@ -1,0 +1,17 @@
+%% Diagram 3: Two-Axis Morphism Quality
+
+quadrantChart
+    title Two-Axis Morphism Quality
+    x-axis "Low Ds (precise)" --> "High Ds (coarse)"
+    y-axis "Low Db (correct)" --> "High Db (wrong)"
+
+    quadrant-1 Coarse but Correct
+    quadrant-2 BAD - Halt or Lockdown
+    quadrant-3 GOOD - Isomorphic Ideal
+    quadrant-4 Precise but Wrong
+
+    Ideal: [0.08, 0.08]
+    Typical AI: [0.35, 0.25]
+    Coarse safe: [0.78, 0.12]
+    Looks good isnt: [0.12, 0.78]
+    Degraded: [0.72, 0.72]

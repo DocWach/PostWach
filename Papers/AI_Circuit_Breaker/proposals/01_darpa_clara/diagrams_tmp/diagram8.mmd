@@ -1,0 +1,21 @@
+%% Diagram 8: Composition Theorem Visual
+%% Left-to-right flow, no subgraph title overlap
+
+flowchart LR
+    T1["<b>TASK 1</b><br/>Arrhythmia Classification<br/><br/>ML: Transformer on ECG<br/>AR: Electrophysiology check<br/><br/>D_s1 = 0.05<br/>D_b1 = 0.03"]
+
+    T2["<b>TASK 2</b><br/>Guideline Compliance<br/><br/>ML: Alert priority<br/>AR: AHA/ACC validation<br/><br/>D_s2 = 0.12<br/>D_b2 = 0.04"]
+
+    CT["<b>COMPOSITION THEOREM</b><br/><br/>Structural bound:<br/>D_s_total >= max(0.05, 0.12)<br/>= 0.12<br/><br/>Behavioral bound:<br/>D_b_total <= 0.03 + 0.04<br/>= 0.07"]
+
+    T3["<b>TASK 3</b><br/>End-to-End Monitoring<br/><br/>Composed pipeline<br/>with formal guarantees<br/><br/>D_s_total >= 0.12<br/>D_b_total <= 0.07"]
+
+    T1 -->|"classified rhythm<br/>+ certificate"| T2
+    T1 --> CT
+    T2 --> CT
+    CT -->|"formal<br/>bounds"| T3
+
+    style T1 fill:#3498db,stroke:#2471a3,color:#fff
+    style T2 fill:#2ecc71,stroke:#229954,color:#fff
+    style CT fill:#f9e79f,stroke:#b7950b,color:#333
+    style T3 fill:#8e44ad,stroke:#6c3483,color:#fff

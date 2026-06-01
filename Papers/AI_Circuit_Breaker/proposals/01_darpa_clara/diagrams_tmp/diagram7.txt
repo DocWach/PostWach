@@ -1,0 +1,5 @@
+Diagram 7: Phase 1 / Phase 2 Workflow
+
+24-month program timeline. Phase 1 (months 1-15) proves the composition
+theorem on a single ECG task. Phase 2 (months 16-24) deepens with a
+second ML kind, full pipeline, and domain-transfer analysis.

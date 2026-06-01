@@ -1,0 +1,26 @@
+%% Diagram 4-lite: Five-Layer Architecture with plain-language layer phrases
+%% For SERC AI4SE/SE4AI 2026 abstract (body figure)
+
+flowchart LR
+    L1["<b>LAYER 1</b><br/>Reference Standards<br/><br/>What 'correct' looks like<br/>in this domain,<br/>maintained like<br/>a gauge block"]
+
+    L2["<b>LAYER 2</b><br/>Morphism Instruments<br/><br/>Measures AI-reality<br/>disagreement on<br/>two axes: structure<br/>and behavior"]
+
+    L3["<b>LAYER 3</b><br/>Statistical Control<br/><br/>Distinguishes normal<br/>variation from real<br/>drift using statistical<br/>control"]
+
+    L4["<b>LAYER 4</b><br/>Closed-Loop<br/>Maintenance<br/><br/>Updates are gated<br/>against the reference<br/>standard before<br/>they take effect"]
+
+    L5["<b>LAYER 5</b><br/>Underwriting<br/>Interface<br/><br/>Operator view plus<br/>an audit trail<br/>regulators can<br/>query"]
+
+    L1 -->|"reference<br/>values"| L2
+    L2 -->|"D_h<br/>measurements"| L3
+    L3 -->|"verdicts<br/>+ trends"| L4
+    L4 -->|"updated<br/>thresholds"| L3
+    L4 -->|"ontology<br/>updates"| L1
+    L3 -->|"status<br/>+ alerts"| L5
+
+    style L1 fill:#2ecc71,stroke:#27ae60,color:#fff
+    style L2 fill:#e74c3c,stroke:#c0392b,color:#fff
+    style L3 fill:#f39c12,stroke:#d68910,color:#fff
+    style L4 fill:#9b59b6,stroke:#8e44ad,color:#fff
+    style L5 fill:#3498db,stroke:#2980b9,color:#fff

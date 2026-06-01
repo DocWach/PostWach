@@ -1,0 +1,6 @@
+Diagram 2: The Morphism Chain (ECG Domain)
+
+Shows how information flows from the patient's heart to a clinical
+classification, passing through five transformation stages (h1 through h5).
+Each link has its own morphism quality D_h = (D_s, D_b). The composition
+theorem says the weakest structural link bounds the whole chain.

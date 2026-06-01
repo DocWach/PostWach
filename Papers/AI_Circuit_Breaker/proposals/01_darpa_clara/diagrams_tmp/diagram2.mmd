@@ -1,0 +1,28 @@
+%% Diagram 2: The Morphism Chain (ECG Domain)
+%% Winding top-down path for readability at large size
+
+flowchart TB
+    Z1["<b>Heart</b><br/>Physical cardiac system<br/>Z_real"]
+    Z2["<b>Electrode Signal</b><br/>Skin-surface ECG<br/>sensor observation"]
+    Z3["<b>Digital Signal</b><br/>ADC samples<br/>discretized waveform"]
+    Z4["<b>Filtered Signal</b><br/>Noise removed<br/>baseline corrected"]
+    Z5["<b>Feature Vector</b><br/>P-QRS-T morphology<br/>RR intervals, HOS"]
+    Z6["<b>Classification</b><br/>Arrhythmia diagnosis<br/>AAMI N/S/V/F/Q"]
+
+    Z1 -->|"<b>h1:</b> Sensor Transduction<br/>D_h1 = (D_s1, D_b1)"| Z2
+    Z2 -->|"<b>h2:</b> Analog-to-Digital<br/>D_h2 = (D_s2, D_b2)"| Z3
+    Z3 -->|"<b>h3:</b> Signal Processing<br/>D_h3 = (D_s3, D_b3)"| Z4
+    Z4 -->|"<b>h4:</b> Feature Extraction<br/>D_h4 = (D_s4, D_b4)"| Z5
+    Z5 -->|"<b>h5:</b> ML Classification<br/>D_h5 = (D_s5, D_b5)"| Z6
+
+    T1["<b>COMPOSITION THEOREM</b><br/><br/>Structural: D_s_total >= max(D_s_i)<br/>Weakest link dominates<br/><br/>Behavioral: D_b_total <= sum(D_b_i)<br/>Errors accumulate additively"]
+
+    Z6 -.->|"chain bounds"| T1
+
+    style Z1 fill:#e74c3c,stroke:#c0392b,color:#fff
+    style Z2 fill:#e67e22,stroke:#d35400,color:#fff
+    style Z3 fill:#f1c40f,stroke:#f39c12,color:#333
+    style Z4 fill:#3498db,stroke:#2980b9,color:#fff
+    style Z5 fill:#9b59b6,stroke:#8e44ad,color:#fff
+    style Z6 fill:#2ecc71,stroke:#27ae60,color:#fff
+    style T1 fill:#ecf0f1,stroke:#7f8c8d,color:#333

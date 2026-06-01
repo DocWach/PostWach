@@ -1,0 +1,16 @@
+%% Diagram 3 (cleaned v3): Two-Axis Morphism Distance
+%% Origin dot placed just inside chart bounds so label stays within Ideal quadrant
+%% Axes: D_s (structural distance), D_b (behavioral distance), both 0 = exact
+
+quadrantChart
+    title Two-Axis Morphism Distance
+    x-axis "Low D_s (precise structure)" --> "High D_s (coarse structure)"
+    y-axis "Low D_b (correct output)" --> "High D_b (wrong output)"
+    quadrant-1 Divergent
+    quadrant-2 "Precise but Wrong"
+    quadrant-3 Ideal
+    quadrant-4 "Coarse but Safe"
+    "Near isomorphic": [0.1, 0.1]
+    "Typical AI (unmeasured)": [0.60, 0.60]
+    "Numerical error buildup": [0.20, 0.70]
+    "Safe simplification": [0.70, 0.20]

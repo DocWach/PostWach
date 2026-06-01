@@ -1,0 +1,5 @@
+Diagram 3: Two-Axis Morphism Quality
+
+Shows D_s (structural distance) and D_b (behavioral distance) as two
+independent axes. Four quadrants characterize different failure modes.
+The ideal is the bottom-left corner: D_h = (0, 0).

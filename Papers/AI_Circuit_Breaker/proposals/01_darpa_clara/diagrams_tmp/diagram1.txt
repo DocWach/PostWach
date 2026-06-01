@@ -1,0 +1,5 @@
+Diagram 1: The Big Picture -- What Is the Circuit Breaker?
+
+A high-level overview accessible to any audience. The AI Circuit Breaker
+continuously measures how well an AI's internal model matches reality,
+then triggers a graduated response when quality degrades.

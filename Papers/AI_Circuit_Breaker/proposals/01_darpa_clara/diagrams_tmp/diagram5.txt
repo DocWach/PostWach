@@ -1,0 +1,6 @@
+Diagram 5: AR-ML Tight Coupling
+
+Shows the bidirectional relationship between Automated Reasoning (AR) and
+Machine Learning (ML). This is NOT "AR bolted on" as a post-hoc filter.
+AR shapes ML training through the loss function, and ML provides runtime
+evidence that AR reasons over.

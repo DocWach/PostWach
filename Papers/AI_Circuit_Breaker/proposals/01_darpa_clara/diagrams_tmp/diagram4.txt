@@ -1,0 +1,5 @@
+Diagram 4: Five-Layer Architecture
+
+The circuit breaker's five layers, stacked from foundational (Layer 1,
+Reference Standards) to human-facing (Layer 5, Underwriting Interface).
+Shows where AR and ML components sit, and data flow between layers.

@@ -1,0 +1,26 @@
+%% Diagram 4: Five-Layer Architecture
+%% Left-to-right layout, no subgraph overlap
+
+flowchart LR
+    L1["<b>LAYER 1</b><br/>Reference Standards<br/><br/>Domain ontologies<br/>Sensor calibration<br/>Clinical guidelines<br/>Staged chain refs"]
+
+    L2["<b>LAYER 2</b><br/>Morphism Instruments<br/><br/>D_s: structural fidelity<br/>D_b: behavioral distance<br/>d_cos: runtime sentinel<br/>MTBH: reliability"]
+
+    L3["<b>LAYER 3</b><br/>Statistical Process Control<br/><br/>Control charts<br/>Data-derived thresholds<br/>Graduated response<br/>Normal to Lockdown"]
+
+    L4["<b>LAYER 4</b><br/>Closed-Loop Maintenance<br/><br/>Learning pipelines<br/>Ontology Enhancement Gate<br/>SHACL + SPARQL checks<br/>Gain scheduling"]
+
+    L5["<b>LAYER 5</b><br/>Human Interface<br/><br/>SPC dashboards<br/>MTBH reliability panel<br/>PROV-O audit trail<br/>Cognitive load monitor"]
+
+    L1 -->|"reference<br/>values"| L2
+    L2 -->|"D_h<br/>measurements"| L3
+    L3 -->|"verdicts<br/>+ trends"| L4
+    L4 -->|"updated<br/>thresholds"| L3
+    L4 -->|"ontology<br/>updates"| L1
+    L3 -->|"status<br/>+ alerts"| L5
+
+    style L1 fill:#2ecc71,stroke:#27ae60,color:#fff
+    style L2 fill:#e74c3c,stroke:#c0392b,color:#fff
+    style L3 fill:#f39c12,stroke:#d68910,color:#fff
+    style L4 fill:#9b59b6,stroke:#8e44ad,color:#fff
+    style L5 fill:#3498db,stroke:#2980b9,color:#fff

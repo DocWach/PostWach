@@ -1,0 +1,5 @@
+Diagram 8: Composition Theorem Visual
+
+Shows two component tasks (Classification and Guideline Compliance),
+each with their own morphism quality D_h, composing into an end-to-end
+monitoring system. The composition bounds are shown explicitly.

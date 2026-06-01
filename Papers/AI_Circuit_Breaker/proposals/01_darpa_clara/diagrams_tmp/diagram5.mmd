@@ -1,0 +1,33 @@
+%% Diagram 5: AR-ML Tight Coupling
+%% Key point: AR is IN the loss function, not just an output filter
+
+flowchart TB
+    subgraph AR["Automated Reasoning (AR)"]
+        AR1["OWL 2 DL Ontology<br/>(domain structure,<br/>morphism types)"]
+        AR2["Bayesian Logic Programs<br/>(ProbLog2: probabilistic<br/>morphism inference)"]
+        AR3["SHACL Shapes<br/>(composition<br/>preconditions)"]
+    end
+
+    subgraph ML["Machine Learning (ML)"]
+        ML1["Transformer Encoder<br/>(ECG signal to<br/>diagnostic embeddings)"]
+        ML2["Embedding Space<br/>(AR-defined: respects<br/>ontology state distinctions)"]
+        ML3["Training Loss Function<br/>(includes morphism<br/>quality penalties)"]
+    end
+
+    subgraph coupling["Tight Coupling (not bolt-on)"]
+        direction TB
+        C1["AR shapes ML training:<br/>loss = task_loss + structural_penalty<br/>+ behavioral_penalty + composition_penalty"]
+        C2["AR constrains ML inference:<br/>every output gets a morphism<br/>quality certificate (proof tree)"]
+        C3["ML informs AR reasoning:<br/>embedding distances and sensor<br/>comparisons as Bayesian evidence"]
+    end
+
+    AR1 -->|"defines valid<br/>state distinctions"| ML2
+    AR3 -->|"composition<br/>constraints"| ML3
+    AR1 -->|"structural<br/>penalty terms"| ML3
+    ML1 -->|"embedding<br/>distances"| AR2
+    ML1 -->|"runtime<br/>evidence"| AR2
+    AR2 -->|"composition<br/>verdicts"| ML1
+
+    style AR fill:#2980b9,stroke:#1a5276,color:#fff
+    style ML fill:#c0392b,stroke:#7b241c,color:#fff
+    style coupling fill:#f9e79f,stroke:#b7950b,color:#333

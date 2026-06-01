@@ -1,0 +1,10 @@
+%% Diagram 6: Terminology Hierarchy
+%% Clarifies which metrics are design-time, runtime, or both
+
+mindmap
+    root(("D_h = (D_s, D_b)<br/>Homomorphic Distance<br/>[design-time + runtime]"))
+        D_s["D_s: Structural Distance<br/>= 1 minus sigma<br/>How far from bijective?<br/>[design-time, composable]"]
+            sigma["sigma: Degree of Homomorphism<br/>Average reciprocal mapping<br/>cardinality across states<br/>[design-time]"]
+        D_b["D_b: Behavioral Distance<br/>= max output deviation<br/>How far are outputs?<br/>[runtime, accumulates]"]
+        d_cos["d_cos: Cosine Alignment<br/>= 1 minus cos(I, N_o)<br/>Fast per-inference sentinel<br/>[runtime only]<br/>Correlates with D_h<br/>but does NOT decompose"]
+        MTBH["MTBH: Mean Time Between<br/>Morphism Quality Exceedances<br/>Longitudinal reliability<br/>[runtime, trailing indicator]"]
