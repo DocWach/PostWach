@@ -1,0 +1,58 @@
+schema_version: "1.0"
+
+session:
+  id: "2026-03-25-postwach-03"
+  date: "2026-03-25"
+  hive: "PostWach"
+  researcher: "Paul Wach"
+  start_time: ""
+  end_time: ""
+  task_summary: "Reviewed DARPA CLARA proposal status, located documents for ERAS routing, drafted VEG subcontract SOW with 75/25 budget split."
+
+output:
+  artifacts:
+    - type: spec
+      name: "VEG Subcontract SOW"
+      action: created
+      lines: 120
+      files: 1
+    - type: other
+      name: "Session archive"
+      action: created
+      lines: 55
+      files: 1
+  total_files_created: 2
+  total_files_modified: 0
+  total_lines_written: 175
+  pages_produced: 4
+
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: "none"
+  model_primary: "claude-opus-4-6"
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls:
+  context_compressions: 0
+
+quality:
+  gates_run:
+    - gate: "User review of budget split"
+      result: "pass"
+      details: "User accepted 75/25 after correcting Jeffrey's expertise scope"
+    - gate: "SOW content review"
+      result: "pass"
+      details: "User accepted full SOW + summary bullets"
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed: 1
+  first_pass_quality_pct: 80
+
+process:
+  agent_failures: 0
+  retries: 1
+  rework_files: 0
+  blocked_minutes: 0
+  blockers: "none"
+  perception_note: "Fast interactive session. PDF reading for solicitation details was efficient. User correction on Jeffrey's expertise was important for accurate SOW scoping."

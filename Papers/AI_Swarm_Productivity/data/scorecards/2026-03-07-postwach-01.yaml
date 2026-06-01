@@ -1,0 +1,113 @@
+# =============================================================================
+# Session Productivity Scorecard
+# =============================================================================
+
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: "2026-03-07-postwach-01"
+  date: "2026-03-07"
+  hive: "PostWach"
+  researcher: "Paul F. Wach"
+  start_time: "15:00"
+  end_time: "17:30"
+  task_summary: >
+    DARPA CLARA full solicitation deep dive and abstract completion. Ingested
+    DARPA-SN-26-28 (info session notice), FAQ (51 Q&As), and full DO solicitation
+    (DARPA-PA-25-07-02, 19pp). Discovered abstract deadline was Mar 2 (missed by
+    4-5 days) but full proposal due Apr 10 — abstracts encouraged but not required.
+    Compressed 4-page abstract to 1-page template format answering 3 Heilmeier
+    questions. Programmatically populated CLARA_Abstract_Template.docx. Drafted
+    submission email. Identified critical budget/submission details from solicitation.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: spec
+      name: "clara_abstract_template.md — 1-page Heilmeier-structured abstract"
+      action: created
+      lines: 35
+      files: 1
+    - type: spec
+      name: "clara_abstract_completed.docx — populated DARPA template"
+      action: created
+      lines: 0
+      files: 1
+    - type: code
+      name: "build_abstract.py — reproducible .docx builder script"
+      action: created
+      lines: 160
+      files: 1
+    - type: spec
+      name: "clara_submission_email.md — cover email + checklist"
+      action: created
+      lines: 45
+      files: 1
+    - type: spec
+      name: "clara_abstract_v6.pdf — PDF of previous 4-page abstract"
+      action: created
+      lines: 0
+      files: 1
+    - type: analysis
+      name: "Solicitation analysis — DO, FAQ, SN cross-referenced"
+      action: reviewed
+      lines: 0
+      files: 3
+  total_files_created: 5
+  total_files_modified: 0
+  total_lines_written: 240
+  pages_produced: 3.0
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: "none"
+  model_primary: "claude-opus-4-6"
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls:
+  context_compressions: 1
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: "Solicitation cross-reference"
+      result: "pass"
+      details: >
+        Cross-referenced DO (DARPA-PA-25-07-02), FAQ (51 Q&As), and SN
+        (DARPA-SN-26-28). Corrected prior errors: abstract deadline is Mar 2
+        not Apr 10, abstracts limited to 1 page not unlimited, must use
+        template not freeform, must answer 3 Heilmeier questions.
+    - gate: "Word count — 1 page limit"
+      result: "pass"
+      details: "532 words in .docx technical description; fits on 1 page at 10pt"
+    - gate: "Template compliance"
+      result: "pass"
+      details: "Cover sheet table populated, 3 Heilmeier questions answered, bold leaders formatted correctly"
+    - gate: "Budget validation"
+      result: "pass"
+      details: "Phase 1 $1.1M < $1.35M cap, Phase 2 $0.75M < $0.85M cap, Total $1.85M < $2M cap"
+  tests_passed: 4
+  tests_failed: 0
+  reviewer_comments_addressed: 0
+  first_pass_quality_pct: 85
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 1
+  rework_files: 0
+  blocked_minutes: 10
+  blockers: >
+    SAM.gov JavaScript-rendered page not scrapable via curl; no docx2pdf or
+    LibreOffice for PDF conversion; context compression from prior session
+    required re-reading key files.
+  perception_note: >
+    Efficient session. The solicitation deep dive was the high-value activity —
+    discovering that the abstract deadline had passed and that the full proposal
+    can still be submitted without an abstract was critical. The 4-page to 1-page
+    compression was straightforward once the Heilmeier structure was clear.
+    Programmatic .docx population saved manual formatting time. The main risk
+    is that the late abstract may not receive feedback before the Apr 10 deadline.

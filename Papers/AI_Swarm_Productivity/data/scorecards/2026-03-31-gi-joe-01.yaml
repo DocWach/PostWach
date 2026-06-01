@@ -1,0 +1,101 @@
+schema_version: "1.0"
+
+session:
+  id: 2026-03-31-gi-joe-01
+  date: 2026-03-31
+  hive: GI-JOE
+  researcher: Paul Wach
+  start_time: ~19:30
+  end_time: ~20:45
+  task_summary: >
+    Fixed OML dual-path pipeline — resolved Fuseki SHACL 404 (bad config property),
+    Fuseki empty results (missing unionDefaultGraph), and rdflib variable collision.
+    Built reusable local SPARQL runner. Documented trade analysis with selection procedure.
+
+output:
+  artifacts:
+    - type: code
+      name: scripts/sparql_query.py (reusable local SPARQL runner)
+      action: created
+      lines: 165
+      files: 1
+    - type: config
+      name: build.gradle (dual-path pipeline, pysparqlQuery task)
+      action: modified
+      lines: 40
+      files: 1
+    - type: config
+      name: fuseki-config.ttl (SHACL endpoint + unionDefaultGraph fixes)
+      action: modified
+      lines: 3
+      files: 1
+    - type: analysis
+      name: docs/oml-validation-paths.md (trade analysis report)
+      action: created
+      lines: 120
+      files: 1
+    - type: other
+      name: docs/oml-validation-paths.pdf
+      action: created
+      lines: 0
+      files: 1
+    - type: other
+      name: session-archive-2026-03-31.md (session 2 update)
+      action: modified
+      lines: 55
+      files: 1
+  total_files_created: 3
+  total_files_modified: 3
+  total_lines_written: ~383
+  pages_produced: ~3
+
+ai_efficiency:
+  agents_spawned: 5
+  swarm_topology: star
+  model_primary: claude-opus-4-6
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls:
+  context_compressions: 0
+
+quality:
+  gates_run:
+    - gate: L1 downloadDependencies
+      result: pass
+    - gate: L2 omlToOwl
+      result: pass
+    - gate: L3 owlReason
+      result: pass
+    - gate: L4-local pyshaclValidate
+      result: pass
+      details: "sh:conforms true, 2246 triples, 7 shapes"
+    - gate: L4-fuseki owlShacl
+      result: pass
+      details: "sh:conforms true (after SHACL endpoint fix)"
+    - gate: L5-local pysparqlQuery
+      result: pass
+      details: "9/9 CQs, all results correct"
+    - gate: L5-fuseki owlQuery
+      result: pass
+      details: "9/9 CQs, counts match local (after unionDefaultGraph fix)"
+    - gate: Cross-path row-count equivalence
+      result: pass
+      details: "All 9 CQs produce identical row counts on both paths"
+  tests_passed: 9
+  tests_failed: 0
+  reviewer_comments_addressed: 0
+  first_pass_quality_pct: ~70
+
+process:
+  agent_failures: 0
+  retries: 1
+  rework_files: 1
+  blocked_minutes: 0
+  blockers: none
+  perception_note: >
+    Efficient session. 5 agents parallelized well (research, comparison, report drafting).
+    3 bugs found and fixed. The Fuseki empty-results issue was a surprise second bug
+    discovered during validation — caught by testing both paths end-to-end.
+    Script bug (getattr vs positional index) was subtle. ~75 min wall clock for
+    3 bug fixes + reusable script + trade report + PDF.

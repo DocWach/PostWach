@@ -1,0 +1,105 @@
+# =============================================================================
+# Session Productivity Scorecard
+# =============================================================================
+
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: "2026-03-06-postwach-01"
+  date: "2026-03-06"
+  hive: "PostWach"
+  researcher: "Paul F. Wach"
+  start_time: "09:00"
+  end_time: "10:30"
+  task_summary: >
+    DARPA CLARA deep dive and abstract drafting. Ingested two new .docx documents
+    (UTTE exec summary, UTM funding landscape), verified solicitation details,
+    corrected errors in prior materials, drafted and revised CLARA TA1 abstract,
+    fixed hallucinated references across 3 rounds, assessed AIQ and NIST SBIR viability.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: spec
+      name: "CLARA abstract rewrite (clara_abstract.md)"
+      action: modified
+      lines: 107
+      files: 1
+    - type: other
+      name: "CLARA abstract PDF (v3)"
+      action: created
+      lines: 0
+      files: 1
+    - type: config
+      name: "isomorphism-library references.bib corrections"
+      action: modified
+      lines: 10
+      files: 1
+    - type: review
+      name: "UTTE doc review — identified 5 factual errors"
+      action: reviewed
+      lines: 0
+      files: 1
+    - type: review
+      name: "UTM funding landscape review — assessed 5 programs"
+      action: reviewed
+      lines: 0
+      files: 1
+    - type: analysis
+      name: "AIQ + NIST SBIR viability assessment"
+      action: created
+      lines: 0
+      files: 0
+  total_files_created: 2
+  total_files_modified: 2
+  total_lines_written: 117
+  pages_produced: 3.5
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: "none"
+  model_primary: "claude-opus-4-6"
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls:
+  context_compressions: 0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: "Reference verification"
+      result: "fail → pass (3 rounds)"
+      details: >
+        Round 1: Caught hallucinated ASME IDETC paper, fake Paredis co-authorship,
+        non-existent WySE standalone pub. Round 2: Caught wrong dissertation title
+        and university (Arizona → Virginia Tech). Round 3: Fixed Wach & Salado 2024
+        to correct INCOSE Dublin paper. Also fixed source .bib.
+    - gate: "Solicitation fact-check"
+      result: "pass"
+      details: >
+        Verified CLARA deadline (Apr 10), PM (Grosof/DSO not Jha/I2O),
+        AIQ closed (Aug 2024, not Jun 2026), NIST SBIR in limbo.
+    - gate: "PDF generation"
+      result: "pass"
+      details: "pandoc + xelatex, Times New Roman 11pt"
+  tests_passed: 3
+  tests_failed: 0
+  reviewer_comments_addressed: 5
+  first_pass_quality_pct: 40
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 2
+  rework_files: 1
+  blocked_minutes: 5
+  blockers: "PDF file lock (old PDF open), WebFetch blocked for darpa.mil/sam.gov domains"
+  perception_note: >
+    Mixed. Web research was fast. Abstract drafting was efficient. But reference
+    hallucination required 3 correction rounds — the combined_draft.md itself
+    contained AI-generated references that were wrong, and the .bib file had
+    wrong dissertation title/university. Low first-pass quality on references
+    dragged down overall efficiency.

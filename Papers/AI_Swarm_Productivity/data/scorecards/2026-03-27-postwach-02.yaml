@@ -1,0 +1,85 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA ---
+session:
+  id: 2026-03-27-postwach-02
+  date: 2026-03-27
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "14:00"
+  end_time: "20:00"
+  task_summary: >
+    Corrected 144-cell shall statement assessment (v1 to v2) separating method
+    potential from domain value. 4 parallel correction agents. Created v2 HTML
+    walkthrough with executive summary roll-up. Discussed writing plan for April 15.
+
+# --- D1: OUTPUT VOLUME ---
+output:
+  artifacts:
+    - type: analysis
+      name: Shall Statement Assessment v2 summary (md + pdf)
+      action: created
+      lines: 300
+      files: 2
+    - type: analysis
+      name: Shall Statement v2 HTML walkthrough with exec summary
+      action: created
+      lines: 400
+      files: 1
+    - type: analysis
+      name: v2 detail files (4 outcome-pair files)
+      action: created
+      lines: 1400
+      files: 4
+  total_files_created: 7
+  total_files_modified: 0
+  total_lines_written: 2100
+  pages_produced: 14
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 4
+  swarm_topology: star
+  model_primary: claude-opus-4-6
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls:
+  context_compressions: 0
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: v2 consistency with Alejandro manual assessment
+      result: pass
+      details: Q1/Q2/Q3=Yes for 5 of 8 outcomes matches Alejandro. 3 outcomes correctly show partial/no for representation limits.
+    - gate: v1 to v2 delta audit
+      result: pass
+      details: All changes documented with justification. 19 cells changed from No to Yes/Partial. v1 retained for audit trail.
+    - gate: Evidence classification improvement
+      result: pass
+      details: ESTABLISHED up from 24% to 38%; SYNTHETIC down from 20% to 13%.
+    - gate: Executive summary roll-up accuracy
+      result: pass
+      details: Roll-up correctly aggregates across 8 outcomes. Green Q1/Q2/Q3, red Expected/Measured.
+  tests_passed: 4
+  tests_failed: 0
+  reviewer_comments_addressed: 1
+  first_pass_quality_pct: 100
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 0
+  retries: 0
+  rework_files: 2
+  blocked_minutes: 0
+  blockers: none
+  perception_note: >
+    Clean correction session. The v1 to v2 rework was the right call; Option A
+    (correct the cells) was indeed better than Options B/C (reframe or synthesize).
+    The user correctly identified why: the cells should answer the question they
+    were designed to answer, not a reinterpreted question. The executive summary
+    roll-up chart went through two iterations (per-outcome detail first, then
+    aggregated roll-up) before matching the user's intent. Final product is
+    consistent with Alejandro's assessment and adds the representation-limited
+    nuance for O3/O4/O8.

@@ -1,0 +1,104 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: "2026-03-02-nnsa-02"
+  date: "2026-03-02"
+  hive: "MACQ"
+  researcher: "P. Wach"
+  start_time:                # not captured
+  end_time:                  # not captured
+  wall_clock_hours_override: 4.0  # estimated from effort report
+  task_summary: "Complete WRT-2516-v2 SERC technical report — Wave 3 finish (Ch 11 from background), Wave 4 (3 agents), 11 TikZ figures (3 agents), references expansion (29 to 89), executive summary. Final: 167 pages, zero errors."
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: paper_section
+      name: "Ch 11 (full assessment — background agent from Session 1)"
+      action: created
+      lines: 560
+      files: 1
+    - type: paper_section
+      name: "Ch 1 (introduction and motivation)"
+      action: created
+      lines: 257
+      files: 1
+    - type: paper_section
+      name: "Ch 13 (discussion, limitations, future work)"
+      action: created
+      lines: 481
+      files: 1
+    - type: paper_section
+      name: "App C (literature landscape)"
+      action: created
+      lines: 204
+      files: 1
+    - type: paper_section
+      name: "Executive summary"
+      action: created
+      lines: 60
+      files: 1
+    - type: other
+      name: "11 TikZ figures (3 parallel agents)"
+      action: created
+      lines: 550
+      files: 11
+    - type: other
+      name: "References expanded (29 to 89 entries)"
+      action: modified
+      lines: 600
+      files: 1
+  total_files_created: 16
+  total_files_modified: 2
+  total_lines_written: 2712
+  pages_produced: 66
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 7
+  swarm_topology: "hierarchical"
+  model_primary: "claude-opus-4-20250514"
+  tokens_input:              # not available retroactively
+  tokens_output:             # not available retroactively
+  total_cost_usd:            # not available retroactively
+  tool_calls:                # not available retroactively
+  context_compressions:      # not available retroactively
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: "LaTeX compilation"
+      result: pass
+      details: "167 pages, zero errors, zero undefined references"
+    - gate: "TikZ figure compilation"
+      result: partial
+      details: "4 compilation issues fixed: cellcolor conflict, step style conflict, underscore in pgfmath, radar chart rewrite"
+    - gate: "Cross-reference resolution"
+      result: pass
+      details: "Zero undefined references at final compilation"
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed:
+  first_pass_quality_pct: 85
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 4
+  rework_files: 3
+  blocked_minutes: 0
+  blockers: "none — 4 compilation fixes required (cellcolor, TikZ step style, pgfmath underscores, radar chart) but resolved inline"
+  perception_note: "retroactive — not captured in real time"
+
+# --- DERIVED (do not fill — computed by script) ---
+# derived:
+#   wall_clock_hours:
+#   pages_per_hour:
+#   lines_per_hour:
+#   cost_per_page:
+#   cost_per_file:
+#   agent_utilization:
+#   tokens_per_artifact:
+#   rework_ratio:
+#   comment: "computed by script"

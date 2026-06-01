@@ -1,0 +1,60 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-03-31-postwach-04
+  date: 2026-03-31
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: ""
+  end_time: ""
+  task_summary: "Reviewed NNSA project context and iteratively drafted a postdoc tasks and responsibilities document, then generated a Word file."
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: other
+      name: "Postdoc Tasks and Responsibilities Word doc"
+      action: created
+      lines: 80
+      files: 1
+    - type: code
+      name: "Word doc generator script"
+      action: created
+      lines: 95
+      files: 1
+  total_files_created: 2
+  total_files_modified: 0
+  total_lines_written: 175
+  pages_produced: 2
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 1
+  swarm_topology: none
+  model_primary: claude-opus-4-6
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls:
+  context_compressions: 0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: "User iterative review"
+      result: pass
+      details: "3 revision rounds with user feedback incorporated"
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed: 3
+  first_pass_quality_pct:
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 1
+  rework_files: 0
+  blocked_minutes: 0
+  blockers: "none"
+  perception_note: "Fast iterative drafting; user-driven structure was more efficient than AI-inferred structure"

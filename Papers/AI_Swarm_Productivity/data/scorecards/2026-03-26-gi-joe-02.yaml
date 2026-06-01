@@ -1,0 +1,80 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: "2026-03-26-gi-joe-02"
+  date: "2026-03-26"
+  hive: "GI-JOE"
+  researcher: "Paul F. Wach"
+  start_time: ""
+  end_time: ""
+  task_summary: >
+    Reviewed MOACRA Cyber Rosetta Framework v6 and volunteer guidance for potential
+    USARMT sponsor engagement. Produced sponsor-facing technical assessment PDF (v1),
+    PostWach revised to v2 with R016 maturity tags and supporting evidence section.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: review
+      name: "MOACRA framework analysis (docx + xlsx 4 tabs)"
+      action: reviewed
+      lines: 0
+      files: 2
+    - type: other
+      name: "Technical assessment PDF v1 (MOACRA_Technical_Assessment_Wach.pdf)"
+      action: created
+      lines: 210
+      files: 1
+    - type: other
+      name: "Technical assessment PDF v2 (PostWach revision with R016 tags, evidence section)"
+      action: modified
+      lines: 290
+      files: 1
+    - type: code
+      name: "PDF generator script (reportlab)"
+      action: created
+      lines: 280
+      files: 1
+  total_files_created: 3
+  total_files_modified: 1
+  total_lines_written: 290
+  pages_produced: 5
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: "none"
+  model_primary: "claude-opus-4-6"
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls:
+  context_compressions: 0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: "R016 maturity tagging"
+      result: "pass"
+      details: "PostWach applied (a)/(b) tags to all capabilities in v2; reviewed and confirmed accurate"
+    - gate: "Sponsor-readiness review"
+      result: "pass"
+      details: "v2 reviewed — transparency note, evidence section, maturity tags all strengthen credibility"
+  tests_passed: 0
+  tests_failed: 0
+  reviewer_comments_addressed: 0
+  first_pass_quality_pct: 85
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 1
+  rework_files: 0
+  blocked_minutes: 0
+  blockers: "none"
+  perception_note: >
+    Efficient single-agent session. Framework review, framing debate, and PDF generation
+    completed in one pass. PostWach v2 revision added material improvements (R016 tags,
+    evidence section) that would have been hard to anticipate without the initial draft
+    as a baseline. Good example of human-AI iteration on a deliverable.
