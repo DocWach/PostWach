@@ -10,6 +10,8 @@ claude-flow.config.json
 !.claude-flow/guidance-bridge.json
 !.claude-flow/swarm-config.json
 !.claude-flow/pipeline-config.json
+# Nested .claude-flow runtime state inside paper subdirs (root rule is anchored)
+Papers/**/.claude-flow/
 memory/
 coordination/
 memory/claude-flow-data.json
