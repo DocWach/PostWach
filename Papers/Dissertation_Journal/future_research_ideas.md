@@ -589,8 +589,76 @@ Neuromorphic computing explicitly mimics biological neural architecture in silic
 
 ---
 
+## 27. Transitivity of Morphisms
+
+**Working Title:** *Formal Conditions for Transitive Composition of Morphic Relationships in Systems Engineering*
+
+**Problem Statement:**
+If a morphic relationship holds between systems A and B, and a morphic relationship holds between systems B and C, does a morphic relationship hold between A and C? Under what conditions? Transitivity is a foundational property that determines whether a library of morphic patterns can compose into longer chains without loss of formal guarantees. Current morphism work in systems engineering does not formalize the conditions under which transitivity holds, which limits reuse across design layers and abstraction levels.
+
+**Research Approach:**
+- Formalize transitivity in the T3SD and WySE metamodel settings
+- Identify conditions (surjectivity, structure preservation, behavioral closure) under which A->B and B->C implies A->C
+- Distinguish strict isomorphic transitivity from partial-morphism transitivity
+- Connect to degree-of-homomorphism metric (Idea 6): how do degrees compose across a chain?
+- Worked examples from the isomorphism library (Idea 5)
+
+**Target Venues:**
+- Systems Engineering (Wiley)
+- CSER
+- INCOSE IS
+
+**Status:** Idea captured (April 21, 2026). Source: SESSION_ARCHIVE_2026-04-05_postwach-01.md (Future Work Items surfaced during CSER 2026 Morphisms revision).
+
+---
+
+## 28. Nonlinear and Stochastic Morphism Extensions
+
+**Working Title:** *Extending Formal Morphism Frameworks Beyond Linear Time-Invariant Assumptions*
+
+**Problem Statement:**
+The current formal treatment of morphic relationships in systems engineering rests heavily on linear time-invariant (LTI) dynamics, with mass-spring-damper and RLC circuit analogies as canonical examples. Most real engineered systems are nonlinear, stochastic, or both. Without formal extensions, the library of morphic patterns remains narrow, and the degree-of-homomorphism metric cannot be applied to hybrid, stochastic, or nonlinear systems.
+
+**Research Approach:**
+- Characterize morphism conditions for nonlinear state-space models
+- Extend degree-of-homomorphism (Idea 6) and behavioral distance metrics to stochastic settings (e.g., morphisms between stochastic differential equations and Markov decision processes)
+- Identify which classes of nonlinearity admit structural morphism (e.g., bilinear systems, polynomial systems, differentially flat systems)
+- Connect to Idea 11 (DEVS/T3SD sufficiency) by testing which formalism handles nonlinear and stochastic cases better
+
+**Target Venues:**
+- IEEE Transactions on Automatic Control
+- Automatica
+- Systems Engineering (Wiley)
+- INCOSE IS
+
+**Status:** Idea captured (April 21, 2026). Source: SESSION_ARCHIVE_2026-04-05_postwach-01.md. Potential NSF funding angle given scope.
+
+---
+
+## 29. s-Domain and z-Domain Conceptual Resolution
+
+**Working Title:** *Are Signal-Domain Transforms Systems? A Formal Treatment of Laplace and z-Transform Domains within Wymore's Systems Theory*
+
+**Problem Statement:**
+The Laplace (s-domain) and z-transform (z-domain) representations are central tools in control systems and signal processing, but their status as "systems" within Wymore's formalism is unclear. Are they alternative representations of the same system, or are they distinct systems related by morphism? This conceptual ambiguity gates catalog inclusion for the isomorphism library (Idea 5): without resolution, transform-domain entries cannot be formally characterized.
+
+**Research Approach:**
+- Formalize the status of signal-domain transforms within T3SD
+- Characterize the morphism (if any) between time-domain and transform-domain representations
+- Treat discretization (time-domain to z-domain) as a functor in categorical terms (connects to Idea 16)
+- Clarify implications for the degree-of-homomorphism metric (Idea 6) when source and target live in different domains
+
+**Target Venues:**
+- Systems Engineering (Wiley)
+- IEEE Transactions on Systems, Man, and Cybernetics
+- CSER
+
+**Status:** Idea captured (April 21, 2026). Source: SESSION_ARCHIVE_2026-04-05_postwach-01.md. Methodological prerequisite for catalog completion in Idea 5.
+
+---
+
 *File created: January 25, 2026*
-*Last updated: February 25, 2026*
+*Last updated: April 21, 2026*
 
 **Ideas captured:**
 1. SysML v2 Mathematical Rigor Analysis
@@ -619,3 +687,6 @@ Neuromorphic computing explicitly mimics biological neural architecture in silic
 24. Tacit Knowledge Formalization via Morphism Elicitation ← NSF Year 3
 25. Design Decision Traceability to Morphism Assumptions ← NSF Year 3
 26. Neuromorphic Computing as Engineered Neural Morphism
+27. Transitivity of Morphisms ← Added April 21, 2026
+28. Nonlinear and Stochastic Morphism Extensions ← Added April 21, 2026
+29. s-Domain and z-Domain Conceptual Resolution ← Added April 21, 2026
