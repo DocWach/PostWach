@@ -1,0 +1,44 @@
+graph TD
+    ROOT["Agent Architectures"] --> CLASSICAL["Classical"]
+    ROOT --> LLM["LLM-Based"]
+
+    CLASSICAL --> REACTIVE["Reactive\n(Subsumption)"]
+    CLASSICAL --> DELIB["Deliberative\n(BDI)"]
+    CLASSICAL --> HYBRID["Hybrid\n(Layered)"]
+
+    REACTIVE -.- R_SE["SE fit: Monitoring,\nreal-time response"]
+    DELIB -.- D_SE["SE fit: Structured tasks,\nexplainable decisions"]
+    HYBRID -.- H_SE["SE fit: Balanced tasks,\nroutine + complex"]
+
+    LLM --> SINGLE["Single-Agent"]
+    LLM --> MULTI["Multi-Agent"]
+
+    SINGLE --> REACT_P["ReAct\n(Reasoning + Acting)"]
+    SINGLE --> TOOL["Tool-Augmented\n(MCP, APIs)"]
+    SINGLE --> MEM["Memory-Augmented\n(RAG, vector stores)"]
+
+    MULTI --> ROLE["Role-Based\n(MetaGPT, CrewAI)"]
+    MULTI --> CONV["Conversational\n(AutoGen)"]
+    MULTI --> GRAPH["Graph-Orchestrated\n(LangGraph)"]
+    MULTI --> HANDOFF["Lightweight Handoff\n(OpenAI Swarm)"]
+
+    SINGLE --> AUTO["Autonomous SE Agents"]
+    AUTO --> SWE["SWE-agent"]
+    AUTO --> OH["OpenHands"]
+    AUTO --> DEV["Devin"]
+    AUTO --> CC["Claude Code"]
+
+    subgraph CONVERGE["Convergent Cognitive Architecture"]
+        direction LR
+        CORE["LLM Core\n(Reasoning)"] --> TOOLS_C["Tool Use\n(Environment)"]
+        TOOLS_C --> MEM_C["Memory\n(Persistence)"]
+        MEM_C --> PLAN["Planning Loop\n(Observe, Think, Act)"]
+        PLAN --> CORE
+    end
+
+    LLM -.->|"All adopt\ncommon pattern\n(Sec. 3.7)"| CONVERGE
+
+    style CONVERGE fill:#f0f4ff,stroke:#4a6fa5,stroke-width:2px
+    style ROOT fill:#e8e8e8,stroke:#333
+    style CLASSICAL fill:#fff3e0,stroke:#e65100
+    style LLM fill:#e3f2fd,stroke:#1565c0

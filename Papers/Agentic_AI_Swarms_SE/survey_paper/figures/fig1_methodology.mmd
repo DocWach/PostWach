@@ -1,0 +1,15 @@
+flowchart TD
+    A["Database Search\nIEEE Xplore, ACM DL,\nSpringer, Elsevier, arXiv\n(Jan 2018 – Dec 2025)"] --> B["Initial Results\n~2,400 records"]
+    B --> C{"Title & Abstract\nScreening"}
+    C -->|Excluded ~2,220| D["Excluded:\nNot multi-agent,\nNo SE relevance,\nDuplicate"]
+    C -->|Retained ~180| E["Full-Text\nEligibility Review"]
+    F["Supplementary Sources\nCitation following,\nExpert recommendation,\narXiv monitoring"] --> E
+    E --> G{"Inclusion\nCriteria"}
+    G -->|Excluded| H["Excluded:\nPurely theoretical,\nNo generalizable\ncontribution"]
+    G -->|Included ~150+| I["Final Corpus\n~150+ publications"]
+    I --> J["Synthesis &\nTaxonomic Analysis"]
+    J --> K["Architectures\n(Sec. 3)"]
+    J --> L["Coordination\n(Sec. 4)"]
+    J --> M["Applications\n(Sec. 5)"]
+    J --> N["Evaluation\n(Sec. 6)"]
+    J --> O["Tools\n(Sec. 7)"]
