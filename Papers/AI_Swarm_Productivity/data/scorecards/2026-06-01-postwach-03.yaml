@@ -12,8 +12,8 @@ session:
   date: 2026-06-01
   hive: PostWach
   researcher: Paul Wach
-  start_time: "10:30"     # approximate
-  end_time: "16:00"       # approximate; includes background-agent wait time
+  start_time: "10:30"     # approximate (2026-06-01)
+  end_time: "08:30"       # approximate, terminated on 2026-06-02 (cross-midnight session including ruvnet-scope discussion)
   task_summary: |
     Portfolio-wide git working-tree cleanup across 9 hives + partial execution
     of the directory restructure (memory key migration, path rewrites, Alpha
@@ -75,6 +75,11 @@ output:
       action: created
       lines: 60               # captured in task #28 description
       files: 0                # in-memory; persisted to task description
+    - type: analysis
+      name: ruvnet-imprint scope + scrub-vs-prevent assessment (32-repo inventory cross-referenced; 217 commits + 240 files mapped; 5 prevention moves + 3 scrub options surfaced)
+      action: reviewed
+      lines: 130              # captured in archive §5b
+      files: 1                # archive update
   total_files_created: 770    # rough; 324 PostWach + 190 GI-JOE + 143 SEAD + 91 SysMLv2 + 22 small + 0 small misc
   total_files_modified: 60    # gitignores, statusline, MEMORY.md path rewrites, claude.json backup
   total_lines_written: 40100  # sum of artifact lines; dominated by scorecard backfill + ontology batches

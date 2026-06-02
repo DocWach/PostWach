@@ -139,6 +139,45 @@ Pause OneDrive sync first if available. Fallback: restart Windows, run Rename-It
 
 ---
 
+## 5b. Late-session: ruvnet-imprint scope + scrub-vs-prevent assessment
+
+User raised the question "What would it take to scrub ruvnet imprint on all of DocWach repos and not make it happen again?" Cross-referenced against the existing `docs/ruvnet_markings_inventory_2026-04-16.md` (32 repos cataloged in April).
+
+**Current scope (across 9 active hives):**
+- ~217 commits carry `Co-Authored-By: claude-flow <ruv@ruv.net>` trailer (76% of total). This session added ~80.
+- 240 tracked files contain `ruvnet|ruv-flow|ruv@ruv.net|@ruv` — concentrated in `.claude/{commands,helpers,skills}/` and helper scripts.
+- 11 of 32 inventoried repos have a `cf-dir` (`.claude-flow/`) tree.
+- 0 ruvnet-authored commits in DocWach repos — imprint is via trailer + tracked-content only.
+- The April inventory is stale on two specifics: lists `01_Alpha_Impress_Disruptor` (reverted this session to "Alpha Empress") and `DocWach/JOE-G` remote for GI-JOE.
+
+**Five sources of the imprint (so prevention works):**
+1. The `Co-Authored-By` trailer in the default Claude Code commit template (HEREDOC pattern). Dominant by volume.
+2. `claude-flow init`-seeded `.claude/{commands,helpers,skills}/` content
+3. Helper scripts (auto-memory-hook.mjs etc.) with attribution baked into their headers
+4. `.claude-flow/` runtime dirs (now gitignored portfolio-wide via task #24)
+5. `package.json` deps on `@ruv-flow/*` packages
+
+**Three scrub options surfaced:**
+- A: trailer scrub only (cheapest, 1.5h, force-push all repos)
+- B: trailer + tracked-content scrub (3-6h)
+- C: targeted scrub of 9 active hives only, leave archived (recommended, 1-2h)
+
+**Five prevention moves recommended:**
+1. Strip the Co-Authored-By trailer from CLAUDE.md commit-template guidance (~10 min)
+2. Tighten the hybrid gitignore policy to cover `.claude/commands/`, `.claude/helpers/`, `.claude/skills/` (extending this session's `.claude/agents/*` decision) — would remove ~85% of tracked-file refs going forward
+3. Deploy pre-commit hook in each hive that blocks `ruv@ruv.net|@ruvnet|ruvnet/` markers
+4. Custom-author the actively-used helper scripts under user's name
+5. Branch-protection status check on GitHub side as backstop
+
+**Decision deferred** — user asked the assessment but did not commit to a path. Three options offered:
+- (a) Build prevention plumbing now
+- (b) Write + dry-run the scrub script against PostWach
+- (c) Both, scheduled as their own follow-up session
+
+Captured as a follow-up task pending decision.
+
+---
+
 ## 6. Deferred / open items (after rename attempt)
 
 | # | Item | Owner / next step |
