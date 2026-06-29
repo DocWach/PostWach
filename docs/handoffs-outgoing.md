@@ -18,6 +18,7 @@ Approved as a short-term fix by Alpha Empress (COO) on 2026-04-21, tagged provis
 | SEAD-TRAK-001 | 2026-04-12 | SEAD | TRAK Workbench: containerization + CI/CD | Filed | `02 Hives/09 SEAD/tickets/TRAK_Workbench_SEAD_Handoff_2026-04-12.md` |
 | SEAD-VTSC-001 | 2026-04-21 | SEAD | VT Supply Chain: memory, determinism, reproducible build | Completed (R1 accepted, commits `10006ab`, `675dd7e`) | `02 Hives/09 SEAD/tickets/VTSupplyChain_SEAD_Handoff_2026-04-21.md` → `VTSupplyChain_PostWach_Completion_2026-04-21.md` |
 | SEAD-VTSC-002 | 2026-04-21 | SEAD | VT Supply Chain: lock regen on x86_64 + Dockerfile | Filed | `02 Hives/09 SEAD/tickets/VTSupplyChain_SEAD_Followup_2026-04-21.md` |
+| GI-JOE-QUADS-001 | 2026-06-29 | GI-JOE | Named-graph / quad-store / RDF-star dataset capability | Completed (ACCEPTED 2026-06-29 by independent PostWach CTO verification; Phases A+B (b) demonstrated; Phase C → own ticket) | `01 Hives/02 GI-JOE/tickets/Named_Graph_Quad_Store_Capability_2026-06-29.md` → `..._PostWach_Completion_2026-06-29.md` → `..._PostWach_Acceptance_2026-06-29.md` |
 
 ## Maintenance
 
