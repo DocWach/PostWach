@@ -1,0 +1,82 @@
+# PROVENANCE: claude-fable-5[1m] (Anthropic, Claude Code CLI), PostWach session 2026-06-13 postwach-01.
+schema_version: "1.0"
+
+session:
+  id: 2026-06-13-postwach-01
+  date: 2026-06-13
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "08:00"
+  end_time: "08:50"
+  task_summary: >
+    Close out DEVS-ME IS 2026 #427: advisory sweep producing V8 (Laszlo initial,
+    beneficiaries, MOE/SNR/SFU/KerML first-use expansions, Zeigler 2018 3-author
+    correction + et-al alignment + APA tail reorder), page-spill reclaim via
+    bio-table spacing, gate + visual re-verification, submission package
+    extraction. Principal SUBMITTED V8 this session; thread closed.
+
+output:
+  artifacts:
+    - type: paper_section
+      name: Math-Based_Data_ME-V8.docx/.pdf (advisory sweep, submitted version)
+      action: created
+      lines: 0
+      files: 2
+    - type: code
+      name: _apply_v7_to_v8.py transform script
+      action: created
+      lines: 150
+      files: 1
+    - type: other
+      name: Submission package (abstract, keywords, metadata) + memory updates + archive + scorecard
+      action: created
+      lines: 160
+      files: 3
+  total_files_created: 6
+  total_files_modified: 2
+  total_lines_written: 310
+  pages_produced: 2
+
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: none
+  model_primary: claude-fable-5[1m]
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: 24
+  context_compressions: 0
+
+quality:
+  gates_run:
+    - gate: refcheck.py --strict (R019) on V8 bibliography
+      result: pass
+      details: 39/45 auto-matched; same 6 known parser false negatives (year-suffix, n.d.) previously hand-verified
+    - gate: pandoc V7-V8 extract diff
+      result: pass
+      details: Change set exactly matched intent; also exposed the italic-flattening regression on the Zeigler 2018 entry (fixed)
+    - gate: Visual inspection of rasterized V8 pages (1, 8-11, 15 after reflow)
+      result: pass
+      details: Figures/captions intact after +32-word reflow; bios fit on p15 after spacing reclaim
+    - gate: Word COM render statistics
+      result: pass
+      details: 15 pages, 7,076 total words (~6,020 body vs 7,000 limit)
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed: 5
+  first_pass_quality_pct: 80
+
+process:
+  agent_failures: 0
+  retries: 0
+  rework_files: 1
+  blocked_minutes: 0
+  blockers: none
+  perception_note: >
+    Fast close-out: full advisory sweep + verification + submission package in
+    ~50 minutes. Two render-discovered follow-ups (italic title flattened by
+    plain-text replacement; bio lines re-spilled to a 16th page) were both
+    caught by the established verification stack (pandoc diff for formatting,
+    page-count + rasterized inspection for layout), validating the V7-session
+    camera-ready definition as a reusable checklist. Paper submitted; thread
+    closed same session.

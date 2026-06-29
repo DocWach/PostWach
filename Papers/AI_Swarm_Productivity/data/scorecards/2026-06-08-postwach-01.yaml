@@ -1,0 +1,102 @@
+# =============================================================================
+# Session Productivity Scorecard — 2026-06-08 postwach-01
+# =============================================================================
+
+schema_version: "1.0"
+
+# --- SESSION METADATA ---
+session:
+  id: 2026-06-08-postwach-01
+  date: 2026-06-08
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "08:30"
+  end_time: "17:15"
+  task_summary: >
+    Pre-meeting brief for principal's sync with Thomas Tenorio (TDAC) followed by
+    post-meeting notes synthesis. Inventory of MOACRA proposal folder (renamed
+    from MOCRA), read of Tom's 15-slide June 4 management brief, characterization
+    of June 3 email thread, and synthesis of principal's post-meeting notes into
+    10 explicit UofA asks plus institutional-network detail. Read-only session;
+    no documents drafted.
+
+# --- D1: OUTPUT VOLUME ---
+output:
+  artifacts:
+    - type: review
+      name: Pre-meeting brief on MOACRA folder + Tom's June 4 management brief + Jun 3 email thread
+      action: created
+      lines: ~85
+      files: 1
+    - type: review
+      name: Post-meeting notes synthesis (10 explicit UofA asks + institutional map + open items)
+      action: created
+      lines: ~80
+      files: 1
+    - type: other
+      name: Session archive
+      action: created
+      lines: ~160
+      files: 1
+    - type: other
+      name: Productivity scorecard
+      action: created
+      lines: ~85
+      files: 1
+  total_files_created: 2
+  total_files_modified: 0
+  total_lines_written: ~245
+  pages_produced: ~4
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: none
+  model_primary: claude-opus-4-7
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: ~15
+  context_compressions: 0
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: pre-meeting brief delivered before deadline
+      result: pass
+      details: Brief delivered well within the 18-minute window the principal opened with
+    - gate: principal acknowledged meeting outcome
+      result: pass
+      details: "Principal: 'The meeting went well'"
+    - gate: memory currency check
+      result: partial
+      details: System reminder flagged project_mocra_proposal.md as 6 days stale; staleness incorporated into brief framing but memory not updated this session (deferred)
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed:
+  first_pass_quality_pct: ~95
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 0
+  retries: 2
+  rework_files: 0
+  blocked_minutes: ~2
+  blockers: >
+    Two minor PowerShell stumbles: (a) initial folder lookup failed because folder
+    had been renamed MOCRA -> MOACRA since prior session (recovered via parent
+    directory listing); (b) Expand-Archive refused .pptx extension when extracting
+    TRMC_MOACRA_Flow_Brief_Fixed.pptx slide XML (skipped; the June 4 PDF brief was
+    the centerpiece and was readable directly via Read tool).
+  perception_note: >
+    Reactive, time-pressured session. Three discrete engagements (ruflo warm-up,
+    pre-meeting brief, post-meeting synthesis) spanning ~8.75 hours wall-clock
+    but only ~25-30 minutes of agent active time. Felt faster than manual would
+    have been for the pre-meeting brief specifically: inventorying a folder,
+    reading a 15-slide PDF, cross-referencing 6-day-old memory, and synthesizing
+    against an email thread inside an 18-minute window is the kind of compression
+    that justifies the AI assist. Post-meeting synthesis was lower marginal value
+    (the notes were already well-structured by the principal) but extracted the
+    10 explicit UofA asks cleanly and surfaced the "MBCRA not owned by
+    acquisition" + "counter to Palantir" risk flags. No swarm needed; single-
+    thread Opus was correct topology for analytic load.

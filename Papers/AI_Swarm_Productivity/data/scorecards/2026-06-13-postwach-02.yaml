@@ -1,0 +1,94 @@
+# PROVENANCE: claude-opus-4-8[1m] (Anthropic, Claude Code CLI), PostWach session 2026-06-13 postwach-02.
+schema_version: "1.0"
+
+session:
+  id: 2026-06-13-postwach-02
+  date: 2026-06-13
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "09:05"
+  end_time: "09:55"
+  task_summary: >
+    STIDS 2026 MTO camera-ready: applied four principal corrections to the
+    06-04 .tex (source of record) + synced MD precursor + paper-local bib.
+    (1) JCIDS "now retired" in §2.1; (2) Figure 1 pinned into §4.1 and
+    (3) Table 2 into §5.2 via [t]->[h!] (float-pkg [H] clobbered by CEURART);
+    (4) UAOS spelled out "University of Arizona Ontology Stack" + cites
+    gregory2024sestack (UAOS) and opencaesar2026oml (OML repo), both already
+    R019-approved. Re-rendered new 06-13 canonical PDF; re-gated all green;
+    memory updated. Principal reviewing.
+
+output:
+  artifacts:
+    - type: paper_section
+      name: Authoring_Mission_Threads_MTO_STIDS_2026-06-13.pdf (new canonical, 20pp)
+      action: created
+      lines: 0
+      files: 1
+    - type: paper_section
+      name: STIDS .tex (5 edits) + stids2026_mto.bib (2 entries) + MD precursor (3 edits)
+      action: modified
+      lines: 35
+      files: 3
+    - type: other
+      name: Memory updates (project_stids_mto_paper.md + MEMORY.md) + archive + scorecard
+      action: created
+      lines: 215
+      files: 4
+  total_files_created: 3
+  total_files_modified: 5
+  total_lines_written: 250
+  pages_produced: 0
+
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: none
+  model_primary: claude-opus-4-8[1m]
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: 41
+  context_compressions: 0
+
+quality:
+  gates_run:
+    - gate: refcheck.py --strict (R019) on MD precursor
+      result: pass
+      details: 25/25 exit 0; entry #24 disambiguated to gregory2024sestack among 3 Gregory-2024 candidates via title tokens
+    - gate: CEUR check-pdf-errors (8 checks)
+      result: pass
+      details: 8/8 ok exit 0 on the 06-13 PDF (Declaration, logo, Libertinus, dup, leftover, one-column all ok)
+    - gate: check-libbyhead.py
+      result: pass
+      details: exit 0
+    - gate: pdffonts embedded-font check
+      result: pass
+      details: all fonts emb=yes; Libertinus Serif/Sans/Mono present; zero non-embedded
+    - gate: LaTeX build (pdflatex/bibtex chain)
+      result: pass
+      details: 20 pages, 0 errors, 0 undefined citations, 0 bibtex db warnings
+    - gate: pdftotext -layout placement verification
+      result: pass
+      details: Figure 1 between §4.1/§4.2 headings; Table 2 between §5.2/§5.3; JCIDS + UAOS text rendered
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed: 4
+  first_pass_quality_pct: 85
+
+process:
+  agent_failures: 0
+  retries: 1
+  rework_files: 1
+  blocked_minutes: 0
+  blockers: none
+  perception_note: >
+    Efficient targeted-corrections session. Investigation paid off: both new
+    references turned out to already be R019-approved in approved.bib (no
+    refverify chain needed), and UAOS provenance was verifiable internally
+    (avoided a hallucinated expansion). One rework cycle: the first float-pin
+    attempt used the float package's [H], which CEURART silently clobbers
+    ("Unknown float option H" at build) — caught immediately by halt-on-error,
+    switched to [h!], re-rendered clean. Discuss-before-executing honored: laid
+    out the plan + one AskUserQuestion on citation form before touching the
+    camera-ready. One open judgment item surfaced for the principal (UAOS
+    "Stack" vs "Suite").

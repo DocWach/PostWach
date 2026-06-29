@@ -1,0 +1,100 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-06-22-finance-bro-01
+  date: 2026-06-22
+  hive: Finance Bro
+  researcher: Paul Wach
+  start_time: "12:40"        # approximate (from data-file mtimes; first DOL zip 12:43)
+  end_time: "14:40"          # approximate (last generated artifact 14:29)
+  task_summary: >
+    Build the Form 5500-SF prospecting reporting vertical: a reproducible report generator over
+    DOL bulk data. Scope grew via principal steers from a single-year 500-row sample to full
+    datasets for 9 plan years (2016-2024), a YoY trend + synthesis report, a 2022 structural-break
+    investigation, matplotlib figures, and a branded interactive Plotly HTML dashboard
+    (WySE Labs LLC), restructured to lead with summary + prioritized recommendations and split
+    into a PII-free shareable build and an internal named-targets build.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: code
+      name: report_form5500.py — report generator (single-year streaming/top-N; --trend YoY synthesis + recommendations + 2022-break; --html Plotly dashboard; matplotlib figures; --targets PII split)
+      action: created
+      lines: 1063
+      files: 1
+    - type: analysis
+      name: 9-year trend + synthesis report (markdown) and two full-data single-year reports (2023, 2024)
+      action: created
+      lines: 0          # generated output, not hand-authored
+      files: 3
+    - type: other
+      name: Interactive Plotly HTML dashboards — shareable (PII-free) + internal (named targets); 6 embedded matplotlib figures
+      action: created
+      lines: 0          # generated output
+      files: 8          # 2 html + 6 png
+    - type: config
+      name: First Finance Bro session archive (docs/session-archives)
+      action: created
+      lines: 56
+      files: 1
+    - type: other
+      name: Full-dataset ingest of 9 plan-year SF prospect tables (real DOL data, 5.96M filings)
+      action: created
+      lines: 0          # data extraction, not authored lines
+      files: 9          # prospect CSVs (+ 7 downloaded source zips)
+  total_files_created: 22       # 1 script + 1 archive (committed) + 3 reports + 2 html + 6 png + 9 csv (generated, gitignored)
+  total_files_modified: 0       # report_form5500.py iterated many times but is one created file; ingest_form5500.py untouched
+  total_lines_written: 1119     # authored: report_form5500.py + session archive (the git-committed diff)
+  pages_produced: 7             # generated report/dashboard content (trend + 2 single-year + 2 dashboards), est.
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 0             # no Agent/Task subagents and no claude-flow swarm; background work was async Bash ingests
+  swarm_topology: none
+  model_primary: claude-opus-4-8
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: 60                # approximate
+  context_compressions: 1       # one mid-session "resume" / context continuation
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: syntax / py_compile
+      result: pass
+      details: ast.parse + py_compile clean before each run and before commit
+    - gate: PII-free check on shareable HTML
+      result: pass
+      details: grep for sponsor names/EINs on the default dashboard returned 0; named targets isolated to the _internal build (F110)
+    - gate: no-PII-in-commit
+      result: pass
+      details: verified only scripts/ + docs/ staged; all data/ (zips, CSVs, reports, HTML, figures) gitignored before commit/push
+    - gate: figure render verification
+      result: pass
+      details: visually inspected fig1 (market-vs-deal-size) and fig3 (asset-band stacked area) PNGs; fixed mathtext label bug (text.parse_math=False)
+    - gate: data spot-check vs live 5500Search UI
+      result: skipped
+      details: not performed this session; recommended before treating named targets as outreach-ready
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed: 5   # principal steers incorporated: data vintage, full datasets/trends, spectrum, recommendations-led, named targets
+  first_pass_quality_pct: 80       # self-caught a NameError (medN), a messy table hack, and mathtext labels; fixed before delivery
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 3                    # medN NameError re-run, mathtext-label re-run, one cwd/.gitignore false alarm
+  rework_files: 1               # report_form5500.py edited 3+ times across the scope expansions
+  blocked_minutes: 5            # brief waits on background full-dataset ingests (ran async, non-blocking otherwise)
+  blockers: >
+    None significant. Data-quality finding: the broker-fee scoring signal (SF_BROKER_FEES_PAID_IND)
+    keys off a blank/zero Yes/No flag, so the high-value "no incumbent advisor" filter yields only
+    1 plan — deferred as open item (c). Bash-tool cwd persistence caused one false "missing .gitignore".
+  perception_note: >
+    Markedly faster than manual. Streaming full 9-year datasets (5.96M filings), computing every
+    figure reproducibly, generating matplotlib + interactive Plotly outputs, and restructuring on
+    each principal steer would have taken days by hand. Main risk is unverified named targets (no
+    live-UI spot-check) and the known broker-fee signal limitation.

@@ -1,0 +1,82 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-06-22-postwach-03
+  date: 2026-06-22
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "12:35"          # approximate
+  end_time: "13:20"            # approximate
+  task_summary: >
+    Diagnose and resolve the Gemini CLI login failure (free OAuth / Code Assist for individuals
+    deprecated 2026-06-18, replaced by Antigravity). Restore the CLI on API-key auth for the
+    headless tri-model pipeline, install Antigravity CLI (agy) for interactive use, re-test
+    paperbanana, and stand up Gemini API spend control.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: config
+      name: Gemini CLI switched to API-key auth (settings.json selectedType=gemini-api-key; GEMINI_API_KEY user env copied from existing GOOGLE_API_KEY)
+      action: modified
+      lines: 5
+      files: 2
+    - type: config
+      name: Antigravity CLI (agy v1.0.10) installed + added to User PATH
+      action: created
+      lines: 0
+      files: 1
+    - type: other
+      name: Memory - created project_gemini_cli_migration.md; updated project_paperbanana_gemini_outage.md + MEMORY.md index
+      action: created
+      lines: 120
+      files: 3
+  total_files_created: 3          # migration memory + this archive + this scorecard (agy binary installed, not authored)
+  total_files_modified: 4         # gemini settings.json, GEMINI_API_KEY env, paperbanana memory, MEMORY.md
+  total_lines_written: 130
+  pages_produced: 0               # infrastructure/tooling session, no deliverable prose
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: none
+  model_primary: claude-opus-4-8
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: 22                  # Bash/PowerShell probes, WebFetch x2, WebSearch x2, paperbanana retest x1, AskUserQuestion, memory edits
+  context_compressions: 0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: gemini CLI API-key auth verification
+      result: pass
+      details: gemini returned AUTHOK on the key after selectedType=gemini-api-key + GEMINI_API_KEY set
+    - gate: paperbanana recovery retest
+      result: pass
+      details: clean test diagram generated on first try; the prior x6 ServerError was a transient outage
+    - gate: Antigravity CLI install verification
+      result: pass
+      details: agy v1.0.10 at %LOCALAPPDATA%/agy/bin, confirmed in User PATH registry; agy "not working" was a stale-terminal PATH refresh, not a broken install
+    - gate: no-overwrite check on session-archive sequence
+      result: pass
+      details: detected 2026-06-22-postwach-02 already belongs to the Finance Bro session; used postwach-03 instead of clobbering
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed:
+  first_pass_quality_pct: 80      # initially conflated CLI-OAuth vs paperbanana-API-key causes and floated that the consumer sub might cover the CLI; both corrected with evidence
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 2                      # gemini auth test needed the key loaded into the (stale) shell; GEMINI_API_KEY removal attempt self-aborted (key is required as the auth gate)
+  rework_files: 0
+  blocked_minutes: 0
+  blockers: none
+  perception_note: >
+    Efficient diagnostic session. Non-interactive probes (API-key HTTP 200, oauth expiry, settings,
+    bundle enum grep) plus web research pinned the root cause (the June 18 OAuth deprecation) quickly,
+    and the interactive steps (browser login, terminal PATH refresh) were correctly handed to the user.
+    Key lesson: a consumer Gemini subscription does not cover the CLI or the Developer API.

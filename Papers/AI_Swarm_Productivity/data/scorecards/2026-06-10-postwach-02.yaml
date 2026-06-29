@@ -1,0 +1,142 @@
+# =============================================================================
+# Session Productivity Scorecard — 2026-06-10 postwach-02
+# =============================================================================
+
+schema_version: "1.0"
+
+# --- SESSION METADATA ---
+session:
+  id: "2026-06-10-postwach-02"
+  date: "2026-06-10"
+  hive: "PostWach"
+  researcher: "Paul Wach"
+  start_time:               # not captured; session opened with the update-status question
+  end_time:                 # session terminated immediately after this scorecard
+  task_summary: >-
+    Tooling-maintenance session. Check claude-code + ruflo update status and
+    explain the npm "funding" message; delete the deferred 451 MB orphan
+    staging dir; diagnose a suspected MCP issue via ruflo doctor, which
+    surfaced a genuinely stale standalone ruflo package (3.7.0-alpha.14) that
+    the claude-flow shim's version banner masks; verify shim/bin isolation and
+    daemon provenance, then update ruflo to 3.10.40 in-session; archive,
+    scorecard, terminate.
+
+# --- D1: OUTPUT VOLUME ---
+output:
+  artifacts:
+    - type: config
+      name: "ruflo global npm package update 3.7.0-alpha.14 -> 3.10.40 (system state, not repo file)"
+      action: modified
+      lines: 0
+      files: 0
+    - type: config
+      name: "Deleted _DELETE_ME_orphan_PAq18HUw orphan staging dir (~451 MB); verified claude-code bin/ clean"
+      action: modified
+      lines: 0
+      files: 0
+    - type: other
+      name: "memory/project_claude_gemini_update_procedure.md (3 edits: cleanup DONE, deferred-note correction, ruflo-vs-cli version-split lesson + safe-update criteria)"
+      action: modified
+      lines: 25
+      files: 1
+    - type: analysis
+      name: "ruflo doctor diagnosis (version split, .mcp.json R017 compliance, daemon command line, bin-ownership pre-flight, config-collision triage)"
+      action: created
+      lines: 0
+      files: 0
+    - type: other
+      name: "Session archive + scorecard (this session)"
+      action: created
+      lines: 160
+      files: 2
+  total_files_created: 2
+  total_files_modified: 1
+  total_lines_written: 185
+  pages_produced: 1.5   # archive narrative + memory-file additions; no manuscript prose
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: "none"
+  model_primary: "claude-fable-5"   # mixed-model session: turns 1-2 claude-opus-4-8[1m]; principal ran /model mid-session; diagnostic bulk + archive + scorecard post-switch. See archive provenance note.
+  tokens_input: null
+  tokens_output: null
+  total_cost_usd: null
+  tool_calls: 21           # approximate: 2 Read (memory, update-procedure) + version checks (2), orphan list/delete (2), 3 Edit (memory), ruflo doctor (1), version/bin/daemon/mcp.json probes (3), npm install + config inspect (2), archive-format reads (3), 2 Write (archive, scorecard), 1 failed Bash (PowerShell-syntax error, re-issued)
+  context_compressions: 0
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: "ruflo doctor"
+      result: partial
+      details: "10 passed, 6 warnings. Actionable finding (version freshness) fixed in-session; config collision deferred with principal-input flag; remaining 4 warnings accepted as expected state (no API keys, no local TS, no agentic-flow, encryption off)."
+    - gate: "Version currency (all three packages)"
+      result: pass
+      details: "claude-code 2.1.170, @claude-flow/cli 3.10.40, ruflo 3.10.40 — all match registry latest, verified per-package via package.json on disk, not shim banners."
+    - gate: "[R017] MCP registration compliance"
+      result: pass
+      details: ".mcp.json uses globally installed claude-flow command with [mcp, start] args. No npx invocations."
+    - gate: "Shim-ownership pre-flight before npm operation"
+      result: pass
+      details: "Forward defense from 2026-06-10 postwach-01 applied first time: bin declarations of both packages checked (ruflo declares only its own bin), daemon PID 10068 command line confirmed on @claude-flow/cli before install. Install provably non-colliding."
+    - gate: "Post-install verification"
+      result: pass
+      details: "ruflo --version -> v3.10.40 immediately after install. claude-flow shims untouched."
+    - gate: "Orphan cleanup verification"
+      result: pass
+      details: "Remove-Item succeeded; Test-Path false; bin/ contains only claude.exe (no .old.* orphans)."
+    - gate: "Memory accuracy self-correction"
+      result: pass
+      details: "First-turn 'both up to date' claim was wrong for the standalone ruflo package; memory edit from earlier in the session corrected the same day, before session close, with the disambiguation lesson recorded."
+    - gate: "[R018] provenance in archive"
+      result: pass
+      details: "Mixed-model session (mid-session /model switch to Fable 5) recorded with switch point and per-turn attribution in archive provenance line."
+  tests_passed: 7
+  tests_failed: 0
+  reviewer_comments_addressed: 0
+  first_pass_quality_pct: 85   # first-turn version answer was wrong (shim banner trusted over per-package check); one Bash/PowerShell syntax retry; everything else first-pass
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 0
+  retries: 1                # one Bash call with PowerShell syntax (2>$null), re-issued via PowerShell tool
+  rework_files: 1           # memory/project_claude_gemini_update_procedure.md edited 3x (incremental findings, not error-rework except edit 2 correcting edit 1's overclaim)
+  blocked_minutes: 0
+  blockers: "none"
+  perception_note: >-
+    The doctor command earned its keep: one principal-suggested command exposed
+    a stale package that two version checks had missed, because both the
+    claude-flow shim and the ruflo package self-report as "ruflo vX". The
+    masking is structural (two npm packages, one brand) and is now documented
+    in the update-procedure memory.
+
+    The shim-ownership pre-flight from this morning's postwach-01 session got
+    its first real use and converted a risky-looking in-session npm install
+    into a verified-safe one in a single tool call: ruflo's bin map has no
+    overlap with claude-flow*, and the daemon + MCP server were confirmed to
+    load from @claude-flow/cli, so nothing running held the ruflo directory.
+
+    Honest-reporting note for the dataset: the session's first answer was
+    wrong (reported both tools current when the ruflo package was stale).
+    The error was caught by the principal's doctor suggestion, not by the
+    agent's own verification. The corrective memory edit landed before
+    session close. Lesson generalizes: version banners are narrative;
+    package.json on disk is the artifact.
+
+    The session-start MCP timeout that prompted the doctor run turned out to
+    be an ordering artifact (AutoMemory hook fires before the autoStart:false
+    MCP server exists), not a fault. Worth knowing that this warning is
+    expected noise at every PostWach session start under the current
+    .mcp.json.
+
+# --- DERIVED (do not fill — computed by script) ---
+# derived:
+#   wall_clock_hours:
+#   pages_per_hour:
+#   lines_per_hour:
+#   cost_per_page:
+#   cost_per_file:
+#   agent_utilization:
+#   tokens_per_artifact:
+#   rework_ratio:

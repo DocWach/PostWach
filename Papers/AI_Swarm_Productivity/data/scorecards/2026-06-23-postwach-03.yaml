@@ -1,0 +1,91 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-06-23-postwach-03
+  date: 2026-06-23
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "15:30"
+  end_time: "19:30"
+  task_summary: >
+    SDA SBIR DV004 Tech Volume 2, continuation: assessed an external Gemini red-team, ran a full SCO-PDF
+    compliance check, integrated ~0.5 page of surgical additions (Gemini fixes + 4 missing keywords) into
+    V4.0 (clean) and V4.1 (cyan-highlighted), which the principal sent to RTSync. Two manual-edit-loss
+    incidents occurred (Word automation destroyed the principal's unsaved work); both recovered.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: spec
+      name: V4.0 docx (surgical Gemini/compliance additions + keywords, on the principal's saved V3.5)
+      action: modified
+      lines: 30
+      files: 1
+    - type: spec
+      name: V4.1 docx (cyan-highlight the 4 additions + relocate the keyword sentence)
+      action: created
+      lines: 20
+      files: 1
+    - type: review
+      name: Gemini red-team assessment + SCO solicitation compliance matrix (advisory)
+      action: reviewed
+      lines: 0
+      files: 0
+    - type: other
+      name: Surgical edit scripts (_make_v40, _highlight_v41) + memory updates + session archive
+      action: created
+      lines: 220
+      files: 4
+  total_files_created: 6
+  total_files_modified: 2
+  total_lines_written: 290
+  pages_produced: 0.5          # ~0.5 page of new proposal content (rest reserved for RTSync)
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: none
+  model_primary: claude-opus-4-8[1m]
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: 48
+  context_compressions: 0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: SCO solicitation compliance check (full PDF)
+      result: partial
+      details: Tech Vol structurally compliant; PI resume + FEAS-2-vs-human/SOTA are open gaps (RTSync-owned)
+    - gate: R019 reference posture (no new cite added)
+      result: pass
+      details: AFSIM addition cited to already-approved [5]; deferred the new DEVS-Bus 2025 cite until /refverify
+    - gate: Structural verification of V4.0/V4.1 (python-docx)
+      result: pass
+      details: appends/keywords present, cyan on exactly the 4 additions, principal's formatting preserved
+    - gate: Visual render (Word) verification
+      result: skipped
+      details: deliberately NOT run - Word COM closed the principal's unsaved doc; banned mid-session
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed: 5     # Gemini points adopted (incl. 1 corrected) + compliance keyword gap
+  first_pass_quality_pct: 60         # lowered by the two edit-loss incidents and the rework they caused
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 4                          # Word COM export/page-count failures; highlight XML namespace bug
+  rework_files: 2                     # V4.1 (relocation pass); the principal's Document1 had to be recovered+resaved
+  blocked_minutes: 40                 # edit-loss diagnosis, AutoRecover, clearing the orphaned WINWORD
+  blockers: >
+    TWO manual-edit-loss incidents in one hour. (1) A regenerate-from-source build script + Stop-Process WINWORD
+    destroyed the principal's unsaved edits. (2) A Word-COM PDF/page-count helper (EnsureDispatch + Quit) attached
+    to the principal's running Word and closed a DIFFERENT unsaved document; an orphaned hidden WINWORD then
+    blocked Word from reopening. Both recovered (canonical diff; Word AutoRecover .asd). Rule hardened in memory:
+    python-docx only, never force-kill or COM-drive Word while the user may have it open.
+  perception_note: >
+    Mixed. The document work itself was high-value and fast (red-team + compliance integrated as tight surgical
+    edits, no rebuild). But the two edit-loss incidents were a serious process failure that cost the principal's
+    work and trust; the real fix this session was the workflow rule, not the content.

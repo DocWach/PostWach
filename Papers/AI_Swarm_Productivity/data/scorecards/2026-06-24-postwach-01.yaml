@@ -1,0 +1,97 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-06-24-postwach-01
+  date: 2026-06-24
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "07:40"
+  end_time: "11:15"   # approximate
+  task_summary: >
+    SDA SBIR D2P2 OSW26BZ02-DV004 Tech Volume 2: complete the cover page (public
+    abstract/benefits/keywords); apply RTSync (DH/Bernie) + Copilot feedback to V7;
+    run a full compliance/content/formatting sweep; reconcile the non-SBIR feasibility
+    contradiction. Established a decimal version-naming convention mid-session.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: other
+      name: Cover page (technical abstract 2132 chars, benefits 1917 chars, 8 keywords)
+      action: modified
+      lines: 60
+      files: 1
+    - type: other
+      name: Tech Volume V8 — 5 substantive edits (C1 non-SBIR reconciliation, MCCFR memory bound, FEAS-4 trim, marketing softening)
+      action: modified
+      lines: 90
+      files: 1
+    - type: review
+      name: Full sweep (SCO compliance + content consistency + formatting) -> prioritized C1/H/M/Low findings
+      action: reviewed
+      lines: 0
+      files: 1
+    - type: other
+      name: Tech Volume V8.2–V8.5 — sweep fixes, em dashes, objectives list, 10pt tables, cyan re-baseline, header rebuild, FEAS-5 bold
+      action: modified
+      lines: 120
+      files: 4
+    - type: other
+      name: memory/project_document_qa_procedure.md — deferred PostWach doc-QA SOP, seeded with this session's failure modes
+      action: created
+      lines: 40
+      files: 1
+  total_files_created: 7      # V8, V8.3, V8.4, V8.5 docx; QA memory; this scorecard; archive
+  total_files_modified: 3     # cover page, MEMORY.md, V8.2 (renamed from V9 + edited)
+  total_lines_written: 410
+  pages_produced: 2           # net new prose (cover ~1.5pp); rest were edits to existing 15pp
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: none
+  model_primary: claude-opus-4-8[1m]
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: 45            # approximate
+  context_compressions: 0
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: SCO solicitation compliance (page limits, required sections, D2P2 eligibility, cover char limits)
+      result: partial
+      details: Structural compliance confirmed; page budget unverifiable locally (no render); commercialization >2pp flagged for Bernie.
+    - gate: Formatting sweep (dashes, highlights, styles, fonts, lists, headers)
+      result: fail
+      details: >
+        Repeated misses. Em-dash/highlight scans were body-only and missed table cells. Table 3
+        table-OBJECT style (Table Grid3 box-grid vs Table open-rule) missed across 3 passes, caught
+        only when principal flagged it. Objectives converted to a list but at 0.25in vs the doc's
+        0.8in bullet list; declared fixed from XML without rendering; shipped inconsistent in V8.5.
+    - gate: Reference/citation cross-check
+      result: partial
+      details: In-text<->list resolution verified; author-order/to-appear verification deferred to Bernie; refcheck not run.
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed: 12   # RTSync DH/Bernie + Copilot items (AFSIM risk, abstract, morphic trim, memory bound, references) substantially addressed
+  first_pass_quality_pct: 60        # sweep was reported "complete" yet principal found Table 3 + indentation defects; defects shipped in V8.5
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 4            # bash heredoc quoting failures; docx open-path/cwd issues
+  rework_files: 1       # Tech Volume reworked across 5+ versions (V8 -> V8.5); objectives paragraph touched repeatedly
+  blocked_minutes: 0
+  blockers: >
+    Structural: cannot render docx->PDF locally (Word COM hangs, no LibreOffice; pandoc not faithful).
+    Formatting was therefore verified from XML attributes, the direct cause of repeated appearance-level misses.
+  perception_note: >
+    Net NEGATIVE this session. The model repeatedly declared formatting "fixed" from XML without visual
+    verification, scoped document-wide scans to body text only, and missed table-object formatting and
+    list-indent consistency; the principal had to flag defects multiple times and a flawed V8.5 was sent to
+    RTSync. High rework and high frustration; quality fell below the bar for deliverable QA. Corrective:
+    project_document_qa_procedure.md (all-container scans, table-object checks, never "fixed" from XML alone,
+    mark formatting items "needs visual confirmation").

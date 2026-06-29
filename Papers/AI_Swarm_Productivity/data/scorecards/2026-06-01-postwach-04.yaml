@@ -1,0 +1,126 @@
+# =============================================================================
+# Session Productivity Scorecard — 2026-06-01 PostWach session 04
+# =============================================================================
+
+schema_version: "1.0"
+
+session:
+  id: 2026-06-01-postwach-04
+  date: 2026-06-01
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "approx 14:30"
+  end_time: "approx 20:00"
+  task_summary: >
+    Resume INF-2026-17 SERC AI4SE/SE4AI 2026 workshop abstract on HOS, STOIC,
+    and ZynWorld. Warm up ruflo. Reframe as HOS-focused extension of the
+    published INSIGHT article. Draft v0.1 prose, debate/iterate to v0.4,
+    short Brad bio with LinkedIn link. Spawn AIOS literature swarm (academic
+    plus industry) to position HOS distinctness. Session paused before
+    apparatus-compression decision and figure generation.
+
+output:
+  artifacts:
+    - type: paper_section
+      name: STOIC HOS ZynWorld abstract v0.1 (initial full draft)
+      action: created
+      lines: 78
+      files: 1
+    - type: paper_section
+      name: STOIC HOS ZynWorld abstract v0.2 (edits 1-4 from user, Section 1 compressed 4 paras to 2)
+      action: modified
+      lines: 65
+      files: 1
+    - type: paper_section
+      name: STOIC HOS ZynWorld abstract v0.3 (Problem to 1 paragraph, Looking Forward removed, INSIGHT-as-venue corrected)
+      action: modified
+      lines: 60
+      files: 1
+    - type: paper_section
+      name: STOIC HOS ZynWorld abstract v0.4 (Brad bio shortened with LinkedIn URL)
+      action: modified
+      lines: 60
+      files: 1
+    - type: other
+      name: SESSION_ARCHIVE_2026-06-01_postwach-04.md
+      action: created
+      lines: 180
+      files: 1
+    - type: analysis
+      name: Academic AIOS literature brief (sub-agent output, ~770 words, 10 citations)
+      action: created
+      lines: 50
+      files: 0
+    - type: analysis
+      name: Industry AIOS landscape brief (sub-agent output, ~700 words, 20 URLs verified)
+      action: created
+      lines: 45
+      files: 0
+    - type: paper_section
+      name: Four compiled PDFs (v0.1 v0.2 v0.3 v0.4)
+      action: created
+      lines: 0
+      files: 4
+  total_files_created: 7
+  total_files_modified: 1
+  total_lines_written: approx 540
+  pages_produced: 3.5  # paper body approx 1215 words = 2.5 pages, apparatus approx 1 page after compression target
+
+ai_efficiency:
+  agents_spawned: 2
+  swarm_topology: none  # two parallel literature-reviewer / researcher agents, no formal swarm
+  model_primary: claude-opus-4-7
+  tokens_input: # unmeasured
+  tokens_output: # unmeasured
+  total_cost_usd: # unmeasured
+  tool_calls: # high; approx 35+ across Read, Edit, Write, Bash, WebSearch, WebFetch, Agent, AskUserQuestion
+  context_compressions: 0
+
+quality:
+  gates_run:
+    - gate: User content-direction approval
+      result: partial
+      details: >
+        Five rounds of structural debate before alignment locked. Misalignment
+        incident driven by anchoring on AI Circuit Breaker abstract format
+        instead of reading the parent INSIGHT article first. User flagged
+        frustration explicitly. Captured as a durable lesson in the session
+        archive section 2.
+    - gate: SERC CFP compliance check
+      result: partial
+      details: >
+        Methodology covered well across sections 2-4. Expected Outcomes and
+        Relevance to Practice not explicitly addressed after Looking Forward
+        section was removed. Open item for next session.
+    - gate: Reference verification
+      result: partial
+      details: >
+        12 references in v0.4; 9 verified against external sources; INSIGHT
+        vol/issue placeholder; Brad LinkedIn URL verified via web search.
+        NaasAI ABI and OntoLoop OS grey-lit cites preserved at user direction.
+    - gate: Brad bio source
+      result: pass
+      details: >
+        Verbatim copy from published INSIGHT in v0.1-v0.3; replaced in v0.4
+        with Wach-style one-liner plus verified LinkedIn URL per user.
+  tests_passed: # n/a for prose
+  tests_failed: # n/a
+  reviewer_comments_addressed: # n/a, pre-review
+  first_pass_quality_pct: # subjective; approx 60% — structural rework occurred multiple times
+
+process:
+  agent_failures: 0
+  retries: 0
+  rework_files: 1   # the abstract markdown was rewritten across v0.1 v0.2 v0.3 v0.4
+  blocked_minutes: # approx 60 minutes lost to AICB-anchoring misalignment before reframing
+  blockers: >
+    Repeated structural debate before reading the published INSIGHT article
+    that the new paper extends. INSIGHT was flagged in MEMORY.md as PUB-2026-03
+    and was sitting in the file system unread. Reading it first would have
+    eliminated approximately 5 turns of misaligned proposal-and-correction.
+  perception_note: >
+    Mixed. The sub-agent literature swarm returned high-quality cited briefs
+    in under 3 minutes parallel time, which would have taken roughly 90 minutes
+    sequential. The main-session prose work was slower than typical because
+    of the misalignment cost noted above. Net: AI-faster on parallel research,
+    AI-slower on prose architecture when the wrong anchor is held.

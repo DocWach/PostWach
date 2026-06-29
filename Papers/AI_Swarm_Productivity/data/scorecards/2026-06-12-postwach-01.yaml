@@ -1,0 +1,118 @@
+# =============================================================================
+# Session Productivity Scorecard — 2026-06-12 postwach-01
+# =============================================================================
+
+schema_version: "1.0"
+
+# --- SESSION METADATA ---
+session:
+  id: "2026-06-12-postwach-01"
+  date: "2026-06-12"
+  hive: "PostWach"
+  researcher: "Paul Wach"
+  start_time: "08:25"       # approximate, from warm-up timestamps
+  end_time: "08:55"         # approximate, archive+scorecard at close
+  task_summary: >-
+    Resume STIDS 2026 MTO camera-ready for submission (deadline COB Mon Jun
+    16). Flipped Dachowicz 2021 -> 2022 across manuscript bib, approved.bib,
+    and MD precursor; answered Acks-vs-GenAI-Declaration question (CEUR
+    requires separate sections) and trimmed the duplicated disclosure from
+    the Acknowledgements; backfilled the missing Declaration section into the
+    MD precursor; re-rendered under a new 06-12 jobname (old PDF
+    viewer-locked); ran R019 refcheck (23/23) and full Beverley CEUR
+    precheck (8/8 + font check) green. Principal reviewing offline.
+
+# --- D1: OUTPUT VOLUME ---
+output:
+  artifacts:
+    - type: manuscript
+      name: "STIDS .tex Acknowledgements trim + stids2026_mto.bib Dachowicz 2022 + MD precursor (year x2, Acks trim, Declaration backfill)"
+      action: modified
+      lines: 14
+      files: 3
+    - type: config
+      name: "approved.bib dachowicz2021mission year 2022 + in-entry decision note (key retained)"
+      action: modified
+      lines: 2
+      files: 1
+    - type: render
+      name: "Authoring_Mission_Threads_MTO_STIDS_2026-06-12.pdf (20pp camera-ready, supersedes 06-04 PDF)"
+      action: created
+      lines: 0
+      files: 1
+    - type: other
+      name: "Session archive + scorecard (this session)"
+      action: created
+      lines: 105
+      files: 2
+  total_files_created: 3
+  total_files_modified: 4
+  total_lines_written: 121
+  pages_produced: 1.0       # archive narrative; manuscript edits were surgical
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: "none"
+  model_primary: "claude-fable-5"
+  tokens_input: null
+  tokens_output: null
+  total_cost_usd: null
+  tool_calls: 30            # approximate: warm-up (version, memory read+search, folder list), tex/bib/MD greps+reads (8), 6 edits, refcheck runs (4 incl. 2 false starts), renders (4 invocations incl. 2 failures), precheck runs (5), cleanup (2), archive+scorecard writes
+  context_compressions: 0
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: "refcheck.py --strict (R019 pre-render, MD precursor)"
+      result: pass
+      details: >-
+        23/23 matched, exit 0; run twice (after Dachowicz flip, after
+        Acks/Declaration edits). Note: --bibkey-mode against the .tex is a
+        false path (extracts @nextchar from the CEURART workaround macro);
+        the gate's correct input for this paper is the MD precursor.
+    - gate: "CEUR check-pdf-errors V0.98 (local mirror of johnbeve/ceur-precheck)"
+      result: pass
+      details: >-
+        8/8 ok on the 06-12 PDF, run twice. First run produced 2 false
+        ERRORs (copyright clause, GenAI declaration) because pdf2txt was not
+        on PATH and extraction silently returned empty; fixed with
+        PATH=.:Python312-arm64 from the precheck dir.
+    - gate: "check-libbyhead.py (Libertinus font conformance)"
+      result: pass
+      details: "Exit 0: headings Libertinus Sans, body Libertinus Serif."
+  tests_passed: 0
+  tests_failed: 0
+  reviewer_comments_addressed: 0
+  first_pass_quality_pct: 80   # two render false starts (latexmk no-perl, viewer-locked PDF), one refcheck false start (--bibkey-mode), precheck PATH false-failure; all diagnosed and resolved within session
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 0
+  retries: 3                # latexmk -> manual pdflatex chain; locked PDF -> new jobname; refcheck bibkey-mode -> MD default mode
+  rework_files: 1           # MD precursor edited in two passes (year flip, then Acks trim + Declaration backfill after principal's mid-session directive)
+  blocked_minutes: 0
+  blockers: >-
+    None blocking. The 06-04 PDF was viewer-locked by the principal's
+    concurrent review; resolved by rendering under the 06-12 jobname rather
+    than interrupting the review.
+  perception_note: >-
+    The principal's "shouldn't these be combined?" question was answerable
+    directly from the precheck tooling: the GenAI Declaration check is a
+    named test in check-pdf-errors, which settled the policy question with
+    evidence rather than recollection. Also a small probe-the-artifact win:
+    verifying JCIDS tense in the actual .tex on entry retired a stale
+    carried-forward item before any work was planned around it. Environment
+    fragility (no perl for latexmk, PATH-dependent precheck, Windows file
+    locks) cost roughly a third of the session's tool calls.
+
+# --- DERIVED (do not fill — computed by script) ---
+# derived:
+#   wall_clock_hours:
+#   pages_per_hour:
+#   lines_per_hour:
+#   cost_per_page:
+#   cost_per_file:
+#   agent_utilization:
+#   tokens_per_artifact:
+#   rework_ratio:

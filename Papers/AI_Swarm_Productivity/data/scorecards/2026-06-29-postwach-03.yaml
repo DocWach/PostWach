@@ -1,0 +1,77 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-06-29-postwach-03
+  date: 2026-06-29
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "21:00"        # approximate (wall-clock not instrumented)
+  end_time: "21:55"          # approximate
+  task_summary: >
+    Research and scope a GI-JOE capability upgrade for named RDF graphs, quad stores, and RDF-star.
+    Clarify concepts with authoritative W3C sources, review GI-JOE's tooling/agents, decide
+    extension-vs-new-skill, and issue a handoff ticket.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: spec
+      name: "Ticket GI-JOE-QUADS-001 (named-graph/quad-store/RDF-star capability handoff)"
+      action: created
+      lines: 155
+      files: 1
+    - type: review
+      name: "capability-index.md — GI-JOE scoped-capability pointer + review-log row"
+      action: modified
+      lines: 3
+      files: 1
+    - type: other
+      name: "Session archive 2026-06-29 postwach-03"
+      action: created
+      lines: 75
+      files: 1
+  total_files_created: 2        # ticket + archive (scorecard self-excluded)
+  total_files_modified: 1       # capability-index.md
+  total_lines_written: 233
+  pages_produced: 4             # spec/research prose, ~40 lines/page
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 1             # one Agent-tool Explore subagent (read-only GI-JOE inventory)
+  swarm_topology: none          # no ruflo swarm initialized; single native subagent
+  model_primary: claude-opus-4-8[1m]
+  tokens_input:                 # not instrumented
+  tokens_output:
+  total_cost_usd:
+  tool_calls: 14                # approximate (bash/glob/grep/read/write/edit/mcp/agent)
+  context_compressions: 0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: ruflo warm-up (mcp_status)
+      result: pass
+      details: "v3.14.4 running, stdio, pid 26232"
+    - gate: ticket-format consistency vs FMPROV/TRAK pattern
+      result: pass
+      details: "matched existing tickets/ handoff structure"
+    - gate: R019 refcheck
+      result: skipped
+      details: "no manuscript/citation rendered this session; standards URLs flagged for principal verification"
+  tests_passed: 0
+  tests_failed: 0
+  reviewer_comments_addressed: 0
+  first_pass_quality_pct:        # n/a (no review cycle this session)
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 0
+  rework_files: 0
+  blocked_minutes: 0
+  blockers: "none"
+  perception_note: >
+    Faster than manual. Two scope corrections by the principal were the main steering cost; the Explore
+    subagent inventory of GI-JOE (117 agents / 48 skills / gate) would have been slow by hand. Output is a
+    scoping ticket (a), not implemented capability.

@@ -1,0 +1,95 @@
+# =============================================================================
+# Session Productivity Scorecard — 2026-06-28 postwach-01
+# PROVENANCE: claude-opus-4-8[1m] (Anthropic, Claude Code CLI), main-thread orchestrator.
+# =============================================================================
+
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-06-28-postwach-01
+  date: 2026-06-28
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "12:50"          # approximate (local MST)
+  end_time: "16:15"            # approximate (local MST)
+  task_summary: >
+    Condense Brad Philipbar's 32-page HEAT3 technical response into a 2-page executive brief and a
+    5-page technical brief; run a tri-model red/blue/white review; iterate framing (ontology as
+    cross-cutting layer, first principles of SE/M&S/ontology); add both to the bmpwach-lab/HEAT_TRES repo.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: spec
+      name: HEAT3 Technical Response — Executive Brief (2pp)
+      action: created
+      lines: 95
+      files: 1
+    - type: spec
+      name: HEAT3 Technical Response — Technical Brief, Q1-Q6 (5pp)
+      action: created
+      lines: 150
+      files: 1
+    - type: review
+      name: Tri-model RBW review artifacts (red/blue/white) — local only
+      action: created
+      lines: 250
+      files: 6
+    - type: other
+      name: Session archive + scorecard
+      action: created
+      lines: 130
+      files: 2
+  total_files_created: 14        # 2 tex + 2 pdf + 6 rbw + archive + scorecard + 2 prompts
+  total_files_modified: 2        # the 2 brief .tex (heavily iterated)
+  total_lines_written: 800       # approximate, incl. iterations
+  pages_produced: 7              # 2pp + 5pp rendered deliverable
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 2              # external review CLIs: Codex (RED) + Gemini (BLUE); Claude = WHITE orchestrator
+  swarm_topology: hierarchical   # claude-flow swarm-1782677057363-smls95 (coordination + shared memory; 0 sub-agents)
+  model_primary: claude-opus-4-8
+  tokens_input:                  # not measured
+  tokens_output:                 # not measured
+  total_cost_usd:                # not measured
+  tool_calls: 95                 # approximate
+  context_compressions: 0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: LaTeX build (latexmk, both briefs)
+      result: pass
+      details: Both compile clean on MiKTeX/pdflatex.
+    - gate: Page-limit gate (2pp / 5pp)
+      result: pass
+      details: Held at exactly 2 and 5 pages after iteration.
+    - gate: Tri-model RBW review (Claude/Codex/Gemini)
+      result: pass
+      details: 22 RED + ~12 BLUE findings; ~15 valid incorporated, 3 rejected as unsound.
+    - gate: Visual render verification (render-and-look)
+      result: pass
+      details: Inspected rendered PDFs for tagline, caption, H-formula, layout.
+    - gate: R019 approved-references gate
+      result: skipped
+      details: Not a portfolio manuscript; proprietary brief cites public standards/papers only, no approved.bib.
+  tests_passed:                  # n/a (no test suite)
+  tests_failed:
+  reviewer_comments_addressed: 15
+  first_pass_quality_pct: 65     # strong first drafts; needed tri-model pass + heavy principal-directed reframing
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 1              # Gemini full file-aware run hung ~12 min; recovered via bounded flash fallback
+  retries: 14                    # mostly latexmk rebuilds for page-fitting
+  rework_files: 2                # both brief .tex edited many times (framing + page-fit)
+  blocked_minutes: 12            # Gemini hang
+  blockers: >
+    Gemini headless hung on the full-document review; recovered with a bounded fallback. Page-fitting to
+    2/5 pages required many rebuild cycles as content was added (first-principles paragraph, harmonization
+    caption); resolved by dropping the sigma/D figure from the 5-pager.
+  perception_note: >
+    AI far faster than manual for drafting, condensing, and independent multi-model review. Main
+    inefficiency was iterative LaTeX page-fitting; a fixed template budget up front would have saved cycles.

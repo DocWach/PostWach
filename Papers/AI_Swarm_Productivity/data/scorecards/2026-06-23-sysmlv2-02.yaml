@@ -1,0 +1,96 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-06-23-sysmlv2-02
+  date: 2026-06-23
+  hive: SysMLv2
+  researcher: Paul Wach
+  start_time: "19:45"   # approximate (from file timestamps)
+  end_time: "20:35"     # approximate
+  task_summary: >
+    SYSMLV2-PARSER-001 — fix SysML v2 parser coverage gaps (verify-requirement objective,
+    state initial transition), correct optical-instrument model bug, add regression tests, commit;
+    then produce the parser-completion roadmap (SYSMLV2-PARSER-002).
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: code
+      name: SysML.langium grammar additions (VerifyRequirementUsage + then-ref succession)
+      action: modified
+      lines: 20
+      files: 1
+    - type: test
+      name: regression-verify-state.test.ts (verify/state constructs + both models end-to-end)
+      action: created
+      lines: 126
+      files: 1
+    - type: code
+      name: optical-instrument model fix (trigger -> accept, 5 transitions)
+      action: modified
+      lines: 20
+      files: 1
+    - type: spec
+      name: SYSMLV2-PARSER-001 ticket resolution section
+      action: modified
+      lines: 78
+      files: 1
+    - type: spec
+      name: SYSMLV2-PARSER-002 parser-completion roadmap (phased plan + measured baseline)
+      action: created
+      lines: 75
+      files: 1
+    - type: other
+      name: session archive sysmlv2-02 + this scorecard
+      action: created
+      lines: 95
+      files: 2
+  total_files_created: 4   # regression test, completion roadmap, session archive, scorecard
+  total_files_modified: 3  # SysML.langium, optical-instrument, PARSER-001 ticket
+  total_lines_written: 410
+  pages_produced: 10
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 0        # solo session (no subagents)
+  swarm_topology: none
+  model_primary: claude-opus-4-8[1m]
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: 32           # approximate
+  context_compressions: 0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: langium generate
+      result: pass
+      details: Regenerates cleanly (static data-loss warnings only, pre-existing).
+    - gate: parser vitest suite
+      result: pass
+      details: 567 passed (560 prior + 7 new regression tests); no regressions from grammar changes.
+    - gate: CLI validation of both committed models
+      result: pass
+      details: flashlight-verification and optical-instrument both validate to 0 errors.
+    - gate: stdlib coverage audit
+      result: pass
+      details: 94/94 bundled OMG standard-library files parse clean (100%) — completeness baseline.
+  tests_passed: 567
+  tests_failed: 0
+  reviewer_comments_addressed: 0
+  first_pass_quality_pct: 90   # one verify-rule simplification (name/ref ambiguity) + one test-assertion fix
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 3               # verify-rule ambiguity simplification; test JSON.stringify circular-ref fix; probe-script path
+  rework_files: 1          # regression test (created + 2 edits to fix assertion)
+  blocked_minutes: 5       # build/test iteration
+  blockers: none
+  perception_note: >
+    Faster than manual. The Langium grammar structure (clear rule + alternation + interface) made the
+    fixes surgical. The decisive win was diagnosing that `trigger` was a model bug, not a parser gap —
+    avoided polluting the grammar with a non-standard keyword. The 100% stdlib-parse audit reframed
+    "complete the parser" from a rebuild into a targeted gap-closure + linking/validation effort.

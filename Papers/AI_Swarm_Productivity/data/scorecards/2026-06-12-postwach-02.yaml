@@ -1,0 +1,101 @@
+# PROVENANCE: claude-fable-5[1m] (Anthropic, Claude Code CLI), PostWach session 2026-06-12 postwach-02.
+schema_version: "1.0"
+
+session:
+  id: 2026-06-12-postwach-02
+  date: 2026-06-12
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "08:24"
+  end_time: "09:58"
+  task_summary: >
+    Resume DEVS-ME IS 2026 #427: run R019 refcheck gate, Phase-5 re-verify
+    wach2024genailimits (negative result -> quarantined, replaced by verified
+    Husain CSER 2024), camera-ready review, then build V6 (nine blocking fixes)
+    and V7 (figure-layout restructure incl. cross-assigned Fig2/Fig4 artwork
+    swap) with page-by-page visual verification. Paper was due 06-11.
+
+output:
+  artifacts:
+    - type: paper_section
+      name: Math-Based_Data_ME-V6.docx/.pdf (9 blocking camera-ready fixes)
+      action: created
+      lines: 0
+      files: 2
+    - type: paper_section
+      name: Math-Based_Data_ME-V7.docx/.pdf (figure restructure, camera-ready)
+      action: created
+      lines: 0
+      files: 2
+    - type: code
+      name: _apply_v5_to_v6.py + _apply_v6_to_v7.py transform scripts
+      action: created
+      lines: 360
+      files: 2
+    - type: config
+      name: R019 store (approved.bib, manifest.yaml) - promote/correct/quarantine/rename
+      action: modified
+      lines: 90
+      files: 2
+    - type: review
+      name: Camera-ready checklist review of V5 (background sub-agent, read-only)
+      action: created
+      lines: 120
+      files: 0
+    - type: other
+      name: quarantine/unverifiable--wach2024genailimits.md + memory file + archive + scorecard
+      action: created
+      lines: 220
+      files: 4
+  total_files_created: 10
+  total_files_modified: 3
+  total_lines_written: 790
+  pages_produced: 4
+
+ai_efficiency:
+  agents_spawned: 1
+  swarm_topology: none
+  model_primary: claude-fable-5[1m]
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: 75
+  context_compressions: 0
+
+quality:
+  gates_run:
+    - gate: refcheck.py --strict (R019) on V5/V6/V7 bibliographies
+      result: pass
+      details: 39/45 auto-matched; 6 parser false negatives (year-suffix, n.d.) hand-verified against approved.bib each run
+    - gate: refverify.py single-model-triple-check (3 candidates)
+      result: pass
+      details: husain2024llmartifacts MATCH+promoted; arp2015bfo MATCH-WITH-ENRICHMENT; jensen2024cco MISMATCH correctly caught wrong author names in approved store (then corrected)
+    - gate: Phase-5 Byzantine re-verify wach2024genailimits
+      result: fail
+      details: Negative result is the correct outcome - no published record exists; entry quarantined per protocol
+    - gate: Visual page-by-page inspection of rasterized V7 PDF (15/15 pages)
+      result: pass
+      details: Caught Fig2/Fig4 artwork cross-assignment that all text-level checks missed
+    - gate: Word COM render statistics (page/word limits)
+      result: pass
+      details: 15 pages, 7,044 total words (~5,990 body vs 7,000 template limit)
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed: 10
+  first_pass_quality_pct: 85
+
+process:
+  agent_failures: 0
+  retries: 2
+  rework_files: 1
+  blocked_minutes: 0
+  blockers: none
+  perception_note: >
+    Far faster than manual: a 9-defect camera-ready pass plus a full figure-layout
+    restructure plus three external reference verifications in ~1.6h. Key lesson
+    (principal-caught failure): V6 was declared camera-ready on text-extraction
+    checks alone; the figure artwork cross-assignment was only visible on
+    rasterized pages. Visual verification is now a hard criterion in the adopted
+    camera-ready definition. The R019 gate demonstrated value in both directions
+    (caught a wrong-author error in an approved entry; produced a documented
+    negative result that removed a fabricated-metadata citation).

@@ -1,0 +1,89 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-06-23-sysmlv2-01
+  date: 2026-06-23
+  hive: SysMLv2
+  researcher: Paul Wach
+  start_time: "19:00"   # approximate (from file timestamps)
+  end_time: "19:45"     # approximate
+  task_summary: >
+    SYSMLV2-VERIF-001 — representational-capacity assessment of SysML v2 / KerML across the
+    verification-artifact relationships of the IS 2024 flashlight, for PostWach's Systems Engineering
+    journal article (§3.2 / §5.1). Produced D1 model + D2/D3/D4 analysis.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: code
+      name: D1 SysML v2 flashlight verification model (5 artifacts + 2 VMs + 2 verifications)
+      action: created
+      lines: 210
+      files: 1
+    - type: analysis
+      name: D2/D3/D4 deliverables (§3.2 prose, extended Table 4, findings memo)
+      action: created
+      lines: 235
+      files: 1
+    - type: spec
+      name: SYSMLV2-PARSER-001 parser coverage-gap tasking
+      action: created
+      lines: 70
+      files: 1
+    - type: other
+      name: Session archive + PostWach completion notice
+      action: created
+      lines: 110
+      files: 2
+  total_files_created: 7   # D1 model, D1 copy, deliverables.md, parser ticket, session archive, PostWach notice, this scorecard
+  total_files_modified: 0  # no existing repo files modified (task list only)
+  total_lines_written: 700  # approximate, across in-repo + portfolio artifacts
+  pages_produced: 9         # ~prose at 40 lines/page
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 4        # 1 Explore (repo capability survey) + 3 adversarial skeptics
+  swarm_topology: star     # parent fan-out of independent subagents (no coordinator / not a ruflo swarm)
+  model_primary: claude-opus-4-8[1m]
+  tokens_input:            # not captured
+  tokens_output: 139000    # subagent output tokens only (3 skeptics: 49219+46643+43130); main loop not captured
+  total_cost_usd:
+  tool_calls: 60           # approximate (main loop) + 42 across subagents
+  context_compressions: 0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: D1 parser validation (sysml-cli)
+      result: partial
+      details: >
+        Structural backbone (requirement def, part def, :> specialization, :>> redefinition,
+        constraint def, satisfy) validates with 0 errors. Only the 4 `verify requirement` lines fail —
+        a parser-coverage gap (SYSMLV2-PARSER-001), not a language gap.
+    - gate: Adversarial verification of SD↔VM verdict (3 independent skeptics)
+      result: pass
+      details: >
+        Verdict survived as not-quantitative; revised down one level (explicit→implicit) on the
+        explicit axis. NOT REFUTED / PARTIAL / PARTIAL→REFUTED(direct).
+    - gate: Neutrality (test for gap-closure, not thesis confirmation)
+      result: pass
+      details: Reported v2 narrows-but-not-closes; surfaced where v1 finding survives and where it moves.
+  tests_passed:            # parser vitest suite not run this session
+  tests_failed:
+  reviewer_comments_addressed: 0
+  first_pass_quality_pct: 80   # SD↔VM cell revised after adversarial review; baseline/mapping held
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0        # all 4 subagents returned usable structured findings
+  retries: 4               # PowerShell long-path escaping (2), pnpm interactive-prompt install (1), CLI dep relink (1)
+  rework_files: 0          # no file edited 3+ times
+  blocked_minutes: 10      # approximate: pnpm symlink relink + CLI env
+  blockers: >
+    Stale pnpm symlinks from repo relocation (…/00 My Research → …/07 SysMLv2) broke the CLI; fixed
+    with CI=true non-interactive install. Parser incompleteness (verify/state constructs) limited D1
+    validation to the structural backbone.
+  perception_note: >
+    Faster than manual. Adversarial subagents materially improved correctness — they moved the
+    headline verdict, which a single pass would likely have shipped overstated.

@@ -1,0 +1,120 @@
+# =============================================================================
+# Session Productivity Scorecard — 2026-06-23 postwach-02
+# =============================================================================
+
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-06-23-postwach-02
+  date: 2026-06-23
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "11:55"        # approximate; from ruflo health check (session start)
+  end_time: "15:00"          # approximate; estimated, times not precisely logged
+  task_summary: >
+    Reframe the dissertation-to-journal article to follow the INCOSE IS 2024 story per Alejandro's
+    recommendation, write a new outline, delegate the SysML v2 assessment to the SysMLv2 hive, and draft
+    the manuscript (Section 4 grounded from source; upfront sections; abstract).
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: spec
+      name: Article_Outline_v2.md (journal article outline, v2 reframe)
+      action: created
+      lines: 190
+      files: 1
+    - type: paper_section
+      name: Section 4 — WySE characterization (all 9 relationship types grounded from dissertation)
+      action: created
+      lines: 200          # initial draft + grounding edits
+      files: 1
+    - type: paper_section
+      name: Upfront sections §1 Introduction, §2 Background, §3 Current Practice
+      action: created
+      lines: 130
+      files: 3
+    - type: paper_section
+      name: abstract.md (rewritten v1 -> v2 framing)
+      action: modified
+      lines: 15
+      files: 1
+    - type: spec
+      name: SysMLv2 hive ticket SYSMLV2-VERIF-001 (representational-capacity assessment)
+      action: created
+      lines: 75
+      files: 1
+    - type: other
+      name: Memory (project_dissertation_journal_pub.md new; MEMORY.md + sysmlv2 two-remote correction)
+      action: modified
+      lines: 60
+      files: 3
+    - type: other
+      name: Session archive postwach-02
+      action: created
+      lines: 115
+      files: 1
+    - type: paper_section
+      name: §3.2/§3.3 integration of SysMLv2 hive finding, then native-vs-extension correction
+      action: modified
+      lines: 45
+      files: 1
+    - type: review
+      name: Tri-model RBW review of the SysML v2 finding (claim_briefing, white_packet, RBW_results)
+      action: created
+      lines: 250
+      files: 3
+  total_files_created: 11
+  total_files_modified: 3
+  total_lines_written: 1100
+  pages_produced: 22         # manuscript prose (~5,500 words); supporting + review docs additional
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 0          # all main-thread; SysML v2 work delegated cross-hive via ticket, not a subagent
+  swarm_topology: none
+  model_primary: "claude-opus-4-8[1m]"
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls:
+  context_compressions:
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: refcheck / R019 reference gate
+      result: skipped
+      details: Drafting stage; all citations are visible [PLACEHOLDER], no render attempted. reflookup/refverify deferred.
+    - gate: source-fidelity (no fabricated algebra)
+      result: pass
+      details: Section 4 algebra read from dissertation markdown; [TRANSCRIBE] markers used until grounded, then filled.
+    - gate: tri-model RBW review (cross-CLI Claude/Codex/Gemini) of the SysML v2 finding
+      result: partial
+      details: >
+        Caught a real over-claim. Codex/GPT (Red) refuted the "unrepresentable" wording via a KerML assoc-struct
+        user-library construction; principal adjudicated native-vs-extension; finding corrected in §3.2/§3.3.
+        Native VM→SD score left open. High-value gate: an independent non-Claude model found the hole.
+  tests_passed:           # N/A (research, no code)
+  tests_failed:
+  reviewer_comments_addressed:   # N/A
+  first_pass_quality_pct: 75    # framing accepted after debate; depth-tiering rejected, hypothesis swapped
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 5              # IS 2024 PDF MAX_PATH read (multiple); one MEMORY.md edit needed a prior read; gemini -p arg-split (PowerShell) + GEMINI_API_KEY unset
+  rework_files: 3         # 04_wyse_characterization.md (iterative grounding); the session archive (3+ edits); 03_current_practice.md (integrated then RBW-corrected)
+  blocked_minutes: 15     # IS 2024 PDF (MAX_PATH); Gemini key/arg friction in the RBW run
+  blockers: >
+    Earlier in the session the SysML v2 sections were blocked pending the hive (ticket SYSMLV2-VERIF-001);
+    the hive delivered D1–D4 on resume and they were integrated. The integrated finding then required a
+    tri-model RBW correction (it over-claimed). Friction: IS 2024 PDF exceeded Windows MAX_PATH; Gemini CLI
+    needed GEMINI_API_KEY (mapped from GOOGLE_API_KEY) and rejected a long -p arg (piped via stdin).
+  perception_note: >
+    Faster than manual for the grounding/transcription and for the integration. The highest-value moments were
+    human- and cross-model-paced, not raw output: the principal's course corrections (depth-tiering,
+    hypothesis-as-bias, two-remote false alarm, user-library-is-not-native) and the tri-model RBW review, where
+    an independent non-Claude model (Codex/GPT) found a real hole in a load-bearing finding that the hive's
+    same-stack skeptics had missed. Cross-model adversarial review materially improved correctness here.

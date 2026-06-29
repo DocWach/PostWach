@@ -1,0 +1,135 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA ---
+session:
+  id: 2026-06-04-postwach-02
+  date: 2026-06-04
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "09:00"
+  end_time: "16:01"
+  task_summary: >
+    Camera-ready preparation of STIDS 2026 MTO paper for CEUR-WS: R019 backfill
+    of all 23 references, port from .docx to CEURART LaTeX with new lead-author
+    order (Wach), abstract reduction, local preflight, send to co-authors.
+
+# --- D1: OUTPUT VOLUME ---
+output:
+  artifacts:
+    - type: paper_section
+      name: Camera-ready corrected MD source (2026-06-04 references-corrected)
+      action: created
+      lines: 376
+      files: 1
+    - type: paper_section
+      name: CEURART LaTeX source for camera-ready submission
+      action: created
+      lines: 500
+      files: 1
+    - type: paper_section
+      name: Paper-local bibliography (23 R019-verified entries)
+      action: created
+      lines: 220
+      files: 1
+    - type: paper_section
+      name: Camera-ready PDF (20 pages, all 8 CEUR precheck tests PASS)
+      action: created
+      lines: 0
+      files: 1
+    - type: code
+      name: MD reference-fix script (parallel to 2026-06-01 docx script)
+      action: created
+      lines: 100
+      files: 1
+    - type: config
+      name: CEUR precheck environment (shim + isolated camera-ready)
+      action: created
+      lines: 5
+      files: 4
+    - type: spec
+      name: R019 portfolio approved.bib (20 new STIDS entries + 3 metadata reconciliations)
+      action: modified
+      lines: 420
+      files: 1
+    - type: spec
+      name: R019 manifest.yaml (20 new manifest entries + 2 update notes)
+      action: modified
+      lines: 280
+      files: 1
+    - type: config
+      name: PostWach CLAUDE.md ([R108] amended for document-typesetting scope)
+      action: modified
+      lines: 1
+      files: 1
+    - type: paper_section
+      name: AI Declaration + Acknowledgements both updated to name PostWach
+      action: modified
+      lines: 4
+      files: 1
+    - type: review
+      name: CEUR precheck (8 tests) run on camera-ready PDF
+      action: reviewed
+      lines: 0
+      files: 1
+    - type: review
+      name: R019 refcheck.py strict run on camera-ready MD (23/23 matched)
+      action: reviewed
+      lines: 0
+      files: 1
+  total_files_created: 11
+  total_files_modified: 4
+  total_lines_written: 1906
+  pages_produced: 12        # ~20-page PDF + ~5 pages prose in archive + ~3 pages in spec edits
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: none
+  model_primary: claude-opus-4-7
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls:               # not exposed
+  context_compressions:
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: R019 refcheck.py --strict on corrected MD
+      result: pass
+      details: 23/23 matched, 0 missing, exit 0
+    - gate: ceur-precheck check-pdf-errors (8 tests)
+      result: pass
+      details: readable text, copyright clause, GenAI declaration, no premature CEUR-WS branding, Libertinus fonts, no duplicates, no leftover placeholders, one-column — all PASS
+    - gate: check-libbyhead.py (Libertinus font detection)
+      result: pass
+      details: exit 0 — headings in Libertinus Sans, body in Libertinus Serif
+    - gate: pdflatex/latexmk compilation
+      result: pass
+      details: 20-page PDF produced after 2 workarounds discovered (providecommand @nextchar, unicode copyright)
+    - gate: tri-model RBW on bibliography
+      result: skipped
+      details: principal sent draft to David before this gate; deferred
+  tests_passed: 4
+  tests_failed: 0
+  reviewer_comments_addressed: 23      # 23 STIDS reviewer-comment-aligned references all verified
+  first_pass_quality_pct: 91           # 22 of 24 LaTeX issues caught by author-block / preamble adjustments before final passing build
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 0
+  retries: 6
+  rework_files: 1                       # the .tex file iterated through ~10 edits over the LaTeX-toolchain debugging cycle
+  blocked_minutes: 35
+  blockers: >
+    LaTeX toolchain: CEURART class not in MiKTeX (fetched from yamadharma GitHub);
+    new array.sty + CEURART expl3 + MiKTeX 24.1 combine to undefine \@nextchar
+    on p{Ncm} columns (workaround: \providecommand{\@nextchar}{}); local Libertinus
+    \textcopyright triggers font recursion at \maketitle (workaround: Unicode ©);
+    one build cycle blocked by PDF viewer holding the output file lock.
+  perception_note: >
+    Substantially faster than manual for the R019 backfill (parallel WebSearch +
+    WebFetch batches verified 22 references in ~30 minutes wall-clock). LaTeX
+    debugging consumed the bulk of toolchain time but root-cause + minimal-repro
+    + portable workaround pattern was established and documented in the .tex
+    header, so the patterns are reusable on the next CEUR submission.

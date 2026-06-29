@@ -1,0 +1,153 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA ---
+session:
+  id: 2026-06-09-postwach-03
+  date: 2026-06-09
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "20:25"      # approximate; V3.1 inbound at 20:27, session opened on it
+  end_time: "21:30"        # approximate; archive + scorecard at session end
+  task_summary: >
+    Resume SF24C-T003 Phase II SBIR work after RTSync's V3.1 inbound. Address
+    four principal review questions: plan executability, Deliverables vs
+    Outputs labeling, plan generalization (V3.1 was too prescriptive for
+    typical Phase II STTR detail level), and use of the remaining ~10 page
+    budget. Produce V3.2 with: 5 Tasks generalized to 3-4 Subtasks each,
+    "such as" framing for tools, no file-name specifics, per-Task Outputs
+    replacing per-Task Deliverables, quarterly Timetable. Add three §4
+    Background subsections (Bayesian and Systems-Theoretic Methods,
+    Morphism Quality Framework with reused σ/D figure from AICB SERC abstract,
+    Ontology-Engineering Substrate). Add §6.f Risk Identification and
+    Mitigation register. Add §10 Phase III Transition and Operational
+    Adoption subsection. Add new Phase II Roadmap (Figure 3) via paperbanana.
+    Two mid-session corrections: figure-ordering miss (Figure 2 appearing
+    before Figure 1 in document order; fixed by relocating new §4 subsections
+    AFTER Bernie's Overview) and cyan-highlight under-application (the
+    convention is all V2 updates in cyan; initially left plain). V3.2
+    outbound to RTSync (Bernie) at session end.
+
+# --- D1: OUTPUT VOLUME ---
+output:
+  artifacts:
+    - type: paper_section
+      name: SF24C-T003 V3.2 Technical Volume docx (3 figures in correct order, 106 cyan + 130 yellow highlights, Risk register table)
+      action: created
+      lines: 0
+      files: 1
+    - type: analysis
+      name: V3.2 additions markdown source (Background subsections, work plan rewrite, Risk register, Phase III expansion, figure plans)
+      action: created
+      lines: 280
+      files: 1
+    - type: code
+      name: merge_V32.py - three-operation merge script (§4 background expansion, §6 wholesale work plan replacement, §10 Phase III expansion) with cyan highlight application and figure insertion
+      action: created
+      lines: 540
+      files: 1
+    - type: other
+      name: Figure 3 Phase II Roadmap (paperbanana 3-iteration refinement, swim-lane Gantt with five Tasks and three demonstration milestones)
+      action: created
+      lines: 0
+      files: 1
+    - type: other
+      name: Figure 2 staged copy (reused from AICB SERC abstract σ/D Two-Axis Morphism Distance, Wach + Wallk 2026-05-07)
+      action: reviewed
+      lines: 0
+      files: 1
+    - type: review
+      name: V3.1 RTSync inbound walked for executability assessment (5 Tasks executability rating)
+      action: reviewed
+      lines: 0
+      files: 1
+    - type: review
+      name: Figure order verification on first V3.2 produce (caught document-reading-order bug; corrected)
+      action: reviewed
+      lines: 0
+      files: 1
+    - type: review
+      name: Cyan highlight count verification (caught under-application; corrected to apply on all V2 updates)
+      action: reviewed
+      lines: 0
+      files: 1
+  total_files_created: 4       # V3.2 docx, additions md, merge script, Figure 3 PNG (Figure 2 reused)
+  total_files_modified: 0
+  total_lines_written: 820     # markdown 280 + python 540; new prose in V3.2 ~3500 words but added via markdown source above
+  pages_produced: 5            # net page growth V3.1 -> V3.2 about 5 pages (~40 -> ~45)
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: none
+  model_primary: claude-opus-4-7
+  tokens_input:           # not exposed
+  tokens_output:          # not exposed
+  total_cost_usd:         # not exposed
+  tool_calls:             # not exposed; mid-volume multi-turn drafting plus scripting plus verification plus two correction cycles
+  context_compressions:   # not observed
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: V3.2 §6 work plan replacement (text content + Figure 3 + Risk table)
+      result: pass
+      details: 69 V3.1 body elements deleted between Scope H2 and Deliverables H1; 46 new paragraphs + 1 figure with caption + 1 table inserted; "such as" framing for tools verified; no file-name specifics in any Subtask; per-Task Outputs lines confirmed in lieu of per-Task Deliverables.
+    - gate: V3.2 §4 background expansion (3 H2 subsections + Figure 2)
+      result: pass
+      details: 15 new paragraphs + 1 figure with caption inserted before §5 Phase II Technical Objectives H1; H2 level confirmed (siblings of existing Background and Overview, not H3 nested under Overview).
+    - gate: V3.2 §10 Phase III Transition subsection
+      result: pass
+      details: 6 new paragraphs (H2 subsection title plus 5 prose paragraphs) appended before §11 Key Personnel; three pathways covered (SDA T&E transition, RTSync commercial, UA research-to-transition).
+    - gate: Figure order verification (numeric vs document reading order)
+      result: pass
+      details: After first-pass failure, anchor change to §5 H1 placed new §4 subsections AFTER Overview; verified Figure 1 at extract line 520, Figure 2 at 716, Figure 3 at 880; numeric order matches reading order.
+    - gate: Cyan highlight convention (all V2 updates in cyan)
+      result: pass
+      details: After first-pass failure, merge_V32.py updated to apply WD_COLOR_INDEX.TURQUOISE to all inserted runs (paragraphs, captions, table cells); final V3.2 highlight count 106 cyan + 130 yellow + 0 blue; 5 cyan from RTSync's V3.1 content outside §6 preserved.
+    - gate: Image preservation and addition
+      result: pass
+      details: image1.png Operational View preserved; image2.png σ/D quadrant (Figure 2) added at 4.5 inches width; image3.png Phase II Roadmap (Figure 3) added at 6.5 inches width; V3.2 file size 4.6 MB.
+    - gate: Style discipline (no em dashes, acronyms expanded at first use, guarded artifact framing)
+      result: pass
+      details: All new prose audited; ZynWorld referred to as "the team's geospatial digital-twin testbed" rather than by name; MTO referred to as "the team's Mission Thread Ontology" with publication context; GI-JOE pipeline described as "the team's multi-agent ontology-engineering pipeline."
+    - gate: Workspace hygiene per R104
+      result: pass
+      details: All scripts, markdown sources, and intermediates saved to _workspace/; no files written to PostWach hive root; no files written to project root.
+  tests_passed: 8
+  tests_failed: 0
+  reviewer_comments_addressed: 4    # principal's four review questions all addressed in V3.2
+  first_pass_quality_pct: 75        # 2 first-pass misses (figure ordering, cyan highlights) out of 8 quality gates; both caught and corrected before V3.2 outbound
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 0
+  retries: 3                       # (1) Operation 2 anchor lookup needed update from "Work plan." H1 (removed by RTSync in V3.1) to Scope H2; (2) figure order anchor change from Overview to §5 H1; (3) cyan highlight application across all inserted runs
+  rework_files: 1                  # SF24C-T003 V3.2 docx re-saved 3 times (initial; after figure-order fix; after cyan-highlight fix)
+  blocked_minutes: 0
+  blockers: >
+    None blocking deliverables. Two principal-flagged first-pass failures
+    surfaced mid-session and both corrected before V3.2 outbound: (1) figure
+    document-reading-order violation (Figure 2 appeared before Figure 1
+    because new §4 subsections were placed BEFORE Bernie's Overview which
+    contains Figure 1); (2) cyan-highlight under-application (left all new
+    content plain on first pass; convention is cyan on all V2 updates).
+    Both fixes were straightforward once flagged: change merge script's
+    §4 anchor for the first, add highlight=HL parameter throughout for the
+    second. Net cost of both fixes: about 10 minutes of script editing and
+    re-running.
+  perception_note: >
+    Two-quality-gate miss is the takeaway. Both were checklist items I
+    skipped: (a) figure validation must include document reading order, not
+    just cross-reference consistency; (b) highlight conventions must be
+    applied uniformly to all updates, not selectively reasoned about. Both
+    are mechanical checks that python-docx + grep can run in seconds against
+    a freshly produced docx. Adding them to a standard "post-docx-produce
+    verification" routine would have caught both on the first pass. Worth
+    capturing as a productivity-paper checklist item: "figure_order_matches_
+    numeric_order" and "highlight_convention_applied_uniformly" gates.
+    Substantively, the session produced a credible V3.2 with ~5 pages of new
+    technical-background prose, a Risk register, a generalized work plan,
+    and a Phase III Transition subsection; sent to Bernie for review. Use
+    of paperbanana for Figure 3 + reuse of the AICB Figure 2 covered the
+    two visual additions cleanly. Net: high-leverage session despite the
+    two correction cycles.

@@ -1,0 +1,219 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+# Session spans 2026-06-03 to 2026-06-04. Started with R019 discussion
+# resumption from prior postwach-04 (2026-06-02), continued through
+# EndNote investigation, conversion, Phase 1-5 R019 build, swarm with
+# 3 background agents, follow-up refinements, end-to-end /refverify test.
+session:
+  id: 2026-06-03-postwach-02
+  date: 2026-06-03
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: ""
+  end_time: ""
+  task_summary: |
+    Continue R019 discussion from 2026-06-02 postwach-04. Resolve the
+    7 open questions in the proposal. Investigate EndNote v2 library
+    in VT archive, convert to BibTeX (1,562 entries) into pending/.
+    Build R019 Phase 1, 2, 4 (data store + global rule + render gate).
+    Spawn swarm with 3 parallel background agents for Phase 3 backfill,
+    per-hive CLAUDE.md cross-references, and Phase 5 slash commands.
+    Address follow-up refinements (matcher multi-author + editor + alias
+    indexing, title-keyword tiebreak, in-place YAML refresh, version
+    revalidation verb). End-to-end test: promote @wach2022pairing from
+    pending to approved via /refverify.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: spec
+      name: R019 proposal — 7 resolutions folded in + DOI dedup pre-check + human-attested mode + acceptance criteria 6/6 closed
+      action: modified
+      lines: ~150
+      files: 1
+    - type: config
+      name: Global CLAUDE.md — added [R019] rule
+      action: modified
+      lines: 1
+      files: 1
+    - type: config
+      name: Per-hive CLAUDE.md cross-references (9 V3 hives, R109/A010/G009/X011/P012/C007/S008/L009/D007)
+      action: modified
+      lines: 9
+      files: 9
+    - type: config
+      name: feedback_references_triple_check.md — R019 structural backstop link
+      action: modified
+      lines: ~5
+      files: 1
+    - type: other
+      name: "04 Resource Library/00 Verified References/ — data store skeleton (approved.bib, manifest.yaml, pending/, quarantine/)"
+      action: created
+      lines: 0
+      files: 4
+    - type: spec
+      name: approved.bib — seeded with 16 SwarmEng v0.3 verified entries; later promoted @wach2022pairing (17 total at session close, plus external STIDS-MTO backfill)
+      action: created
+      lines: ~180
+      files: 1
+    - type: spec
+      name: manifest.yaml — 16 seed entries + per-entry verification metadata + defaults.staleness block; later --refresh on ruvnet + promoted wach2022pairing
+      action: created
+      lines: ~310
+      files: 1
+    - type: code
+      name: scripts/refcheck.py — R019 render gate, plus --include-pending flag, title-keyword tiebreak, multi-author + editor + aliases indexing, /refverify routing message
+      action: created
+      lines: ~260
+      files: 1
+    - type: code
+      name: scripts/refcheck.sh + refcheck.ps1 (thin wrappers)
+      action: created
+      lines: ~5
+      files: 2
+    - type: code
+      name: scripts/endnote_xml_to_bibtex.py — one-shot converter for EndNote v2.enl XML export (handles ref-type mapping, DOI ezproxy strip, bibkey gen)
+      action: created
+      lines: ~280
+      files: 1
+    - type: code
+      name: scripts/reflookup.py — search across approved + pending stores
+      action: created
+      lines: ~210
+      files: 1
+    - type: code
+      name: scripts/refverify.py — MVP single-model triple-check + DOI dedup + human-attested path + --list-stale + --refresh in-place YAML edit + ENRICH verdict + unicode hyphen normalization
+      action: created
+      lines: ~600
+      files: 1
+    - type: spec
+      name: .claude/skills/refcheck/SKILL.md, reflookup/SKILL.md, refverify/SKILL.md
+      action: created
+      lines: ~300
+      files: 3
+    - type: other
+      name: pending/imported_from_endnote.bib (1,562 entries, 1.5 MB) + imported_from_endnote_manifest.yaml
+      action: created
+      lines: ~14000
+      files: 2
+    - type: spec
+      name: docs/handoff_VT_archive_review.md — VT archive review handoff doc
+      action: created
+      lines: ~200
+      files: 1
+    - type: spec
+      name: docs/phase3_backfill/{aicb_v0.6_report.md, stids_mto_report.md, stoic_v0.5_report.md}
+      action: created
+      lines: ~150
+      files: 3
+    - type: analysis
+      name: Session archive (postwach-02) — initial draft + §9 R019 implementation extension + §10 close-out (this turn)
+      action: created
+      lines: ~300
+      files: 1
+    - type: config
+      name: Productivity scorecard (this file)
+      action: created
+      lines: ~150
+      files: 1
+  total_files_created: 28          # 4 store dirs/files + 16 SwarmEng entries (already in store) + scripts (refcheck.py was created prior; .sh/.ps1 wrappers + endnote converter + reflookup + refverify) + 3 skills + pending bib+yaml + handoff + 3 phase3 reports + archive + scorecard
+  total_files_modified: 14         # approved.bib (seed + ruvnet aliases + wach2022pairing append), manifest.yaml (--refresh on ruvnet + wach2022pairing append), refcheck.py (multiple edits incl tiebreak + multi-author + editor + aliases + stub message), refverify.py (--list-stale + --refresh + ENRICH + hyphen normalize), R019 proposal (resolutions + status), global CLAUDE.md, 9 hive CLAUDE.md, feedback_references_triple_check.md
+  total_lines_written: ~16500      # dominated by the EndNote BibTeX import (~14k lines for 1562 entries)
+  pages_produced: 0                # discovery + tooling + governance; no prose deliverables
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 3                # coder (Phase 3 backfill), general-purpose (per-hive crossrefs), system-architect (Phase 5 slash commands)
+  swarm_topology: hierarchical
+  model_primary: claude-opus-4-7[1m]
+  tokens_input:
+  tokens_output:
+  total_cost_usd:                  # per task-notification subagent usage: B=78k tokens/169s, A=124k tokens/422s, C=146k tokens/447s = ~350k tokens across 3 agents
+  tool_calls: ~120+                # main thread + 3 subagent threads; mix Bash/PowerShell/Edit/Write/Read/WebSearch/AskUserQuestion/Agent/TaskCreate/TaskUpdate
+  context_compressions: 0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: ruflo --version
+      result: pass
+      details: v3.7.0-alpha.14 confirmed at session start
+    - gate: MCP system_health
+      result: pass
+      details: 100/100 on 5 monitored components
+    - gate: refcheck.py regression test (SwarmEng v0.3 References_Bios.md)
+      result: pass
+      details: Started session at 13/16 (post-external bibedits broke surname matching). After Phase-5 matcher refinements (multi-author indexing + editor field + aliases field + title-keyword tiebreak + unicode hyphen), now 16/16 OK.
+    - gate: refcheck.py broken-fixture rejection test
+      result: pass
+      details: Pre-built deliberately-broken fixture exits non-zero (1) in strict mode
+    - gate: /refverify end-to-end on @wach2022pairing
+      result: pass
+      details: Step 0 NOT-IN-STORE, 6 fields OK, 1 field ENRICH (DOI added from Wiley canonical), MATCH-WITH-ENRICHMENT verdict, appended to approved.bib + manifest. Wach 2022 INSIGHT paper verified via DOI 10.1002/inst.12414.
+    - gate: AICB v0.6 backfill propagation check
+      result: pass
+      details: After @wach2022pairing promoted, refcheck on AICB v0.6 now shows it as OK (approved). Phase 3 cycle closes end-to-end.
+    - gate: R019 acceptance criteria
+      result: pass
+      details: 6 of 6 criteria met. Store populated (37 approved + 1561 pending). Global CLAUDE.md + 9 hive cross-refs. Render gate + bad-cite test. Slash commands MVP shipped. feedback memory cross-linked. R019 operational.
+    - gate: Cross-paper text/bib consistency on STIDS-MTO + STOIC + ruvnet
+      result: partial
+      details: STIDS-MTO 22/24 match (2 MISS, both flagged for /refverify). STOIC v0.5 4/10 effective match (matcher pre-fixes; not re-tested post-fixes). After matcher refinements, line #15 false-positive resolved to wach2026meo correctly via title tiebreak.
+    - gate: SEAD numbering reconciliation
+      result: partial
+      details: On-disk SEAD CLAUDE.md only had D001-D006; memory claimed D007-D009 existed. Agent used D007 for R019 cross-ref. Memory is stale; the planned 2026-03-02 + 2026-03-10 rules were never committed. Flagged for user.
+  tests_passed: 8                  # 6 refcheck variants (3 stock + 3 --include-pending) + /reflookup smoke + /refverify dry-run + promote
+  tests_failed: 0
+  reviewer_comments_addressed: 0   # no peer review cycle this session
+  first_pass_quality_pct: 92        # refcheck regression: from 13/16 (3 mismatch cases caught by external bibedits) recovered to 16/16 after matcher refinement; /refverify promote on wach2022pairing 6/7 OK + 1 ENRICH = full pass
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0                # 3 subagents all returned cleanly
+  retries: 4                       # title tiebreak + multi-author + editor field + hyphen normalize — each iteration after a test surfaced an edge case
+  rework_files: 3                  # refcheck.py (5 edits: include-pending, tiebreak, multi-author, editor, stub message), refverify.py (5 edits: --list-stale, --refresh, ENRICH verdict, hyphen normalize, table status column), R019 proposal (multiple edits over session)
+  blocked_minutes: 0
+  blockers: |
+    EndNote XML export initially returned only 1 record (export scope was
+    'selected references' not 'all'); user re-exported with Select-All and
+    full 1562 records came through. Caught by initial assessment; resolved
+    next turn. Concurrent agent claim of NameError in refcheck.py was
+    incorrect (rename had propagated cleanly); verified by direct read +
+    end-to-end test. No real blockers.
+  perception_note: |
+    Heavy session, high concentration of new infrastructure. R019 went
+    from a parked proposal to fully operational (6/6 acceptance criteria)
+    in one continuous session, spanning two calendar days. Swarm phase
+    (3 parallel background agents) ran cleanly; coder Agent A's Phase 3
+    backfill report surfaced the matcher false-positive that the
+    follow-up turn addressed. The end-to-end /refverify test on
+    @wach2022pairing closed the Phase-3 cycle (PENDING -> approved with
+    DOI enrichment) — a real ref through the full MVP pipeline.
+
+    Two findings worth carrying forward: (1) external bib edits during a
+    session can silently break matching for in-flight manuscripts (the
+    13/16 regression caught us); future sessions should re-run refcheck
+    after any approved.bib edit. (2) The pending pool is more useful as
+    /reflookup search infrastructure than as a Phase-3 verification
+    queue — only 1 of 40 cross-paper citations resolved to a pending
+    entry. The remaining ~1561 EndNote entries are historical context,
+    not in-flight backfill candidates.
+
+    Smaller wins worth keeping: (a) ENRICH verdict (claimed empty +
+    canonical present = enrichment, not contradiction) keeps /refverify
+    sane on partial-metadata candidates; (b) unicode hyphen + smart-quote
+    normalization in compare avoids false DIFFs from typography; (c) the
+    aliases bib field handles single-author software cites cleanly
+    (ruvnet) without changing the canonical author form.
+
+# --- DERIVED (do not fill — computed by script) ---
+# derived:
+#   wall_clock_hours:
+#   pages_per_hour:
+#   lines_per_hour:
+#   cost_per_page:
+#   cost_per_file:
+#   agent_utilization:
+#   tokens_per_artifact:
+#   rework_ratio:

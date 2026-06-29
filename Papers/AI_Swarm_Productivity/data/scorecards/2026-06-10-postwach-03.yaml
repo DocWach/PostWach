@@ -1,0 +1,117 @@
+# =============================================================================
+# Session Productivity Scorecard — 2026-06-10 postwach-03
+# =============================================================================
+
+schema_version: "1.0"
+
+# --- SESSION METADATA ---
+session:
+  id: "2026-06-10-postwach-03"
+  date: "2026-06-10"
+  hive: "PostWach"
+  researcher: "Paul Wach"
+  start_time: "07:45"       # approximate, from warm-up timestamps
+  end_time:                 # paused at principal request (access loss); archive+scorecard written at pause
+  task_summary: >-
+    Resume DEVS-ME IS 2026 #427 camera-ready checks. Principal selected "run
+    both gates": refcheck.py --strict pre-render gate + Wach 2024 GenAI DOI
+    Byzantine N=3 re-verify. Ran the first TRUE refcheck.py execution on this
+    paper (the 06-05 PASS was a manual crosswalk); diagnosed 11 surface-level
+    matcher failures, applied 11 approved.bib surface tweaks, gate moved
+    33/44 -> 42/44 with final confirming re-run pending. Caught one
+    substantive wrong-document match (#30 W3C Overview vs Syntax). Session
+    paused mid-gate-1; gate 2 not started.
+
+# --- D1: OUTPUT VOLUME ---
+output:
+  artifacts:
+    - type: review
+      name: "First true refcheck.py --strict run on #427 bibliography (44 entries; APA extraction bridge via numbered pandoc extract)"
+      action: created
+      lines: 0
+      files: 0
+    - type: config
+      name: "approved.bib surface tweaks: 8 aliases fields (DoD x2, OMG x3, Neo4j, W3C x2) + 3 brace flattenings (musen title, W3C author x2)"
+      action: modified
+      lines: 11
+      files: 1
+    - type: analysis
+      name: "Failure-layer classification of 11 gate flags (extraction / store parseability / matching surface); parse_bib silent-drop proof (musen probe)"
+      action: created
+      lines: 0
+      files: 0
+    - type: other
+      name: "Session archive + scorecard (this session)"
+      action: created
+      lines: 130
+      files: 2
+  total_files_created: 2
+  total_files_modified: 1
+  total_lines_written: 145
+  pages_produced: 1.5       # archive narrative; no manuscript prose this session
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: "none"
+  model_primary: "claude-fable-5"
+  tokens_input: null
+  tokens_output: null
+  total_cost_usd: null
+  tool_calls: 22            # approximate: warm-up (version, memory read, greps, 2 archive reads, session-start hook), refcheck skill + help probe, glob, pandoc+gate runs (3), extract reads (3), store grep/dump/read (4), parse_bib probe, 11 edits in 2 batches, 2 Write
+  context_compressions: 0
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: "refcheck.py --strict (R019 pre-render, #427 V5 bibliography)"
+      result: partial
+      details: >-
+        Run 1: 33 approved / 1 pending / 10 missing (exit 1). All 11 flags
+        classified as surface issues, zero genuinely unapproved refs. Run 2
+        (after fixes): 42 approved / 0 pending / 2 missing. Final confirming
+        run after W3C author flattening NOT executed (session paused);
+        expected 43/44 with #14 INCOSE FuSE the sole MISS, pending principal
+        decision on a stray "2025." in the docx bib line.
+    - gate: "Wach 2024 GenAI DOI Byzantine N=3 re-verify"
+      result: skipped
+      details: "Not started; session paused before gate 2."
+    - gate: "Store parseability probe (parse_bib on musen2015protege)"
+      result: pass
+      details: "Hypothesis (brace-depth silent drop) confirmed before editing; store parsed-entry count 76 -> 77 after title flattening."
+  tests_passed: 0
+  tests_failed: 0
+  reviewer_comments_addressed: 0
+  first_pass_quality_pct: 90   # diagnosis and fixes landed first-pass; one /tmp path error on Windows Python (re-issued with real temp path)
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 0
+  retries: 1                # Python heredoc used /tmp, which Git Bash maps but Windows Python does not; re-issued with %TEMP% absolute path
+  rework_files: 0           # approved.bib edited in 2 batches but each edit distinct, no re-edits of the same lines
+  blocked_minutes: 0
+  blockers: >-
+    Paused at principal request (access loss) one tool call before the
+    confirming gate re-run. Resume point + exact command recorded in archive
+    section 4.
+  perception_note: >-
+    The actual gate tool found in one run what a careful manual crosswalk
+    (06-05) had missed: a plausible-but-wrong document match (W3C Overview
+    cite matched to the Syntax sibling entry). Strong evidence for the R019
+    structural-gate thesis. The flip side: 10 of 11 initial flags were the
+    gate's own surface gaps (no APA mode, brace-depth silent drops, missing
+    corporate aliases, no letter-suffix years), so the first run's raw output
+    overstated the problem 10:1. Classification-before-fixing kept the
+    response proportionate; all fixes were store-surface or extract-side,
+    none touched the risk:critical gate script itself.
+
+# --- DERIVED (do not fill — computed by script) ---
+# derived:
+#   wall_clock_hours:
+#   pages_per_hour:
+#   lines_per_hour:
+#   cost_per_page:
+#   cost_per_file:
+#   agent_utilization:
+#   tokens_per_artifact:
+#   rework_ratio:

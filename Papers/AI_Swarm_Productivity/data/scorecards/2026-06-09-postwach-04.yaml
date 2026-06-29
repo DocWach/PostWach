@@ -1,0 +1,149 @@
+# =============================================================================
+# Session Productivity Scorecard — 2026-06-09 postwach-04
+# =============================================================================
+
+schema_version: "1.0"
+
+# --- SESSION METADATA ---
+session:
+  id: "2026-06-09-postwach-04"
+  date: "2026-06-09"
+  hive: "PostWach"
+  researcher: "Paul Wach"
+  start_time:               # not captured; session opened with "warm up ruflo and review the updates to the proposal"
+  end_time:                 # session-close instruction "complete archive, scorecard, and terminate"
+  task_summary: >-
+    Review and integrate Bernie Zeigler's V3 update of the SDA SBIR D2P2
+    OSW26BZ02-DV004 Tech Volume 2. Produce V4 as a surgical in-place edit of
+    Bernie's V3 docx (not a regeneration), with cyan highlight on every claude
+    change, Bernie's yellow highlights preserved on his retained text, the
+    textbook Stackelberg/CFR Background section cut, a multiresolution
+    coupling sentence added to Task 1 to match the new DEVS-MACE title, and
+    three new Zeigler citations added to a new References section.
+
+# --- D1: OUTPUT VOLUME ---
+output:
+  artifacts:
+    - type: paper_section
+      name: "OSW26BZ02-DV004 Tech Volume 2 V4 docx (Bernie V3 surgical edit, primary deliverable)"
+      action: modified
+      lines: 235         # paragraphs; V4 has 97 non-empty paragraphs but reports here normalized lines
+      files: 1
+    - type: paper_section
+      name: "OSW26BZ02-DV004 Tech Volume 2 V4 markdown working source"
+      action: created
+      lines: 280
+      files: 1
+    - type: code
+      name: "_edit_v3_in_place.py (first python-docx surgical edit script)"
+      action: created
+      lines: 130
+      files: 1
+    - type: code
+      name: "_edit_v3_with_highlights.py (final script with cyan-highlight + rebuild_paragraph_runs helper)"
+      action: created
+      lines: 220
+      files: 1
+    - type: other
+      name: "feedback_match_format_means_file_level.md (new feedback memory)"
+      action: created
+      lines: 30
+      files: 1
+    - type: other
+      name: "MEMORY.md index entry for match-format-means-file-level"
+      action: modified
+      lines: 2
+      files: 1
+    - type: other
+      name: "Session archive + scorecard (this session)"
+      action: created
+      lines: 280
+      files: 2
+  total_files_created: 6
+  total_files_modified: 2
+  total_lines_written: 1177
+  pages_produced: 4   # ~1000 words of new prose across V4 cuts + multiresolution sentence + References + memory + archive narrative
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: "none"
+  model_primary: "claude-opus-4-7[1m]"
+  tokens_input: null
+  tokens_output: null
+  total_cost_usd: null
+  tool_calls: 38           # approximate: Read/Write/Edit/Bash for python-docx scripts, pandoc conversions, Word COM page count, format-XML diff inspection, MEMORY.md update
+  context_compressions: 0
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: "File-level format match to source docx (V3)"
+      result: pass
+      details: "V4 inherits V3's Calibri Light/Calibri theme, 8.5x11 page size, 1-inch margins (header 360, footer 475), header1.xml + footer1.xml + styles.xml. Confirmed by post-edit XML re-extraction."
+    - gate: "In-document format preservation (Bernie's highlights + runs)"
+      result: pass
+      details: "32 yellow highlight runs from Bernie preserved on his retained text. Lead paragraph run-spanning fixes used rebuild_paragraph_runs to preserve yellow on un-changed text segments while inserting cyan on substituted spans."
+    - gate: "Cyan highlight on every claude change"
+      result: pass
+      details: "18 cyan runs: 2 in lead paragraph (em dash + games/Moreover), 1 in FEAS-5 (instuctions->instructions), 1 in TASK-1 (multiresolution sentence), 14 in References section (heading + 13 entries). Pure deletions left unmarked per instruction."
+    - gate: "Vol 2 page cap (15 pages)"
+      result: pass
+      details: "V4 measures 11 pages via Word COM ComputeStatistics(2). 4 pages of headroom under the 15-page cap."
+    - gate: "Part 1 page cap (5 pages)"
+      result: pass
+      details: "V4 Part 1 measures 5/5 pages. Bernie's V3 also 5/5 with zero internal slack; V4 cut ~320 words from Part 1 (Background section deletion + minor edits), buying ~0.6 page of internal slack within the same 5-page envelope."
+    - gate: "Part 2 page cap (10 pages)"
+      result: pass
+      details: "V4 Part 2 measures 6/10 pages. Bernie's V3 was 5/10; V4 added 1 page driven by the References section starting on page 10. 4 pages of headroom remain."
+    - gate: "R019 reference verification (Zeigler 2000, 2013, 2025)"
+      result: skipped
+      details: "Three new citations added with `[VERIFY ... before submission]` flags; /refverify deferred to a future session per principal hold on external actions. Required before any submission PDF render."
+    - gate: "feedback_probe_artifact_not_narrative compliance"
+      result: pass
+      details: "V3 and V4 unzipped and inspected at XML level for theme fonts, sectPr, header/footer presence. Page counts measured via Word COM (real ComputeStatistics) rather than estimated from word counts."
+    - gate: "feedback_match_format_means_file_level compliance"
+      result: partial
+      details: "Failed on the first 'match format' instruction (pandoc default, no reference-doc), failed again on the rebuild iteration (pandoc reference-doc, but principal wanted in-place edit). Memory file written after the first failure and strengthened after the second. Final pass passed cleanly. The memory should prevent recurrence in next session."
+  tests_passed: 7
+  tests_failed: 0          # one "partial" on the format-compliance gate; treating as learning-mode pass since the principal-directed final iteration succeeded
+  reviewer_comments_addressed: null
+  first_pass_quality_pct: 40   # First "match format" iteration missed file-level format. Second iteration missed in-place-edit intent. Third iteration delivered the surgical edit. Fourth iteration added highlights cleanly with one run-spanning miss caught and fixed. Net: first pass quality was low; iteration-3 onward was strong.
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 0
+  retries: 3   # V4 docx was regenerated/rewritten three times before the final python-docx + cyan-highlight pass: (1) pandoc default theme, (2) pandoc --reference-doc=V3.docx, (3) python-docx in-place edit; (4) cyan-highlight pass had a partial-success first try requiring the rebuild_paragraph_runs helper for run-spanning matches.
+  rework_files: 2   # V4.md and V4.docx each regenerated through multiple iterations; the python-docx script revised once for run-spanning support
+  blocked_minutes: 0
+  blockers: "none"
+  perception_note: >-
+    Recurring failure mode this session: I keep defaulting to the easier
+    reading of an ambiguous instruction. "Match format" can mean visible
+    structure (the easier read, pandoc-fixable) or file-level template (the
+    harder read, requires source-doc interrogation) or in-place edit of the
+    source (the hardest read, requires python-docx surgical work). I defaulted
+    to the easiest reading three times in a row. The principal called it the
+    second occurrence and asked if memory was broken. Memory wasn't broken
+    technically; the lesson hadn't been written. Now is, as
+    feedback_match_format_means_file_level.md, with a strengthened
+    python-docx-first workflow recipe. Recurrence test will be the next time
+    a principal asks me to edit a Word doc.
+
+    Wins this session: ruflo warmed in one MCP call, file-level format match
+    achieved cleanly on iteration 2, in-place edit achieved cleanly on
+    iteration 3, cyan-highlight scheme matched the parallel SF24C-T003 V3.2
+    convention from postwach-03 the same day, Word COM page-count
+    verification added a capability that beat word-count estimation by
+    showing actual reflowed pages and where the References section landed.
+
+# --- DERIVED (do not fill — computed by script) ---
+# derived:
+#   wall_clock_hours:
+#   pages_per_hour:
+#   lines_per_hour:
+#   cost_per_page:
+#   cost_per_file:
+#   agent_utilization:
+#   tokens_per_artifact:
+#   rework_ratio:

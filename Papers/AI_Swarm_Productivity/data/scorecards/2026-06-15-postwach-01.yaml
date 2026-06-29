@@ -1,0 +1,109 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-06-15-postwach-01
+  date: 2026-06-15
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "19:30"          # approximate; session began evening 2026-06-14
+  end_time: "13:30"            # approximate; ran overnight (autonomous) into 2026-06-15
+  task_summary: >
+    Assess David Kamien's coauthor feedback on the STIDS 2026 MTO paper, then execute a
+    major restructure (airport demonstration leads; SEAD validation summarized to a journal
+    pointer; trim 20->16pp), run a tri-model adversarial review (Claude+Codex+Gemini),
+    apply fixes, and assemble a verified submission-ready package. Spanned overnight.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: paper_section
+      name: "STIDS MTO paper full restructure (airport demo §6, SEAD->§9.1, abstract, trims, CQs, figure)"
+      action: modified
+      lines: 600          # approx prose lines added/changed across ~40 targeted edits
+      files: 1
+    - type: code
+      name: "make_airport_graph.py figure (dashed edge, title removed, crop)"
+      action: modified
+      lines: 10
+      files: 1
+    - type: review
+      name: "Tri-model review (3 model reviews + synthesis + provenance manifest + prompts)"
+      action: created
+      lines: 250
+      files: 7
+    - type: spec
+      name: "Conference/journal depth-split map (journal-seed record)"
+      action: created
+      lines: 90
+      files: 1
+    - type: config
+      name: "Submission package assembled + zipped (clean-compile verified, 8 files)"
+      action: created
+      lines: 0
+      files: 9
+    - type: other
+      name: "MD precursor re-synced via pandoc (16pp mirror)"
+      action: modified
+      lines: 977
+      files: 1
+    - type: other
+      name: "Memory updates (project_stids_mto_paper, new feedback memory, MEMORY.md, 06-04 archive fix) + this session archive"
+      action: modified
+      lines: 200
+      files: 6
+  total_files_created: 14
+  total_files_modified: 8
+  total_lines_written: 2100   # approximate, across all artifacts
+  pages_produced: 4           # net-new prose equivalent; bulk of session was restructuring/editing 20->16pp
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 3            # tri-model reviewers (3 distinct foundation models via CLI), not a ruflo swarm
+  swarm_topology: none         # CLI-based tri-model; no ruflo swarm spawned this session
+  model_primary: claude-opus-4-8
+  tokens_input:                # not tracked
+  tokens_output:               # not tracked
+  total_cost_usd:              # not tracked
+  tool_calls: 90               # approximate
+  context_compressions: 0
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: R019 refcheck (references)
+      result: pass
+      details: "25/25 matched, 0 missing (bibkey-mode on re-synced MD precursor)"
+    - gate: CEUR-WS check-pdf-errors
+      result: pass
+      details: "8/8 checks ok"
+    - gate: check-libbyhead
+      result: pass
+      details: "exit 0"
+    - gate: pdffonts embedding
+      result: pass
+      details: "all Libertinus + CM + FontAwesome embedded/subsetted"
+    - gate: Tri-model adversarial review (Claude+Codex+Gemini)
+      result: pass
+      details: "all accept/weak-accept; all clear fixes applied; 1 false-positive rejected"
+    - gate: Clean-compile from submission package
+      result: pass
+      details: "16pp from scratch, self-contained"
+  tests_passed: 6
+  tests_failed: 0
+  reviewer_comments_addressed: 12   # David feedback items + tri-model findings actioned
+  first_pass_quality_pct: 90
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 0
+  retries: 3                   # Codex stdin-hang; Codex non-UTF-8 input; Gemini untrusted-dir guard
+  rework_files: 2              # the .tex (~40 edits) and the figure script (multiple regen passes)
+  blocked_minutes: 0
+  blockers: >
+    Minor only: 06-14 PDF viewer-locked during a render (worked around with a fresh 06-15 jobname).
+    A transient Claude Code "Stream idle timeout" streaming error, unrelated to ruflo.
+  perception_note: >
+    Substantially faster than manual. A full 20->16pp restructure, a genuine three-model
+    adversarial review with applied fixes, a re-synced source mirror, and a verified
+    submission package were completed in one (overnight) session.

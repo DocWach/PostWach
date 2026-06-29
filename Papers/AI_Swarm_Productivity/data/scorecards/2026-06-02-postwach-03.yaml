@@ -1,0 +1,136 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-06-02-postwach-03
+  date: 2026-06-02
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: ""
+  end_time: ""
+  task_summary: |
+    Resume INF-2026-17 SERC AI4SE/SE4AI 2026 workshop abstract from postwach-04
+    against a new user-authored outline. Section-by-section bullet expansion,
+    full v0.5 assembly, triple-check references, iterative copyedit with the
+    user, render to PDF, split into the two-file submission package, submit.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: paper_section
+      name: Wach_Philipbar_STOIC_HOS_ZynWorld_v0.5.md (5-section abstract source)
+      action: created
+      lines: ~95
+      files: 1
+    - type: paper_section
+      name: Wach_Philipbar_STOIC_HOS_ZynWorld_Abstract_submitted.pdf (3pp body + 3 figures)
+      action: created
+      lines: 0
+      files: 1
+    - type: paper_section
+      name: Wach_Philipbar_STOIC_HOS_ZynWorld_References_Bios_submitted.pdf (1pp refs/bios/ack)
+      action: created
+      lines: 0
+      files: 1
+    - type: paper_section
+      name: Wach_Philipbar_STOIC_HOS_ZynWorld_v0.5.pdf (combined 4pp reference copy)
+      action: created
+      lines: 0
+      files: 1
+    - type: other
+      name: INSIGHT_Fig4_timeline.png (figure extracted from INSIGHT v3.1 docx)
+      action: created
+      lines: 0
+      files: 1
+    - type: review
+      name: Triple-check references (7 ref fixes + 2 style consolidations)
+      action: created
+      lines: 0
+      files: 0
+    - type: analysis
+      name: Session archive (postwach-03), append/extend with late-session log
+      action: modified
+      lines: ~80
+      files: 1
+    - type: config
+      name: Productivity scorecard (this file)
+      action: created
+      lines: ~75
+      files: 1
+  total_files_created: 6
+  total_files_modified: 2
+  total_lines_written: ~250
+  pages_produced: ~4    # 3pp Abstract + 1pp References/Bios = 4 published pages
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: none
+  model_primary: claude-opus-4-7[1m]
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: ~135      # mix Bash/Edit/Read/WebSearch/WebFetch/Glob/Write/PowerShell/Task* — no subagents
+  context_compressions: 0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: ruflo --version
+      result: pass
+      details: v3.7.0-alpha.14 confirmed; MCP system_health 100/100 on 5 monitored components
+    - gate: in-text ↔ bibliography mapping
+      result: pass
+      details: 10 entries, 10 cited, no orphans either direction; consistent style
+    - gate: external reference verification (triple-check)
+      result: pass
+      details: 7 reference fixes applied (Kim subtitle, Wymore full title + Tricotyledon spelling, Zeigler "&" form, Cohen URL ruflo not claude-flow, INSIGHT format strip, refs 8/9 "(accepted)" drop, ruflo title); 2 style fixes (& inside brackets, figure captions parens→brackets)
+    - gate: em-dash grep
+      result: pass
+      details: no em dashes in source
+    - gate: page-count budget (3pp body + 1pp refs)
+      result: pass
+      details: 4 total pages held after 5.7 close trim; one 5-page overflow caught and corrected
+    - gate: figure pipeline
+      result: pass
+      details: 3 figures placed inline, all paths resolve; Figure 2 swapped late-session (Houston → INSIGHT Fig 4 timeline)
+    - gate: submission split
+      result: pass
+      details: Abstract_submitted.pdf (3pp) + References_Bios_submitted.pdf (1pp) delivered
+  tests_passed: 0
+  tests_failed: 0
+  reviewer_comments_addressed: 0
+  first_pass_quality_pct:   # not measurable here (drafting + iterative copyedit, not reviewer cycle)
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 1            # Section 5 close trim after 5-page overflow on first re-render
+  rework_files: 1       # v0.5.md edited ~20 times across the session (single-paragraph and sentence-level)
+  blocked_minutes: 0
+  blockers: |
+    One Windows file-lock blip: re-render blocked because the PDF was open
+    in the user's viewer. Resolved by switching to render-to-temp + atomic
+    mv-swap pattern (kept for all subsequent renders). No real time loss.
+  perception_note: |
+    Section-by-section bullet expansion (decided at debate stage) prevented
+    the misalignment incident from postwach-04. No restructure thrash, no
+    prose drafted before structure locked. The user-driven 12-item edit pass
+    after first render was the heaviest single turn; batching all 12 with
+    debate-and-update reasoning kept it to one render cycle. NATO panel
+    title hallucination correctly avoided: web sources insufficient, asked
+    the user for verbatim string (per no-hallucinated-identifiers rule),
+    applied verbatim once received. Triple-check rule from postwach-05 paid
+    out: 7 ref fixes caught before submission, including Wymore terminology
+    (Tricotyledon vs Tricotyledonous) that the user's own prior draft had wrong.
+
+# --- DERIVED (do not fill — computed by script) ---
+# derived:
+#   wall_clock_hours:
+#   pages_per_hour:
+#   lines_per_hour:
+#   cost_per_page:
+#   cost_per_file:
+#   agent_utilization:
+#   tokens_per_artifact:
+#   rework_ratio:

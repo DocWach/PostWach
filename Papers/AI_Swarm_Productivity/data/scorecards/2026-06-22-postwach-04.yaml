@@ -1,0 +1,91 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-06-22-postwach-04
+  date: 2026-06-22
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "13:30"          # approximate
+  end_time: "15:05"            # approximate
+  task_summary: >
+    Prepare two INCOSE IS 2026 decks (427 Math-Based Data Structures for ME; 490 SES
+    Methodology for Verifiable LLM-Agent Orchestration in DEVS) for sharing with a potential
+    sponsor: clean and where needed add/correct the speaker notes, audit every note against the
+    rendered slide visual, and save new versions. Originals left untouched.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: other
+      name: Deck 427 v4 - speaker notes cleaned across 13 slides; slide 3 authored (was empty); slide 2/4 demo-vs-future-work swap corrected; slide 5 realigned to the tool diagram; stale slide-10 production bracket removed; demo recap borrowed from 490
+      action: created
+      lines: 130
+      files: 1
+    - type: other
+      name: Deck 490 v2 - speaker notes cleaned across 15 slides; em dashes + live-audience phrasing + slide-14 [Play video] stage direction removed; acronym glossaries kept/cleaned; R016 tagging; all technical numbers preserved
+      action: created
+      lines: 150
+      files: 1
+    - type: review
+      name: Visual note-vs-slide audit (28 slides rendered to PNG via PowerPoint COM and read back); found 1 real mismatch (427 s2/s4) + 1 soft mismatch (427 s5) + 1 stale tag (427 s10); 490 had no stale notes
+      action: reviewed
+      lines: 0
+      files: 28
+    - type: other
+      name: Session archive 2026-06-22 postwach-04
+      action: created
+      lines: 60
+      files: 1
+  total_files_created: 4          # 427 v4 pptx, 490 v2 pptx, session archive, this scorecard
+  total_files_modified: 0         # originals (427 v3, 490 FINAL) untouched; new versions created fresh
+  total_lines_written: 340        # ~280 lines of cleaned notes prose + archive; helper scripts in %TEMP%, not project files
+  pages_produced: 5               # ~28 slides of speaker-notes prose at sponsor-readable density
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: none
+  model_primary: claude-opus-4-8
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: 28                  # python-pptx extract/patch x several, PowerPoint COM render x2, Read on PNGs x15, AskUserQuestion x3 (1 interrupted), Bash audits
+  context_compressions: 0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: note-vs-visual relevance audit (deck 427, rendered)
+      result: pass
+      details: caught the slide 2/4 swap (s2 shows the SEAD demo, s4 shows the STOIC/HOS emblem; duplicated future-work note belonged to s4) and slide-10 stale production bracket
+    - gate: note-vs-visual relevance audit (deck 490, rendered)
+      result: pass
+      details: all 15 notes already matched their slide; no stale/duplicated notes; cleanup only
+    - gate: em-dash / live-phrase verification (deck 490 v2)
+      result: pass
+      details: scripted check confirmed 0 em dashes, 0 en dashes, 0 live-audience phrases remaining
+    - gate: technical-number preservation (deck 490 v2)
+      result: pass
+      details: spot-checked 8 load-bearing values (0.83, 0.0085, ~1.4e7, 168->50/25, 13-event, 18 controls, 5.8e21 @ 40-agent) all present
+    - gate: no-overwrite of originals
+      result: pass
+      details: 427 v3 and 490 FINAL untouched; v4 and v2 created via copy-then-edit; slide bodies never modified (principal revises those)
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed: 1   # principal's "check notes are actually relevant" prompt drove the rendered audit that caught the 427 s2/s4 swap
+  first_pass_quality_pct: 75       # first 427 cleanup (text-only) left a residual duplicate future-work paragraph on slide 2; only the rendered audit caught the visual swap. Lesson: render before declaring note relevance.
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 2                      # bash heredoc quoting failed on apostrophes (switched to Write tool for the script); one AskUserQuestion interrupted (principal had wrong folder open)
+  rework_files: 1                 # 427 v4 notes edited 3x (initial clean -> s2/s4 patch -> s5 realign)
+  blocked_minutes: 0
+  blockers: none
+  perception_note: >
+    Rendering the slides to PNG and actually looking was the decisive step: a text-only note audit
+    cannot catch a stale note whose slide content is an image (the 427 slide 2/4 demo-vs-emblem swap
+    was invisible from titles alone). Reinforces the probe-the-artifact / verify-visually rules.
+    PowerPoint COM rendered cleanly here despite Word COM PDF export being known to hang. Efficient
+    overall; the main avoidable rework was cleaning 427's notes from text before rendering.

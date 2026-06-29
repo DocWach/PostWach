@@ -1,0 +1,96 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-06-15-postwach-02
+  date: 2026-06-15
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "13:00"   # approximate (interactive afternoon session, ~1h lunch break mid-session)
+  end_time: "18:15"     # approximate
+  task_summary: >
+    Build the INCOSE IS 2026 presentation for "Vision 2035: Exploring the Future of
+    Requirements Specification" (#479). Reviewed the paper, drew from WRT-2406 and WRT-2516,
+    produced an outline-driven deck on the INCOSE template, added a TRAK results chart and
+    speaker notes, and built the science-fiction hook slide. Principal finalized and submitted.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: other
+      name: INCOSE IS 2026 presentation (review deck v1, 15 slides)
+      action: created
+      lines:
+      files: 1
+    - type: other
+      name: INCOSE IS 2026 presentation (outline-driven, 9->11 slides; v1,v3,v4,v5)
+      action: created
+      lines:
+      files: 4
+    - type: analysis
+      name: TRAK worked-example results chart (Table 11 Y/P/N across 4 iterations)
+      action: created
+      lines: 60
+      files: 1
+    - type: code
+      name: build/edit/chart scripts (deck builds, surgical edits, notes, slide 3, chart)
+      action: created
+      lines: 900
+      files: 6
+    - type: other
+      name: speaker notes (all 11 slides, ~20-min talk track)
+      action: created
+      lines: 80
+      files: 1
+    - type: review
+      name: session archive (postwach-02) + this scorecard
+      action: created
+      lines: 90
+      files: 2
+  total_files_created: 15
+  total_files_modified: 3
+  total_lines_written: 1100
+  pages_produced: 6   # prose-equivalent (speaker notes + archive); decks counted as artifacts above
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 4   # Explore subagents: 1 (WRT-2516, deck 1) + 3 (WRT-2406, WRT-2516, TRAK/AI-image)
+  swarm_topology: none   # independent read-only subagents, not a coordinated swarm
+  model_primary: claude-opus-4-8
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls:
+  context_compressions:
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: Visual render verification (PowerPoint COM -> PNG, inspect every slide)
+      result: pass
+      details: Caught and fixed title/venue overlap, headings under logo, chart right-edge overflow.
+    - gate: Source / citation verification
+      result: pass
+      details: TRAK definition confirmed from practitioner guide v16; corrected a subagent's over-specified Q1-Q3 wording; AI-history white-paper citation verified verbatim.
+    - gate: Public-safe sensitivity review
+      result: pass
+      details: No NNSA / budget / CUI / pre-decisional content on slides; R016 integration-status tags applied; no em dashes.
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed: 3   # deck designed to answer the 3 IS reviewers' "no validation/examples" critique via WRT-2516 progress + TRAK results
+  first_pass_quality_pct: 80
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 0   # 1 subagent over-specification (TRAK Q-wording) caught and corrected before it reached a slide
+  retries: 4          # chart annotation (2x), render-driven layout fixes
+  rework_files: 2     # the deck (multiple rebuilds), the TRAK chart (3 iterations)
+  blocked_minutes: 15
+  blockers: >
+    OneDrive online-only files threw PackageNotFoundError in Windows-native python; worked around by
+    copying to %TEMP% before reading. A stale on-disk file (principal's image edit to slide 3 not yet
+    synced) meant the final slide-3 note was handed over as text rather than written, to avoid a stale build.
+  perception_note: >
+    AI markedly faster than manual for template matching, figure generation, multi-source synthesis,
+    and iterative deck construction. Main friction was OneDrive sync and the render-inspect-fix loop,
+    both of which still netted well ahead of manual slide building.

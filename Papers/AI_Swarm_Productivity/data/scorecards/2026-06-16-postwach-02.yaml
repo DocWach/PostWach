@@ -1,0 +1,110 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-06-16-postwach-02
+  date: 2026-06-16
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "11:00"          # approximate
+  end_time: "17:00"            # approximate (spanned a laptop-sleep gap mid-session)
+  task_summary: >
+    Build the INCOSE IS 2026 conference presentation for paper #427 (Math-Based Data Structures
+    and Analysis for Mission Engineering) from the paper; iterate v1 (16 slides) -> v2 (13, citations
+    + merges + SISO close) -> v3 (22, transplant framing/content from the DEVS-ISO/DE-Factory deck +
+    backup section); match the INCOSE 2022 template by cloning the paper-490 deck; finalize + embed a
+    native mermaid alignment diagram on slide 3 (Wymore 1967 -> T3SD/DEVS -> STOIC -> WIP SysML v2,
+    matched to the principal's hand drawing); attempt a PaperBanana upgrade (rejected on a garbled
+    coauthor name); re-sync speaker notes to the principal's final 12-slide reorg.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: presentation
+      name: "IS 2026 #427 deck v1/v2/v3 (.pptx) on INCOSE 2022 template, speaker notes + Q&A prep; v3 PDF"
+      action: created
+      lines: 0
+      files: 4
+    - type: config
+      name: "python-pptx build scripts (v1/v2/v3), mermaid embed, figure/EMF extraction + crops"
+      action: created
+      lines: 850
+      files: 7
+    - type: other
+      name: "Slide content spec (Presentation_outline_2026-06-16.md) + slide-3 mermaid staging (.mmd)"
+      action: created
+      lines: 180
+      files: 2
+    - type: figure
+      name: "Slide-3 mermaid alignment diagram (.mmd + rendered .png), matched to principal hand drawing; PaperBanana variant generated"
+      action: created
+      lines: 30
+      files: 3
+    - type: presentation
+      name: "Surgical in-place edits to live deck: slide-3 diagram embed; speaker notes re-synced on slides 3/4/8/10/12"
+      action: modified
+      lines: 0
+      files: 1
+    - type: other
+      name: "Memory update (project_devsme_is2026_427.md) + this session archive (created then updated)"
+      action: modified
+      lines: 160
+      files: 2
+  total_files_created: 16
+  total_files_modified: 3
+  total_lines_written: 1200   # approximate; build scripts dominate (deck content is binary pptx)
+  pages_produced: 12          # slides in the principal's final canonical deck (trimmed from 22)
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: none
+  model_primary: claude-opus-4-8
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: 145              # approximate (render-verify via PowerPoint COM + many image reads; mermaid + paperbanana runs)
+  context_compressions: 0
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: Visual render-verify (PowerPoint COM export to PNG, slide-by-slide)
+      result: pass
+      details: "all v1/v2/v3 slides eyeballed; INCOSE branding, citations, results table, STOIC native all correct"
+    - gate: Template fidelity (file-level clone of INCOSE 2022 Base Template from deck 490)
+      result: pass
+    - gate: Reference accuracy (slide-3 citations + Wach/Zeigler/Salado 2021 verified against source docs)
+      result: pass
+      details: "no hallucinated citations; STOIC expansion corrected to principal-canonical 'Integration Core'"
+    - gate: mermaid render (mmdc)
+      result: pass
+    - gate: PaperBanana text-fidelity gate (exact-label check on generated figure)
+      result: fail
+      details: "caught garbled coauthor name 'Wach, Zeiger & Salado' (dropped 'l' from Zeigler); rejected the figure, kept the exact-label mermaid"
+    - gate: Live-deck lock-file check before editing (~$*.pptx absent)
+      result: pass
+      details: "confirmed deck closed before notes-only surgical edit; pre-edit backup taken"
+  tests_passed: 5
+  tests_failed: 1   # the PaperBanana figure failed the label gate by design (caught, not shipped)
+  reviewer_comments_addressed: 4   # all 3 paper reviewers' asks pre-loaded into Q&A notes (R1 fig#, R2 nascent/1967, R3 SysMLv2)
+  first_pass_quality_pct: 70       # docked: two process mistakes (regen-clobber, PowerPoint-COM disruption) required rework + apology
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 0
+  retries: 6                   # OneDrive clone-base eviction; sed Windows-path mangling; COM RPC_E_CALL_REJECTED; PaperBanana Pro 503 x2 (Google capacity); image-model swap
+  rework_files: 3              # v2/v3 regenerated instead of edited live (dropped principal edits); recovered to surgical editing
+  blocked_minutes: 0
+  blockers: "none hard; self-inflicted disruption to the principal's open PowerPoint session (corrected mid-session)"
+  perception_note: >
+    Strong on output (a full, template-matched conference deck with notes, a hand-drawing-matched
+    mermaid figure, and a re-synced 12-slide note set) but two real process failures early:
+    (1) regenerating from script each version dropped the principal's manual edits
+    ([[feedback-no-overwrite-manual-edits]]); (2) PowerPoint COM render-verify closed the principal's
+    open deck (once force-killed it). Both corrected and the fixes stuck for the rest of the session:
+    surgical in-place edits, a lock-file pre-check before writing, no PowerPoint automation while the
+    deck is open. PaperBanana upgrade was correctly rejected by the pre-stated text-fidelity gate
+    (garbled coauthor name), validating "verify before shipping a generated figure." Net value real;
+    main residual risk is that verify-by-rendering still depends on PowerPoint COM (needs a non-COM
+    renderer or explicit principal coordination).

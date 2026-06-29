@@ -1,0 +1,109 @@
+# =============================================================================
+# Session Productivity Scorecard — 2026-06-28 postwach-02
+# PROVENANCE (R018): claude-opus-4-8[1m] (Anthropic, Claude Code CLI), main-thread orchestrator.
+# Verification subagents: claude-opus-4-8 via the Agent tool.
+# =============================================================================
+
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-06-28-postwach-02
+  date: 2026-06-28
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "16:30"          # approximate (local MST); evening session, separate from postwach-01
+  end_time: "22:00"            # approximate; paused for the night
+  task_summary: >
+    Resume the dissertation-derived journal paper. Integrate the SysML v2 finding, produce a
+    camera-ready, then (mid-session) locate the canonical version sent to Alejandro and pivot to it.
+    Complete R019 reference verification for that manuscript via subagent swarms and build it.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: paper_section
+      name: Camera-ready WySE article (md + PDF, iterated 3x; later superseded by the canonical base)
+      action: created
+      lines: 700
+      files: 4
+    - type: code
+      name: Figure generators (article_figures.py — 9 Sankey + matplotlib metamodel)
+      action: created
+      lines: 260
+      files: 1
+    - type: other
+      name: Article figures rendered (Sankey x9, metamodel) + reuse of method-visualization set
+      action: created
+      lines: 0
+      files: 10
+    - type: spec
+      name: Canonical manuscript integrated into repo (main.tex + references.bib regenerated; enhancements; build)
+      action: modified
+      lines: 400
+      files: 3
+    - type: review
+      name: SysMLv2 hive correction response + REFERENCES_R019_status.md (key map + punch-list + content recheck)
+      action: created
+      lines: 240
+      files: 2
+    - type: analysis
+      name: Session archive (updated) + memory updates
+      action: modified
+      lines: 220
+      files: 2
+  total_files_created: 24
+  total_files_modified: 8
+  total_lines_written: 2200
+  pages_produced: 24            # authored prose/figures; plus integration of the 66pp canonical manuscript
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 10            # 3 ref + 1 figure (camera-ready); 1 bg degree-of-homomorphism; 4 ref swarm; 1 held-resolution
+  swarm_topology: hybrid        # parallel + background Agent-tool subagents; no formal claude-flow swarm
+  model_primary: claude-opus-4-8
+  tokens_input:                 # not measured
+  tokens_output:                # not measured
+  total_cost_usd:               # not measured
+  tool_calls: 140               # approximate
+  context_compressions: 0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: R019 refverify (single-model triple-check, CrossRef + publisher)
+      result: pass
+      details: 71 references verified+promoted across the session (11 camera-ready + 51 + Cody + 6 held + GitRepo/GEST attested); approved.bib 111->329 (incl. unrelated bulk import 122->269)
+    - gate: R019 refcheck / programmatic cite-key check on the canonical manuscript
+      result: pass
+      details: all 75 cited keys resolve to the approved store, 0 missing; references.bib regenerated from the store
+    - gate: LaTeX build (latexmk + bibtex)
+      result: pass
+      details: main.pdf, 66 pages, 0 undefined citations, 0 undefined references; fixed a stray \normalsize longtable blocker
+    - gate: pandoc/xelatex renders (camera-ready iterations)
+      result: pass
+      details: clean renders with citeproc bibliography + embedded figures
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed: 12   # principal feedback rounds: figures, metamodel facets, math, blend, 9 ref decisions
+  first_pass_quality_pct: 45        # strong mechanical execution, but built a divergent camera-ready before the canonical base was found
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 3                    # ref-promotion key-collision (pending-bypass), latexmk normalsize blocker, refcheck bibkey-mode mismatch
+  rework_files: 3               # the camera-ready md (superseded), references.bib, the §4 draft
+  blocked_minutes: 0
+  blockers: >
+    Root cause (repeat of the 06-28-am lesson): drafted from the outline and MISSED the canonical
+    manuscript actually sent to Alejandro (full LaTeX paper, Wach/Salado/Zeigler/Beling, in personal
+    OneDrive '02 My Outreach/2026 - Dis Pub') until the principal pointed to it. A whole divergent,
+    math-light camera-ready was produced first and then superseded. Once on the right base, the
+    reference-verification swarm + build went cleanly.
+  perception_note: >
+    Subagent swarms were the standout: 5 web-verification agents cleared ~70 references against CrossRef
+    and publishers with real corrections (wrong author names, wrong years, a nonexistent 2024 DoD guidebook,
+    a 404 supplementary repo) that a single agent would likely have rubber-stamped. The R019 machinery
+    (refverify/refcheck + serial promotion) scaled well. The dominant inefficiency was source discovery,
+    not execution: the firm lesson is to locate the principal's actual sent/working version (My Outreach,
+    supplementary repo paper/sections) BEFORE authoring, every time.

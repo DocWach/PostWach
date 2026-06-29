@@ -1,0 +1,120 @@
+# =============================================================================
+# Session Productivity Scorecard — 2026-06-09 postwach-01
+# =============================================================================
+# RECONSTRUCTED 2026-06-09 by the postwach-02 session's main-thread model
+# (claude-opus-4-7[1m]) from the corresponding session archive
+# `SESSION_ARCHIVE_2026-06-09_postwach-01.md` (lines 1-122). The original
+# postwach-01 session's archive stated at line 63 that the scorecard would be
+# "filed per [R014] when the session formally closes (not yet — principal may
+# continue)" — therefore no scorecard had been filed by the principal at the
+# time the postwach-02 session began. Postwach-02 inadvertently created a
+# file at this path with postwach-02 content; this reconstruction restores the
+# correct postwach-01 content from the archive narrative as a best-effort
+# substitute pending principal review. Principal: please replace if these
+# values differ from the actual postwach-01 session experience.
+# =============================================================================
+
+schema_version: "1.0"
+
+# --- SESSION METADATA ---
+session:
+  id: "2026-06-09-postwach-01"
+  date: "2026-06-09"
+  hive: "PostWach"
+  researcher: "Paul Wach"
+  start_time:               # not recorded in archive
+  end_time:                 # not recorded in archive
+  task_summary: >-
+    Resume the IS2026 #427 thread from postwach-01 on 2026-06-05 (carried-forward
+    tri-model RBW research-line reframe + 6 high-impact RBW meta-review items
+    deferred to principal's editorial pass). Brad confirmed no changes; principal
+    directed reading of SDA SF24C-T003 Phase I Final Report (Oct 2025) for
+    context, debating the 6 high-impact items, applying the agreed set, and
+    fixing INCOSE template-adherence issues observed in the V4 render. Outcome:
+    V4.docx + V4.pdf delivered with 6 substantive RBW edits + 4 template fixes
+    + 4 author photos.
+
+# --- D1: OUTPUT VOLUME ---
+output:
+  artifacts:
+    - type: paper_section
+      name: "IS2026 #427 Math-Based_Data_ME V3 -> V4 (6 RBW substantive + 4 template fixes)"
+      action: modified
+      lines:                # not recorded in archive
+      files: 2              # V4.docx + V4.pdf
+    - type: other
+      name: "Author photos (Wach, Philipbar, Gregory, Kim) in _photos/"
+      action: created
+      lines: 0              # binary
+      files: 4
+    - type: other
+      name: "Session archive (SESSION_ARCHIVE_2026-06-09_postwach-01.md)"
+      action: created
+      lines: 122
+      files: 1
+  total_files_created: 5
+  total_files_modified: 1
+  total_lines_written:        # not enumerated in archive narrative
+  pages_produced:             # archive says body+abstract = 5,970 words ≈ 24 pages prose-equivalent at 250 words/page; substantive edits ≈ subset
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 0           # per archive: "No claude-flow sub-agents spawned"
+  swarm_topology: "none"
+  model_primary: "claude-opus-4-7[1m]"
+  tokens_input: null
+  tokens_output: null
+  total_cost_usd: null
+  tool_calls:                 # not enumerated; "Three MCP calls at warm-up (system_health); Two WebFetch calls" per archive
+  context_compressions: 0
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: "INCOSE template adherence"
+      result: pass
+      details: "Mandatory sections (abstract, introduction, body, conclusions, references) verified; author block 2x3; biography 4x2 (subset of 8x2 template); Declaration on Generative AI section dropped per template (was CEUR-WS/STIDS-pattern import, not in INCOSE V1.3 template)."
+    - gate: "Distribution-constraint discipline (SDA Final Report read but not cited)"
+      result: pass
+      details: "SDA SF24C-T003 Phase I Final Report (Oct 2025, distribution U.S. Government Agencies only) read for context; no content cited, no figures reproduced, no Phase I numerical results lifted. User methodology described in publishable abstract terms only."
+    - gate: "Author-photo provenance discipline"
+      result: pass
+      details: "Wach/Philipbar/Kim photos from accepted IS2026 #490 paper PDF page 14; Gregory photo from official UA Academic Affairs profile. No social-media or LinkedIn scraping; no AI-generated stand-ins."
+    - gate: "Probe-the-artifact-not-narrative compliance (per 2026-06-08 memory)"
+      result: pass
+      details: "Diagnosed PDF render staleness via file timestamp check rather than trusting the COM SaveAs success message; identified PDF-viewer file lock and resolved on retry."
+  tests_passed: 4
+  tests_failed: 0
+  reviewer_comments_addressed: 6   # 6 of 7 RBW meta-review high-impact items applied (#7 Discussion tighten deferred)
+  first_pass_quality_pct:           # not stated in archive
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 0
+  retries: 2                 # docx2pdf via win32com.client failed on stale gen_py cache, fell back to PowerShell Word COM; second render hit PDF-viewer file lock, retry succeeded after viewer released
+  rework_files: 1            # V4.pdf rendered twice (initial + post-photo-insertion)
+  blocked_minutes: 0
+  blockers: "none"
+  perception_note: >-
+    Distribution-constraint discipline was the methodological move of the
+    session: reading the SDA Phase I report sharpened every IS paper edit
+    because the answers to the RBW questions were already in the user's own
+    work product, and the discipline of NOT citing or lifting from the
+    restricted report while DOing pull the methodology forward into the
+    publishable paper is a reusable pattern. The no-LaTeX prose-only decision
+    on the parameter morphism formalization preserved camera-ready survival
+    margin against the V2-era encoding-corruption risk. PowerShell direct
+    Word COM via New-Object -ComObject Word.Application proved more reliable
+    than docx2pdf (second pywin32 instability this month); promote to default
+    render path.
+
+# --- DERIVED (do not fill — computed by script) ---
+# derived:
+#   wall_clock_hours:
+#   pages_per_hour:
+#   lines_per_hour:
+#   cost_per_page:
+#   cost_per_file:
+#   agent_utilization:
+#   tokens_per_artifact:
+#   rework_ratio:

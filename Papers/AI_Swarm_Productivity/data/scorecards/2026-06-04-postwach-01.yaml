@@ -1,0 +1,130 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-06-04-postwach-01
+  date: 2026-06-04
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: ""
+  end_time: ""
+  task_summary: |
+    Warm up ruflo. Review AVIAN materials and assess for possible
+    collaboration; match against the research portfolio. Honest self-correction
+    on cross-hive scope. Capture durable memory. Draft a half-page meeting
+    prep card for an afternoon meeting with John DeHart.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: other
+      name: memory/project_avian_collab.md (new memory thread)
+      action: created
+      lines: ~35
+      files: 1
+    - type: other
+      name: memory/reference_avian_portfolio_matches.md (full match matrix)
+      action: created
+      lines: ~50
+      files: 1
+    - type: other
+      name: memory/MEMORY.md (Open Threads index entry for AVIAN)
+      action: modified
+      lines: ~3
+      files: 1
+    - type: other
+      name: "10 AVIAN/AVIAN_DeHart_Meeting_Prep_2026-06-04.md (half-page prep card)"
+      action: created
+      lines: ~30
+      files: 1
+    - type: analysis
+      name: Session archive (postwach-01)
+      action: created
+      lines: ~140
+      files: 1
+    - type: config
+      name: Productivity scorecard (this file)
+      action: created
+      lines: ~90
+      files: 1
+  total_files_created: 5
+  total_files_modified: 1   # MEMORY.md
+  total_lines_written: ~350
+  pages_produced: 0         # Prep card is half a page; rounds to 0 by 250-words/page rule.
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: none
+  model_primary: claude-opus-4-7[1m]
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: ~22           # Bash x1 (ruflo --version); Read x9 (2 PDFs, capability-index, project-registry, MEMORY.md offset, scorecard template, recent scorecard, recent archive); Glob x3 (1 timed out); AskUserQuestion x1 (interrupted); Write x4 (2 memory + prep card + archive); Edit x4 (2 on project_avian_collab, 1 on reference, 1 on MEMORY.md)
+  context_compressions: 0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: ruflo --version
+      result: pass
+      details: v3.7.0-alpha.14 confirmed
+    - gate: discuss-before-executing
+      result: pass
+      details: Asked AskUserQuestion for doc location before reading; principal interrupted with explicit path.
+    - gate: cross-hive scope discipline
+      result: partial
+      details: Initial assessment was PostWach-weighted (drew from MEMORY.md only). Principal probe triggered honest self-correction; redid with capability-index.md + project-registry.md. Rule fired one turn late, not zero turns late.
+    - gate: AVIAN folder source-doc completeness
+      result: partial
+      details: Read 1 of 2 PDFs before first assessment; caught and corrected on principal probe by reading the second PDF (N25A-T026 SBIR proposal). Materially changed match matrix; principal then scoped the SBIR PDF out for forward planning.
+    - gate: R016 integration-status discipline
+      result: pass
+      details: Two (b)/(c) tags applied in prep card; no overclaiming on capability maturity.
+    - gate: R018 foundation-model provenance
+      result: pass
+      details: PROVENANCE line on archive; memory files carry attribution via frontmatter + authorship.
+    - gate: R104 root-folder discipline
+      result: pass
+      details: All writes routed to memory/, docs/session-archives/, Papers/AI_Swarm_Productivity/data/scorecards/, or the principal-designated 10 AVIAN/. No root saves.
+    - gate: no em dashes (writing preference)
+      result: pass
+      details: Prep card, memory files, and archive all clean of em dashes; commas and semicolons used instead.
+    - gate: no hallucinated identifiers
+      result: pass
+      details: No emails, DOIs, URLs, or acronym expansions invented. AVIAN POC contact and SBIR topic numbers cited only from the source PDF and then placed out of scope per principal.
+  tests_passed: 0
+  tests_failed: 0
+  reviewer_comments_addressed: 0
+  first_pass_quality_pct:
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 2                # 1 Edit on MEMORY.md rejected (Read not done in same batch; recovered serially); 1 Glob on 01 Hives/* timed out (worked around via direct Reads).
+  rework_files: 1           # project_avian_collab.md edited 2x post-creation to fold in principal's scoping turn.
+  blocked_minutes: 0
+  blockers: none
+  perception_note: |
+    Assessment + memory + prep-card session, no code. AI accelerated the
+    cross-hive sweep substantially: capability-index.md and project-registry.md
+    are dense and the match matrix would have been slow by hand. The honest
+    self-correction moment (initial assessment was PostWach-weighted, second
+    PDF missed) cost one round-trip but the cross-hive-scope rule from memory
+    fired correctly on principal's probe. Notable behavior: address-intent-
+    not-literal triggered correctly twice; first to surface the prep-card
+    option after "sufficient detail to document," second to scope the IP
+    guardrail without principal asking. Provenance discipline held end-to-end.
+    Net: an hour of focused work compressed; no false confidence delivered
+    after the self-correction landed.
+
+# --- DERIVED (do not fill — computed by script) ---
+# derived:
+#   wall_clock_hours:
+#   pages_per_hour:
+#   lines_per_hour:
+#   cost_per_page:
+#   cost_per_file:
+#   agent_utilization:
+#   tokens_per_artifact:
+#   rework_ratio:

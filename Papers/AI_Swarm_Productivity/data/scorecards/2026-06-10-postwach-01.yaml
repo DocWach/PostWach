@@ -1,0 +1,153 @@
+# =============================================================================
+# Session Productivity Scorecard — 2026-06-10 postwach-01
+# =============================================================================
+
+schema_version: "1.0"
+
+# --- SESSION METADATA ---
+session:
+  id: "2026-06-10-postwach-01"
+  date: "2026-06-10"
+  hive: "PostWach"
+  researcher: "Paul Wach"
+  start_time:               # not captured; session opened with "warm up ruflo, review session archives from yesterday"
+  end_time:                 # principal said "pause here and create a session archive. I might need to exit the session"
+  task_summary: >-
+    Warm up ruflo, review all four 2026-06-09 session archives, then resume the
+    DEVS-ME IS 2026 #427 thread. Item #7 of the postwach-01 (2026-06-09) RBW
+    meta-review was the entry point: tighten Discussion paragraphs 1-3, deferred
+    from V3 -> V4 as substantive editorial rewriting (~45 min). Produce V5 with
+    the rhetorical-question structure preserved per principal choice and the
+    answers replaced with concrete-claim paragraphs anchored to the morphism
+    applier pipeline (mechanism, not theorem) and the base-to-connectivity then
+    connectivity-to-Markov composition (concrete payoff, not buzz). Distribution
+    discipline preserved: SDA SF24C-T003 Phase I FTR read for backing material,
+    cited nowhere in V5.
+
+# --- D1: OUTPUT VOLUME ---
+output:
+  artifacts:
+    - type: paper_section
+      name: "IS 2026 #427 V5.docx (Discussion §§1-3 rewrite, surgical V4 in-place edit)"
+      action: modified
+      lines: 30        # net replaced prose in the Discussion section; §4 (principal assumptions + limitation) preserved verbatim
+      files: 1
+    - type: paper_section
+      name: "IS 2026 #427 V5.pdf (PowerShell Word COM render)"
+      action: created
+      lines: 0
+      files: 1
+    - type: code
+      name: "_apply_v4_to_v5.py (python-docx surgical edit script; deleted after success)"
+      action: created
+      lines: 130
+      files: 1
+    - type: code
+      name: "_render_v5_pdf.ps1 (PowerShell Word COM render + word/page count; deleted after success)"
+      action: created
+      lines: 23
+      files: 1
+    - type: other
+      name: "Session archive + scorecard (this session)"
+      action: created
+      lines: 180
+      files: 2
+  total_files_created: 5
+  total_files_modified: 1
+  total_lines_written: 363
+  pages_produced: 1.5   # ~275 words of replacement Discussion prose + archive narrative; layout-neutral substitution
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: "none"
+  model_primary: "claude-opus-4-7[1m]"
+  tokens_input: null
+  tokens_output: null
+  total_cost_usd: null
+  tool_calls: 27           # approximate: 1 MCP warmup, 2 AskUserQuestion, 1 ToolSearch (TaskTools), 4 Read (session archives), 1 Read (V4 docx attempt - errored), 2 PDF page reads (FTR pages 1-10, 10-20), pandoc extract (V4), pandoc extract (V5), Glob/PowerShell file lookups (~6), Write (3: script, ps1, archive), Edit (0), Bash (sed/grep/rm ~3), PowerShell render call (1), TaskCreate (4), TaskUpdate (~7)
+  context_compressions: 0
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: "Discussion §§1-3 substitution match"
+      result: pass
+      details: "All three V4 paragraph texts matched on first run with whitespace + smart-quote normalization. No run-spanning fallback needed."
+    - gate: "Discussion §4 preservation"
+      result: pass
+      details: "Principal assumptions + limitation paragraph verified verbatim in V5 extract."
+    - gate: "Word-budget margin"
+      result: pass
+      details: "V5 §§1-3 ≈ 275 words vs V4 §§1-3 ≈ 270 words; +5 words. V5 body+abstract ≈ 5,975 / 7,000 cap (1,025-word margin)."
+    - gate: "Layout stability (V4 -> V5)"
+      result: pass
+      details: "Both versions 15 pages per Word COM ComputeStatistics(2). PDF byte sizes: V4 874,938 / V5 875,123 (+0.02%)."
+    - gate: "Distribution discipline (SDA Phase I FTR)"
+      result: pass
+      details: "FTR pages 1-20 read for backing material context. No citation, no figure reproduction, no Phase I numerical tables (e.g., the TX 5/10/20/40W -> P_conn table) reproduced in V5. Mechanism described in publishable abstract terms only."
+    - gate: "INCOSE template adherence (carried forward from V4)"
+      result: pass
+      details: "10 H1 sections preserved. Bio table photos preserved. Author block preserved. No structural drift."
+    - gate: "[[feedback-match-format-means-file-level]] compliance"
+      result: pass
+      details: "First-time-correct on this rule's first post-creation session. Default to python-docx surgical edits on the source docx; no pandoc regeneration attempted."
+    - gate: "[[feedback-probe-artifact-not-narrative]] compliance"
+      result: pass
+      details: "FTR re-read direct (PDF pages 1-20) rather than relying on postwach-01 (2026-06-09) archive narrative. Principal-directed via AskUserQuestion."
+    - gate: "[[feedback-discuss-before-executing]] compliance"
+      result: pass
+      details: "Two AskUserQuestion rounds preceded any drafting (entry-thread selection; structural approach + FTR re-read decision). Plan presented + confirmed before file writes."
+    - gate: "R019 reference verification"
+      result: skipped
+      details: "Bibliography unchanged from V4 (44 entries, all R019-PASS via direct crosswalk at postwach-01 2026-06-05 close). No new citations in §§1-3 rewrite. Re-run of refcheck.py --strict deferred to a future session before camera-ready."
+  tests_passed: 9
+  tests_failed: 0
+  reviewer_comments_addressed: 1   # Item #7 from the postwach-01 (2026-06-09) RBW meta-review (Discussion paragraphs 1-3 tightening)
+  first_pass_quality_pct: 100     # All three substitutions matched on first run; no rework; no rebuild_paragraph_runs fallback needed.
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 0
+  retries: 0
+  rework_files: 0
+  blocked_minutes: 0
+  blockers: "none"
+  perception_note: >-
+    The "discuss before executing" rule worked cleanly here. Two AskUserQuestion
+    rounds before any drafting (entry-thread; structural shape + FTR re-read)
+    surfaced the principal choices that drove the rewrite. Structural choice
+    (keep rhetorical-question scaffolding, replace answers) preserved the
+    existing section signposting; FTR re-read choice averted the
+    narrative-summary anti-pattern.
+
+    First-pass quality 100% on the substitutions: all three V4 paragraph texts
+    matched on first run with whitespace + smart-quote normalization on the
+    matcher. The rebuild_paragraph helper preserved first-run font / size /
+    bold / italic; the Discussion section is body-style throughout so this was
+    a one-format case (no mid-paragraph format breaks). Layout stability
+    (15 pages V4 -> 15 pages V5, +0.02% PDF size) confirms a word-count-neutral
+    rewrite stays within the existing layout envelope.
+
+    Two prior-session memory rules applied without friction:
+    [[feedback-match-format-means-file-level]] (default to python-docx surgical
+    edits; written 2026-06-09 postwach-04) -- this session was the first
+    post-creation test and passed first-time-correct. [[feedback-probe-artifact-not-narrative]]
+    (probe the FTR directly, not the archive summary; written 2026-06-08) -- the
+    AskUserQuestion let the principal pre-empt the narrative-only path.
+
+    Single weakness: I did not capture session start_time / end_time. The session
+    was paused (not closed) by principal request, so end_time semantics are
+    ambiguous; flagged for the productivity-paper data team as a session-state
+    edge case.
+
+# --- DERIVED (do not fill — computed by script) ---
+# derived:
+#   wall_clock_hours:
+#   pages_per_hour:
+#   lines_per_hour:
+#   cost_per_page:
+#   cost_per_file:
+#   agent_utilization:
+#   tokens_per_artifact:
+#   rework_ratio:

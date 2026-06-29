@@ -1,0 +1,106 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-06-29-postwach-02
+  date: 2026-06-29
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "14:30"   # approximate (follows postwach-01 earlier this day)
+  end_time: "15:30"     # approximate
+  task_summary: >
+    Journal-reviewer session for Systems Engineering (Wiley/INCOSE) submission 5617932,
+    "DTDL Language Extensions for Stitching the Digital Thread." Read the full 29-page
+    manuscript, produced an independent peer review, reconciled it against a second
+    (external ChatGPT) review supplied by the principal, verified the load-bearing DTDL
+    claims against first-party specs, and reformatted the merged findings into the
+    principal's two-column reviewer template. Response submitted.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: review
+      name: Independent peer review of submission 5617932 (verdict + 8 majors + minors), delivered in conversation
+      action: created
+      lines: 0          # delivered as conversation first
+      files: 0
+    - type: review
+      name: Consolidated submission-ready review (Review_5617932_consolidated.md) reconciling both reviews + spec citations
+      action: created
+      lines: 110
+      files: 1
+    - type: review
+      name: Reviewer Comments - 5617932.docx (two-column Page/Comments table, 17 rows + General, principal's template)
+      action: created
+      lines: 35
+      files: 1
+    - type: other
+      name: session archive postwach-02 + this scorecard
+      action: created
+      lines: 80
+      files: 2
+  total_files_created: 4   # consolidated md, docx, session archive, scorecard
+  total_files_modified: 0
+  total_lines_written: 225
+  pages_produced: 6
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 0        # solo reviewer session; no subagents, no background agents
+  swarm_topology: none
+  model_primary: claude-opus-4-8[1m]
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: 12           # approximate (ruflo warmup/status, PDF reads, 2 WebFetch verifications, docx build/verify, file writes)
+  context_compressions: 0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: spec verification (no unverified claims)
+      result: pass
+      details: >
+        Load-bearing DTDL claims (metamodel classes, absence of a "Class" type, reserved dtmi:dtdl:
+        namespace, complex schema set, parser capabilities) verified live via WebFetch against the
+        DTDL v3 spec and the Azure Digital Twins parser docs before asserting them in the review.
+    - gate: cross-model reconciliation
+      result: pass
+      details: >
+        Independent review converged with the principal-supplied ChatGPT review on verdict and primary
+        defect; complementary additions integrated, no conflicts.
+    - gate: format-match to principal template
+      result: pass
+      details: >
+        Inspected the example Reviewer Comments.docx (Table Grid, Times New Roman, Page/Comments columns,
+        widths) and mirrored it; built and read back the generated docx (18 rows incl. header). Original untouched.
+    - gate: R016 integration-status tagging
+      result: pass
+      details: N/A to a review of an external paper; no portfolio artifacts overclaimed.
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed: 0
+  first_pass_quality_pct: 92   # principal accepted the merged docx as "good enough" without edits; line-number anchoring flagged as the one open limitation
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 1               # first docx paragraph/table extraction returned empty paragraphs; re-ran reading tables to find content
+  rework_files: 0
+  blocked_minutes: 0
+  blockers: none
+  perception_note: >
+    Markedly faster than manual. Reading a 29-page manuscript, cross-checking a second review, verifying
+    spec claims against primary sources, and emitting a template-matched docx in one pass would be a
+    multi-hour manual task. The principal's standing format example made the final reformat near-deterministic.
+
+# --- DERIVED (do not fill — computed by script) ---
+# derived:
+#   wall_clock_hours:
+#   pages_per_hour:
+#   lines_per_hour:
+#   cost_per_page:
+#   cost_per_file:
+#   agent_utilization:
+#   tokens_per_artifact:
+#   rework_ratio:

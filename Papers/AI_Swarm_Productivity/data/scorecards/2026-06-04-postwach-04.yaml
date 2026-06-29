@@ -1,0 +1,188 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA ---
+session:
+  id: 2026-06-04-postwach-04
+  date: 2026-06-04
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "17:40"      # post-postwach-03 close at 17:36
+  end_time: "19:30"        # approximate; this scorecard written at session-end
+  task_summary: >
+    Resume "the RTSync proposal." User redirected from assumed DV004 to
+    SF24C-T003 Phase II SBIR (close 2026-06-22, RTSync prime + UA sub, Wach PI
+    of UA subaward). Produced V3 of the technical volume with VT->UA narrative
+    corrections (three in-place docx edits via python-docx), then ran a
+    six-step technical-content review (meeting cues, SDA folder reconnaissance,
+    portfolio + bmpwach-lab scan, SDA 2026 mission language, Phase I final
+    report digest) and synthesized a 7-option tiered spectrum of Phase II
+    technical content additions for user discussion. One session-hygiene miss
+    (overwrote postwach-03 scorecard with this session's content because
+    session-count logic relied on session-start git status, which did not
+    show a parallel earlier postwach-03 IS2026 review session); recovered by
+    reconstructing postwach-03 scorecard from its intact archive and
+    renumbering this session to postwach-04.
+
+# --- D1: OUTPUT VOLUME ---
+output:
+  artifacts:
+    - type: paper_section
+      name: SF24C-T003 V3 Technical Volume docx (3 in-place edits, all 6 figures preserved)
+      action: created
+      lines: 3305    # text-equivalent from pandoc verify
+      files: 1
+    - type: paper_section
+      name: V3 proposed-edits markdown (canonical record of edit text + style notes + merge order)
+      action: created
+      lines: 175
+      files: 1
+    - type: code
+      name: python-docx script applying three V2 -> V3 edits (idempotent)
+      action: created
+      lines: 130
+      files: 1
+    - type: analysis
+      name: V3 technical content spectrum (hard constraints + 7 options A-G in 3 tiers + recommendation + open questions)
+      action: created
+      lines: 200
+      files: 1
+    - type: spec
+      name: SF24C-T003 project memory file (topic, lineage, V2 errors, style constraints, IGNITE expansion canonical)
+      action: created
+      lines: 35
+      files: 1
+    - type: config
+      name: MEMORY.md Open Threads index entry for SF24C-T003
+      action: modified
+      lines: 2
+      files: 1
+    - type: spec
+      name: V2 docx pandoc extract (edit-target identification)
+      action: created
+      lines: 3247
+      files: 1
+    - type: spec
+      name: V3 docx pandoc extract (edit verification)
+      action: created
+      lines: 3305
+      files: 1
+    - type: spec
+      name: Phase I Final Report pandoc extract (relocated to SDA workspace)
+      action: created
+      lines: 1761
+      files: 1
+    - type: spec
+      name: Reconstructed 2026-06-04-postwach-03 scorecard (after inadvertent overwrite; rebuilt faithfully from postwach-03 session archive)
+      action: created
+      lines: 110
+      files: 1
+    - type: review
+      name: Verification grep of V3 docx for all three edit text patterns (3/3 confirmed)
+      action: reviewed
+      lines: 0
+      files: 1
+    - type: review
+      name: Image-preservation check (6/6 PNGs identical V2 vs V3)
+      action: reviewed
+      lines: 0
+      files: 1
+  total_files_created: 10
+  total_files_modified: 2
+  total_lines_written: 11270   # incl pandoc extracts (most volume); proposed edits + spectrum + memory + script + restored postwach-03 scorecard account for ~750 hand-written lines
+  pages_produced: 8            # spectrum doc ~5pp + proposed-edits doc ~3pp + memory ~1pp; V3 docx is largely V2 carried forward
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 4
+  swarm_topology: star     # main thread fanned out 4 independent parallel sub-agents, all reporting back to main; no inter-agent coordination
+  model_primary: claude-opus-4-7
+  tokens_input:            # not exposed for main thread; sub-agents totaled 222,539
+  tokens_output:
+  total_cost_usd:
+  tool_calls:              # not exposed
+  context_compressions:
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: V3 docx three-edit verification (pandoc round-trip + grep)
+      result: pass
+      details: >
+        Section 1 Related Work intro paragraph found at line 1808 (apostrophe
+        escaped in grep; confirmed by direct read); Section 2 Wach bio
+        paragraph confirmed at line 2898 with IGNITE expansion at line 2916;
+        Section 3 Subcontractors paragraph confirmed at line 3101 with 40
+        percent retained and Phase II corrected. All three V2 errors removed
+        (40 percent / Phase I phrase / "to be hired").
+    - gate: V3 docx image preservation
+      result: pass
+      details: All 6 PNG files (image1.png, image3.png, image5.png, image6.png, image9.png, image10.png) present in both V2 and V3 extracted media folders; pandoc extracts identical.
+    - gate: IGNITE expansion sourcing
+      result: pass
+      details: >
+        Verified against authoritative public source (Plenary2-IGNITE26-Feb192026.pptx
+        slide 1) before insertion; no hallucinated acronym expansion per
+        feedback_no_hallucinated_personal_identifiers.
+    - gate: R019 reference discipline
+      result: pass
+      details: >
+        V3 edits introduce zero new references; reuses only V2's existing
+        references list 1-45 and the existing publication-list entries.
+    - gate: Style discipline (no em dashes, acronyms expanded at first use, guarded artifact framing)
+      result: pass
+      details: >
+        Audited V3 inserts for em dashes (zero); DEVS, dT&E, ACIMS, PT&E, MBSE,
+        AI, VTNSI, IGNITE, CCA, SEAD, DTE&A, SERC, DEF, CAREER, ITAR, EAR,
+        SCIFs, WRTs all expanded at first use; IGNITE participation described
+        with guarded framing (event + scenario + team, no engine internals).
+    - gate: Workspace hygiene per R104
+      result: partial
+      details: >
+        Agent D wrote pandoc intermediate to PostWach _workspace/ instead of
+        SF24C-T003 _workspace/. Relocated mid-session; future Agent D briefs
+        should be more explicit about workspace path. No working files in root.
+    - gate: SF254-D1206 differentiation check
+      result: skipped
+      details: Agent A surfaced a fifth proposal (D2P2 Phase II submitted Dec 2025); user-confirmation needed on whether it is Wach-led before treating as overlap or precedent.
+    - gate: Session-numbering hygiene
+      result: fail
+      details: >
+        Initial save assumed sequence -03 based on session-start git status
+        (showed only postwach-01 and -02 scorecards as untracked); did not
+        check for parallel earlier postwach-03 session (IS2026 Paper #490
+        review, archive at 16:48, scorecard at 17:36). MD write blocked by
+        Read-before-Write protection; YAML write succeeded and overwrote
+        the original 7264 bytes. Recovered: reconstructed postwach-03
+        scorecard from intact session archive content, renumbered this
+        session to postwach-04. Lesson: always ls the scorecards folder for
+        today's date as first step of any session-archive workflow.
+  tests_passed: 5
+  tests_failed: 1
+  reviewer_comments_addressed: 0    # internal-draft phase; no external reviewer pass
+  first_pass_quality_pct: 86        # 1 false-negative grep on §1 verify (apostrophe-escape) + 1 session-numbering miss out of ~14 distinct operations
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 0
+  retries: 2                        # (1) initial pandoc tool-call re-issued with corrected absolute paths; (2) scorecard write needed restoration sequence after overwrite
+  rework_files: 1                   # 2026-06-04-postwach-03.yaml — overwritten then reconstructed
+  blocked_minutes: 5                # scorecard recovery loop cost ~5 min
+  blockers: >
+    None blocking the proposal deliverables. Session-numbering miss caused
+    a brief recovery cycle (read the intact postwach-03 archive, reconstruct
+    scorecard from it, rename files, rewrite this session's scorecard as
+    postwach-04). No external blockers.
+  perception_note: >
+    Background-agent strategy worked cleanly. Four parallel investigations
+    (Explore + Explore + researcher + general-purpose) produced ~220K tokens
+    of structured content without bloating the main thread. The main thread
+    surfaced each agent's headline finding incrementally as completion
+    notifications arrived, which kept the user oriented during the ~15-minute
+    investigation window rather than waiting for a final dump. The python-docx
+    in-place edit pattern was substantially safer than a pandoc round-trip for
+    a 2.3 MB document with tables, anchors, and 45-entry references list, and
+    the verification cycle (pandoc-extract + grep + read) caught the one
+    apostrophe-escape false-negative immediately. Net: high-leverage session,
+    with one session-archive-workflow lesson logged (always ls the scorecards
+    folder before assuming the next sequence number). V3 docx ready for
+    DH/Bernard merge cycle.

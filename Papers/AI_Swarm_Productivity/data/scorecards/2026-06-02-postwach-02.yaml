@@ -1,0 +1,101 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-06-02-postwach-02
+  date: 2026-06-02
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: ""        # not tracked
+  end_time: ""          # not tracked; session terminated on user direction
+  task_summary: |
+    Pre-meeting review of Jeffrey Walk's AI Circuit Breaker (AICB) talking-points
+    PDF for an afternoon conversation with Eric Ries. Read 11-page PDF, summarize
+    structure, surface weaknesses and improvement recommendations in priority order
+    (mechanical / substantive / strategic / smaller). Review delivered in chat;
+    no edits to the source document. Session archive + this scorecard the only
+    on-disk artifacts.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: analysis
+      name: Eric-Ries talking-points review (18 weaknesses, 4 priority buckets, summary + 1-paragraph synthesis)
+      action: delivered-in-chat
+      lines: ~110
+      files: 0
+    - type: analysis
+      name: Session archive
+      action: created
+      lines: ~100
+      files: 1
+    - type: config
+      name: Productivity scorecard (this file)
+      action: created
+      lines: ~65
+      files: 1
+  total_files_created: 2
+  total_files_modified: 0
+  total_lines_written: ~275       # includes the in-chat review (not on disk but is the primary work product)
+  pages_produced: ~3
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: none
+  model_primary: claude-opus-4-7[1m]
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: ~6          # PDF Read x1, format-check Read x1, Bash ls x1, Write x2, plus this Write
+  context_compressions: 0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: review against user writing preferences
+      result: pass
+      details: no em dashes in delivered review, no AI-voice openers, no balanced two-sided constructions, no meta-commentary. Acronyms inherited from source doc (AICB, HITL, SPC, UCA) treated as context-defined.
+    - gate: discuss-before-executing rule
+      result: pass
+      details: side-by-side Section 1 rewrite offered but not executed without authorization
+    - gate: artifact integration-status discipline [R016]
+      result: flagged-in-review
+      details: identified that Jeffrey's draft presents AICB as integrated deployable layer when it is (a) research artifact + simulation; surfaced as Weakness #4 in the priority list
+    - gate: archive format consistency
+      result: pass
+      details: followed 2026-06-01 postwach-05 structure with 6 sections, provenance line, decisions, artifacts, open items, process notes
+  tests_passed: 0
+  tests_failed: 0
+  reviewer_comments_addressed: 0
+  first_pass_quality_pct:    # archive accepted on first delivery
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 0
+  rework_files: 0
+  blocked_minutes: 0
+  blockers: none
+  perception_note: |
+    Review-only analytical session, no swarm justified. Single multimodal PDF read
+    surfaced all material; no parallel tool calls needed beyond the archive-format
+    lookup. The review's effectiveness depended on memory-recall of user writing
+    preferences (em dashes, AI voice, [R016] integration status) and on knowing the
+    AICB context (trust metrics S_a/C_r/MTBH/K_trust, DARPA DSO Thrust 4 target,
+    bio-inspired/ZT Pillar 7 framing) well enough to spot what was missing from the
+    deck. SessionStart auto-memory import of 188 entries did the heavy lifting.
+    No actual document revision performed; if the user authorizes a Section 1
+    rewrite or a full pass, that becomes a follow-on session with materially
+    different output volume.
+
+# --- DERIVED (do not fill — computed by script) ---
+# derived:
+#   wall_clock_hours:
+#   pages_per_hour:
+#   lines_per_hour:
+#   cost_per_page:
+#   cost_per_file:
+#   agent_utilization:
+#   tokens_per_artifact:
+#   rework_ratio:

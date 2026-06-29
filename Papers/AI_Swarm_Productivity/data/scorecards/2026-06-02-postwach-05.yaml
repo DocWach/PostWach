@@ -1,0 +1,125 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+# Note: A parallel postwach-04 session (SwarmEng / GI-JOE / R019) wrote its
+# scorecard + archive during the time window of this session. ID -05 chosen
+# at session close to avoid collision; this is the fifth PostWach session today.
+session:
+  id: 2026-06-02-postwach-05
+  date: 2026-06-02
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: ""
+  end_time: ""
+  task_summary: |
+    Warm up ruflo. Inventory git repos and local files for "Operation Safe
+    Passage" / "Operation Safe Lego" papers and artifacts. Compile a selected
+    subset into a single folder for sharing with a coworker.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: other
+      name: "03 Projects/96 OSP_OSL/ (new destination folder)"
+      action: created
+      lines: 0
+      files: 1
+    - type: other
+      name: "dTE_mini-tutorial_2025-04-23_v2.pdf (copied from Master Copies)"
+      action: created
+      lines: 0
+      files: 1
+    - type: other
+      name: "Sandman_etal_2025_CSER_OSP_Intro.docx (copied from VT archive, '(2)' suffix dropped)"
+      action: created
+      lines: 0
+      files: 1
+    - type: analysis
+      name: Session archive (postwach-05)
+      action: created
+      lines: ~85
+      files: 1
+    - type: config
+      name: Productivity scorecard (this file)
+      action: created
+      lines: ~85
+      files: 1
+  total_files_created: 5    # 1 folder + 2 copied files + 1 archive + 1 scorecard
+  total_files_modified: 0
+  total_lines_written: ~170
+  pages_produced: 0         # No new prose; this was a discovery + file-ops session
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: none
+  model_primary: claude-opus-4-7[1m]
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: ~32           # ruflo MCP warmup x5; Grep/Glob/Bash/PowerShell x ~20; Read x5; AskUserQuestion x1; Write x2
+  context_compressions: 0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: ruflo --version
+      result: pass
+      details: v3.7.0-alpha.14 confirmed
+    - gate: MCP system_health
+      result: pass
+      details: 100/100 on 5 monitored components (memory, config, mcp healthy; swarm, neural advisory-unknown per stdio standard)
+    - gate: AgentDB controllers
+      result: pass
+      details: 16 controllers enabled across L1-L5 (vectorBackend, attestationLog, semanticRouter, rvfOptimizer disabled by config)
+    - gate: memory_stats integrity
+      result: pass
+      details: 428 entries, 100% embedding coverage, sql.js + HNSW backend
+    - gate: discuss-before-executing
+      result: pass
+      details: presented 3-tier inventory + AskUserQuestion (scope, destination, missing-PDFs) before any file copy
+    - gate: copy destination + integrity
+      result: pass
+      details: target folder '03 Projects/96 OSP_OSL' created per user; 2 files copied with verified sizes (8640 KB + 2407 KB) matching source
+    - gate: session-ID collision check
+      result: pass
+      details: postwach-04 collision detected at archive time (parallel SwarmEng session wrote its files mid-window); renumbered to postwach-05 to preserve both records
+  tests_passed: 0
+  tests_failed: 0
+  reviewer_comments_addressed: 0
+  first_pass_quality_pct:
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 2                # 2 PowerShell-via-Bash command failures: foreach-loop variable parse error (switched to PowerShell tool); one cwd-reset on multi-statement Bash chain
+  rework_files: 0
+  blocked_minutes: 0
+  blockers: none
+  perception_note: |
+    Discovery-and-inventory task. Fast path: Grep + Glob + git log surfaced
+    three PostWach files mentioning "Operation Safe Passage"; pivot to broader
+    OneDrive Documents tree via PowerShell found the VT-archive folder
+    `2025 - CSER - OSL` and the dTE mini-tutorial in Master Copies. The
+    OSL <-> OSP equivalence (VT folder named OSL, files inside named OSP)
+    was the durable finding: confirms "Operation Safe Lego" is the informal
+    or earlier name for the same project as "Operation Safe Passage," with
+    Lego robots serving as UGV proxies per the dTE tutorial. Discuss-before-
+    executing held: presented 3-tier inventory + 3 focused decisions before
+    copy. User narrowed scope to 2 specific files; folder placement and
+    missing-PDF policy explicit. No drift, no overreach, no files written
+    outside the user-specified destination. End-of-session ID collision
+    (postwach-04 already written by a parallel SwarmEng/GI-JOE session)
+    caught before Write step would have overwritten real work; renumbered
+    to postwach-05.
+
+# --- DERIVED (do not fill — computed by script) ---
+# derived:
+#   wall_clock_hours:
+#   pages_per_hour:
+#   lines_per_hour:
+#   cost_per_page:
+#   cost_per_file:
+#   agent_utilization:
+#   tokens_per_artifact:
+#   rework_ratio:

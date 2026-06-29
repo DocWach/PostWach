@@ -1,0 +1,89 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-06-02-postwach-01
+  date: 2026-06-02
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: ""        # not tracked; session bridged 2026-06-01 -> 2026-06-02
+  end_time: ""          # not tracked
+  task_summary: |
+    Warm PostWach + ruflo, characterize experimental directory restructure
+    (new 00_Hive_Empire umbrella replacing 00 My Research; 9 hives consolidated
+    under 01 Hives), debate impacts, deliver assessment + recommendations.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: analysis
+      name: Hive Empire directory restructure assessment (11 impacts + 8 recommendations)
+      action: created
+      lines: ~95
+      files: 1
+    - type: analysis
+      name: Session archive
+      action: created
+      lines: ~50
+      files: 1
+    - type: config
+      name: Productivity scorecard (this file)
+      action: created
+      lines: ~60
+      files: 1
+  total_files_created: 3
+  total_files_modified: 0
+  total_lines_written: ~205
+  pages_produced: ~2
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: none
+  model_primary: claude-opus-4-7[1m]
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: ~18         # mix of Bash/Glob/Read/Write
+  context_compressions: 0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: ruflo --version
+      result: pass
+      details: v3.7.0-alpha.14 confirmed; both claude-flow.cmd and ruflo.cmd on PATH
+    - gate: directory characterization
+      result: pass
+      details: old vs new layout reconciled against orphaned per-hive memory keys
+    - gate: assessment delivery
+      result: pass
+      details: 11-point impact debate + 8 prioritized recommendations delivered before any action
+  tests_passed: 0
+  tests_failed: 0
+  reviewer_comments_addressed: 0
+  first_pass_quality_pct:    # user accepted assessment without revision request
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 0
+  rework_files: 0
+  blocked_minutes: 0
+  blockers: none
+  perception_note: |
+    Pure analytical session, no swarm needed. Parallel tool calls (Bash + Glob + Read
+    in single messages) materially sped up directory characterization. Read of orphaned
+    PostWach MEMORY.md at the old project key was the key unlock — without it, the
+    new working directory would have presented as a blank-slate portfolio.
+
+# --- DERIVED (do not fill — computed by script) ---
+# derived:
+#   wall_clock_hours:
+#   pages_per_hour:
+#   lines_per_hour:
+#   cost_per_page:
+#   cost_per_file:
+#   agent_utilization:
+#   tokens_per_artifact:
+#   rework_ratio:

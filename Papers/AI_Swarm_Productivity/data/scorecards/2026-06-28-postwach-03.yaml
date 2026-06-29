@@ -1,0 +1,103 @@
+# =============================================================================
+# Session Productivity Scorecard — 2026-06-28 postwach-03
+# PROVENANCE (R018): claude-opus-4-8[1m] (Anthropic, Claude Code CLI), main-thread orchestrator.
+# Background subagents: claude-opus-4-8 via the Agent tool.
+# NOTE: renumbered to -03; a concurrent PostWach session held the -02 slot (dissertation-journal R019 work).
+# =============================================================================
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-06-28-postwach-03
+  date: 2026-06-28
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "18:30"          # approximate
+  end_time: "20:15"            # approximate
+  task_summary: >
+    Locate, download, and add the complete publications of Alejandro Salado and Hanumanthrao
+    "Rao" Kannan to their Resource Library folders, then promote each into the R019
+    approved-references store.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: other
+      name: Author worklists (Salado 208 items, Kannan 34 items) parsed/discovered
+      action: created
+      lines: 770
+      files: 2
+    - type: review
+      name: Reference promotions to approved.bib via refverify (R019)
+      action: created
+      lines: 1200          # ~141 bib entries + 141 manifest entries appended
+      files: 2             # approved.bib + manifest.yaml (modified)
+    - type: other
+      name: Publication PDFs acquired into author folders (local + OA + green-OA + VTechWorks)
+      action: created
+      lines: 0
+      files: 47            # PDF assets (not authored lines)
+    - type: code
+      name: Acquisition pipeline scripts (resolve / promote / download_oa / green_oa / vt_repo_search / build_manifest / download_browser)
+      action: created
+      lines: 900
+      files: 7
+    - type: analysis
+      name: Per-author PDF-status manifests + session archive
+      action: created
+      lines: 250
+      files: 3
+  total_files_created: 22        # 2 worklists + 7 scripts + 2 manifests + 1 archive + 6 result TSVs + 3 harvest reports + 1 scorecard (excludes 47 acquired PDF assets)
+  total_files_modified: 2        # approved.bib, manifest.yaml (governed store)
+  total_lines_written: 2600
+  pages_produced: 4              # prose-equivalent (session archive + manifests)
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 5              # KannanDiscovery, SaladoInventory, HarvestSaladoJournals, HarvestSaladoConf, HarvestKannan
+  swarm_topology: hybrid        # background Agent fan-out + deterministic scripted drivers (serialized writes)
+  model_primary: claude-opus-4-8
+  tokens_input:                 # not captured
+  tokens_output: 605000         # approx sum of the 5 background-agent subagent token counts
+  total_cost_usd:               # not captured
+  tool_calls:                   # not captured
+  context_compressions: 0
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: R019 refverify (single-model-triple-check vs CrossRef)
+      result: pass
+      details: 141 promoted, 3 DOI-dedup duplicates skipped, 0 MISMATCH; gate title_sim>=0.92
+    - gate: approved.bib store integrity
+      result: pass
+      details: no duplicate keys, no duplicate DOIs, every bib entry has a manifest entry (verified despite a concurrent writer)
+    - gate: PDF signature validation (%PDF + size>10KB)
+      result: pass
+      details: all acquired PDFs validated; broken HTML stubs rejected
+    - gate: refcheck (R019 pre-render)
+      result: skipped
+      details: no manuscript rendered this session
+  tests_passed: 6               # 3 pilot promotions + 3 driver-validation promotions, all clean
+  tests_failed: 0
+  reviewer_comments_addressed: 0
+  first_pass_quality_pct: 95
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 0             # all 5 background agents completed
+  retries: 3                    # green_oa fetch (urllib->curl->multi-UA); promotion key-collision fix; browser approach abandoned
+  rework_files: 2               # green_oa.py (3 edits), build_manifest.py (3 edits)
+  blocked_minutes: 15           # Playwright browser dead-end (publishers block JS request + paywall landings)
+  blockers: >
+    MDPI/Wiley/IEEE bot-block headless AND browser fetches; majority of remaining ~118 items are
+    genuinely paywalled and need UA-library institutional auth. A CONCURRENT PostWach session
+    (postwach-02, dissertation-journal R019 work) appended ~54 foundational SE refs to the shared
+    approved.bib during this session (race-corruption hazard; no corruption occurred). Also:
+    repository.arizona.edu blocks the long Chrome UA (use short UA + curl).
+  perception_note: >
+    Dramatically faster than manual. Built worklists for ~240 publications, verified+promoted 141
+    references, and acquired 47 PDFs across four heterogeneous sources in one session; the serialized
+    refverify driver and the green-OA repository lever were the key automation wins. The boundary is
+    institutional access, not effort. Concurrency lesson: two PostWach sessions appended to one governed
+    approved.bib tonight without coordination — a session-numbering and shared-store locking gap worth closing.

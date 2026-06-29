@@ -1,0 +1,89 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA ---
+session:
+  id: 2026-06-14-postwach-01
+  date: 2026-06-14
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "08:40"
+  end_time: "09:50"
+  task_summary: >
+    Continue finalizing INCOSE IS 2026 #479 "Vision 2035": apply principal review
+    directives (title caps, Karson affiliation, WRT-2406 citations), run a third
+    tri-model review, apply consensus polish, and correct Table 1 to true INCOSE
+    format (borderless, gray header, caption below, kept on one page).
+
+# --- D1: OUTPUT VOLUME ---
+output:
+  artifacts:
+    - type: other
+      name: "Vision 2035 #479 docx + PDF (surgical edits, INCOSE table fix)"
+      action: modified
+      lines: 0
+      files: 2
+    - type: code
+      name: "_apply_0614.py + _polish_0614.py + table border/keep-together fixes"
+      action: created
+      lines: 180
+      files: 2
+    - type: review
+      name: "tri-model r3 packet + 9 model files + synthesis.md"
+      action: created
+      lines: 520
+      files: 13
+    - type: other
+      name: "session archive + scorecard + formatting memory + MEMORY index"
+      action: created
+      lines: 150
+      files: 4
+  total_files_created: 18
+  total_files_modified: 2
+  total_lines_written: 1050
+  pages_produced: 13   # rendered camera-ready PDF (re-rendered ~4x this session)
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 3          # 1 Claude Task sub-agent (tri-model) + 2 external CLIs (Codex, Gemini)
+  swarm_topology: hybrid     # independent parallel review tracks
+  model_primary: claude-opus-4-8
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls:
+  context_compressions:
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: tri-model review r3 (Claude/Codex/Gemini)
+      result: pass
+      details: "3 tracks; verdict substantively camera-ready; consensus polish applied"
+    - gate: R019 refcheck (bibliography)
+      result: pass
+      details: "unchanged 29/29 (no reference edits this session)"
+    - gate: INCOSE template adherence (rendered-visual)
+      result: pass
+      details: "title ALL CAPS, table borderless + gray header + caption below + one-page; caught only after rendering and looking"
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed: 10
+  first_pass_quality_pct: 70   # table formatting required a second look after attribute-only check missed defects
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 0          # Gemini ran first try this time (--skip-trust set upfront)
+  retries: 1                 # Word COM RPC_E_CALL_REJECTED retries
+  rework_files: 1            # Table 1 fixed across multiple passes (caption, shading, borders, keep-together)
+  blocked_minutes: 10
+  blockers: >
+    Recurring formatting miscommunication: Table 1 "verified" via XML attributes was
+    actually wrong when rendered (black box lines vs INCOSE white/invisible borders;
+    header row orphaned across a page break). Required render-and-look to catch.
+  perception_note: >
+    Tri-model review high-signal and efficient (all three converged on the over-citation
+    and the polish list). The persistent weak spot is formatting verification: checking
+    structure/attributes instead of rendering and visually comparing to the template.
+    Principal flagged this as a recurring miscommunication; captured a durable memory rule
+    (render + look + compare to template rendered). Surgical-edit discipline held: the
+    principal's manual formatting was preserved throughout.

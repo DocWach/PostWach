@@ -1,0 +1,116 @@
+# =============================================================================
+# Session Productivity Scorecard — 2026-06-08 postwach-02
+# =============================================================================
+
+schema_version: "1.0"
+
+# --- SESSION METADATA ---
+session:
+  id: 2026-06-08-postwach-02
+  date: 2026-06-08
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "16:44"
+  end_time: "18:09"
+  task_summary: >
+    Add David Kamien as co-author to the SERC SwarmEng abstract (v0.3 -> v0.4) with
+    matched-to-v0.3f format and blue links. Then apply the deferred 2026-06-02
+    cross-fix to the other two SERC abstracts: AICB v0.7 (ref 6 McDermott corrected
+    + figure-path repair from the 2026-06-01 directory restructure) and STOIC v0.6
+    (ref 10 ruvnet corrected + WRT-2406 removed from acknowledgement), with each
+    re-rendered to match the v0.6 / submitted layout and re-split into the SERC
+    Abstract.pdf + References_Bios.pdf portal deliverable.
+
+# --- D1: OUTPUT VOLUME ---
+output:
+  artifacts:
+    - type: paper_section
+      name: SwarmEng SERC abstract v0.3 -> v0.4 (David Kamien co-author + LinkedIn)
+      action: modified
+      lines: 5
+      files: 3
+    - type: paper_section
+      name: SwarmEng v0.4 PDFs (combined + Abstract split + References_Bios split)
+      action: created
+      lines: 0
+      files: 3
+    - type: paper_section
+      name: AICB v0.7 image-path repair (2 paths)
+      action: modified
+      lines: 2
+      files: 1
+    - type: paper_section
+      name: AICB v0.7 PDFs (combined + Abstract split + References_Bios split)
+      action: created
+      lines: 0
+      files: 3
+    - type: paper_section
+      name: STOIC v0.6 acknowledgement (WRT-2406 removed)
+      action: modified
+      lines: 1
+      files: 1
+    - type: paper_section
+      name: STOIC v0.6 PDFs (combined + Abstract split + References_Bios split)
+      action: created
+      lines: 0
+      files: 3
+    - type: other
+      name: Memory file feedback_probe_artifact_not_narrative.md + MEMORY.md index entry
+      action: created
+      lines: 31
+      files: 2
+  total_files_created: 10        # 3 SwarmEng PDFs + 3 AICB PDFs + 3 STOIC PDFs + 1 memory file
+  total_files_modified: 6        # 3 SwarmEng .md (renamed v0.3 -> v0.4) + AICB v0.7.md + STOIC v0.6.md + MEMORY.md
+  total_lines_written: 40        # ~9 source edits + ~31 memory lines
+  pages_produced: 11             # SwarmEng 3pp+1pp body + AICB 3pp+1pp body + STOIC 3pp body (4.2MB) — counting splits only
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: none
+  model_primary: claude-opus-4-7[1m]
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: ~80      # estimate: ~45 Bash + ~12 Read + ~8 Edit + ~3 Grep + ~3 Write + ~3 MCP + ~2 AskUserQuestion + ~2 PNG-read
+  context_compressions: 0
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: SwarmEng v0.4 visual-match-v0.3f (font family/design size, line widths, page count, blue link rendering)
+      result: pass
+      details: pdffonts confirmed LMRoman12/10/9 matches v0.3f; line widths character-for-character match on shared paragraphs; PNG visual confirmed blue links
+    - gate: AICB v0.7 visual-match-v0.6 (font, page count, file size, figure presence)
+      result: pass
+      details: 4pp combined matches v0.6 4pp; 248 KB matches v0.6 248 KB; pdftotext spot-checked ref 6 corrected text rendered
+    - gate: STOIC v0.6 visual-match-submitted (font, page count, file size, figure presence, ack text)
+      result: pass
+      details: 4pp combined matches submitted 4pp; 4.21 MB matches submitted 4.21 MB; line widths character-for-character match submitted page 2; ack text confirms WRT-2406 removed and ref 10 ruvnet corrected
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed:
+  first_pass_quality_pct: 30    # SwarmEng required 6 reactive iterations; AICB+STOIC each landed within 1-2 iterations after the lesson was internalized
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 0
+  retries: 9        # 6 SwarmEng render iterations (Calibri 10pt 0.75in -> LM default -> 0.9in -> 1in -> 1.25in -> 11pt+1in) + 3 STOIC settings probes (10pt/11pt x margins)
+  rework_files: 6   # SwarmEng v0.4_Abstract.pdf, _References_Bios.pdf, .pdf combined; STOIC v0.6.pdf; AICB v0.7.pdf; STOIC _probe.pdf series
+  blocked_minutes: 5
+  blockers: User PDF viewer held SwarmEng v0.4.pdf open once, causing one pandoc permission-denied error; resolved by retry after user closed. Otherwise no external blocks.
+  perception_note: >
+    First half of session (SwarmEng v0.4) felt MUCH slower than manual editing would
+    have been: 6 reactive render iterations to discover the correct pandoc command
+    (11pt + 1in + LM, not 10pt + 0.75in + Calibri from a stale session-archive
+    pattern). Principal explicitly called this out ("why was this so difficult?"),
+    which prompted a new feedback memory: probe-the-artifact-first (pdffonts,
+    pdfinfo, line-width measurement, link-annotation inspection) instead of
+    iterating on render settings reactively. Second half of session (AICB + STOIC
+    cross-fix) applied that lesson immediately and landed each correct render
+    within 1-2 attempts AND surfaced a hidden problem (broken image paths from the
+    2026-06-01 directory restructure) that the original 2026-06-02 cross-fix
+    session had not noticed. Net session: the same failure mode that broke the
+    2026-06-02 cross-fix attempt resurfaced today on SwarmEng, but was caught,
+    documented, and prevented from repeating on AICB / STOIC inside the same
+    session.

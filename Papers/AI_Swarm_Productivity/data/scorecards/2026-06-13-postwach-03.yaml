@@ -1,0 +1,101 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA ---
+session:
+  id: 2026-06-13-postwach-03
+  date: 2026-06-13
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "08:20"
+  end_time: "09:55"
+  task_summary: >
+    Finalize INCOSE IS 2026 #479 "Vision 2035" toward camera-ready: bios + byline,
+    verify and attest the full bibliography (R019), rebuild the docx with correct
+    two-column INCOSE formatting, run a tri-model review + template-adherence audit,
+    apply consensus fixes, and render the PDF.
+
+# --- D1: OUTPUT VOLUME ---
+output:
+  artifacts:
+    - type: paper_section
+      name: "#479 manuscript_clean.md (bios, corrected 29-ref bibliography, round-3 fixes)"
+      action: modified
+      lines: 320
+      files: 1
+    - type: other
+      name: "Vision 2035 docx (in-place INCOSE build) + tracked-changes + 2 PDFs"
+      action: created
+      lines: 0
+      files: 4
+    - type: code
+      name: "_build_v2_inplace.py (in-place docx editor) + refverify driver + edit scripts"
+      action: created
+      lines: 360
+      files: 3
+    - type: reference
+      name: "approved.bib promotions (26 verified + 2 attested) + manifest + candidate/cesun bib"
+      action: modified
+      lines: 220
+      files: 4
+    - type: review
+      name: "tri-model run packet + 9 model files + synthesis.md"
+      action: created
+      lines: 600
+      files: 13
+    - type: other
+      name: "session archive + scorecard + memory rule (no-overwrite) + memory enrichment"
+      action: created
+      lines: 180
+      files: 4
+  total_files_created: 24
+  total_files_modified: 5
+  total_lines_written: 1860
+  pages_produced: 13   # rendered camera-ready PDF
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 7          # 5 Claude Task sub-agents (4 refverify + 1 tri-claude) + 2 external CLIs (Codex, Gemini)
+  swarm_topology: hybrid     # parallel independent sub-agents/CLIs, no shared-ruflo cross-review
+  model_primary: claude-opus-4-8   # session opened on fable-5; switched mid-session
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls:
+  context_compressions:
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: R019 refcheck --strict (bibliography)
+      result: pass
+      details: "29 approved / 0 missing after verification + attestation; failed first run (22 miss) pre-verification"
+    - gate: refverify single-model triple-check
+      result: pass
+      details: "26 entries promoted; ~12 real errors caught and corrected"
+    - gate: tri-model review (Claude/Codex/Gemini red-blue-white)
+      result: pass
+      details: "3 tracks completed; consensus blockers + should-fixes applied in round 3"
+    - gate: INCOSE template adherence (V1.3)
+      result: partial
+      details: "abstract-citation, ref-order, &-vs-and, abbreviations fixed; title-caps + caption-position held as judgment calls"
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed: 10   # original IS reviewer items re-audited; no regressions beyond R1.1 honestly scoped
+  first_pass_quality_pct: 80
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 1          # Gemini CLI refused tool calls in untrusted OneDrive dir (needed --skip-trust)
+  retries: 2                 # Gemini re-run; multiple Word COM RPC_E_CALL_REJECTED retries
+  rework_files: 2            # docx rebuilt several times (pandoc->in-place); manuscript_clean.md edited repeatedly
+  blocked_minutes: 20
+  blockers: >
+    Manual-edit overwrite incident: a round-3 rebuild clobbered the principal's hand-edited
+    docx (recovered via OneDrive version history); pandoc two-column collapse required switching
+    to in-place python-docx editing.
+  perception_note: >
+    AI much faster on the heavy lift (parallel reference verification caught a dozen citation
+    errors a manual pass would likely have missed; in-place docx build preserved the INCOSE
+    template). Net-negative episodes were self-inflicted: regenerating over a user-edited file
+    and the initial pandoc formatting miss. Tri-model review gave high-signal, cross-corroborated
+    findings.
