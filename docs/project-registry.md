@@ -105,6 +105,40 @@
 - **Research relevance:** Supporting infrastructure for applied SE analysis across projects
 - **Key assets:** SEAD orchestration pattern (S/E/A/D decomposition), IaC generation
 
+### 10 Finance Bro
+
+- **Type:** Hive
+- **Purpose:** Assistant for a financial manager — money/risk management plus managerial / business-development (finding new clients, prospecting, client deliverables)
+- **Domain:** Wealth/retirement advisory, client prospecting, investing/risk
+- **Governance:** V3 [F101-F114] (F101-F107 standard, F110-F114 finance-specific: PII, no-investment-advice posture, data-source terms)
+- **Skills:** 1 domain-specific (`form5500-prospecting`)
+- **Agents:** 3 hand-authored (`finance-queen`, `prospect-researcher`, `client-data-steward`)
+- **Status:** Active (v1, narrow-first)
+- **Build strategy:** scaffold + governance, then the DOL Form 5500 prospecting vertical end-to-end; breadth added iteratively
+- **Referenced backend:** `01 PostWach/Papers/AI_Investing_Platform` (README "Financial-Manager"), ~31k-line quant engine — R016 (a) research artifact; called as the money/risk engine, not folded into the hive
+- **Reuse sources:** BP Marketing (BD swarm → prospecting), MACQ (deliverable-generator/document-automation/persona-router), GI-JOE (browser, ontology), Fort Wachs (PII/compliance policy)
+- **Key assets:** `form5500-prospecting` skill + schema-tolerant DOL bulk-dataset ingestion (`scripts/ingest_form5500.py`); validated on real 2023 Form 5500-SF data 2026-06-22
+- **Open:** real financial manager's prospecting criteria pending (swappable scoring config hook)
+
+---
+
+### 03 Lawsun
+
+- **Type:** Hive
+- **Purpose:** Legal-assistant hive ("bringing light to the law"). Legal research + information tool, explicitly NOT legal advice (UPL guardrails), built with attorney-grade confidentiality rigor + academic SE/law research depth
+- **Domain:** Legal research, citation verification, (later) contract analysis, drafting, compliance mapping
+- **Governance:** V3 [LW101-LW117] (LW101-LW107 standard; LW110-LW117 legal-specific: UPL posture, confidentiality≠privilege, 4-gate citation, jurisdiction/currency, query minimization, human-in-the-loop)
+- **Skills:** 3 (`legal-research`, `citecheck`, `legal-argumentation` [rescoped to proposition-support])
+- **Agents:** 4 hand-authored (`lawsun-queen`, `legal-researcher`, `cite-checker`, `confidentiality-steward`) + 3 stubs (`contract-analyst`, `legal-drafter`, `jurisprudence-analyst`)
+- **Status:** Active (v1, narrow-first). Built + verified 2026-06-29
+- **Build strategy:** scaffold + governance, then legal research + cite-check vertical end-to-end (load-bearing for all later verticals); breadth added iteratively
+- **Key assets:** `citecheck.py` 4 defect-only gates (exists / good-law / jurisdiction / proposition-support); confidence REPORTED not gated (TRAK Bayesian posterior + precedential weight; optional --min-confidence soft floor); `eyecite` extraction + cache-first/live-CourtListener resolution (`verified_authorities.json` 30-day TTL cache; `--citator mock` for CI); LW116 sends only bare cites. Adversarial fixtures verified (passes on-point, fails closed on fabricated/overruled/wrong-jurisdiction/wrong-proposition/bare). R016: `legal-research`/`legal-argumentation` (a); **citecheck + eyecite + CourtListener (b) demonstrated** (good-law citator still partial — no free Shepard's/KeyCite)
+- **Reuse sources:** PostWach (R019 protocol refcheck/refverify/reflookup; TRAK Bayesian aggregation; curated logic/philosophy skills + ethics agents), GI-JOE (browser, ontology), MACQ (deliverable-generator/document-automation/persona-router — later drafting vertical), Fort Wachs (compliance-mapper/security-posture); tools: `eyecite`, CourtListener
+- **Plan provenance:** vetted via tri-model red/blue/white (Claude+Codex+Gemini over ruflo); citecheck hardened 1-gate→4-gate per adversarial review
+- **Test harness:** plan-driven, built 2026-06-29. `docs/test_plan.md` (living checklist, IDs TV/TG/TI/TS/TE/TR/TF) drives `tests/test_citecheck.py` (18 offline pytest, mock citator) + `.github/workflows/ci.yml`. Grow via PLANNED/TF rows.
+- **Open / next:** PLANNED/TF test backlog (fuzz, real citator, live-CourtListener contract, LW110/LW117 behavioral); expand `docs/legal_sources.md`; real citator for gate-2 good-law (no free Shepard's/KeyCite); CourtListener token for live runs; review Brad's `bmpwach-lab` legal assistant. Byzantine N=3 deferred. Repo: `DocWach/Lawsun` (pushed: 6210dd6 → 2eeb245)
+- **Portfolio:** V3 hive count 10→11
+
 ---
 
 ## Tier 2: Support / Infrastructure
@@ -224,7 +258,7 @@ Output repositories are artifacts produced by one or more hives. They contain de
 
 | Level | Count | Projects | Upgrade Action |
 |---|---|---|---|
-| V3 (annotated rules) | 9 | PostWach, MACQ, GI-JOE, SysMLv2, COSYSMO, Fort Wachs, SEAD, PLM, Alpha Empress | None — gold standard |
+| V3 (annotated rules) | 11 | PostWach, MACQ, GI-JOE, SysMLv2, COSYSMO, Fort Wachs, SEAD, PLM, Alpha Empress, Finance Bro, Lawsun | None — gold standard |
 | SPARC boilerplate | 2 | BP Marketing, Claude_code_test_setup | Add [Rxxx] rule annotations, risk tags |
 | None | 1+ | UAOS cluster | Create CLAUDE.md with rules |
 
@@ -245,6 +279,8 @@ Output repositories are artifacts produced by one or more hives. They contain de
 | 2026-02-24 | PostWach CTO | MACQ governance pattern merge: P001-P006 standard + P007-P011 MACQ-specific |
 | 2026-02-24 | PostWach CTO | UAOS cluster reclassified: Output (reviewed by GI-JOE), not Hive |
 | 2026-03-10 | PostWach CTO | Add Fort Wachs (CISO) as Tier 1 hive [X001-X010]; update SEAD governance [D001-D009] |
+| 2026-06-22 | PostWach CTO | Add Finance Bro as Tier 1 hive [F101-F114]; v1 = Form 5500 prospecting vertical; AI_Investing_Platform referenced as backend; V3 count 9→10 |
+| 2026-06-29 | PostWach CTO | Add Lawsun as Tier 1 hive [LW101-LW117]; v1 = legal-research + 4-gate citecheck vertical (eyecite + CourtListener, confidence reported-not-gated, plan-driven 20-test harness); plan vetted via tri-model red/blue/white; V3 count 10→11 |
 
 ---
 

@@ -103,6 +103,8 @@ biomimetics-analyst, transfer-learning-analyst, cognitive-study-designer
 - `ontologies/domain/stoic-t3sd.ttl` — Wymore's T3SD (v0.2.0, SDR, 3 cotyledon spaces, design elaboration, IA)
 - `ontologies/domain/stoic-bridge.ttl` — T3SD↔DEVS correspondence (v0.1.0, gap declarations, convergence recommendations)
 
+**Scoped capability — named-graph / quad-store / RDF-star (2026-06-29):** ticket `GI-JOE-QUADS-001` (`02 GI-JOE/tickets/Named_Graph_Quad_Store_Capability_2026-06-29.md`). Makes GI-JOE's ontology tooling quad/dataset-aware across build/review/query: Phase A extends `ontology-gate.sh` + `ontology-validation` to `rdflib.Dataset`; Phase B adds a new `rdf-dataset-analysis` skill (pyoxigraph) for external multi-graph datasets + authoring + an RDF-star-recognition eval checklist. RDF-star is recognize-not-author; named-graph provenance (not RDF-star) is the [R018] path. **(a) scoping ticket — not yet implemented.**
+
 ### MACQ — Defense Acquisition
 
 **10 domain-specific skills** (under `acquisition/`):
@@ -180,6 +182,40 @@ biomimetics-analyst, transfer-learning-analyst, cognitive-study-designer
 - Marketing (7): analytics-specialist, brand-strategist, campaign-strategist, content-creator, email-marketer, market-researcher, social-media-manager
 - Visual (5): ai-art-director, data-viz-specialist, graphic-designer, presentation-designer, video-creator
 
+### Finance Bro — Financial-Manager Assistant
+
+**1 domain-specific skill:**
+- `form5500-prospecting` — collect DOL Form 5500 / 5500-SF bulk datasets and characterize plans as scored client prospects (schema-tolerant ingestion via `scripts/ingest_form5500.py`). R016: (a) research artifact; validated on real 2023 5500-SF data 2026-06-22.
+
+**3 hand-authored agents** (`.claude/agents/custom/`):
+- `finance-queen` — orchestrator; routes between managerial/BD and money/risk sides
+- `prospect-researcher` — client prospecting / market research (adapts BP Marketing `market-researcher`)
+- `client-data-steward` — PII / compliance gate over client + prospect data (F110, F111)
+
+**Referenced backend (not owned):** `Papers/AI_Investing_Platform` ("Financial-Manager"), ~31k-line quant engine — R016 (a) research artifact. Money/risk execution the assistant can call.
+
+**Reuses:** BP Marketing (BD swarm), MACQ (deliverable/persona skills), GI-JOE (browser, ontology), Fort Wachs (PII/compliance policy).
+
+---
+
+### Lawsun — Legal Assistant
+
+**3 domain-specific skills:**
+- `legal-research` — find/characterize cases, statutes, regulations; tag jurisdiction/currency; hand every cite to the gate. R016: (a) research artifact.
+- `citecheck` — LW112 4 defect-only gates (exists / good-law / jurisdiction / proposition-support); confidence reported not gated (TRAK Bayesian posterior + weight; optional soft floor). `eyecite` extraction + cache-first/live-CourtListener resolution (LW116 bare-cite queries; `--citator mock` for CI). Adapts the R019 protocol (workflow, not the academic parser/store). R016: (b) demonstrated 2026-06-29 (good-law citator partial — no free Shepard's/KeyCite).
+- `legal-argumentation` — v1 ships only the proposition-support function (claim → holding/pinpoint); deontic/defeasible/Toulmin-Dung formalism deferred. R016: (a) research artifact.
+
+**4 hand-authored agents** (`.claude/agents/custom/`) + 3 stubs:
+- `lawsun-queen` — orchestrator; runs the UPL pre-output filter + citation + confidentiality gates
+- `legal-researcher` — case/statute/regulation search
+- `cite-checker` — drives the 4-gate citecheck verification
+- `confidentiality-steward` — confidentiality/PII/query-minimization gate (LW111, LW116)
+- Stubs (later verticals): `contract-analyst`, `legal-drafter`, `jurisprudence-analyst`
+
+**Key tools:** `citecheck.py` gate; `verified_authorities.json` store (good-law + known-overruled, 30-day TTL); `eyecite` (legal parser), CourtListener (sources).
+
+**Reuses:** PostWach (R019 protocol, TRAK Bayesian aggregation, curated logic/philosophy skills + ethics agents `justice-arbiter`/`deontologist-guardian`/`consequentialist-calculator`/`socratic-examiner`), GI-JOE (browser, ontology), MACQ (drafting skills — later), Fort Wachs (compliance/security).
+
 ---
 
 ## Cross-Project Reuse Opportunities
@@ -200,6 +236,17 @@ biomimetics-analyst, transfer-learning-analyst, cognitive-study-designer
 | Chainguard vendor decision | Fort Wachs | SEAD (implementation) | New -- transferred from SEAD |
 | Compliance mapping for grants | Fort Wachs | PostWach (DARPA CLARA), MACQ (NNSA) | New -- security credibility narrative |
 | Academic figure generation (PaperBanana) | PostWach | Any project with manuscripts | Demonstrated (b) — 2026-05-21 |
+| BD / prospecting swarm | BP Marketing | Finance Bro (find new clients) | Active — 2026-06-22 |
+| Client document generation | MACQ (deliverable-generator, persona-router) | Finance Bro | Active — 2026-06-22 |
+| Browser web automation | GI-JOE | Finance Bro (5500Search UI lookups) | Active — 2026-06-22 |
+| PII / compliance policy | Fort Wachs | Finance Bro (client/prospect data) | Active — 2026-06-22 |
+| Quant trading engine (backend) | PostWach (AI_Investing_Platform) | Finance Bro (money/risk) | Referenced — 2026-06-22 |
+| R019 citation-verification protocol | PostWach (refcheck/refverify/reflookup) | Lawsun (citecheck, legal authorities) | Active — 2026-06-29 (workflow reused; legal parser = eyecite) |
+| TRAK Bayesian evidence aggregation | PostWach (TRAK/WRT-2516, R019 §5) | Lawsun (per-gate citation confidence) | Active — 2026-06-29 |
+| Curated logic/philosophy + ethics agents | PostWach | Lawsun (jurisprudence, proposition support) | Active — 2026-06-29 (curated subset, not wholesale import) |
+| Browser web automation | GI-JOE | Lawsun (case-law/court-record lookups) | Active — 2026-06-29 |
+| Document generation (drafting) | MACQ (deliverable-generator, document-automation, persona-router) | Lawsun (drafting vertical) | Planned — later vertical |
+| Compliance / confidentiality policy | Fort Wachs | Lawsun (LW111/LW116 PII/privilege) | Active — 2026-06-29 |
 
 ---
 
@@ -221,6 +268,9 @@ biomimetics-analyst, transfer-learning-analyst, cognitive-study-designer
 | 2026-03-07 | PostWach CTO | GI-JOE: added 12 skills, validation infrastructure, STOIC ontology family, 4 cross-project reuse entries |
 | 2026-03-10 | PostWach CTO | Add Fort Wachs (CISO): 3 skills, 3 agents, 3 cross-project reuse entries |
 | 2026-05-21 | PostWach CTO | Add PaperBanana (figure generation) as PostWach demonstrated capability (b); cross-project reuse entry |
+| 2026-06-29 | PostWach CTO | GI-JOE: scoped named-graph/quad-store/RDF-star capability (ticket GI-JOE-QUADS-001); pointer added under GI-JOE section. Scoping only, not implemented. |
+| 2026-06-22 | PostWach CTO | Add Finance Bro (financial-manager assistant): 1 skill, 3 agents, AI_Investing_Platform backend reference, 5 cross-project reuse entries |
+| 2026-06-29 | PostWach CTO | Add Lawsun (legal assistant): 3 skills, 4 agents + 3 stubs, 6 cross-project reuse entries. Plan vetted via tri-model red/blue/white; citecheck hardened to 4-gate. V3 hive count 10→11 |
 
 ---
 
