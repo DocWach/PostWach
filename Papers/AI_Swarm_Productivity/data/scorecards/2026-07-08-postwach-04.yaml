@@ -1,0 +1,86 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+# Note: postwach-03 (same day) is the PARALLEL Fable derivation session (Step 1 + Step 2). This
+# scorecard (postwach-04) is the prep session that ran alongside it and continues postwach-02.
+session:
+  id: 2026-07-08-postwach-04
+  date: 2026-07-08
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "~18:10"   # approximate; prep session after postwach-02, parallel to the postwach-03 Fable run
+  end_time: "~20:45"     # approximate; ended by principal for the night
+  task_summary: >
+    Prep for the next Fable Step runs while the parallel Step 2 Fable session ran. Drafted the
+    Step 3 (Timed WySE) Fable prompt, ran a genuine three-model review (Claude + Codex + Gemini)
+    of it, folded the findings into v2 (including the principal's non-commensurate-ta decision),
+    logged session usage, and began Step 4 (stochastic WySE flagship) planning, paused at three
+    principal decisions.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: spec
+      name: Step 3 (Timed WySE) Fable prompt, attempt-and-test; drafted v1 then hardened to v2 post-review
+      action: created
+      lines: 140
+      files: 1
+    - type: review
+      name: Step 3 prompt tri-model review task (Claude/Codex/Gemini legs)
+      action: created
+      lines: 30
+      files: 1
+    - type: other
+      name: Resource-management memory + MEMORY.md index; postwach-02 scorecard D2 usage backfill
+      action: modified
+      lines: 30
+      files: 3
+  total_files_created: 2
+  total_files_modified: 3
+  total_lines_written: 200       # approximate; excludes the principal-directed dialogue and the Step 4 planning discussion
+  pages_produced: 5              # approximate
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 3              # 1 Claude review subagent + 2 external CLI legs (Codex, Gemini)
+  swarm_topology: star
+  model_primary: claude-opus-4-8
+  tokens_input:
+  tokens_output:
+  total_cost_usd:                # included in the 2026-07-08 Claude Code SESSION TOTAL logged on postwach-02 ($7.86 mid-session snapshot; full session higher, not separately meterable); Codex/Gemini legs bill their own subscriptions, off the Claude limit
+  tool_calls: 18                 # approximate (main loop: reads, writes, edits, grep, glob, 2 bash CLI legs, 1 agent)
+  context_compressions: 0
+  external_tools: "Codex CLI (gpt-5.5, ChatGPT subscription) and Gemini CLI (GEMINI_API_KEY) as two independent tri-model review legs, off the Claude weekly limit"
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: Tri-model review of the Step 3 prompt (Claude + Codex + Gemini, independent legs)
+      result: pass
+      details: >
+        All three legs returned "yes-with-changes." Convergent high-confidence defects (Q-notation
+        collision, carrier typing, undefined timing tolerance, ta-as-readout). Sharp disjoint catches:
+        Gemini (rational-ta trivializes to a discrete-time system, false H-T1 refutation), Claude
+        (BLOCK on named Step-2 results; projection corner), Codex (non-Zeno; timed-L4 next-event
+        beyond F1/F2; continuous predicates must be encoded on the finite carrier; H-T2 label fix).
+        All folded into v2.
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed: 16   # union of the three legs' actionable changes folded into v2
+  first_pass_quality_pct: 70        # v1 was sound in architecture and discipline but had 4 blocking-quality defects a single author missed; the tri-model pass caught them pre-launch
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 0
+  retries: 0
+  rework_files: 1                # the Step 3 prompt (v1 -> v2), expected iteration from the review, not defect rework
+  blocked_minutes: 0
+  blockers: "none"
+  perception_note: >
+    The tri-model review earned its keep as prep: v1 was architecturally sound and disciplined, yet
+    three independent models each surfaced real pre-launch defects, and the highest-value catch
+    (Gemini: rational-ta collapses timing to a discrete-time system) was a single unique find that a
+    lone author or a panel of correlated Claude subagents would likely have missed. Running the
+    external legs on their own subscriptions kept the independent scrutiny off the Claude weekly limit,
+    which is the right cost posture for this subagent-heavy line. Step 4 planning was deliberately
+    stopped at the decision points rather than pushed past the principal's judgment for the day.

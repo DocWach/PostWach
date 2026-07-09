@@ -1,0 +1,100 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+# Note: this scorecard covers the Step 3 (Timed WySE) EXECUTION + tri-model assurance sweep,
+# run overnight 2026-07-08/09. It is DISTINCT from postwach-04 (which covered only the Step 3
+# PROMPT drafting + prompt review). The session delivered its morning summary and generated the
+# assurance report/PDF, then was TRUNCATED by an unplanned machine restart before it could write
+# its own scorecard; this fills that R014 gap after the fact. Sequence number (-05) assigned by
+# the 2026-07-09 recovery session; rename if the day's session numbering differs.
+session:
+  id: 2026-07-08-postwach-05
+  date: 2026-07-08
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "~22:10"   # approximate; after the postwach-04 prep session closed for the night
+  end_time: "~22:53"     # approximate; last transcript activity before the machine autorestart
+  task_summary: >
+    Launched the aligned Step 3 (Timed WySE) prompt on Fable, which derived the timed carrier,
+    the timing coordinate K_t, the timed-collapse condition (Lemma G_t), the timed-predicate
+    transfer boundary, and the timed parameter morphism via attempt-and-test, confirming all four
+    author hypotheses. Then ran a genuine three-model blind adversarial sweep (Claude Opus + Codex
+    + Gemini) aimed hardest at the one judgment call (the TCX adjudication), consolidated the
+    verdict table, and generated the assurance report + PDF. Two statement-level repairs were
+    identified (not applied this session; applied 2026-07-09 as an Opus errata pass).
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: analysis
+      name: Step 3 (Timed WySE) candidate derivation (Fable), H-T1..H-T4 all confirmed
+      action: created
+      lines: 341
+      files: 1
+    - type: review
+      name: Step 3 tri-model assurance report (Claude+Codex+Gemini, 8-claim verdict table) + PDF
+      action: created
+      lines: 30
+      files: 2
+  total_files_created: 3
+  total_files_modified: 0
+  total_lines_written: 371       # approximate; the candidate (341) + assurance report (~30); excludes the PDF render
+  pages_produced: 15             # approximate (candidate ~13 pp + assurance report ~2 pp)
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 4              # 1 Fable derivation subagent (wf_ee431461-e96) + 3 blind review legs (1 Claude/Opus + 2 external CLI: Codex, Gemini)
+  swarm_topology: star
+  model_primary: claude-fable-5  # the derivation engine and headline artifact; orchestration + Claude review leg were Opus 4.8; external legs Codex gpt-5.5 + Gemini
+  tokens_input:
+  tokens_output:                 # Fable derivation run ~220k tokens (from the session log); exact input/output split not separately metered
+  total_cost_usd:                # Claude-side cost folded into the 2026-07-08 Claude Code SESSION TOTAL logged on postwach-02 ($7.86 mid-session snapshot); Codex/Gemini legs bill their own subscriptions, off the Claude weekly limit
+  tool_calls: 20                 # approximate (launch, reads of Step 1/2 ground truth, candidate write, 3 review-leg dispatches, report write, PDF render)
+  context_compressions: 0
+  external_tools: "Fable 5 subagent (claude-fable-5, ~13 min run); Codex CLI (gpt-5.5) + Gemini CLI as two independent blind review legs, off the Claude limit; pandoc + xelatex (assurance-report PDF)"
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: Fable attempt-and-test derivation against stated refutation targets (H-T1..H-T4)
+      result: pass
+      details: >
+        All four hypotheses CONFIRMED with fences. H-T1 timing irreducible (timed-N3b pair,
+        ta = 1,1 vs 1,sqrt2, equal on every untimed coordinate incl. g_max; reconstruction refuted).
+        H-T2 admissible exact timed collapse = N-congruence + ta block-constant (Lemma G_t both
+        directions); NEW finding: (C-ta) is a FILTER, not a closure clause. H-T3 predicate boundary
+        = saturation + horizon-margin, with a realized numeric flip (P-t4). H-T4 D_inst^t = absorbed
+        K2-side + independent K_3^inst,t (conditional on fixed input A). No RED-FLAG against Steps 1-2.
+    - gate: Tri-model blind adversarial sweep (Claude Opus + Codex + Gemini), aimed at the TCX adjudication
+      result: pass
+      details: >
+        6 of 8 claims UNANIMOUSLY SOUND (TN3b irreducibility, Lemma G_t both directions, the (C-ta)
+        filter, D_inst^t, anti-double-counting, untimed restriction, all fences). The TCX adjudication
+        UNANIMOUSLY endorsed as principled (Gemini strengthened it with a reactive-input divergence
+        construction). Two statement-level repairs identified, neither architectural: (1) TTA restated
+        as a conservative certification rule, not an iff; (2) the N5'-t witness re-scoped to autonomous
+        trace equivalence (TCX is not input-closed; all three legs, three independent routes).
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed: 2    # the two statement-level repairs (both applied 2026-07-09 Opus errata); minor list items folded same pass
+  first_pass_quality_pct: 80        # architecture held completely and 6/8 claims were unanimous first pass; the two defects were statement-level (TTA wording, N5'-t scope), not structural, and the tri-model sweep caught both
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 0
+  retries: 0
+  rework_files: 0                 # no rework this session; the two repairs were deferred to the 2026-07-09 Opus errata pass, not reworked here
+  blocked_minutes: 0
+  blockers: "none in-session. The session itself was TRUNCATED by an unplanned machine autorestart shortly after the assurance report + morning summary were produced; no work was lost (artifacts had already been written), but the session-end scorecard/archive step was interrupted and completed on 2026-07-09."
+  perception_note: >
+    The strongest single-session evidence yet for the hardened-prompt + tri-model-sweep discipline
+    on this line: Fable derived a 341-line timed-WySE result confirming all four hypotheses in ~13
+    minutes, and a genuinely independent three-model blind sweep returned 6/8 unanimous SOUND with
+    only two statement-level repairs, both caught pre-acceptance and both Opus-errata-scale. The
+    external review legs ran on their own subscriptions, keeping the adversarial scrutiny off the
+    Claude weekly limit. Net: AI strong on speed, structural correctness, and self-adversarial
+    verification; the residual defects were precision-of-statement (an over-claimed iff; an
+    over-scoped behavioral witness), exactly the class a tri-model sweep is built to catch. The
+    R016 candidate-fencing held throughout (every result tagged CANDIDATE; obstructions reported as
+    results, not smoothed). The one process blemish was external (machine restart truncating
+    session close), not an agent or workflow failure.

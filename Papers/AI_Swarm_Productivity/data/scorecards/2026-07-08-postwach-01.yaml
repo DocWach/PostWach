@@ -1,0 +1,97 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-07-08-postwach-01
+  date: 2026-07-08
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "~08:00"   # approximate; continuation of 2026-07-07 postwach-03
+  end_time: "~11:00"     # approximate
+  task_summary: >
+    Corrected the overnight Fable flagship result (degree-only refutation rested on a
+    scoping artifact; withdrawn). Reframed the line over 21 principal points into a
+    foundational question on characterizing the degree of homomorphism. Ran a corrected
+    recompute and a bmpwach-lab morphism-metric extraction; drafted a hardened foundational
+    Fable prompt held for review.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: spec
+      name: Foundational Fable prompt (degree-of-homomorphism, consolidates points 1-21)
+      action: created
+      lines: 120
+      files: 1
+    - type: analysis
+      name: Corrected Gate-1 recompute (structure-preserving morphisms)
+      action: created
+      lines: 90
+      files: 1
+    - type: analysis
+      name: bmpwach-lab morphism-metric findings (IGNITE/IS 2026)
+      action: created
+      lines: 70
+      files: 1
+    - type: other
+      name: Plain-language findings explainer (+ PDF via pandoc/xelatex)
+      action: created
+      lines: 90
+      files: 2
+    - type: review
+      name: Correction banner on research artifact; plan Stage 7; 07-07 archive+scorecard updates
+      action: modified
+      lines: 120
+      files: 4
+  total_files_created: 6
+  total_files_modified: 4
+  total_lines_written: 600   # approximate (excludes the principal-led dialogue itself)
+  pages_produced: 14         # approximate
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 2          # corrected recompute; bmpwach extraction
+  swarm_topology: star
+  model_primary: claude-opus-4-8
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: 45             # approximate
+  context_compressions: 0
+  external_tools: "gh (GitHub code search across bmpwach-lab); pandoc + xelatex (PDF)"
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: Principal adversarial review of the overnight Fable result
+      result: fail
+      details: >
+        Central empirical claim (degree-only refutation) rested on a scoping artifact;
+        withdrawn. Three further anchoring errors in the assistant's redraws (surjective-only,
+        state-only, single-map) each caught by the principal.
+    - gate: Corrected recompute (structure-preserving)
+      result: pass
+      details: graded spectrum confirmed; verdict re-derived on firmer ground
+    - gate: bmpwach deployed-practice cross-check
+      result: pass
+      details: point 1 (degree-as-thresholded-input) confirmed in a fielded system
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed: 21   # principal points 1-21
+  first_pass_quality_pct: 40        # the overnight artifact's central claim required withdrawal
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 0
+  retries: 0
+  rework_files: 2            # research artifact (banner) and plan (Stage 7) revised post-correction
+  blocked_minutes: 0
+  blockers: "Corrected recompute emitted a well-characterized BLOCKED (input/output maps absent in settled data); expected fail-safe, not a stall."
+  perception_note: >
+    The overnight AI run was fast and voluminous and honestly fenced (candidate, evidence
+    ledger, no forced proof), but its central empirical claim was wrong and required principal
+    correction, and each assistant redraw introduced a fresh anchoring error the principal
+    caught. The durable value came from principal-led reframing (points 1-21) plus fast AI
+    verification/extraction (recompute, bmpwach). Net: AI strong on speed, breadth, and
+    grounded retrieval; weak on unsupervised correctness of a novel central claim. The
+    candidate-fencing (R016) is what made the errors catchable rather than propagated.

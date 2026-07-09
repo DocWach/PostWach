@@ -1,0 +1,93 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-06-29-postwach-07
+  date: 2026-06-29
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "19:30"
+  end_time: "20:30"
+  task_summary: >
+    Remove the unwanted "ruvnet" co-author (Co-Authored-By: claude-flow <ruv@ruv.net>) from the
+    principal's git repos portfolio-wide. Root-cause it, rewrite history to strip the trailer across the
+    DocWach repos with integrity-checked force-pushes, install a prevention protocol (behavioral memory +
+    global commit-msg hook), and defer repos with collaborator/public-remote risk.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: config
+      name: history rewrite (strip Co-Authored-By trailer) across 13 DocWach repos + the INCOSE FuSE public output (2 deferred repos completed on 2026-06-30 resume)
+      action: modified
+      lines: 310        # ~commit messages rewritten (trailer lines removed)
+      files: 14         # repos/branches rewritten + force-pushed
+    - type: config
+      name: global commit-msg dispatcher hook (~/.githooks, core.hooksPath) + chaining to per-repo hooks
+      action: created
+      lines: 12
+      files: 8          # hook scripts
+    - type: review
+      name: feedback_no_ruvnet_coauthor memory + MEMORY.md pointer
+      action: created
+      lines: 25
+      files: 2
+    - type: review
+      name: session archive (postwach-07)
+      action: created
+      lines: 60
+      files: 1
+  total_files_created: 11
+  total_files_modified: 12   # repos rewritten
+  total_lines_written: 120   # net authored (excludes the mechanical message rewrites)
+  pages_produced: 3
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: none
+  model_primary: claude-opus-4-8
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls:
+  context_compressions: 0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: per-repo tree-hash integrity (message-only rewrite must not change content)
+      result: pass
+      details: 12/12 repos — HEAD tree hash UNCHANGED before vs after filter-repo; commit counts preserved.
+    - gate: trailer removal verified (local + origin)
+      result: pass
+      details: every cleaned repo shows 0 ruv@ruv.net trailers locally and on origin after force-push.
+    - gate: uncommitted-work preservation
+      result: pass
+      details: backed up git diff HEAD and re-applied; Fort Wachs + PostWach edits restored; PostWach submodule hunk skipped via --reject.
+    - gate: SysMLv2 public-repo safety
+      result: pass
+      details: --refs main only; batch1 head unchanged (95336eb); both remotes + push guards restored; pushed main->origin only, never incose-fuse/public.
+    - gate: prevention hook test
+      result: pass
+      details: commit-msg dispatcher strips the trailer (0 remaining) and chains to per-repo hooks (LFS preserved).
+  tests_passed: 5
+  tests_failed: 0
+  reviewer_comments_addressed: 0
+  first_pass_quality_pct: 95
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 2     # filter-repo wiped uncommitted tracked edits (recovered via patch backup); PostWach git apply failed atomically on submodule hunk (recovered via --reject)
+  rework_files: 0
+  blocked_minutes: 3
+  blockers: >
+    Discovered mid-run that git filter-repo discards uncommitted tracked changes (hard reset). Caught on
+    the first dirty repo (Fort Wachs) because of a precautionary git-diff backup; adopted backup-and-reapply
+    for all dirty repos thereafter. No work lost.
+  perception_note: >
+    Fast and safe at scale. filter-repo rewrote ~285 commits across 12 repos in seconds; the real value was
+    disciplined safety scaffolding (tree-hash integrity check, dirty-state patch backup, multi-remote guard,
+    SysMLv2 --refs main + public-repo protection) that turned a risky bulk history rewrite into a verifiable
+    one. Two repos correctly deferred rather than force-pushed blind (collaborator / public output).

@@ -1,0 +1,115 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-06-30-postwach-01
+  date: 2026-06-30
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "08:30"   # approx
+  end_time: "15:00"     # approx
+  task_summary: >
+    Prepare a MOACRA senior-leader pitch deck and meeting brief for sponsor Tom Tenorio (TDAC) using a
+    rigorous systems-engineering approach; locate Peter Beling / SERC secure-cyber-resilient-engineering
+    work (FOREST, Mission Aware, SCRE, WRT-1043); apply a three-tier internal/external/slides framing and
+    soften MBCRA over-commitments; and complete the internal Year-1 SE plan to a steady point.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: other
+      name: 5-slide senior-leader deck (build_deck_5slide.py + surgical edits; Fig3 swap, MBCRA softening)
+      action: created
+      lines: 220
+      files: 2          # builder + pptx
+    - type: other
+      name: 10am meeting brief v1 + v2 (markdown) and brief deck (build_brief_deck.py + pptx)
+      action: created
+      lines: 320
+      files: 5
+    - type: other
+      name: per-slide speaker notes (markdown)
+      action: created
+      lines: 70
+      files: 1
+    - type: other
+      name: figures - Fig4 team ecosystem (mmd+png, tri-service), Fig3 seven-layer overlay updated (mmd+png)
+      action: created
+      lines: 90
+      files: 4
+    - type: analysis
+      name: Beling / SERC SCRE-FOREST-Mission Aware reference catalog (incl. WRT-1043 lineage)
+      action: created
+      lines: 150
+      files: 1
+    - type: spec
+      name: MOACRA Year-1 Plan (SE artifacts 1-9; objectives, scope, ConOps, measures, WBS, V&V, risks, exit)
+      action: created
+      lines: 165
+      files: 1
+    - type: review
+      name: session archive (postwach-01) created and updated with second-half work
+      action: created
+      lines: 130
+      files: 1
+    - type: code
+      name: utility scripts (diff decks, reference build, surgical swap/soften)
+      action: created
+      lines: 140
+      files: 4
+  total_files_created: 19
+  total_files_modified: 6     # live deck (multiple surgical edits), brief md, reference md, Fig3 mmd, build_brief_deck.py, session archive
+  total_lines_written: 1450   # net authored (excludes agent-internal transcripts)
+  pages_produced: 14
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 7          # Claude Code Task subagents: 3 (stress-test, brief, speaker notes) + 4 (SERC/Beling research)
+  swarm_topology: star       # independent parallel subagents under the main loop; no claude-flow swarm_init
+  model_primary: claude-opus-4-8
+  tokens_input:
+  tokens_output: 441000      # sum of subagent output tokens; main-loop tokens additional (not metered here)
+  total_cost_usd:
+  tool_calls: 170            # approx; ~60 main loop + ~110 across subagents
+  context_compressions: 0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: render-and-look verification of generated figures (Fig4, Fig3)
+      result: pass
+      details: each Mermaid render viewed; UofA subgraph title collision caught and fixed; tri-service cluster verified.
+    - gate: surgical deck edit integrity (MBCRA softening + Fig3 swap)
+      result: pass
+      details: post-edit check showed 0 MBCRA occurrences remaining, "ties into and from both" strength present on S1/S2; image swap and text fix verified by re-extraction; pre-edit backups taken; no rebuild over hand edits.
+    - gate: manual-edit preservation (hand-edited deck never overwritten by builder)
+      result: pass
+      details: diffed via read-only snapshot while file open in PowerPoint; all edits applied python-pptx single-writer; two dated backups retained.
+    - gate: research source verification + uncertainty flagging
+      result: partial
+      details: WRT-1043 found and confirmed (Wach on it); several Wiley/Springer/DAU sources gated (paywall/403/cert), so some metadata rests on snippets and is marked [CONFIRM]; arXiv seed corrected (not Beling's).
+    - gate: R019 reference gate
+      result: skipped
+      details: no manuscript bibliography rendered this session (pitch deck + internal docs); doctrine attributions flagged [CONFIRM] before verbatim quotation.
+  tests_passed: 0
+  tests_failed: 0
+  reviewer_comments_addressed: 0
+  first_pass_quality_pct: 80   # several principal corrections folded in (Red scope, Beling affiliation, MBCRA over-constraint)
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 3        # Fig4 title collision (2 re-renders); slide-4 "extends LVC" grammar fix after a blind run-level replace
+  rework_files: 2   # Fig4 mermaid (3+ edits) and the live deck (multiple surgical passes)
+  blocked_minutes: 5
+  blockers: >
+    Live deck was open in PowerPoint, so diffing/inspection used read-only snapshots and edits waited until
+    the principal closed it. Several external sources (SERC/DAU PDFs, Wiley/Springer chapters) were gated
+    by paywall, 403, or expired TLS; subagents fell back to local pdftotext extraction and search metadata.
+  perception_note: >
+    The two research fan-outs (3 + 4 parallel subagents) were the biggest multiplier: located the full
+    Beling/SERC SCRE lineage and confirmed WRT-1043 in minutes, work that would take hours manually. The SE
+    artifact-chain discipline (needs -> objectives -> scope -> ConOps -> measures -> WBS/V&V/risk/exit) kept
+    Year-1 planning coherent and traceable. Main friction was over-eager first drafts (cyber-only Red team,
+    committing to MBCRA) that the principal corrected; the three-tier internal/external/slides framing then
+    resolved the over-constraint cleanly.

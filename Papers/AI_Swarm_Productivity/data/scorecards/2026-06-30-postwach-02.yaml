@@ -1,0 +1,85 @@
+# =============================================================================
+# Session Productivity Scorecard
+# =============================================================================
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-06-30-postwach-02
+  date: 2026-06-30
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "11:15"        # approximate, MST
+  end_time: "11:55"          # approximate, MST (session left on HOLD, not closed)
+  task_summary: >
+    Produce a one-page UA Digital Engineering Factory (DEF) capabilities brief answering a sponsor's
+    demand for specifics (vendors, licenses, workflows, research) and why UA is superior for MOSA and
+    systems engineering, in the Secretary of War's acquisition vocabulary. Prior draft rejected as too
+    aspirational.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: other
+      name: UArizona_DEF_MOSA_OnePager_v1.docx (DEF capabilities one-pager, WAS-keyworded, corpus-sourced)
+      action: created
+      lines: 40
+      files: 1
+    - type: other
+      name: SESSION_ARCHIVE_2026-06-30_postwach-02.md
+      action: created
+      lines: 90
+      files: 1
+    - type: code
+      name: gen_def_onepager.py (python-docx generator, kept in system temp, not committed)
+      action: created
+      lines: 130
+      files: 1
+  total_files_created: 3        # 2 deliverable/tracked + 1 scratch (temp)
+  total_files_modified: 0
+  total_lines_written: 260
+  pages_produced: 1             # the one-pager (the archive is records, not prose deliverable)
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 1             # DEF-corpus mining, general-purpose, background via Claude Code Task tool
+  swarm_topology: none          # single background subagent; ruflo warmed but NOT used for orchestration
+  model_primary: claude-opus-4-8[1m]
+  tokens_input:
+  tokens_output: 165627         # reported by the DEF-corpus subagent only; main-loop tokens not metered here
+  total_cost_usd:
+  tool_calls: 22                # approximate (main loop)
+  context_compressions: 0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: R016 integration-status / maturity honesty
+      result: pass
+      details: DEF tagged as research-and-education environment validated on notional/sanitized/student cases; no overclaim.
+    - gate: R019 references verification gate
+      result: skipped
+      details: No manuscript bibliography rendered; not applicable to a sponsor one-pager.
+    - gate: R102/R104 file hygiene (no root files, no stray repo scratch)
+      result: pass
+      details: Generator script kept in system temp; deliverable in the Prescott folder; repo left clean.
+    - gate: SecWar keyword fidelity (WAS vocabulary verbatim, web-verified)
+      result: pass
+      details: speed to capability, MOSA, module-level competition, reduce vendor lock, nontraditional vendors, industrial base.
+  tests_passed: 0
+  tests_failed: 0
+  reviewer_comments_addressed: 0
+  first_pass_quality_pct: 95     # full draft accepted and sent to Alejandro without rework rounds
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 1                     # initial docx text extraction hit a cp1252 encoding error; fixed via utf-8 reconfigure
+  rework_files: 0
+  blocked_minutes: 0
+  blockers: >
+    none material. The email's referenced "briefing for context" was not in the folder; principal de-scoped it.
+  perception_note: >
+    Faster than manual. Parallelizing the DEF-corpus mining (background subagent over 13 PDFs) with live
+    web research on current WAS keywords assembled honest, citable specifics quickly; the debate-then-outline
+    step caught and removed the prior draft's unsupported hypersonics/SSA claims before drafting prose.

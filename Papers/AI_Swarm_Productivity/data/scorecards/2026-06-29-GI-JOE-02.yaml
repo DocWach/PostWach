@@ -1,0 +1,68 @@
+# =============================================================================
+# Session Productivity Scorecard — WIDOCO review + GI-JOE-WIDOCO-001 (Phase A paused)
+# =============================================================================
+schema_version: "1.0"
+
+session:
+  id: 2026-06-29-GI-JOE-02
+  date: 2026-06-29
+  hive: GI-JOE
+  researcher: Paul Wach
+  start_time:            # not recorded
+  end_time:              # not recorded
+  task_summary: >
+    Review dgarijo/WIDOCO and give GI-JOE's capability assessment; file ticket
+    GI-JOE-WIDOCO-001 (adopt doc-gen + adapt SHACL annotation-completeness);
+    begin Phase A. Paused mid-Phase-A (tooling blockers); to resume next session.
+
+output:
+  artifacts:
+    - type: review
+      name: "WIDOCO capability assessment (adopt-as-documenter, not evaluator) + GI-JOE-WIDOCO-001 ticket"
+      action: created
+      lines: 73
+      files: 1
+    - type: review
+      name: "Session archive with ordered RESUME-TOMORROW steps"
+      action: created
+      lines: 50
+      files: 1
+  total_files_created: 2
+  total_files_modified: 1     # ticket status flagged in-progress
+  total_lines_written: 130
+  pages_produced: 2
+
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: none
+  model_primary: claude-opus-4-8
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: 12              # approximate
+  context_compressions: 0
+
+quality:
+  gates_run:
+    - gate: WIDOCO Phase A render
+      result: skipped
+      details: "Not reached — blocked on obtaining a runnable WIDOCO (Docker daemon down; pinned JAR asset URL returned a corrupt 9-byte file)."
+  tests_passed: 0
+  tests_failed: 0
+  reviewer_comments_addressed: 0
+  first_pass_quality_pct:      # n/a — capability not yet demonstrated
+
+process:
+  agent_failures: 0
+  retries: 1                  # JAR download attempt failed (corrupt asset)
+  rework_files: 0
+  blocked_minutes: 10
+  blockers: >
+    Docker Desktop daemon not running; WIDOCO v1.4.25 release-asset URL returned a 9-byte corrupt file
+    (wrong tag/asset name). Paused by user to finish next session. Resume steps captured in the archive.
+  perception_note: >
+    Review + ticket fast and clean. Phase A execution gated on external tooling availability (Docker
+    daemon, correct release artifact) rather than on reasoning — a setup blocker, not a design one.
+
+# PROVENANCE (R018): produced by Claude Opus 4.8 (Anthropic, subscription) via Claude Code / claude-flow,
+# on behalf of the GI-JOE hive.

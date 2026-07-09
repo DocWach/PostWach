@@ -1,0 +1,102 @@
+schema_version: "1.0"
+
+session:
+  id: 2026-07-02-postwach-01
+  date: 2026-07-02
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "09:00"   # approximate
+  end_time: "18:00"     # approximate
+  task_summary: >
+    Dissertation-to-journal manuscript (VMconditions), main-build continuation.
+    Recognized the manuscript carried two ideas and split it: P1 = comparison of
+    text/descriptive/science approaches (this manuscript, retitled), P2 = mathematical
+    characterization of the necessary-and-sufficient conditions (new outline). Reframed
+    P1 as a standalone comparison (title/abstract/intro/background), transposed the
+    Results from by-approach to by-question (7 subsections), removed the old block
+    (theorem + Sankey + heat map -> P2), and regrounded Discussion 6.1. Caught a
+    cross-source VM8 actuation defect.
+
+output:
+  artifacts:
+    - type: paper_section
+      name: "main.tex P1 reframe (title/abstract/intro; Background math-lightened, eq:psf->appendix) + by-question Results transpose (5.1 SR / 5.2 SD / 5.3 VR / 5.4 VM / 5.5 existence / 5.6 declared->determined / 5.7 summary, each artifact section opening with a dissertation definition) + 6.1 regrounding; old by-approach block deleted; fig:sysmlv2 -> appendix; theorem/Sankey/heatmap/tables/fig:is2024approach -> P2"
+      action: modified
+      lines: 520
+      files: 1
+    - type: spec
+      name: "appendix_proof.tex ref fixes (\\Cref{sd-vm}/{vmmc-vm} -> how-mathematical)"
+      action: modified
+      lines: 2
+      files: 1
+    - type: other
+      name: "Paper2_Math_Characterization_OUTLINE.md — P2 capture (definition/theorem/proof, 18-VM enumeration, degree-of-homomorphism, WySE formal apparatus, what moved from P1, with source locations)"
+      action: created
+      lines: 90
+      files: 1
+    - type: other
+      name: "Dispub_P1_Open_Research_Questions.md — 11 research questions raised by 6.1 (if-X-then), tagged/routed"
+      action: created
+      lines: 45
+      files: 1
+    - type: archive
+      name: "Session archive continuation (section 11) — split, reframe, transpose, VM8 integrity finding, 6.1, pending 6.2"
+      action: modified
+      lines: 45
+      files: 1
+  total_files_created: 2
+  total_files_modified: 3
+  total_lines_written: 700
+  pages_produced: 0   # net refinement: P1 went 51 -> 45 pp (reframe + transpose + removed ~old block/figures while adding by-question prose)
+
+ai_efficiency:
+  agents_spawned: 0         # solo; direct tool work (pdflatex, sed, pdftotext, Edit/Grep); no subagents
+  swarm_topology: none
+  model_primary: claude-opus-4-8[1m]
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls:
+  context_compressions:
+
+quality:
+  gates_run:
+    - gate: R019 reference gate (cite keys in approved store)
+      result: pass
+      details: "No new cite keys introduced; all openers/definitions reuse already-approved keys, [PLACEHOLDER] markers used for the 4 artifact-definition sources pending dissertation-ref resolution (R019-compliant drafting)."
+    - gate: LaTeX build (pdflatex x2)
+      result: pass
+      details: "45 pp, 0 undefined references, 0 undefined citations, 0 errors after old-block deletion + ref redirects."
+    - gate: Cross-source integrity check (VM identities vs dissertation)
+      result: partial
+      details: >
+        CAUGHT a defect: manuscript prose called VM8 "force-input, blue"; dissertation
+        Table 44 (VM8 = Torque 0.5 Nm, blue 475 nm) and the manuscript's OWN appendix
+        proof tables (VM8 = Torque) disagree, and VM6 (Force 0.5 N, yellow 580 nm) is the
+        force model. Corrected in the new by-question 5.4 (VM-A=VM8 torque/blue; VM-B=VM6
+        force/yellow); color-based exclusion unaffected. Full audit still DEFERRED to
+        pre-submission (VM8 appendix "Arduino/potentiometer" wording, SD4 composition,
+        heat-map/VRPS4, wavelengths).
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed: 8   # principal directives: split direction, standalone framing, generic-command SR, dissertation SR1-5, VM naming (2 rounds), definitions-from-dissertation, 6.1 subjectivity/grounding, Q11 rephrase
+  first_pass_quality_pct: 68
+
+process:
+  agent_failures: 0
+  retries: 5               # VM naming (2 rounds -> local relabel), definition sourcing (after INCOSE-def pushback -> dissertation), 6.1 tone/grounding, Edit stale-state after sed, presentation-pattern/tables
+  rework_files: 1          # main.tex iterated heavily across the reframe + transpose
+  blocked_minutes: 10
+  blockers: >
+    dissertation numeric citations [30-32,38,41] unresolved (placeholders used); Larson
+    textbook not in the library (could not fresh-quote definitions, used dissertation);
+    Edit tool stale-state after a sed line-delete (re-read to recover); bash regex
+    escaping gave false 0-ref counts (re-checked with Grep tool).
+  perception_note: >
+    Much faster than manual for the structural transpose and reframe. The session's
+    highest-value moves were human-in-the-loop judgment calls the AI surfaced or executed:
+    the one-idea/one-paper SPLIT (prevented a muddled two-idea submission), catching the
+    VM8 actuation integrity defect against the dissertation, and regrounding 6.1 from
+    subjective claims to cited, study-anchored statements. Several principal corrections
+    (VM naming, definition sourcing, 6.1 tone) show the value is in the tight review loop,
+    not one-shot generation.

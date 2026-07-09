@@ -1,0 +1,100 @@
+# =============================================================================
+# Session Productivity Scorecard — GI-JOE-QUADS-001 (Phases A+B)
+# =============================================================================
+schema_version: "1.0"
+
+# --- SESSION METADATA ---
+session:
+  id: 2026-06-29-GI-JOE-01
+  date: 2026-06-29
+  hive: GI-JOE
+  researcher: Paul Wach
+  start_time:            # not recorded
+  end_time:              # not recorded
+  task_summary: >
+    Review PostWach ticket GI-JOE-QUADS-001 (named-graph/quad-store/RDF-star
+    capability); resolve open questions; implement Phases A and B end-to-end;
+    return a completion advisory to PostWach.
+
+# --- D1: OUTPUT VOLUME ---
+output:
+  artifacts:
+    - type: config
+      name: "ontology-gate.sh — opt-in per-set dataset mode (Dataset, per-graph SHACL, graph_uri CQs)"
+      action: modified
+      lines: 157
+      files: 1
+    - type: code
+      name: "scripts/sparql_query.py — route .nq/.trig to rdflib.Dataset (fix silent quad loss)"
+      action: modified
+      lines: 18
+      files: 1
+    - type: code
+      name: "scripts/dataset_analysis.py — assess/query runner, optional pyoxigraph + rdflib"
+      action: created
+      lines: 273
+      files: 1
+    - type: ontology
+      name: "quads-demo fixture set (TriG+N-Quads, shapes, manifest, 3 CQs) + rdfstar-sample"
+      action: created
+      lines: 110
+      files: 8
+    - type: spec
+      name: "rdf-dataset-analysis SKILL.md (3 verbs) + ontology-validation dataset section"
+      action: created
+      lines: 207
+      files: 2
+    - type: review
+      name: "QUADS-001 ticket intake/decisions/A2-sharpening, Phase A work breakdown, completion advisory"
+      action: created
+      lines: 380
+      files: 3
+  total_files_created: 14
+  total_files_modified: 5
+  total_lines_written: 1145
+  pages_produced: 13            # prose-equivalent (tickets/advisory/skills)
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 0            # solo main-loop; no swarm/Task fan-out
+  swarm_topology: none
+  model_primary: claude-opus-4-8
+  tokens_input:               # not recorded
+  tokens_output:              # not recorded
+  total_cost_usd:             # not recorded
+  tool_calls: 78              # approximate
+  context_compressions: 0
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: ontology-gate.sh full
+      result: pass
+      details: "All 4 sets green — Portfolio 20/20, TRAK 15/15, FM 2/2 advisory, quads-demo 3/3; existing sets byte-identical to baseline (zero regression)."
+    - gate: Phase A acceptance (per-graph SHACL isolation + graph-scoped CQs)
+      result: pass
+      details: "quads-demo: violation isolated to beta; union=4, graph_uri alpha=2, inline GRAPH beta=2."
+    - gate: Phase B acceptance (pyoxigraph load + cross-graph + GRAPH ?g; RDF-star detection)
+      result: pass
+      details: "pyoxigraph 0.5.9 union=4, GRAPH ?g {alpha 2, beta 2}; rdflib parity identical; RDF-star flagged pre-parse."
+  tests_passed: 3             # acceptance demonstrations
+  tests_failed: 0
+  reviewer_comments_addressed: 0   # PostWach review still pending
+  first_pass_quality_pct: 95
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 0
+  retries: 1                  # one Edit re-issued after reading MEMORY.md first
+  rework_files: 0             # gate/ticket edited iteratively (planned), not error-rework
+  blocked_minutes: 0
+  blockers: "none"
+  perception_note: >
+    Substantially faster than manual. Two full phases (gate surgery + new skill +
+    runner + fixtures + docs, ~20 files) delivered in one session with empirically
+    verified acceptance and de-risked spikes (silent quad loss, cross-backend
+    union impedance, RDF-star detect-before-parse all caught and tested).
+
+# --- PROVENANCE (R018) ---
+# Scorecard and all session artifacts produced by Claude Opus 4.8 (Anthropic,
+# subscription) via Claude Code / claude-flow, on behalf of the GI-JOE hive.

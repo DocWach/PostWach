@@ -1,0 +1,108 @@
+# =============================================================================
+# Session Productivity Scorecard — 2026-07-06 postwach-01
+# PROVENANCE: filled by Claude (Anthropic, Opus 4.8, claude-opus-4-8[1m]) at session close.
+# Times approximated from artifact timestamps (first build 11:10, paperbanana run 19:32).
+# =============================================================================
+
+schema_version: "1.0"
+
+session:
+  id: 2026-07-06-postwach-01
+  date: 2026-07-06
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "10:30"
+  end_time: "21:15"
+  task_summary: >
+    Dissertation publication: catalog Zeigler/Beling co-author comments on P1; stand up P2
+    (Mathematical Characterization) and draft it section by section (abstract locked,
+    introduction, background, methods incl. method-flow figure), with an outline-of-record
+    decision log. Quality-over-speed cadence enforced by principal mid-session.
+
+output:
+  artifacts:
+    - type: review
+      name: P1 co-author feedback catalog (coauthor_feedback.yaml + .md, renamed from reviewer_*)
+      action: created
+      lines: 330
+      files: 2
+    - type: paper_section
+      name: P2 manuscript (manuscript_p2/main.tex) — scaffold from _v3.13_snapshot, then abstract (locked) + introduction + background + methods drafted; appendix_proof.tex cross-refs fixed
+      action: created
+      lines: 900
+      files: 2
+    - type: spec
+      name: Paper2_Article_Outline.md — outline of record with decision log D1-D18 + iteration record + open items
+      action: created
+      lines: 240
+      files: 1
+    - type: other
+      name: Method-flow figure — two-band Mermaid (fig_method_flow.mmd + config + PNG, 3 visual iterations) + paperbanana version (background agent)
+      action: created
+      lines: 50
+      files: 4
+    - type: config
+      name: references.bib — wach2021wymoredevs added from approved store
+      action: modified
+      lines: 11
+      files: 1
+    - type: analysis
+      name: Versioned draft PDFs v0.1-v0.5 (clean builds, 26-32 pp)
+      action: created
+      lines: 0
+      files: 5
+    - type: other
+      name: Session archive + memory (feedback_no_self_imposed_deadlines + MEMORY.md index + project memory update)
+      action: created
+      lines: 160
+      files: 3
+  total_files_created: 17
+  total_files_modified: 4
+  total_lines_written: 1690
+  pages_produced: 17
+
+ai_efficiency:
+  agents_spawned: 1
+  swarm_topology: none
+  model_primary: claude-opus-4-8[1m]
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls:
+  context_compressions:
+
+quality:
+  gates_run:
+    - gate: LaTeX build (pdflatex+bibtex x5 builds)
+      result: pass
+      details: 0 undefined citations / 0 undefined references / 0 multiply-defined on every build v0.1-v0.5
+    - gate: R019 reference lookup (reflookup)
+      result: pass
+      details: wach2021wymoredevs APPROVED (confirmed + copied to P2 bib); wymore1976sem APPROVED (recovered prose was wrong on title AND year; fixed). Full refcheck on P2 deferred until bibliography stabilizes.
+    - gate: Figure visual verification
+      result: pass
+      details: Mermaid render viewed + corrected over 3 iterations (pipe entities, edge routing, title clipping); paperbanana output viewed and verified faithful (evaluate_diagram tool itself broken server-side)
+    - gate: Prose rules grep (no standalone "SE"; no Zeigler in prose)
+      result: pass
+      details: D9/D10/D11 verified by grep after edits
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed: 2
+  first_pass_quality_pct: 70
+
+process:
+  agent_failures: 1
+  retries: 4
+  rework_files: 1
+  blocked_minutes: 0
+  blockers: none
+  perception_note: >
+    Much faster than manual for recovery/assembly (P2 scaffold from snapshot in one pass, clean
+    build immediately) and for the co-author comment catalog. Two direction corrections came from
+    the principal, not self-caught: (1) first P2 outline proposal overreached (ignored discussion,
+    elevated D_h); (2) "one table of results" was misread (meant one tabular example proof per
+    relationship). Principal also retracted the self-imposed same-day deadline: quality is THE
+    objective (new feedback memory). Section-by-section bullets->debate->decisions->draft cadence
+    worked well after the reset. Agent failure = paperbanana evaluate_diagram (missing server
+    prompt file, not transient); generation itself succeeded in 2 calls. Retries = 3 mermaid
+    render iterations + 1 mmdc BOM-config error (PowerShell 5.1 utf8 BOM).
