@@ -7,7 +7,8 @@
 - [R104] NEVER save working files, text/mds, or tests to the root folder. @quality [edit] risk:medium
 - [R105] NEVER commit .env, API keys, credentials, or secrets. @security [bash,edit] risk:critical
 - [R106] ALWAYS use the globally installed `claude-flow` command in shell usage and MCP registrations (`.mcp.json`). Never use `npx`-based invocations (`npx @claude-flow/cli@latest`, `npx claude-flow@alpha`). Implements global [R017]. @quality [bash,edit] risk:high
-- [R108] When PostWach's code compiles and tests pass, create the SEAD handoff within 30 minutes. Do not debug deployment, rendering, or infrastructure issues beyond initial diagnosis. PostWach owns architecture; SEAD owns build engineering. @process [all] risk:medium
+- [R108] When PostWach's code compiles and tests pass, create the SEAD handoff within 30 minutes. Do not debug deployment, rendering, or infrastructure issues beyond initial diagnosis. PostWach owns architecture; SEAD owns build engineering. Applies to executable software artifacts (compiled code, deployable services, container images). Document/manuscript typesetting (any source format) stays with the originating researcher. @process [all] risk:medium
+- [R109] References in manuscripts MUST exist in the portfolio approved-references store at `04 Resource Library/00 Verified References/`. Implements global [R019]. Pre-render gate: `01 PostWach/scripts/refcheck.py`. @quality @research [edit] risk:critical
 
 ## File Organization
 - `/src` - Source code
