@@ -1,0 +1,42 @@
+# Session Archive — 2026-07-09 postwach-01
+
+**Focus:** post-restart recovery + Step 3 errata + portfolio commit/repo setup, then the FULL Step 4 (stochastic WySE, FLAGSHIP) pipeline to closure, a plain-language explainer, and Step 5 scoping.
+**Model:** Opus 4.8 (orchestration, consolidation, adjudication); Fable 5 (2 derivation runs + 1 completion pass); Codex gpt-5.5 + Gemini (external review/sweep legs, off the Claude weekly limit).
+
+## Summary
+Opened by warming up ruflo (v3.14.4, healthy) after an overnight machine autorestart and confirming the overnight Step 3 (timed WySE) Fable run had completed and survived the restart (no work lost). Applied the Step 3 Opus errata (the two pending repairs from its assurance sweep). Committed ~2 weeks of portfolio backlog (scorecards, archives, skills, scripts) to DocWach/PostWach in four grouped commits and pushed; stood up a new git repo DocWach/WySE-Theory (PRIVATE) for the Fable morphism-library work and pushed the full arc. Then ran Step 4 end-to-end to a verified close, wrote a plain-language findings explainer (+PDF), scoped Step 5, and confirmed Step 1's amended Degree Record as the accepted base.
+
+## Step 3 (timed WySE) errata — DONE
+Applied the two statement-level repairs from the overnight tri-model assurance sweep to `research/Step3_TimedWySE_candidate.md`: (1) Theorem TTA restated as a conservative one-directional CERTIFICATION rule (saturated AND gamma > n*delta AND n*delta < gamma_evt => transfers; no longer an iff; no-reorder folded in, strict margin); (2) the N5'-t witness re-scoped to AUTONOMOUS (input-free) traces, the "shift-compensating bisimulation" reading WITHDRAWN (reactive delta_ext-closure fails); reactive-necessity captured as Candidate Proposition RN-t (a conjecture, relied on by nothing). Errata attributed to Opus 4.8 (R018). Step 3 COMPLETE. A backfill scorecard (2026-07-08-postwach-05) was written for the overnight Step 3 execution+sweep session (restart-truncated before it could self-record).
+
+## Repo work — DONE
+- **DocWach/PostWach:** four grouped commits (data records; R019 references gate; morphism skills; tooling/docs), pushed; upstream set.
+- **DocWach/WySE-Theory (PRIVATE, NEW):** git repo initialized in `00 Planning and Execution/Fable 5 planning/` (58-file initial import), README expanded, then the whole Step 4 arc committed and pushed. This is now the version-control home for the Fable morphism line (see memory). A post-2026-07-12 repo-cleanup TODO was logged (PostWach repo has content that should be gitignored or split; candidates recorded).
+
+## Step 4 (stochastic WySE, FLAGSHIP) — DERIVED, SWEPT, REPAIRED, VERIFIED, CLOSED
+- **Plan + three principal decisions:** aim H-S3 at the point predictor and report the ladder; FINITE-DISCRETE (general/continuous declared-and-restricted); DEFER stochastic federation closure (opening obligation stated). `PLAN_Step4_StochasticWySE_2026-07-09.md`.
+- **Prompt v1 -> tri-model review -> v2:** all three legs yes-with-changes, strongly convergent. They forced (unanimous) the JOINT semi-Markov carrier Q_p: S x I -> Dist(S x T) (marginals do not determine behavior), the Wasserstein-1 metric with the Dobrushin contraction coefficient (not a qualitative growth factor), and the strong-(Kemeny-Snell)-lumpability three-object split; principal resolved the readout-noise split as FENCE (with the decoupling lemma). The review PREDICTED the transition-timing coupling before any Fable spend.
+- **Fable derivation:** all five hypotheses CONFIRMED; the additive point predictor REFUTED as a general law; Theorem UB (upper bound with the derived transition-timing cross-term). No RED-FLAG vs Steps 1-3. `research/Step4_StochasticWySE_candidate.md` (423 lines).
+- **Tri-model adversarial sweep:** 5/9 claims unanimously SOUND (incl. the weak-bin adjudication ruled principled by all three), but **Codex constructed an EXACT counterexample breaking Theorem UB as stated** (a correlated joint kernel with all marginal residuals zero yet realized W1 = 1 at n=2; hand-verified real). Three further witness/statement-level defects. `Step4_Assurance_Report_2026-07-09.md`. The false flagship theorem was caught PRE-acceptance.
+- **Fable completion pass:** Theorem UB' restated on the JOINT residual eps_Q (split form with derived per-coupling constants; the completion also tightened the sweep's sketched shape); the old marginal form recovered as Corollary UB-F, FALSE without an explicit factorization hypothesis; Codex's counterexample enshrined as the standing negative control JX (contained, tight). K_p marginal projections (restoring Step 3 attribution), GX rebuilt coherently, Lemma DR' (readout has its own cross-term; "clean additive" gloss retracted). `research/Step4_Completion_candidate.md`.
+- **Codex domain-critic re-verification (the leg that authored the break signs off):** all 6 items DISCHARGED, hand-recomputed in exact rationals; an adversarial hunt for a NEW counterexample to UB' found none. Two wording notes (almost-sure absorption in GX; the Delta_R = c_O qualifier in DR') APPLIED same day. **Step 4 CLOSED.**
+
+## Findings explainer + interpretation — DONE
+- `Step4_StochasticWySE_Findings_Explainer_2026-07-09.md` (+ PDF, pandoc/xelatex; a margin-overflow defect was caught by render-and-look and fixed). Covers the three findings, the "caught a false theorem" methodological story, and two principal-endorsed framings.
+- **Relativity framing (principal-endorsed):** model equivalence is relative to the structure you preserve (morphism is frame-relative like simultaneity; enriching structure can only break equivalences; RESTR keeps it monotone/nested; the joint-kernel non-separability rhymes with spacetime, flagged as structural rhyme not a Lorentz identity). Adopted as the flagship paper's intro device.
+- **Formalism-substrate position (principal, from the findings):** Step 4 strengthens DEVS as the substrate with Z/T3SD as its untimed corner (SUBSUMPTION, not replacement; RESTR proves Z = the point-mass/constant-dwell corner). Keep WySE semantics (substrate-agnostic differentiator) and the Wymore lineage (SE-audience asset). Both captured in memory.
+
+## Step 5 scoping — DRAFTED (decisions pending)
+`PLAN_Step5_Scoping_2026-07-09.md` (draft, pre-decision). Three sub-lines: (a) PEDIGREE / Target C (projected fidelity, cross-family; carries the withdrawn-refutation history + the live enriched-pedigree conjecture; no prompt yet); (b) VRC (requirement-side pairing; prompt exists); (c) DYNAMIC (temporal/rework; change-impact certificate; prompt exists). Recommended sequencing: VRC -> DYNAMIC, PEDIGREE as a parallel novelty track gated on a light re-scope. **Open decisions (1-3): which sub-line first, pedigree re-scope, run breadth.** **Decision 4 RESOLVED:** Step 1's N-first amended Degree Record IS the accepted base (principal-asserted 2026-07-09; corroborated - Steps 2/3/4 all built their precondition checks on `Step1_DegreeRecord_amended_candidate.md` + `Step1_MC_Nfirst_candidate.md`).
+
+## Prep item flagged (for Step 5 launch)
+The pre-drafted VRC and DYNAMIC prompts are built on the OLD `DegreeOfHomomorphism_Foundations_candidate.md` / DR(m)=(K1..K4) structure (with K4=D_b), which the amendment RETIRED (D_s=(K1,K2,K3), N-first, K4 removed as a coordinate). They need genuine RE-BASING to the amended Degree Record before launch, not just a pointer swap. Documented; not done this session (Step-5 execution work).
+
+## Next
+1. Decide Step 5 sub-line ordering + breadth (decisions 1-3); light-re-scope the pedigree/Target-C line; re-base the VRC/DYNAMIC prompts to the amended DR before any launch.
+2. Flagship paper: use the relativity intro framing + the DEVS-substrate (subsumption) positioning.
+3. Standing: R019 citation pins for Steps 3-4 (Kemeny-Snell at the kernel level, Dobrushin, optimal transport, Zeigler pages); cross-term sharpness; weak-lumpable-polytope characterization; two-sided cross-term under RN-t.
+4. Post-2026-07-12: the repo-cleanup pass.
+
+## Provenance
+Principal (Paul Wach) + assistant (Claude; Opus 4.8 orchestration, Fable 5 derivations, Codex + Gemini external legs), 2026-07-09. All research claims candidate until proven and refutation-tested (R016). This session is the tri-model discipline's clearest win: a false flagship theorem was constructed, caught by an independent adversarial leg, repaired to a stronger form, and re-verified by the same critic, all before acceptance.

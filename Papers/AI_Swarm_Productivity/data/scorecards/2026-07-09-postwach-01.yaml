@@ -1,0 +1,126 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-07-09-postwach-01
+  date: 2026-07-09
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "09:30"   # approximate; session opened with a post-restart ruflo warm-up + overnight-run check
+  end_time: "12:50"     # approximate
+  task_summary: >
+    Recovered from an overnight machine restart, applied the Step 3 (timed WySE) Opus errata,
+    committed the portfolio backlog and stood up the WySE-Theory git repo, then ran the FULL
+    Step 4 (stochastic WySE, FLAGSHIP) pipeline to closure: plan -> prompt v1 -> tri-model prompt
+    review -> v2 -> Fable derivation -> tri-model adversarial sweep (which broke the flagship
+    theorem) -> Fable completion pass -> Codex domain-critic sign-off. Plus a plain-language
+    findings explainer (+PDF), Step 5 scoping, and confirmation of Step 1 as the accepted base.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: analysis
+      name: Step 4 stochastic-WySE candidate (Fable derivation, all 5 H-S confirmed; Theorem UB)
+      action: created
+      lines: 423
+      files: 1
+    - type: analysis
+      name: Step 4 completion candidate (Theorem UB' joint-residual restatement + 3 repairs)
+      action: created
+      lines: 235
+      files: 1
+    - type: spec
+      name: Step 4 plan + Fable prompt v1/v2 + completion prompt + prompt-review/refutation tasks
+      action: created
+      lines: 520
+      files: 6
+    - type: review
+      name: Step 3 + Step 4 tri-model assurance reports (sweep consolidations, with closure)
+      action: created
+      lines: 130
+      files: 2
+    - type: other
+      name: Step 4 plain-language findings explainer (+ PDF via pandoc/xelatex); Step 5 scoping draft
+      action: created
+      lines: 200
+      files: 3
+    - type: other
+      name: WySE-Theory repo setup (README, .gitignore); postwach-05 backfill scorecard
+      action: created
+      lines: 120
+      files: 3
+    - type: analysis
+      name: Step 3 candidate Opus errata (TTA certification; N5'-t autonomous; Candidate Prop RN-t)
+      action: modified
+      lines: 90
+      files: 1
+    - type: config
+      name: plan corrections stamp; memory (fable5 program, repo cleanup TODO, MEMORY.md index)
+      action: modified
+      lines: 80
+      files: 4
+  total_files_created: 19
+  total_files_modified: 6
+  total_lines_written: 1900   # approximate; a large share is Fable-generated candidate math (423 + 235)
+  pages_produced: 40          # approximate (candidates + reports + explainer + plans)
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 10          # Fable Step-4 run + Fable completion (2); tri-model prompt review (1 Claude + 2 external); tri-model adversarial sweep (1 Claude/Opus + 2 external); Codex domain-critic re-verify (1); Step 5 scoping (1)
+  swarm_topology: star
+  model_primary: claude-opus-4-8   # orchestration + consolidation; Fable 5 ran the 2 derivations + completion; Codex gpt-5.5 + Gemini were the external review/sweep legs
+  tokens_input:
+  tokens_output:
+  total_cost_usd:             # not separately metered this session; Fable derivations ~300k + ~140k tokens; external legs (Codex/Gemini) bill their own subscriptions, off the Claude weekly limit
+  tool_calls: 70              # approximate (reads, writes, edits, greps, 4 external CLI legs, 4 subagents, git)
+  context_compressions: 0
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: Tri-model review of the Step 4 prompt (Claude + Codex + Gemini, independent legs)
+      result: pass
+      details: >
+        All three yes-with-changes, strongly convergent: forced the JOINT semi-Markov carrier,
+        W1 metric + Dobrushin contractivity, strong-lumpability three-object split; predicted the
+        transition-timing coupling before any Fable spend. Folded to v2.
+    - gate: Fable Step 4 derivation (attempt-and-test against H-S1..H-S5)
+      result: pass
+      details: All five hypotheses confirmed; additive point predictor refuted; Theorem UB derived with the cross-term. No RED-FLAG vs Steps 1-3.
+    - gate: Tri-model adversarial sweep of the Step 4 candidate
+      result: fail
+      details: >
+        5/9 claims unanimously SOUND, but Codex constructed an EXACT counterexample breaking
+        Theorem UB as stated (correlated joint kernel, all marginal residuals zero, realized W1=1
+        vs bound 0). Hand-verified real. Three further witness/statement-level defects. The false
+        flagship theorem was caught PRE-acceptance - the sweep's decisive validation.
+    - gate: Fable completion pass (Theorem UB' + 3 repairs)
+      result: pass
+      details: UB' restated on the joint residual (split form, derived constants); old form recovered as Corollary UB-F (false without factorization); JX negative control tight; K_p projections, GX, DR' repaired.
+    - gate: Codex domain-critic re-verification (the leg that authored the break signs off)
+      result: pass
+      details: All 6 items DISCHARGED, hand-recomputed in exact rationals; adversarial hunt for a NEW counterexample to UB' found none; 2 wording notes applied same day. Step 4 CLOSED.
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed: 13   # tri-model prompt-review changes folded (v2) + the 4 sweep repairs + 2 critic wording notes
+  first_pass_quality_pct: 70        # architecture held and 5/9 sweep claims were unanimous first-pass, but the flagship theorem was FALSE as first derived and needed a substantive (not errata) restatement; caught and closed same day
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 0
+  retries: 0
+  rework_files: 1            # the Step 4 candidate, reworked via the completion pass (Theorem UB' restatement)
+  blocked_minutes: 0
+  blockers: >
+    None in-session. The pre-session machine autorestart cost no work (the overnight Step 3 run had
+    already produced its artifacts). The Theorem UB break was a caught defect, not a stall - the
+    repair path was forced by the counterexample plus the existing divergence object.
+  perception_note: >
+    The strongest single-session evidence yet for the hardened-prompt + tri-model discipline. Two
+    independent critics verified the flagship proof as internally SOUND; only the third, which
+    constructed a concrete correlated counterexample, exposed that Theorem UB was false as stated.
+    Had we trusted the derivation (or a single reviewer), a wrong flagship theorem would have been
+    accepted. Instead it was broken, repaired to a stronger joint-residual form, and re-verified by
+    the same critic within the session. AI was fast and voluminous on derivation and on breadth of
+    attack; the decisive human/orchestration value was in structuring the adversarial pass and
+    adjudicating the repair. R016 candidate-fencing again made the error catchable, not propagated.
