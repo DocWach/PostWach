@@ -1,0 +1,116 @@
+# =============================================================================
+# Session Productivity Scorecard — 2026-07-10 postwach-02
+# (continues 2026-07-10-postwach-01 the same day)
+# =============================================================================
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-07-10-postwach-02
+  date: 2026-07-10
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "12:30"        # approximate; after the postwach-01 records were committed
+  end_time: "ongoing"        # records logged at principal request
+  task_summary: >
+    Extended the degree-of-homomorphism program past the closed Step-5 set. Answered the strategy
+    questions (what next for Fable, library extent grounded against the actual catalog, means to
+    test Fable output) and adopted two moves: the DC-motor interface entry and an executable test
+    harness. Scoped both. Built the harness Phase 1 with a coder agent (deliberately NOT Fable):
+    verification/ pytest package, 44 passed / 1 xfailed, independently recomputing catalog E1-E7 +
+    3.1 witnesses. Ran the DC-motor interface entry through the full pipeline: tri-model RBW prompt
+    review (Codex red / Gemini blue / Opus white, all three completing this time, all
+    FIX-THEN-READY), adjudication (record-delta-not-scalar conflict resolved), a hardened prompt, a
+    Fable derivation (H-M1 and H-M2 both CONFIRMED, 8/8 predictions, zero RED-FLAGs), and a Codex
+    authoritative domain-critic (CLOSED, no blocking residual; 3 non-blocking wording fixes
+    applied). Drafted the first Lawsun task (LW-IP-001, IP-landscape research memo).
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: analysis
+      name: DC-motor interface entry (first coupled / first non-empty interface carriers; sigma_Z exact iso via rational A_flat, sigma_W record delta, PR' two-representation clause test, EQ-2) — Fable candidate
+      action: created
+      lines: 620
+      files: 1
+    - type: review
+      name: DC-motor tri-model RBW review (Codex red, Gemini blue, Opus white) + adjudication + Codex authoritative domain-critic (CLOSED)
+      action: created
+      lines: 700
+      files: 5
+    - type: test
+      name: Executable verification harness Phase 1 (verification/ pytest package; recomputes catalog E1-E7 + 3.1; 44 pass / 1 xfail) + .gitignore
+      action: created
+      lines: 650
+      files: 6
+    - type: spec
+      name: Scoping docs (DC-motor interface entry; executable test harness), each with LAUNCH DECISIONS
+      action: created
+      lines: 300
+      files: 2
+    - type: spec
+      name: Lawsun LW-IP-001 IP-landscape review task ticket (UPL boundary, publication-bar clock item 1, TLA routing; first Lawsun vertical exercise)
+      action: created
+      lines: 60
+      files: 1
+    - type: other
+      name: Hardened DC-motor Fable prompt (RBW fixes folded) + 3 non-blocking critic wording fixes to the candidate + memory Open Thread update
+      action: modified
+      lines: 260
+      files: 3
+  total_files_created: 16
+  total_files_modified: 3
+  total_lines_written: 2900     # approximate; includes the Fable-derived candidate
+  pages_produced: 17            # approximate (research/prose equivalent)
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 8             # DC-motor Fable run; harness coder agent; Opus white-review agent; 3 external CLI review legs (Codex red, Gemini blue, Codex domain-critic) + Gemini; plus in-line orchestration
+  swarm_topology: hybrid        # Opus orchestrator + parallel RBW legs (2 CLI + 1 subagent) + 1 Fable derivation + 1 coder subagent + 1 external domain-critic
+  model_primary: claude-opus-4-8   # orchestration/adjudication; Fable 5 for the derivation; coder subagent Opus for the harness
+  tokens_input:                 # not precisely captured
+  tokens_output: 1050000        # approximate; Fable DC-motor ~0.21M + harness coder ~0.11M + Opus white ~0.11M + orchestration/edits; external Codex/Gemini not on Claude budget
+  total_cost_usd:               # not captured; Fable+Opus on Claude weekly limit, Codex off-limit (ChatGPT sub), Gemini small pay-as-you-go
+  tool_calls:
+  context_compressions: 1       # session compacted once mid-run
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: Tri-model RBW prompt review (DC-motor), 3 legs
+      result: pass
+      details: Codex red / Gemini blue / Opus white all completed (Gemini succeeded on the single-file review) and all returned FIX-THEN-READY; object math confirmed correct; every finding adjudicated and folded, incl. resolving the record-delta-vs-scalar cross-leg conflict.
+    - gate: Codex authoritative domain-critic on the DC-motor candidate
+      result: pass
+      details: independently re-ran the rational reconstruction, eigenvalues, finite table, PR' clause vectors, and merge witness. Verdict CLOSED, no blocking residual; 3 non-blocking wording fixes applied.
+    - gate: Executable test harness Phase 1 (pytest)
+      result: pass
+      details: 44 passed / 1 xfailed. Independently recomputes catalog E1-E7 + 3.1 witnesses; flagged H2 numbers live in the base probe candidate (Phase 2) and RK4 dt=0.001 FP-floor noise.
+    - gate: R019 citation gate
+      result: skipped
+      details: candidate/prompt use approved keys + visible [PLACEHOLDER]; no manuscript rendered this session.
+  tests_passed: 44
+  tests_failed: 0               # plus 1 expected-fail (xfail, strict) marking the Phase-2 boundary
+  reviewer_comments_addressed: 15   # 3 RBW legs (majors + minors) folded via adjudication; 3 domain-critic wording fixes
+  first_pass_quality_pct: 92        # DC-motor closed on the first Fable run + first domain-critic (no completion pass needed); harness green first run
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0             # notably, Gemini completed the RBW leg this time (prior sessions it failed twice on multi-file reviews); single-file review held
+  retries: 0
+  rework_files: 4               # DC-motor prompt (authored then RBW-hardened); candidate (3 critic wording fixes); harness (pyc untrack + gitignore); memory Open Thread
+  blocked_minutes: 0
+  blockers: >
+    None. The tri-model discipline caught real under-specification (the LC-to-LA resultant-vs-reduct
+    axis conflation, the scalar-vs-record-delta phrasing, the overstrong PR' slogan) at the prompt
+    stage, so the Fable run closed on the first pass with no completion cycle.
+  perception_note: >
+    A clean demonstration of the full pipeline paying off: three independent prompt reviewers (one
+    of them the previously-flaky Gemini leg, which worked on a single-file target) converged on the
+    same under-specification, adjudication resolved a genuine cross-leg conflict in the framework's
+    favor, and the hardened prompt let Fable close the first coupled/interface entry on the first
+    run with zero RED-FLAGs and an independent domain-critic CLOSED. The separate executable harness,
+    built by a cheaper coder agent rather than Fable, retroactively hardened the closed runs with an
+    execution-verified layer and drew a precise boundary around what it could not yet reproduce.
+    Reserving Fable + tri-model for judgment-dense derivation and using plain code where execution
+    is the check kept the spend matched to where argument was the only witness.
