@@ -1,0 +1,121 @@
+# =============================================================================
+# Session Productivity Scorecard — 2026-07-09 postwach-04
+# (interactive arc 2026-07-09 evening; ran overnight into 2026-07-10 morning)
+# =============================================================================
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-07-09-postwach-04
+  date: 2026-07-09
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "21:30"        # approximate; framework-vocabulary debate began after the Graphify recon (-03)
+  end_time: "08:45"          # 2026-07-10; overnight workflow finished ~06:00, morning adjudication + records
+  task_summary: >
+    Canonicalized the WySE verification framework's vocabulary through a multi-turn principal
+    debate (LSN/LVN, LF1/LF2/LF3=DEVS 0/1/2, LA, LC; separated structural-level / acceptability-
+    boundary / evidence-support-function; fidelity=inaccessible goal, resolution nested in
+    pedigree; LO needs its own stochastic-Petri structure with Step-4 lumpability/Wasserstein as
+    the morphism), wrote the canonical FRAMEWORK note + positioning and re-based the drifted
+    artifacts + memory. Then authored six canonical Step-5 Fable prompts, ran a dual-red RBW
+    prompt review (Codex + Opus; Gemini failed) and applied the fixes, drove Step-5 run 3.1
+    (resolution-composition) to full closure (Fable -> Codex critic NOT-CLOSED -> Fable
+    completion pass -> Codex re-check CLOSED), and launched a budget-capped overnight workflow
+    that closed VRC, LO, and Pedigree. Net: 4 of 6 Step-5 runs closed.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: spec
+      name: FRAMEWORK_Canonical_Scheme_and_Positioning (canonical levels + 3-way distinction + fidelity/resolution/pedigree + Bayesian/utility positioning; defense scaffold)
+      action: created
+      lines: 210
+      files: 1
+    - type: spec
+      name: Six canonical Step-5 Fable prompts (ResolutionComposition, Pedigree, Dynamic v2, MorphismLibrary, LO structure, VRC re-expression) — authored then RBW-hardened
+      action: created
+      lines: 2600
+      files: 6
+    - type: analysis
+      name: Step-5 run 3.1 chain — candidate + Codex critic + completion candidate + Codex re-check (H3b closes strongly; resolution not composite-determining; K3 gap stronger than K2)
+      action: created
+      lines: 1600
+      files: 4
+    - type: analysis
+      name: Overnight workflow candidates + internal critiques — VRC / LO / Pedigree (all CLOSED)
+      action: created
+      lines: 2400
+      files: 6
+    - type: analysis
+      name: Scoping plans (Pedigree, Dynamic, Library) + paper-idea stubs (Isomorphic Divergence, practice-vs-theory cluster) + framework two-axis visual (mmd+png)
+      action: created
+      lines: 1300
+      files: 8
+    - type: review
+      name: RBW adversarial prompt review (Codex) + rubric + 6 fix-agent hardening passes
+      action: created
+      lines: 600
+      files: 2
+    - type: config
+      name: overnight_fable_sequence.workflow.js (budget-capped, park-on-not-closed, per-run derive->critic->commit)
+      action: created
+      lines: 90
+      files: 1
+    - type: other
+      name: Re-based drifted sources (concept note, problem-space synthesis, VRC completion, amended DR, Step 2, ontology schema, 3 plans, old Dynamic prompt) + memory (research_wyse_canonical_scheme, ef-vs-morphic-chain correction, MEMORY.md index)
+      action: modified
+      lines: 900
+      files: 14
+  total_files_created: 28
+  total_files_modified: 14
+  total_lines_written: 9700     # approximate; includes large Fable-derived candidates
+  pages_produced: 55            # approximate (research/prose equivalent)
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 31            # ~25 Agent-tool subagents (scoping, search, prompt authoring, RBW fixes, Fable runs) + 6 overnight-workflow agents; plus ~8 external Codex/Gemini CLI review/critic runs (not counted here)
+  swarm_topology: hybrid        # Opus orchestrator + parallel fan-outs (prompt authoring, RBW fixes) + a deterministic overnight workflow
+  model_primary: claude-opus-4-8   # orchestration/review/adjudication
+  tokens_input:                 # not precisely captured
+  tokens_output: 3200000        # approximate; overnight workflow alone was ~1.04M output; two interactive Fable runs ~0.36M; ~15 subagents ~0.085M each
+  total_cost_usd:               # not captured; Fable+Opus on Claude weekly limit, Codex off-limit (ChatGPT sub), Gemini small pay-as-you-go
+  tool_calls:
+  context_compressions: 1       # session was compacted once (Step-4 flagship arc summarized)
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: RBW tri-model prompt review (6 prompts)
+      result: partial
+      details: Codex (red) delivered a sharp per-prompt review; Gemini failed twice (malformed response); ran dual-red Codex+Opus instead of full R/B/W. All 6 FIX-THEN-READY; fixes applied.
+    - gate: Codex domain-critic on 3.1 candidate
+      result: pass
+      details: NOT-CLOSED with one precise residual (H3b K1 reference-anchor); path-b completion pass closed it; Codex re-check verdict CLOSED.
+    - gate: Overnight internal adversarial critics (VRC/LO/Pedigree)
+      result: pass
+      details: all three CLOSED with non-blocking residuals; caught a real arithmetic slip in the prior Step-4 candidate and the pedigree m-coordinate near-inertness. Authoritative Codex critics deferred to morning adjudication.
+    - gate: R019 citation gate
+      result: skipped
+      details: prompts/candidates use [PLACEHOLDER] citations; no manuscript rendered this session.
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed: 30   # approximate; all adjudicated Codex RBW findings across 6 prompts, applied by fix-agents
+  first_pass_quality_pct: 80        # approximate; 3.1 needed one completion pass; overnight 3/3 first-pass CLOSED on internal critic
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 2             # Gemini CLI failed the 7-file RBW review twice (malformed response / model-side)
+  retries: 1                    # one Gemini retry (also failed); did not block
+  rework_files: 8               # 6 prompts (authored then RBW-hardened) + VRC completion candidate (path-A close + errata rounds) + FRAMEWORK note
+  blocked_minutes: 0
+  blockers: >
+    Gemini CLI could not complete the multi-file RBW review (two malformed-response failures);
+    proceeded dual-red (Codex + Opus) rather than block. No hard blockers.
+  perception_note: >
+    Dramatically faster than manual. Parallel agent authoring stood up six hardened prompts in
+    one pass; a budget-capped overnight workflow closed three Step-5 runs unattended; and the
+    tri-model / domain-critic discipline caught three genuine defects that would have shipped
+    (the 3.1 H3b reference-anchor gap, an arithmetic slip in the closed Step-4 candidate, and
+    the pedigree m-coordinate's empirical near-inertness). Human judgment stayed in the loop for
+    the vocabulary decisions and the not-closed adjudications.
