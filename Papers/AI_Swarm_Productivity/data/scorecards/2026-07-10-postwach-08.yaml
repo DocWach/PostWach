@@ -1,0 +1,134 @@
+# Session Productivity Scorecard — 2026-07-10 postwach-08
+schema_version: "1.1"
+
+# --- SESSION METADATA ---
+session:
+  id: 2026-07-10-postwach-08
+  date: 2026-07-10
+  hive: PostWach
+  researcher: Paul Wach
+  start_time:            # unknown (compacted continuation)
+  end_time:              # ~session end (evening wrap-up)
+  task_summary: >
+    Fable-driven WySE morphism research (metric-satisfaction bridge CLOSED; Target A
+    nonlinear-from-partial derived, critic verdict not received) + validation-model pinning +
+    GI-JOE stoic-wyse ontology reconciliation; then governance: added global rule [R020]
+    skills-first, MODIFY-updated the 4 morphism skills, ran a 3-lane PostWach skills/refs/repo
+    sweep, R016 hygiene on 5 skills, instrumented this scorecard (D2b).
+
+# --- D1: OUTPUT VOLUME ---
+output:
+  artifacts:
+    - type: analysis
+      name: Metric-satisfaction bridge derivation (CLOSED via RBW+Fable+Codex-critic)
+      action: created
+      lines: ~   # candidate + RBW/adjudication docs
+      files: 3
+    - type: analysis
+      name: Target A nonlinear-from-partial candidate (+RBW legs, adjudication, recheck)
+      action: created
+      lines: ~
+      files: 7
+    - type: review
+      name: PostWach sweep (SkillsAudit + RefDebt + RepoState reports)
+      action: reviewed
+      lines: ~
+      files: 3   # agent reports (ephemeral, folded into backlog memory)
+    - type: config
+      name: Global rule [R020] skills-first (~/.claude/CLAUDE.md)
+      action: created
+      lines: 2
+      files: 1
+    - type: spec
+      name: Morphism skills 2026-07-10 currency blocks (4 skills) + R016 hygiene (5 skills)
+      action: modified
+      lines: ~120
+      files: 9
+    - type: config
+      name: Scorecard template D2b skills-utilization block (schema 1.1)
+      action: modified
+      lines: 18
+      files: 1
+    - type: spec
+      name: GI-JOE WYSE-001 close-out ticket
+      action: created
+      lines: ~
+      files: 1
+  total_files_created: ~9      # incl. memories + ticket + archive + this scorecard
+  total_files_modified: ~13    # 4 morphism + 5 skills + global CLAUDE.md + template + MEMORY.md + registry-index (pending)
+  total_lines_written: ~   # not tracked precisely across compacted session
+  pages_produced: ~   # research-derivation heavy, not prose pages
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: ~30   # APPROX across full session: DC-motor RBW(3), prior-art(7), adoption(10), GI-JOE reconciliation(~4), Target A Fable+critic(2), sweep(3), + misc
+  swarm_topology: hybrid   # Workflow fan-out + background Agents + Fable subagents + external RBW (Codex/Gemini)
+  model_primary: claude-opus-4-8[1m]   # + claude-fable-5 (derivations); Codex + Gemini (RBW legs)
+  tokens_input:          # optional / not tracked
+  tokens_output:         # optional / not tracked
+  total_cost_usd:        # optional / not tracked (Fable pattern is subagent-heavy; RBW off the Claude weekly limit via external subs)
+  tool_calls:            # optional
+  context_compressions: 1   # at least one compaction this session
+
+# --- D2b: SKILLS UTILIZATION (R020 skills-first instrumentation) ---
+skills:
+  skills_first_check: no   # session ran skill-relevant work ad hoc; R020 was ESTABLISHED mid-session, then applied to the morphism skills
+  skills_used:
+    - name: none (main loop)
+      how: >
+        ZERO skills invoked via the Skill tool in the main loop across the entire session,
+        despite the work matching the morphism-* and ref* skills directly. (The RefDebt subagent
+        later ran the reflookup/refverify scripts, but that is a subagent-side script call, not a
+        main-loop Skill invocation.)
+  relevant_but_unused:
+    - name: morphism-research-methodology / morphism-verification-campaign / morphism-research-frontier / morphism-domain-reference
+      why_not: re-enacted their RBW/verification-campaign/evidence discipline ad hoc; never invoked (the finding that motivated R020)
+    - name: refcheck / reflookup / refverify
+      why_not: the [VERIFY] reference debt sat unpaid until the sweep's RefDebt lane finally used them
+  skills_modified_created: >
+    Modified 9 skills (4 morphism currency blocks + 5 R016 (a) tags/downgrades); created 0 new skills;
+    created global rule [R020], the scorecard D2b instrumentation, and memory captures
+    (feedback_skills_first, project_postwach_sweep_backlog, project_stakeholder_elicitation_capability).
+  utilization_note: >
+    HEADLINE FINDING: near-zero skill utilization despite maximal skill-relevance. Consequences —
+    codified discipline re-enacted ad hoc (consistency not guaranteed), refinements not captured back
+    into the skills until a late corrective pass, and the R019 reference debt left unpaid until the
+    sweep. Hypothesis (principal): low skill-utilization is a candidate explanation for performance
+    variance (avoidable ad-hoc overhead / rework). R020 created this session to enforce skills-first
+    going forward.
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: Tri-model RBW (red/Codex, blue/Gemini, white/Opus) — bridge
+      result: partial   # returned REWORK (would have proved false theorems) → reframed honestly → CLOSED
+      details: honest characterization (positive + obstruction + trichotomy); Codex domain-critic CLOSED
+    - gate: Tri-model RBW — Target A
+      result: partial   # FIX-THEN-READY, 3 BLOCKING → reworked → READY; Fable candidate produced
+      details: domain-critic verdict NOT received this session (parked)
+    - gate: Codex re-checks (bridge + Target A prompts)
+      result: pass   # READY
+    - gate: refverify/reflookup (reference debt)
+      result: partial   # 2 candidates staged, 1 resolved-approved, 1 secondary-source; NOTHING approved (R019-gated)
+    - gate: GI-JOE ontology reconciliation (4-source swarm)
+      result: pass   # consistent, no drift
+  tests_passed: 13   # Target A finite-witness predictions confirmed (13/13)
+  tests_failed: 0
+  reviewer_comments_addressed: ~   # RBW blocking findings all reframed
+  first_pass_quality_pct: ~60   # both Fable derivations needed one honest REWORK pass (caught by RBW, not shipped)
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 0
+  retries: 0
+  rework_files: 0
+  blocked_minutes: 0
+  blockers: >
+    Target A domain-critic verdict never returned (no output file / no completion notification);
+    its promotion is parked as the clean resume point. Not a hard block on the session.
+  perception_note: >
+    The RBW→Fable→critic pipeline produced high-quality, honestly-fenced results (obstructions and
+    negatives treated as first-class). The avoidable cost was skills-first non-use (ad-hoc re-enactment
+    of codified discipline), now instrumented here and fixed by R020.
+
+# --- DERIVED (do not fill — computed by script) ---

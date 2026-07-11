@@ -8,7 +8,7 @@
 #   4. Commit to the hive's repo or store in PostWach/Papers/AI_Swarm_Productivity/data/scorecards/
 # =============================================================================
 
-schema_version: "1.0"
+schema_version: "1.1"   # 1.1 (2026-07-10): added D2b skills-utilization block (R020 skills-first instrumentation)
 
 # --- SESSION METADATA (required) ---
 session:
@@ -43,6 +43,22 @@ ai_efficiency:
   total_cost_usd:        # optional
   tool_calls:            # optional
   context_compressions:  # optional
+
+# --- D2b: SKILLS UTILIZATION (required) — R020 skills-first instrumentation ---
+# Hypothesis (2026-07-10): skill non-use is a candidate EXPLANATORY variable for performance.
+# When relevant skills exist but are not invoked, the session re-enacts codified discipline ad hoc;
+# low skill-utilization may correlate with lower first_pass_quality_pct and higher rework_ratio.
+# Record honestly even (especially) when the answer is "none used."
+skills:
+  skills_first_check:      # yes | partial | no — did the session check "is the right skill available?" BEFORE executing?
+  skills_used:             # skills actually invoked (Skill tool); "none" if none
+    - name:
+      how:                 # 1 line: what it was used for
+  relevant_but_unused:     # skills that were available AND applicable but NOT invoked (the R020 gap); "none" if none
+    - name:
+      why_not:             # 1 line: why it wasn't used
+  skills_modified_created: # skills modified or created this session (R020 MODIFY/CREATE branch); "none" if none
+  utilization_note:        # subjective: did skill (non-)use appear to affect this session's performance?
 
 # --- D3: QUALITY GATES (required where applicable) ---
 quality:

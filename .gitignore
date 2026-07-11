@@ -89,3 +89,9 @@ Disruption-Swarm-Playground-*/
 !.claude/agents/custom/
 !.claude/agents/MANIFEST.md
 !.claude/agents/.gitkeep
+
+# incident / generated / embedded-repo ignores (2026-07-11)
+graphify-out/
+*.bak
+_workspace/
+Unification_RBW_Gemini_2026-07-11.md

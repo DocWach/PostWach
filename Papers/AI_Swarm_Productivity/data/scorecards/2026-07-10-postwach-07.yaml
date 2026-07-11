@@ -1,0 +1,107 @@
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-07-10-postwach-07
+  date: 2026-07-10
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "18:00"
+  end_time: "21:40"
+  task_summary: >
+    Adapt Graphify into the hive-of-hives: build + validate a graphify->ruflo
+    AgentDB bridge, push to Brad's repo, run it through a Fort Wachs CISO gate,
+    apply the returned security patch + install hardening, and wire an L3
+    lifecycle auto-refresh hook.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: code
+      name: graphify_to_agentdb.py bridge (v1 import + v2 causal manifest + C1/C2/C4 security controls)
+      action: created
+      lines: 260
+      files: 1
+    - type: code
+      name: graphify_refresh.ps1 L3 lifecycle wrapper (cleaned-mirror, no-LLM, staleness-gated)
+      action: created
+      lines: 75
+      files: 1
+    - type: config
+      name: SessionStart hook wired into PostWach .claude/settings.json
+      action: modified
+      lines: 6
+      files: 1
+    - type: spec
+      name: Fort Wachs security intake ticket FW-GRAPHIFY-001 (filed + corrected)
+      action: created
+      lines: 90
+      files: 1
+    - type: review
+      name: assessment doc updated (pilot runbook + light gate + deferral notes)
+      action: modified
+      lines: 90
+      files: 1
+    - type: other
+      name: session archive postwach-07
+      action: created
+      lines: 60
+      files: 1
+  total_files_created: 5
+  total_files_modified: 3
+  total_lines_written: 590
+  pages_produced: 12
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: none
+  model_primary: claude-opus-4-8[1m]
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: 60
+  context_compressions: 0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: Fort Wachs light pre-screen (advisory, PostWach)
+      result: pass
+      details: PASS w/ conditions for local non-sensitive pilot (pin, venv, Ollama-local, no git hook, no MCP, scratch outside OneDrive).
+    - gate: Fort Wachs full CISO review (FW-GRAPHIFY-001)
+      result: partial
+      details: CONDITIONAL GO. Local code-only + isolated-store CLEARED; shared-store/hosted-LLM/MCP gated (C0-C5). Advisory checkbox ack pending.
+    - gate: bridge v1 semantic-recall validation
+      result: pass
+      details: 788-1095 entries imported; semantic search returns correct research structure.
+    - gate: C1 sanitization unit check
+      result: pass
+      details: injection string -> [untrusted]; control chars/newlines collapsed; trust:untrusted tags + signed manifest present.
+    - gate: install hardening (core-only)
+      result: pass
+      details: deps 48->31, openai client removed, graphify works, lockfile pinned (X010 evidence).
+    - gate: native causal-edge traversal
+      result: fail
+      details: creation works via MCP; graph-query traversal not turnkey in ruflo v3.14.4 (store/ID misalignment). Stopped per R108; manifest shipped promotion-ready.
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed:
+  first_pass_quality_pct: 80
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 4
+  rework_files: 2
+  blocked_minutes: 35
+  blockers: >
+    Windows/PowerShell + ruflo infra friction: PS 5.1 native-stderr-as-fatal killed the
+    wrapper; a self-matching Stop-Process killed its own shell (exit 255); 12 orphaned
+    graphify multiprocessing workers locked tree-sitter DLLs and broke a venv reinstall;
+    ruflo dual-DB (CLI vs MCP) + memory init ignoring CLAUDE_FLOW_DB_PATH. All diagnosed
+    and resolved; a wrapper bug wrote graphify-out into OneDrive (removed; UA tenant).
+  perception_note: >
+    Mixed. The capability work (bridge, patch, hardening) was fast and clean; the L3
+    automation burned time fighting shell/process quirks rather than logic. Fort Wachs's
+    parallel CISO review was high-value and materially improved the deliverable.

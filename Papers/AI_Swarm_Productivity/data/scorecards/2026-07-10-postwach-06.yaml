@@ -1,0 +1,96 @@
+schema_version: "1.1"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-07-10-postwach-06
+  date: 2026-07-10
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "20:50"   # approximate
+  end_time: "21:14"
+  task_summary: >
+    Warm up ruflo, then start a new side project (personal assistant integrated into the
+    home lab; AI + hardware trade: Raspberry Pi vs Nvidia Jetson vs other). Deliver a
+    hybrid-architecture + hardware trade study, log as a research output/product with an
+    explicit resume point, then archive + scorecard + terminate.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: analysis
+      name: HomeLab Assistant project brief (hybrid routing-boundary + hardware trade study, topology A, phased BOM)
+      action: created
+      lines: 95
+      files: 1
+    - type: other
+      name: Cross-session memory note (project_home_lab_assistant) + MEMORY.md index line
+      action: created
+      lines: 30
+      files: 2
+    - type: other
+      name: Session archive (postwach-06)
+      action: created
+      lines: 45
+      files: 1
+    - type: config
+      name: Project registry — new Hive Outputs row + review-log line
+      action: modified
+      lines: 5
+      files: 1
+  total_files_created: 4
+  total_files_modified: 2
+  total_lines_written: 180
+  pages_produced: 3
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: none
+  model_primary: claude-opus-4-8[1m]
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: 12
+  context_compressions: 0
+
+# --- D2b: SKILLS UTILIZATION (required) — R020 skills-first instrumentation ---
+skills:
+  skills_first_check: yes
+  skills_used:
+    - name: none
+      how: no codified skill matched a greenfield home-lab hardware/architecture trade study
+  relevant_but_unused:
+    - name: none
+      why_not: no available skill covers consumer-hardware selection or home-assistant architecture; nearest (research-roadmapping) not a fit for a single-session trade study
+  skills_modified_created: none
+  utilization_note: >
+    Legitimately a zero-skill session (no trigger-match), unlike the 2026-07-10 morphism sessions
+    where relevant skills existed but went uninvoked. Skill non-use here is not a discipline gap.
+    If HomeLab Assistant matures, a home-lab-architecture or hardware-trade skill is a CREATE candidate.
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: discuss-before-executing (plan-first on multi-step task)
+      result: pass
+      details: Presented framing + trade study + open questions before building anything; scoped via AskUserQuestion.
+    - gate: R016 artifact-integration-status tagging
+      result: pass
+      details: Nothing built; all hardware/software named as proposals, no capability overclaim.
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed:
+  first_pass_quality_pct: 100
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 1
+  rework_files: 0
+  blocked_minutes: 0
+  blockers: >
+    none. One retry: Get-Date issued to the Bash tool (POSIX) instead of PowerShell; re-run in PowerShell succeeded.
+  perception_note: >
+    Discussion/analysis session; AI clearly faster than manual for structuring a hardware trade
+    study and producing the resume artifact + housekeeping in one pass. Deliberately stopped at
+    the decision boundary rather than over-producing.

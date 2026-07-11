@@ -1,0 +1,82 @@
+# =============================================================================
+# Session Productivity Scorecard — 2026-07-10 postwach-03
+# =============================================================================
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-07-10-postwach-03
+  date: 2026-07-10
+  hive: PostWach
+  researcher: Paul Wach
+  start_time:            # clock unavailable to agent
+  end_time:              # clock unavailable to agent
+  task_summary: >
+    Update the Disruption-Swarm-Setup onboarding repo (DocWach/Disruption-Swarm-Setup):
+    fact-correct stale versions, make Claude-subscription auth primary (API key as fallback),
+    and add parallel macOS/Windows install paths plus a new mac-gotchas guide. Committed and
+    pushed to main.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: other        # documentation
+      name: Disruption-Swarm-Setup setup guides (version/auth/cross-platform fact fixes across 10 files)
+      action: modified
+      lines: 135
+      files: 10
+    - type: other        # documentation
+      name: docs/mac-gotchas.md (new macOS troubleshooting guide, mirrors windows-gotchas)
+      action: created
+      lines: 148
+      files: 1
+  total_files_created: 1
+  total_files_modified: 10
+  total_lines_written: 283   # git: 283 insertions, 49 deletions; commit 7b72720
+  pages_produced: 5
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 0            # no swarm; ruflo MCP warmed to v3.14.4 for status only
+  swarm_topology: none
+  model_primary: claude-opus-4-8[1m]
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: 40              # approximate (reads, edits, grep, live CLI audit, git)
+  context_compressions: 0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: CLI command-surface audit (live claude-flow help vs. doc claims)
+      result: pass
+      details: >
+        Verified swarm/memory/agent/daemon commands still valid in v3.14; caught deprecated
+        `hooks session-start` (-> session-restore); confirmed swarm-init flags unchanged so they
+        were NOT "fixed" needlessly.
+    - gate: post-edit stale-fact grep sweep
+      result: pass
+      details: No remaining matches for 3.1.0 / alpha.3 / session-start / claude-flow-reference / March 6.
+    - gate: internal-link integrity
+      result: pass
+      details: Removed 2 dead links to nonexistent claude-flow-reference.md; new mac-gotchas + FAQ links resolve.
+  tests_passed:               # n/a (documentation)
+  tests_failed:               # n/a
+  reviewer_comments_addressed: # n/a
+  first_pass_quality_pct: 95
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 2                  # 1 Edit failed on a path typo; Bash mangled a Windows path (switched to Glob/PowerShell). Also Glob missed OneDrive files, caught via PowerShell before mis-numbering records.
+  rework_files: 0
+  blocked_minutes: 0
+  blockers: none
+  perception_note: >
+    Faster than manual and higher quality. Auditing the live CLI surface plus a grep sweep caught
+    real breakage (deprecated command, dead links) a naive edit pass would have preserved, and
+    confirmed which commands were still valid so nothing was "fixed" needlessly. Up-front clarifying
+    questions ("fix facts only" + subscription-primary + full Mac coverage) kept scope disciplined.
+    Note: Glob silently under-matched files on the OneDrive path; PowerShell listing was the reliable
+    check and prevented mis-sequencing these records.

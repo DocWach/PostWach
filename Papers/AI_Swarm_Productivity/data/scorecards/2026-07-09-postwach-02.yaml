@@ -1,0 +1,116 @@
+# =============================================================================
+# Session Productivity Scorecard — 2026-07-09 postwach-02
+# =============================================================================
+schema_version: "1.0"
+
+session:
+  id: 2026-07-09-postwach-02
+  date: 2026-07-09
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "11:00"        # approximate (no precise wall-clock captured)
+  end_time: "15:30"          # approximate; cross-vendor CLI log stamped ~13:50 local mid-session
+  task_summary: >
+    Resume the dissertation-to-journal Paper 2 (Necessary and Sufficient Conditions
+    for Defining Verification Models) and carry it from v0.9 (3 HOLD markers + placeholder
+    Discussion/Conclusion/Lit-Review) to a COMPLETE FIRST DRAFT (v0.13): F7 validated-data
+    corrections, three example-proof tables, O1 references, Discussion + Conclusion, and a
+    two-RBW-gated Literature Review.
+
+output:
+  artifacts:
+    - type: paper_section
+      name: "F7 corrections (VMMC-VM prose, combined-worked table, theorem witness, identities table, appendix VM-B)"
+      action: modified
+      lines: 130
+      files: 2
+    - type: paper_section
+      name: "Three example-proof tables (VRPS4-from-SR, SD4-adheres-SR, VM8-adheres-VRPS4)"
+      action: created
+      lines: 70
+      files: 1
+    - type: paper_section
+      name: "Discussion (Formalism/Scaling/Infinite-homomorphisms) + future-research table + Conclusion"
+      action: created
+      lines: 120
+      files: 1
+    - type: paper_section
+      name: "Literature Review §3.1/3.2/3.3 (three-thread structure, RBW-gated)"
+      action: created
+      lines: 55
+      files: 1
+    - type: code
+      name: "figures: article_figures.py E6 fix, _v5_gate.py validation gate, _verify_proof_tables.py"
+      action: modified
+      lines: 180
+      files: 3
+    - type: review
+      name: "RBW review artifacts (RBW-1 white, RBW-2 plan brief + codex/gemini red + white)"
+      action: created
+      lines: 400
+      files: 5
+    - type: config
+      name: "references.bib sync (§4 cites) + approved.bib promotions (4 refs) + manifest"
+      action: modified
+      lines: 60
+      files: 3
+    - type: analysis
+      name: "outline decision log D28-D31 + memory update"
+      action: modified
+      lines: 90
+      files: 2
+  total_files_created: 8
+  total_files_modified: 10
+  total_lines_written: 1100
+  pages_produced: 10          # manuscript grew 33 -> 43 pp (new drafted content), plus ~5 pp RBW docs
+
+ai_efficiency:
+  agents_spawned: 8           # RBW-1: 5 red + 1 blue (Claude Agent tool); RBW-2: Codex + Gemini red (external CLI)
+  swarm_topology: hybrid      # red/blue/white fan-out + cross-vendor
+  model_primary: claude-opus-4-8[1m]
+  tokens_input:               # not captured
+  tokens_output:              # not captured
+  total_cost_usd:             # Claude subagents on plan; cross-vendor legs off the Claude weekly limit (external subs)
+  tool_calls:                 # not captured (~120+ across the session)
+  context_compressions: 0
+
+quality:
+  gates_run:
+    - gate: R019 reference gate (refcheck / cite-key vs approved store)
+      result: pass
+      details: "Every build R019-clean; v0.13 = 36/36 cite keys approved, 0 missing."
+    - gate: pdflatex clean build (0 undefined cites/refs, 0 multiply-defined, 0 errors)
+      result: pass
+      details: "v0.10 through v0.13 all clean."
+    - gate: visual render verification (render-and-look on every new table/figure/section)
+      result: pass
+      details: "Caught 2 defects attribute-checks would miss: Table 7 margin overflow; the VM6 §5-intro remnant."
+    - gate: figure machine edge-diff (_v5_gate.py vs validated JSON)
+      result: pass
+      details: "fig_t8 VMMC_TO_VM E6 corruption caught + fixed; heat map + fig_t6 confirmed already correct."
+    - gate: proof-table verification (_verify_proof_tables.py vs markdown-verified specs)
+      result: pass
+      details: "0 mismatches across SD4-SR (T325) and VM8-VRPS4 (T477)."
+    - gate: refverify (R019 promotion)
+      result: pass
+      details: "2 human-attested (philipbar2026ses, dtea2026ignite); 2 single-model-triple-check CrossRef-verified (luzeaux2015formal, micouin2008property)."
+    - gate: RBW adversarial review (2 passes)
+      result: pass
+      details: "RBW-1 Claude 5-red+blue; RBW-2 cross-vendor Codex+Gemini converged, corroborated, added findings."
+  tests_passed:               # n/a (manuscript, not code tests)
+  tests_failed:
+  reviewer_comments_addressed: 12   # RBW-1 + RBW-2 charge findings folded into structure/framing/refs
+  first_pass_quality_pct: 70        # subjective: framing corrected twice by principal (field conflation; wave over-correction) before landing
+
+process:
+  agent_failures: 1           # Gemini red threw transient demand/503 errors mid-run (still produced full charge responses)
+  retries: 2                  # Micouin refverify (pages hyphen normalization); Gemini web-search self-retried
+  rework_files: 1             # main.tex edited many times (>3) across F7/tables/Discussion/LitReview
+  blocked_minutes: 10         # early: locating the personal-OneDrive Dis Pub path; the r019_check heredoc backslash
+  blockers: >
+    Minor: canonical file paths under Documents/02 My Outreach (not the hive tree) had to be discovered;
+    cross-vendor CLI invocation needed a smoke test to nail syntax. No substantive blockers.
+  perception_note: >
+    Much faster than manual. The two RBW passes (literature scoping + gap-defense + cross-vendor
+    verification) plus CrossRef ref verification would be days of manual work; done in one session,
+    and the cross-vendor pass caught real over-corrections a single-model review missed.

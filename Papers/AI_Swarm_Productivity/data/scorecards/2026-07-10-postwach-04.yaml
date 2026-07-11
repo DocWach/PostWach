@@ -1,0 +1,100 @@
+# =============================================================================
+# Session Productivity Scorecard — 2026-07-10 postwach-04
+# =============================================================================
+schema_version: "1.0"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-07-10-postwach-04
+  date: 2026-07-10
+  hive: PostWach
+  researcher: Paul Wach
+  start_time:            # clock unavailable to agent (~15:00 local by file mtimes)
+  end_time:              # clock unavailable to agent
+  task_summary: >
+    Produce a Word version of the P2 dissertation journal manuscript (Necessary and
+    Sufficient Conditions for Defining Verification Models) to share the latest draft with
+    co-authors, and add Rao (Hanumanthrao) Kannan as a co-author to both P1 and P2. P2 done;
+    P1 deferred (its .docx was locked open in Word).
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: paper_section   # authorship edit
+      name: P2 main.tex author block (byline + Kannan/UAH affiliation + pdfauthor + header comment)
+      action: modified
+      lines: 5
+      files: 1
+    - type: other           # generated deliverable (LaTeX -> Word conversion)
+      name: P2 Word draft for co-authors (Wach_etal_Necessary_Sufficient_Conditions_Verification_Models_P2_2026-07-10.docx)
+      action: created
+      lines: 0              # pandoc-generated from main.tex (v0.13); ~30pp manuscript, not newly authored prose
+      files: 1
+    - type: code            # single-use build tooling
+      name: _p1_add_kannan.py (run-level python-docx editor, staged; not yet run — P1 locked)
+      action: created
+      lines: 75
+      files: 1
+  total_files_created: 2     # P2 docx + staged P1 editor script (P2 build scripts were temp, removed)
+  total_files_modified: 1    # P2 main.tex
+  total_lines_written: 80    # authored delta (tex edits + editor script); docx is a conversion
+  pages_produced: 1          # authored content; the ~30pp docx is a format conversion of existing manuscript
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: none
+  model_primary: claude-opus-4-8[1m]
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: 32             # approximate (reads, edits, web search, pandoc/python builds, docx verification)
+  context_compressions: 0
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: Co-author identity + affiliation web verification (Kannan)
+      result: pass
+      details: >
+        Confirmed Rao Kannan = Hanumanthrao Kannan, Asst. Prof., Dept. of Industrial & Systems
+        Engineering and Engineering Management (ISEEM), University of Alabama in Huntsville, via
+        UAH faculty page. Author-order (before Beling) and affiliation confirmed with principal
+        before editing; no hallucinated identifier.
+    - gate: P2 docx structural verification (post-conversion)
+      result: pass
+      details: >
+        Author line correct (Kannan 3, Beling renumbered 4, UAH aff added); 73 numbered in-text
+        [n] citations + numbered reference list; 143 equations as native Word math; 11 figures
+        embedded; 25 tables; 0 raw label leaks. Cites and cleveref cross-refs resolved from
+        main.aux after a raw pandoc pass dropped in-text citations.
+    - gate: Cross-reference fidelity (cleveref)
+      result: pass
+      details: >
+        Multi-label \Cref that leaked raw labels on first build now renders "Section 4.2
+        (Figures 4, 5 and 6)"; section/table/figure refs resolved with type names. Required
+        inlining \input{appendix_proof} before resolving so appendix refs were caught.
+  tests_passed:               # n/a (manuscript)
+  tests_failed:               # n/a
+  reviewer_comments_addressed: # n/a
+  first_pass_quality_pct: 60  # P2 docx needed 3 build iterations to reach fidelity; P1 blocked
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 5                  # pandoc bbl-splice dropped in-text cites (switched to aux-based cite/cref resolution); heredoc/shell mangled backslashes repeatedly (moved logic to written .py files); first cref pass leaked appendix refs (added \input expansion)
+  rework_files: 1             # P2 docx regenerated ~3x (bbl-splice -> aux-resolve -> input-expand)
+  blocked_minutes: 0
+  blockers: >
+    P1 .docx is open/locked in a running Word instance; cannot write to it per standing rule
+    (no force-kill, no COM, no overwrite of an open deliverable). P1 authorship edit staged in
+    _p1_add_kannan.py, to be applied once the principal closes Word. One open scope question:
+    renumber P1 affiliations by first appearance (matches P2) vs. append Kannan as the next
+    superscript.
+  perception_note: >
+    Faster than manual for the P2 conversion overall, but not one-shot: pandoc's LaTeX->docx
+    reader silently dropped in-text natbib citations and mishandled cleveref, so getting a
+    co-author-grade draft required resolving \cite and \Cref/\cref from main.aux (bibcite + @cref
+    newlabels) and inlining \input files before conversion. This shell mangles backslashes in
+    inline heredoc/-c python, so regex work must go in written .py files. Web-verifying Kannan's
+    affiliation and confirming author order up front avoided a hallucinated institution.
