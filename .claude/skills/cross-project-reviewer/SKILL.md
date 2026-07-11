@@ -7,6 +7,8 @@ description: Review capabilities from any project for governance compliance, dup
 
 A CTO-level review protocol for evaluating capabilities across the research portfolio. PostWach (CTO/Chief Scientist) assesses what is built and how well; Alpha Empress (COO) assesses whether rules are followed and governance is configured. This skill covers the CTO scope.
 
+**Status tag [R016]: (a) research artifact.** This is a CTO review protocol (a methodology), exercised on portfolio reviews but not a demonstrated tool or an integrated service; it classifies other capabilities on the R016 ladder and so must carry its own tag.
+
 ## When to Use This Skill
 
 - A project adds new skills or agents and needs portfolio-level review
@@ -31,7 +33,7 @@ claude-flow hive-mind spawn "Review new [skill/agent name] in [project]. Check f
   --workers methodology-advisor,code-analyzer
 
 # Quarterly portfolio review (all Tier 1 projects)
-claude-flow hive-mind spawn "Execute quarterly CTO review across all Tier 1 projects: PostWach, MACQ, GI-JOE, COSYSMO, SysMLv2, SEAD. Run the 4-step protocol for each. Produce consolidated report with cross-project findings." \
+claude-flow hive-mind spawn "Execute quarterly CTO review across all V3 hives: PostWach, MACQ, GI-JOE, SysMLv2, COSYSMO, SEAD, PLM, Alpha Empress, Fort Wachs, Finance Bro, Lawsun (11 as of 2026-07-11). Run the 4-step protocol for each. Produce consolidated report with cross-project findings." \
   --queen research-strategic \
   --workers methodology-advisor,research-architect,code-analyzer
 ```

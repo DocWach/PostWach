@@ -7,6 +7,8 @@ description: Discover and validate formal morphisms between biological and engin
 
 A cross-domain morphism discovery capability for biological and engineering systems. It does not model the biology itself (that is the `biophysics-modeler` agent) — it provides the methodology for finding, classifying, validating, and cataloging structural correspondences between biological and engineering domains.
 
+**Status tag [R016]: (a) research artifact.** A morphism-discovery methodology pack; any bio-eng morphism it yields is itself a candidate that must clear the verification bar, not a demonstrated result.
+
 ## When to Use This Skill
 
 - Investigating Idea 8 (Formal Morphisms Between Biological and Engineered Systems)

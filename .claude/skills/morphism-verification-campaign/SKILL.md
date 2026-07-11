@@ -11,6 +11,16 @@ PROVENANCE: produced by Fable 5 (claude-fable-5[1m]), vendor Anthropic, access m
 
 Open dissertation decisions F1 (infinite-equivalence wording) and F7 (graded-gate rewrite) are **OPEN**. This runbook uses only validated post-F7 acceptability values and treats both F1 levels as tagged data; it does not resolve either decision, and neither may any campaign run under it.
 
+## 0. Currency update — 2026-07-10, amended 2026-07-11 (read first)
+
+PROVENANCE: Opus 4.8 (claude-opus-4-8[1m]), Anthropic, Claude Code CLI, 2026-07-10, amended 2026-07-11; principal-directed. Sections 1-17 are the 2026-07-07 Fable 5 authoring and stay valid except as amended here. Now governed by global **[R020] skills-first**; all sibling morphism skills now exist (the Section 1 note and ledger row 15 "not yet present" are stale).
+
+Amendments:
+- **New campaign instances ran under this shape and CLOSED (2026-07-10/11).** The metric-satisfaction **bridge**, **Target A** (nonlinear-from-partial), and the **positioned-integration / harmonization** all ran the hardened-prompt → RBW (red/blue/white adversarial legs) → adjudicate → Fable-derive → Codex domain-critic sequence to a CLOSED verdict. This confirms the §8 note that the campaign shape is reusable beyond the original pedigree-vs-acceptability (Target C) target: for a derivation campaign, Gate 1's empirical cross-tab is replaced by a finite self-asserting executable witness with predicted-numbers-before-running; the promotion protocol (§8) and the fences (§9) transfer unchanged.
+- **RBW made explicit:** the §8 stage-2 refutation bar is instantiated as independent multi-model legs (red = Codex, blue = Gemini, white = Opus) plus a Codex domain-critic before Stage 4a. A leg returning REWORK is a pass of the bar, not a failure.
+
+Fences REAFFIRMED (do NOT relax): fence 1 (never "fidelity" for VM-to-SD) and the **"projected vs measured" ban (§1)** stand. **R019 update: the §16 standing Cousot and Girard-Pappas `[PLACEHOLDER]` flags are CLEARED (2026-07-11)** — `cousot1977absint`, `girard2007metrics`, and the Cody dissertation `cody2021transferdiss` are now in the approved store (promoted via `refverify`, single-model triple-check; `pending_byzantine_verification: true`). F1/F7 OPEN.
+
 ---
 
 ## 1. Purpose and objects (definitions first)

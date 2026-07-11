@@ -11,6 +11,22 @@ PROVENANCE: produced by Fable 5 (claude-fable-5[1m]), vendor Anthropic, access m
 
 Open dissertation decisions F1 (infinite-equivalence wording) and F7 (graded-gate rewrite) are OPEN. This skill uses only validated post-F7 data facts and does not choose F1 wording.
 
+## 0. Currency update — 2026-07-10, amended 2026-07-11 (read first)
+
+PROVENANCE: this block produced by Opus 4.8 (claude-opus-4-8[1m]), Anthropic, Claude Code CLI, 2026-07-10, amended 2026-07-11; principal-directed. Sections 1-11 below are the 2026-07-07 Fable 5 authoring and remain valid except as amended here. This skill is now governed by global **[R020] skills-first**; all four sibling morphism skills now exist under `.claude/skills/` (any "not yet present" note in the body is stale).
+
+New since authoring (fold into your reading of the body; nothing here is promoted beyond the status shown):
+- **Metric-satisfaction bridge — CLOSED** (RBW + Codex-critic CLOSED). A 3/2-institution (lax) co-locating the structural and behavioral degrees `(D_s, D_b)` over signatures, with a scalarization map `e_s` and an honest characterization (case-projection positive + a proved obstruction + a contractive `ε/(1-a)` trichotomy). This is the rigor underneath a "proven-to-degree" label. See `.../Fable 5 planning/research/MetricSatisfaction_Bridge_candidate.md`.
+- **Positioned-integration / harmonization — CLOSED (2026-07-11).** INTEGRATED-TO-COVERAGE: twelve pieces map into the quantitative 3/2-institution U co-locating the record-primary `D_s^Σ` with `D_b` (honest first-class gap GAP-LO). Lemma CODY-IND proves the granular structural RECORD `(K1,K2,K3)` non-reducible to Cody 2021's roughness / Zeigler's binary morphism class by execution. WySE is a positioned-integration, not a field unification. See `research/Unification_candidate.md`.
+- **Signature-relative degree `D_s^Σ`** (CANDIDATE, open decisions SR-1/2/3). The structural degree relative to a signature Σ, with reduct (drop symbols) and expansion (add symbols) operations; omitted symbols under reduct are an access-consequence gap, not zero coverage. Fenced candidate; do not canonize. See `research/SignatureRelative_candidate.md`.
+- **Canonical WySE level scheme** (adopted 2026-07-09). Levels LSN/LVN (= problem space of outcomes, LO, closed systems), LF1/LF2/LF3 (= DEVS 0/1/2), LA (atomic, DEVS 3), LC (coupled, DEVS 4), with a three-way distinction: structural LEVEL vs acceptability BOUNDARY (problem space) vs evidence-testability SUPPORT FUNCTION. ADDITIVE to the Section 3 fidelity/resolution/pedigree taxonomy, not a replacement; `D_s` is a within-family (resolution) measure at LF-level.
+- **Proof-status category** (research seed): a drawn ontology edge is a CLAIM; the WySE degree math is what proves it. Three-valued: drawn/unproven | proven-to-degree (carries `(D_s, D_b)` + R018) | refuted. The relationship-level analogue of R016 and the fuse point of qualitative ontology and quantitative degree.
+
+Fences:
+- **R019 debt CLEARED (2026-07-11):** Girard-Pappas, Cousot & Cousot, and the Cody 2021 dissertation are now in the approved store as `girard2007metrics`, `cousot1977absint`, and `cody2021transferdiss` (promoted via `refverify`, single-model triple-check; `pending_byzantine_verification: true`). The Section 2 guard and the body's "do not cite Cousot/Girard" note are superseded for these three; they may now be cited. `zeigler2018tms` remains the approved TMS key.
+- The "projected vs measured" ban (Section 3) stands; it fences projected fidelity and is unrelated to the validation-model predicted-vs-measured distinction.
+- F1 and F7 remain OPEN.
+
 ---
 
 ## 1. When to load this skill, and when not to

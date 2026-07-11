@@ -35,6 +35,17 @@ Path convention: paths beginning `Papers/` resolve under the PostWach hive root
 resolve under `.../00_Hive_Empire/`. If any pinned file below is missing, STOP that branch and
 emit `BLOCKED: missing <path>`; never continue by inference.
 
+## 0. Currency update — 2026-07-10, amended 2026-07-11 (read first)
+
+PROVENANCE: Opus 4.8 (claude-opus-4-8[1m]), Anthropic, Claude Code CLI, 2026-07-10, amended 2026-07-11; principal-directed. Sections 1-12 are the 2026-07-07 Fable 5 authoring and stay valid except as amended here. Now governed by global **[R020] skills-first**; all sibling morphism skills now exist (the Section 9 "not authored yet" fallback notes are stale).
+
+State-of-play amendments (the Section 2/3/4/6 tables are superseded on these rows only):
+- **Target A (Section 4) is CLOSED (2026-07-11).** Candidate results were DERIVED 2026-07-10 via the RBW→Fable pipeline: T-COV (a directed coverage DEFECT — the hemimetric triangle was REFUTED, not proved), T-PART (Option B event-coverage over scoped covered checks), T-DS (record-primary `D_s^{Σ,nonexact} = (K1;K2^Σ;K3^Σ)`, scalar only as a do-not-rank summary), and T-CERT (conditional behavioral certificate + a proved global-bound negative). The v2 completion adopts/cites **Zeigler TMS ch17 §17.4.2** for the a-priori transfer bound (external metric ε; an identical-record CERT-neg pair) and ships a single self-asserting stdlib witness; the Codex domain-critic re-ran the witness (exit 0, SHA-256 match) and returned **CLOSED**. See `research/TargetA_NonlinearPartial_candidate_v2.md` and `research/TargetA_Codex_recheck_v2_2026-07-11.md`. Still an R016 (a) research artifact: CLOSED means the derivation survived adversarial verification, not that it is integrated.
+- **Metric-satisfaction bridge — CLOSED** (Codex-critic CLOSED). The orthogonal `(D_s, D_b)` decomposition is backed by a 3/2-institution co-location with a scalarization map and an honest (positive + obstruction + trichotomy) characterization. See `research/MetricSatisfaction_Bridge_candidate.md`.
+- **Positioned-integration / harmonization — CLOSED (2026-07-11).** Fable = INTEGRATED-TO-COVERAGE: twelve pieces map into the quantitative 3/2-institution U co-locating the record-primary `D_s^Σ` with `D_b`; honest first-class gap GAP-LO (the LO stochastic-Petri piece is not yet carried). Lemma CODY-IND proves the granular structural RECORD `(K1,K2,K3)` is non-reducible to Cody's roughness / Zeigler's binary morphism class BY EXECUTION. Three-leg RBW + Codex domain-critic CLOSED. WySE is positioned as a positioned-integration, NOT a field unification; the two-axis is ceded to **Cody 2021** (§3.4), the `ε/(1−a)` bound to **Zeigler ch17**; the genuine WySE delta is the granular record. See `research/Unification_candidate.md`.
+
+Fences: F1/F7 remain OPEN; the "projected vs measured" ban (Section 2) stands. **R019 reference debt CLEARED 2026-07-11 for Girard-Pappas, Cousot, and Cody:** `girard2007metrics`, `cousot1977absint`, and the Cody dissertation `cody2021transferdiss` were promoted to the approved store via `refverify` (single-model triple-check; `pending_byzantine_verification: true`). The Section 7 gap-4 and ledger-row `[PLACEHOLDER]` flags for these three are now cleared.
+
 ---
 
 ## 1. When to use this skill

@@ -33,6 +33,17 @@ Open dissertation decisions **F1 (infinite-equivalence wording) and F7 (graded-g
 This skill cites the F7 *catch* as a historical event (it happened and is registered); it does not
 resolve the F7 manuscript rewrite or the F1 wording, and no step below may be read as resolving them.
 
+## 0. Currency update — 2026-07-10, amended 2026-07-11 (read first)
+
+PROVENANCE: Opus 4.8 (claude-opus-4-8[1m]), Anthropic, Claude Code CLI, 2026-07-10, amended 2026-07-11; principal-directed. Sections 1-13 are the 2026-07-07 Fable 5 authoring and stay valid except as amended here. Now governed by global **[R020] skills-first**; all sibling morphism skills now exist (the Section 2 "domain-reference not yet present" note and ledger row 13 are stale).
+
+Amendments:
+- **RBW (red/blue/white) is the concrete instantiation of Step 5 (adversarial refutation).** The 2026-07-10/11 runs hardened the prompt, ran three independent adversarial legs — red = Codex, blue = Gemini, white = Opus — adjudicated, derived with Fable, then ran a Codex domain-critic before promotion. Read Step 5's "vary every convention / search for the minimal counterexample" as: use independent multi-model legs where available. A leg returning REWORK / FIX-THEN-READY is the process working (the bridge and Target A both returned honest REWORK and were reframed, not forced).
+- **The lifecycle has now been exercised end-to-end.** The bridge, **Target A** (nonlinear-from-partial), and the **positioned-integration / harmonization** all reached CLOSED (Codex domain-critic CLOSED, 2026-07-11) — derivation campaigns where Gate 1's empirical cross-tab is replaced by a finite self-asserting executable witness with predicted-numbers-before-running. Interface-first (Target B) remains un-exercised.
+- **Proof-status category** (new tagging concept, research seed): beyond the entry-level rigor tags of Section 3, a drawn ontology relationship carries a proof-status — drawn/unproven | proven-to-degree (carries its `(D_s, D_b)` as proof strength + R018) | refuted. The relationship-level analogue of the R016 fence, and the promotion gate applied to ontology edges.
+
+Fences: F1/F7 remain OPEN; "recompute, do not narrate" (Section 4) and the never-force rule (Step 5) are unchanged and were honored. **R019 update: the standing Girard-Pappas and Cousot `[PLACEHOLDER]` flags are CLEARED (2026-07-11)** — `girard2007metrics`, `cousot1977absint`, and the Cody dissertation `cody2021transferdiss` were promoted to the approved store via `refverify` (single-model triple-check; `pending_byzantine_verification: true`).
+
 ---
 
 ## 1. Purpose

@@ -7,6 +7,8 @@ description: Structural comparison between system-theoretic morphisms and ML tra
 
 A cross-framework comparison capability for system-theoretic morphisms and machine learning transfer learning. It does not perform ML experiments or build models (that is the `ml-developer` agent) — it provides the methodology for rigorously comparing these two "structure-preserving map" frameworks and determining whether they are formally related.
 
+**Status tag [R016]: (a) research artifact.** A cross-framework comparison methodology; the TL-to-morphism relationship it tests is an OPEN question (see the WySE ML/RL bridge thread), not a demonstrated finding.
+
 ## When to Use This Skill
 
 - Investigating Idea 13 (System-Theoretic Morphisms and Machine Learning Transfer: A Structural Comparison)

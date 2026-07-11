@@ -7,7 +7,7 @@ description: Single-model triple-check workflow that verifies a candidate citati
 
 The R019 verification entry point. Given a candidate citation, this skill runs Step 0 (DOI dedup), then drives the single-model triple-check workflow: the agent fetches canonical fields from authoritative external sources via WebSearch + WebFetch, the supporting script compares them to the claimed fields, and on MATCH the candidate is promoted.
 
-**Integration status (R016):** (a) research artifact. Built 2026-06-04; not yet used end-to-end on a real new citation. Promote to (b) demonstrated after first end-to-end verify of a non-trivial ref.
+**Integration status (R016):** (b) demonstrated. Built 2026-06-04; first end-to-end use 2026-07-11, which promoted three non-trivial references from the WySE line to the approved store: `girard2007metrics` (IEEE TAC, CrossRef-verified), `cousot1977absint` (POPL '77, CrossRef-verified), and `cody2021transferdiss` (UVA LIBRA dissertation, DOI-verified). Step 0 also correctly caught the arXiv-paper-vs-dissertation bibkey collision. Still single-model MVP (`pending_byzantine_verification: true` on every entry it writes); promote to (c) integrated when the Phase 5b Byzantine N=3 orchestration is wired in.
 
 ---
 

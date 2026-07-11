@@ -7,6 +7,8 @@ description: Decide which of the 25 SE Math Foundations research ideas to pursue
 
 A meta-research capability for the SE Math Foundations 25-idea portfolio. It does not do the research — it helps decide what research to do and when, using expected-value reasoning, dependency analysis, and resource-constrained optimization.
 
+**Status tag [R016]: (a) research artifact.** A meta-research decision methodology; it has structured real prioritization calls but is not a demonstrated tool or an integrated deliverable.
+
 ## When to Use This Skill
 
 - Choosing the next idea to pursue after finishing a paper

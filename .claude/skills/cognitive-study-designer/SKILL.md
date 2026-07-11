@@ -7,6 +7,8 @@ description: Design human-subjects studies investigating how engineers reason ab
 
 A study design capability for investigating engineer cognition about cross-domain morphisms. Provides methodology for think-aloud protocols, calibration studies, expert-novice comparisons, and IRB preparation. Does not perform psychometric analysis itself (that is the `psychometrics-analyst` agent) — it provides the study design methodology and templates for all six NSF Year 3 cognitive studies.
 
+**Status tag [R016]: (a) research artifact.** A study-design methodology pack; no study has been run or IRB-approved from it, so nothing here is a demonstrated capability.
+
 ## When to Use This Skill
 
 - Designing a study for any of Ideas 20-25 (NSF EDSE Year 3 cognitive studies)
