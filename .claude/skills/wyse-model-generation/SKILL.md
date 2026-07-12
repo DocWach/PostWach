@@ -15,11 +15,13 @@ description: >
 
 # WySE Model Generation (Phase 1: grounded)
 
-**Status tag [R016]: (a) research artifact -- NOT yet exercised end-to-end.** Authored 2026-07-12. This
-skill encodes a METHOD, not a demonstrated capability; it has been run on ZERO real generations.
-Everything it produces is an (a) HUNCH-MODEL until its validation witness passes. Promote toward (b)
-demonstrated ONLY after the first end-to-end grounded generation validates the loop against real ground
-truth. See "Where this stands" (Section 8). Continuous improvement is expected and required.
+**Status tag [R016]: (a) research artifact -- exercised end-to-end ONCE (DC-motor, 2026-07-12).** Authored
+2026-07-12. This skill encodes a METHOD; the propose->validate->measure loop has now run clean on ONE real
+grounded generation (armature-controlled DC motor, level LA; witness passed, SHA-stable), but a single
+success is not a demonstrated (b) capability. Everything it produces is an (a) HUNCH-MODEL until its
+validation witness passes. Promote toward (b) demonstrated after the loop validates on SEVERAL distinct
+grounded objects (different levels, at least one nonlinear). See "Where this stands" (Section 8).
+Continuous improvement is expected and required.
 
 PROVENANCE (R018): Opus 4.8 (claude-opus-4-8[1m]), Anthropic, Claude Code CLI, 2026-07-12,
 principal-directed CREATE (R020; no prior skill existed -- confirmed by search of the skills tree and
@@ -101,14 +103,28 @@ worked WySE-model-generation example), morphism-research-methodology (lifecycle 
 morphism-domain-reference (the quintuple + typing).
 
 ## 8. Where this stands + continuous improvement (READ FIRST; be honest)
-- **Integration status:** (a) research artifact, authored 2026-07-12, **exercised on ZERO real
-  generations.** Do NOT present it as demonstrated (b) or integrated (c).
-- **Validated scope:** NONE yet. The propose->validate->measure loop is a DESIGN; its first real test is
-  pending. Recommended first anchor: the DC-motor (exact ground truth already in the library).
+- **Integration status:** (a) research artifact, authored 2026-07-12, **exercised once** (DC-motor,
+  level LA, 2026-07-12). Do NOT present it as demonstrated (b) or integrated (c) on the strength of one run.
+- **Validated scope:** ONE object — armature-controlled DC motor at level LA. Record + witness:
+  `00 Planning and Execution/Fable 5 planning/research/DCMotor_LA_generation_candidate.md` (+ `_witness.py`,
+  SHA `db6ae387...`). Transcription validated numerically (SME-adjudicated); the loop ran clean with zero
+  rework. NOT yet exercised on any other level, on a nonlinear system, or on Patsy.
+- **What the DC-motor run revealed (2026-07-12):**
+  1. The witness measures transcription fidelity + behavioral reproduction, but **NOT model ADEQUACY** —
+     it confirms `z` matches the *given* equations, not that the chosen level is right for a purpose.
+     Level-choice (Step 1) is still an un-validated human decision.
+  2. **`proven` is unreachable on a continuous/floating-point carrier** by this witness shape; the honest
+     ceiling for an ODE transcription is SME-adjudicated. `proven` would need a finite/exact carrier
+     (exact-arithmetic sampled model or symbolic pole check) — a candidate witness upgrade.
+  3. **Ground-truth independence must be explicit:** the load-bearing check is coded-`A`'s spectrum vs
+     *externally-known* poles; a model-vs-its-own-closed-form check is only integrator self-consistency,
+     not a transcription measurement. Step 4 should name which assertions are external vs self-consistent.
 - **Improvement backlog (known gaps):** (i) Phase 2 cross-level and Phase 3 weak-grounding inference
-  unbuilt; (ii) no elicitation front-end wired in (level-choice is manual); (iii) no optimization /
-  selection back-end; (iv) the validation-witness bar for weak grounding is UNSPECIFIED; (v) this is a
-  METHODOLOGY, not a repeatable tool.
+  unbuilt; (ii) no elicitation front-end wired in (level-choice is manual, and per revelation 1 it is
+  un-validated); (iii) no optimization / selection back-end; (iv) the validation-witness bar for weak
+  grounding is UNSPECIFIED; (v) this is a METHODOLOGY, not a repeatable tool; (vi) NEW — add a rigor-ceiling
+  note (revelation 2) and an external-vs-self-consistent assertion split (revelation 3) to Step 4; (vii)
+  NEW — next exercises should cover a second level and a nonlinear system before any (b) claim.
 - **Promotion path:** (a)->(b) after the first end-to-end grounded generation + validation on a real
   ground-truth object; (b)->(c) when wired to the elicitation front-end + the morphism engine + the
   selection back-end as one coherent flow.
