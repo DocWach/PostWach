@@ -105,10 +105,13 @@ morphism-domain-reference (the quintuple + typing).
 ## 8. Where this stands + continuous improvement (READ FIRST; be honest)
 - **Integration status:** (a) research artifact, authored 2026-07-12, **exercised once** (DC-motor,
   level LA, 2026-07-12). Do NOT present it as demonstrated (b) or integrated (c) on the strength of one run.
-- **Validated scope:** ONE object — armature-controlled DC motor at level LA. Record + witness:
-  `00 Planning and Execution/Fable 5 planning/research/DCMotor_LA_generation_candidate.md` (+ `_witness.py`,
-  SHA `db6ae387...`). Transcription validated numerically (SME-adjudicated); the loop ran clean with zero
-  rework. NOT yet exercised on any other level, on a nonlinear system, or on Patsy.
+- **Validated scope:** TWO objects, both level LA. (1) armature-controlled DC motor (linear); (2) simple
+  pendulum (NONLINEAR, `sin(theta)` transcribed). Records + witnesses under
+  `00 Planning and Execution/Fable 5 planning/research/` — `DCMotor_LA_*` (SHA `db6ae387...`) and
+  `Pendulum_LA_*` (SHA `1be32dbe...`). Both SME-adjudicated. The pendulum witness has real TEETH: a
+  built-in linear decoy proves it discriminates true nonlinear transcription (period 32.9% longer than
+  small-angle, matched to the elliptic integral) from the linearization shortcut. NOT yet exercised on a
+  second LEVEL (all runs are LA), on a coupled (LC) system, or on Patsy.
 - **What the DC-motor run revealed (2026-07-12):**
   1. The witness measures transcription fidelity + behavioral reproduction, but **NOT model ADEQUACY** —
      it confirms `z` matches the *given* equations, not that the chosen level is right for a purpose.
@@ -119,12 +122,25 @@ morphism-domain-reference (the quintuple + typing).
   3. **Ground-truth independence must be explicit:** the load-bearing check is coded-`A`'s spectrum vs
      *externally-known* poles; a model-vs-its-own-closed-form check is only integrator self-consistency,
      not a transcription measurement. Step 4 should name which assertions are external vs self-consistent.
+- **What the pendulum run (nonlinear, 2026-07-12) revealed:**
+  4. **Nonlinear cases give the witness teeth** the DC motor could not: pick ground truth the linearization
+     gets WRONG (large-amplitude period via the elliptic integral; true energy conservation). Include a
+     linear decoy and assert it FAILS — a witness that cannot fail a wrong transcription measures nothing.
+  5. **Rigor is TWO axes (principal item 7):** Axis A = proof-form/carrier exactness (floating-point ⇒ not
+     `proven`); Axis B = decision-completeness = a PRE-declared purpose-derived "good-enough" acceptance +
+     a POST confidence. This skill's tolerances are pre-declared but ENGINEERING-ARBITRARY, and there is NO
+     posterior ⇒ Axis B is weak, which is what keeps it *adjudicated* not *decided-with-confidence*. Axis B
+     is supplied by the decision-analysis lineages (T3SD/Kannan pre-acceptance + Bayesian/TRAK posterior).
+     See [[research_decision_analysis_confidence_thread]]. Backlog viii below.
 - **Improvement backlog (known gaps):** (i) Phase 2 cross-level and Phase 3 weak-grounding inference
   unbuilt; (ii) no elicitation front-end wired in (level-choice is manual, and per revelation 1 it is
   un-validated); (iii) no optimization / selection back-end; (iv) the validation-witness bar for weak
   grounding is UNSPECIFIED; (v) this is a METHODOLOGY, not a repeatable tool; (vi) NEW — add a rigor-ceiling
   note (revelation 2) and an external-vs-self-consistent assertion split (revelation 3) to Step 4; (vii)
-  NEW — next exercises should cover a second level and a nonlinear system before any (b) claim.
+  nonlinear now covered (pendulum) — remaining before any (b) claim: a second LEVEL (not LA) and a coupled
+  (LC) system; (viii) NEW — extend the rigor tag to two axes (proof-form × decision-completeness) and wire
+  Axis B into the witness: a purpose-derived acceptance region + a posterior confidence, replacing the
+  current arbitrary tolerances + binary pass. Tracked in [[research_decision_analysis_confidence_thread]].
 - **Promotion path:** (a)->(b) after the first end-to-end grounded generation + validation on a real
   ground-truth object; (b)->(c) when wired to the elicitation front-end + the morphism engine + the
   selection back-end as one coherent flow.
