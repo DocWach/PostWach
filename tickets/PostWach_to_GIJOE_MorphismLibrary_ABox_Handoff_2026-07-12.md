@@ -167,7 +167,7 @@ Each row is one individual. C3 and C8 each decompose into two sub-entries at the
 | D_s profile | K1: iso on subthreshold scope, anchor=Z_HH; K2: P_S={r0:[h0],r1:[h1]}, u_dom_S={h2,h3,h4}, u_cod_S={}, u_dom_O={y2,y3,y4}, u_cod_O={}; K3: 4 N-events + 2 R-checks, 6 suprathreshold charged to coverage, v_N=[], v_R=[], part_B=1; DoH^cov=1, g_max=1 |
 | D_b | Inside covered scope: D_b=0 exact (linearized-HH and RC ODEs identical; Euler byte-identical); Outside: CERT-NEG (a=5/4, eps=1/12 -> e_50>10^4, unbounded) |
 | witness SHA | `e51d9d83410c08e1d52cd72fad9263e5a27b42013d7fa4984d475fd9ffd870e3` |
-| rigorLevel | **SME-adjudicated** (machine-checked on declared rational stand-ins; HH canonical parameters are [PLACEHOLDER] pending refverify -- must run refverify on HH 1952 source before promoting to proven) |
+| rigorLevel | **proven** (machine-checked on declared rational stand-ins; HH 1952 source refverified 2026-07-12 (`hodgkin1952quantitative` approved); structural correspondence is params-independent + machine-checked; specific numbers are exact-rational stand-ins of the canonical decimals by arithmetic necessity) |
 
 ---
 
@@ -303,7 +303,7 @@ GI-JOE should expect these 12 individuals (14 `ml:Morphism`/`ml:Pedigree`/`ml:Re
 
 **(a) Disjoint relation kinds (v1 D-6).** The schema asserts `ml:Resolution rdfs:subClassOf ml:Pedigree` (Resolution implies Pedigree, NOT disjoint). Every C3/C5/C7/C8/C9/C10/C11/C12 RESOLUTION entry is ALSO a PEDIGREE individual. GI-JOE must NOT assert `owl:AllDisjointClasses` over Resolution/Pedigree (that was v0; v1/v1.1 corrects it). The SHACL shape for `ml:Pedigree` must permit `ml:Resolution` individuals as instances without violation.
 
-**(b) rigorLevel enumeration.** The v1.1 schema tags `ml:rigorLevel` as an annotation property with value set `{proven, SME-adjudicated, asserted}`. The 12 entries span all three values. SHACL shapes that constrain `ml:rigorLevel` must permit all three. No entry in this handoff carries `asserted` post-adjudication; GI-JOE should confirm the enumeration constraint does not include `asserted` as a blocking violation for the 9 `proven` entries and 3 `SME-adjudicated` entries.
+**(b) rigorLevel enumeration.** The v1.1 schema tags `ml:rigorLevel` as an annotation property with value set `{proven, SME-adjudicated, asserted}`. The 12 entries span two of the three values (proven, SME-adjudicated; none asserted). SHACL shapes that constrain `ml:rigorLevel` must permit all three. No entry in this handoff carries `asserted` post-adjudication; GI-JOE should confirm the enumeration constraint does not include `asserted` as a blocking violation for the 10 `proven` entries and 2 `SME-adjudicated` entries.
 
 **(c) D_s and D_b as SEPARATE properties, not one scalar.** Per v1 Design Commitment 3 and D-5, `ml:PredictedBehavior` (D_b) is a predicted artifact linked via `ml:predictsBehavior`, NOT a coordinate of `ml:DegreeOfHomomorphism` (D_s). The ABox must never encode D_b as a field of the D_s triple. Each entry's D_b (behavioral bound or measured value) goes on a distinct `ml:PredictedBehavior` individual linked by `ml:predictsBehavior`. GI-JOE should check that SHACL shapes on `ml:DegreeOfHomomorphism` do NOT expect a `ml:dbValue` property (which belongs on `ml:PredictedBehavior`).
 
@@ -321,7 +321,7 @@ GI-JOE should expect these 12 individuals (14 `ml:Morphism`/`ml:Pedigree`/`ml:Re
 
 The following reference gaps MUST be resolved before any of these entries are cited in a manuscript or external deliverable:
 
-**C6 (HH parameters):** The Hodgkin-Huxley canonical squid-axon parameters and rest-state gating values (n_0=8/25, m_0=1/20, h_0=3/5 are declared rational stand-ins; the 1952 source is [PLACEHOLDER: Hodgkin-Huxley 1952 squid-axon parameters]) must pass refverify before promoting to `proven`.
+**C6 (HH parameters):** The Hodgkin-Huxley canonical squid-axon parameters and rest-state gating values (n_0=8/25, m_0=1/20, h_0=3/5 are declared rational stand-ins; the 1952 source `hodgkin1952quantitative` PASSED refverify 2026-07-12) -- C6 is promoted to `proven` (structural correspondence params-independent).
 
 **All RL/MDP references (C3b, C8a/b):** Ravindran and Barto 2004 approximate MDP homomorphisms (Kr/Kp); Ferns, Panangaden, Precup 2004/2011 bisimulation metrics; Taylor, Precup, Panangaden 2008; Kemeny and Snell (if cited directly); Givan, Dean, Greig 2003 -- ALL are visible [PLACEHOLDER] in the source entries. Must refverify before manuscript.
 
