@@ -1,0 +1,119 @@
+# NOTE: MID-RUN SNAPSHOT — the autonomous overnight run was still in progress when this
+# scorecard was written (on principal request, without stopping). Numbers cover the
+# 2026-07-11 segment through the Round-1 Fable result; the Codex critic was in flight.
+schema_version: "1.1"
+
+session:
+  id: 2026-07-11-postwach-01
+  date: 2026-07-11
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "~13:30"     # approximate; continuation of session 0618d5b0 into 2026-07-11
+  end_time: "ongoing"      # overnight autonomous run still active at write time
+  task_summary: >
+    Clear the R019 reference debt (refverify), re-apply + commit the recovered skill edits, then run
+    the +probability/RL-TL trunk through the RBW->Fable->critic pipeline and prep Target B to its
+    ratification point, autonomously overnight.
+
+output:
+  artifacts:
+    - type: review
+      name: refverify end-to-end (Girard/Cousot/Cody promoted; store 335->338)
+      action: created
+      lines: 60
+      files: 2                 # approved.bib + manifest.yaml (appended)
+    - type: config
+      name: morphism + analyst skill currency/R016 re-apply
+      action: modified
+      lines: 62
+      files: 10
+    - type: spec
+      name: stochastic-trunk Fable prompts v1 + v2 + RBW review task + adjudication
+      action: created
+      lines: 540
+      files: 4
+    - type: analysis
+      name: stochastic foundations notes (Zeigler ch21/22; RL MDP-hom/bisimulation) [agent-authored]
+      action: created
+      lines: 400
+      files: 2
+    - type: analysis
+      name: StochMorph candidate + witness (Fable) INTEGRATED-TO-COVERAGE [agent-authored]
+      action: created
+      lines: 700
+      files: 2
+    - type: spec
+      name: Target B prompt draft + RBW review task + adjudication + foundations
+      action: created
+      lines: 520
+      files: 4
+    - type: other
+      name: INCIDENT-001 follow-up report + autonomous run policy + session archive
+      action: created
+      lines: 260
+      files: 3
+  total_files_created: 17
+  total_files_modified: 12
+  total_lines_written: 2600     # approximate; includes agent-authored candidate/foundations
+  pages_produced: 60            # approximate (~40 lines/page)
+
+ai_efficiency:
+  agents_spawned: 11            # 6 Claude subagents (2 stochastic-foundations, found-targetb, 2 Opus RBW legs, Fable) + 5 external-CLI legs (Codex/Gemini RBW x4, Codex critic x1)
+  swarm_topology: hybrid        # main-loop orchestrator + background subagents + adversarial RBW (red/blue/white) legs
+  model_primary: claude-opus-4-8[1m]   # orchestrator; subagents: sonnet (grounding), fable (derivation); external codex + gemini (RBW)
+  tokens_input:
+  tokens_output:
+  total_cost_usd:               # weekly Claude budget ~51% at start of night; RBW legs (Codex/Gemini) off the Claude limit
+  tool_calls:
+  context_compressions:
+
+skills:
+  skills_first_check: yes
+  skills_used:
+    - name: refverify
+      how: verified + promoted 3 references end-to-end (first real end-to-end use; earned R016 (a)->(b))
+  relevant_but_unused:
+    - name: reflookup
+      why_not: went straight to refverify after grep-confirming the refs were absent from the store
+  skills_modified_created: >
+    modified: refverify (a)->(b) bump; 4 morphism-* currency blocks; 5 analyst skills R016 tags +
+    cross-project-reviewer roster. none created.
+  utilization_note: >
+    R020 discipline was live: refverify was invoked (not re-enacted), which is exactly what surfaced
+    the arXiv-vs-dissertation bibkey collision and the correct provenance stamp. Skill non-use was not
+    a factor this segment.
+
+quality:
+  gates_run:
+    - gate: refverify single-model-triple-check
+      result: pass
+      details: 3/3 promoted on external MATCH; DOI dedup caught the Cody paper-vs-dissertation collision
+    - gate: RBW (red/blue/white) on stochastic prompt
+      result: partial
+      details: Codex REWORK (delta overclaim) + 2 FIX-THEN-READY; delta re-scoped and ratified
+    - gate: Fable witness (StochMorph)
+      result: pass
+      details: 53/53 checks PASS, predicted numbers matched, SHA-256 recorded; both witnesses
+    - gate: RBW on Target B prompt
+      result: partial
+      details: all 3 FIX-THEN-READY; delta narrowed; held for ratification
+    - gate: Codex domain-critic (stochastic)
+      result: skipped
+      details: in flight at write time (run not stopped)
+  tests_passed: 53              # the StochMorph witness checks
+  tests_failed: 0
+  reviewer_comments_addressed: 11   # RBW fixes folded into the stochastic v2 prompt
+  first_pass_quality_pct: 72    # the v1 delta needed re-scoping (RBW caught it); the hardened v2 passed Fable first try
+
+process:
+  agent_failures: 0
+  retries: 0
+  rework_files: 1               # the stochastic prompt (v1 -> v2)
+  blocked_minutes: 0
+  blockers: >
+    None hard. The v1 delta overclaim was caught by the RBW red leg and re-scoped (the process working,
+    not a block). Two ref-status staleness flags traced to an un-refreshed Unification_candidate.md line.
+  perception_note: >
+    The RBW->Fable->critic pipeline caught real errors a single pass would have shipped: the delta
+    overclaim vs RL Kr/Kp map-residuals, and the reversed Zeigler (E,D) axis in the correspondence.
+    Adversarial multi-model review earned its cost here.
