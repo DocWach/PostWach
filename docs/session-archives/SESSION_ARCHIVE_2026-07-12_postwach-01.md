@@ -55,3 +55,31 @@ verdict ∈ {CLOSED, REFUTED, SPLIT}. **OD-3 HELD for the principal:** if REFUTE
 Target C OD-3 (if REFUTED) + OD-2; the 5 library entries' rigorLevel adjudication → GI-JOE ABox handoff;
 the library DB-hosting coordination (GI-JOE + Alpha Empress); GAP-GIRY/SMDP/fed-RL Fable rounds (grounded
 GO, held on budget/priority). R014 scorecard = `2026-07-12-postwach-01`.
+
+## 7. Update -- the "go go go" push (later 2026-07-12; principal green-lit all remaining Fable runs)
+Target C landed CLOSED (before this push); then, with budget ~68->74% and explicit go-ahead:
+
+FOUR theory rounds CLOSED + committed (all self-verified via witness re-run, codex critics bypassed):
+- GAP-GIRY -- continuous/measurable D_s^cont via sub-sigma-algebras + fiber disintegration; witness
+  stronger than finite (Wasserstein-0 pair with equal fiber entropies still separates). `4d39e05`
+- GAP-SMDP -- K_ta^Sigma timing coordinate (state-indexed holding-time CDFs); WT2 equal-multiset corner
+  defeats all symmetric scalarizations. GAP-COUPLE (PTS/TTS independence fails under lumping) declared. `43ecd70`
+- fed-RL -- homogeneous-kernel bridge (MDP-hom = Salado Def-2 on the stochastic carrier, iff shared
+  kernel); GAP-FEDRL-HET declared not derived. `8cf5d82`
+- Target C PO-1 discharged -- M-C-structural now UNCONDITIONALLY closed under H0-H4. `0f965d4`
+
+SEVEN wave-2 catalog entries committed (`43822a8`): C6 bio-eng neuron/RC, C7 thermal heat/RC-ladder,
+C8 grid-MDP homomorphism, C9 three-body multi-interface, C10 non-compositionality demonstrator (OT-DC on
+the real motor), C11 Giry-continuous, C12 Erlang semi-Markov. Catalog ~7 -> 19, now spanning
+linear/nonlinear/stochastic/coupled/partial/bio-eng/thermal/RL/multi-interface/continuous/timed.
+Honest findings: C7 depth-does-not-order-D_b (refuted the scoping guess); C6 spike-cycle-has-no-RC-extension;
+C10 Lemma ABS spec-correction (total erasure can't fire the witness -> used partial erasure).
+
+Held for the principal (none need Fable): adjudicate the 19 entries' rigorLevel -> GI-JOE ABox handoff;
+library DB hosting (GI-JOE + Alpha Empress); refverify caveats (C6 HH params + RL refs [PLACEHOLDER];
+OneDrive store-sync lag hit some subagents -> re-grep before manuscript). Open (future Fable, not urgent):
+GAP-FEDRL-HET, multi-party/shared-carrier coupling coherence.
+
+Budget ~74% weekly at stop (resets 2026-07-13 8:59pm ET); STOPPED launching to hold buffer; wave-3
+offered, not fired. Session commits this segment: 4d39e05, 43ecd70, 8cf5d82, 0f965d4, 43822a8 (+ the
+decorated-contract, Target C, PO-1, and library wave-1 commits earlier).
