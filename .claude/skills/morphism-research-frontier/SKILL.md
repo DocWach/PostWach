@@ -35,9 +35,15 @@ Path convention: paths beginning `Papers/` resolve under the PostWach hive root
 resolve under `.../00_Hive_Empire/`. If any pinned file below is missing, STOP that branch and
 emit `BLOCKED: missing <path>`; never continue by inference.
 
-## 0. Currency update — 2026-07-10, amended 2026-07-11 (read first)
+## 0. Currency update — 2026-07-10, amended 2026-07-11 and 2026-07-12 (read first)
 
 PROVENANCE: Opus 4.8 (claude-opus-4-8[1m]), Anthropic, Claude Code CLI, 2026-07-10, amended 2026-07-11; principal-directed. Sections 1-12 are the 2026-07-07 Fable 5 authoring and stay valid except as amended here. Now governed by global **[R020] skills-first**; all sibling morphism skills now exist (the Section 9 "not authored yet" fallback notes are stale).
+
+**2026-07-12 — three more rounds CLOSED (the record-separation trunk).** All INTEGRATED-TO-COVERAGE with self-asserting witnesses re-run + SHA-matched; all still R016 (a) research artifacts (survived adversarial verification, not integrated); T-ENRICH DEMOTED in every round (goal-first):
+- **Stochastic (+probability / RL-TL) trunk:** the stochastic-family structural-record separation theorem — the `D_s` record separates morphisms equal on `LumpSTD/Kr-Kp/bisimulation/lax/Wang/Cody`. CLOSED by DIRECT verification (Codex critic hung twice; witness SHA-matched). See `research/StochMorph_candidate.md` + `StochMorph_selfverify_2026-07-12.md`.
+- **Target B (interfaces / coupling / federation):** the `sigma_W` interface-predicate SURVIVAL record over a coupling abstraction (R2->R3 DC-motor witness). Codex critic CLOSED. See `research/TargetB_candidate.md`.
+- **FL (FedAvg aggregation):** `sigma_W` over aggregation, INSTANTIATING Target B (declared aggregation-instance domain + adapter lemma; FedDNA/OT-fusion/Git-Re-Basin ceded, circuit-IoU distinguished). Codex critic CLOSED. See `research/FL_candidate.md`.
+The delta pattern is now confirmed across FOUR sibling families (Zeigler stochastic, RL/MDP, Cody TL, FL alignment): the granular RECORD separates what every scalar/vector prior-art conflates = Lemma CODY-IND generalized. Federated RL and the sigma_W-decorated-contract graded-compositional question are declared GAPs/future entries.
 
 State-of-play amendments (the Section 2/3/4/6 tables are superseded on these rows only):
 - **Target A (Section 4) is CLOSED (2026-07-11).** Candidate results were DERIVED 2026-07-10 via the RBW→Fable pipeline: T-COV (a directed coverage DEFECT — the hemimetric triangle was REFUTED, not proved), T-PART (Option B event-coverage over scoped covered checks), T-DS (record-primary `D_s^{Σ,nonexact} = (K1;K2^Σ;K3^Σ)`, scalar only as a do-not-rank summary), and T-CERT (conditional behavioral certificate + a proved global-bound negative). The v2 completion adopts/cites **Zeigler TMS ch17 §17.4.2** for the a-priori transfer bound (external metric ε; an identical-record CERT-neg pair) and ships a single self-asserting stdlib witness; the Codex domain-critic re-ran the witness (exit 0, SHA-256 match) and returned **CLOSED**. See `research/TargetA_NonlinearPartial_candidate_v2.md` and `research/TargetA_Codex_recheck_v2_2026-07-11.md`. Still an R016 (a) research artifact: CLOSED means the derivation survived adversarial verification, not that it is integrated.
