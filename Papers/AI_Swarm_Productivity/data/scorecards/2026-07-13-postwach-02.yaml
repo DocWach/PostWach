@@ -1,0 +1,127 @@
+schema_version: "1.1"
+
+# --- SESSION METADATA ---
+session:
+  id: 2026-07-13-postwach-02
+  date: 2026-07-13
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "09:00"   # approximate; long multi-day continuation session (resumed via compaction), 07-13 segment
+  end_time: "20:45"     # approximate
+  task_summary: >
+    Ground and formally derive the WySE decision layer (T3SD figures of merit + Kannan acceptability +
+    Set-Based Design) as witness-verified Fable candidates; identify/reorganize the WySE-Theory repo; and
+    RBW-harden the candidates across multiple adversarial rounds.
+
+# --- D1: OUTPUT VOLUME ---
+output:
+  artifacts:
+    - type: code
+      name: wyse-model-generation skill (CREATE) + DC-motor & pendulum exercises (witnessed)
+      action: created
+      lines: 400
+      files: 5
+    - type: analysis
+      name: Fable candidates A,B,C,D,E,F17,F2 (+ witnesses) — decision-layer derivations
+      action: created
+      lines: 6000
+      files: 14
+    - type: analysis
+      name: T3SD + Kannan plain-witness reproductions
+      action: created
+      lines: 500
+      files: 4
+    - type: review
+      name: RBW review files (v1-v5 across A-F17) — adversarial hardening
+      action: created
+      lines: 5000
+      files: 26
+    - type: spec
+      name: run-scoping dossier, Fable backlog, v5 rework scope, T3SD extraction log
+      action: created
+      lines: 1500
+      files: 5
+    - type: config
+      name: WySE-Theory repo by-topic reorganization (git mv, history preserved)
+      action: modified
+      lines: 0
+      files: 264
+    - type: other
+      name: approved.bib reference promotions (11 SBD refs; refverify + attestation)
+      action: modified
+      lines: 120
+      files: 2
+  total_files_created: 56
+  total_files_modified: 270   # incl. 264 git-mv renames + candidates edited across 5 rounds + backlog/README/memory
+  total_lines_written: 14000  # approximate
+  pages_produced: 55          # approximate (candidates + reviews + scope docs, ~40 lines/page)
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 115         # approximate: 5 RBW/rework workflows (~79 agents) + Fable/lit/refverify/repro background agents + stopped batches
+  swarm_topology: hybrid      # Workflow-orchestrated fan-out + background Agents
+  model_primary: claude-opus-4-8   # main loop + adjudication; heavy fable (derivations), sonnet (apply/blue/reproductions), haiku (relays), + Codex red (external, off Claude limit)
+  tokens_input:               # not split
+  tokens_output:              # aggregate subagent tokens ~6.5M across workflows (RBW 1.07M, rework 1.38M, v3 1.05M, v4 1.06M, v5 0.86M) + individual agents
+  total_cost_usd:             # unknown; Codex red legs ran on external ChatGPT sub (off Claude weekly limit)
+  tool_calls:                 # 100s
+  context_compressions: 1     # session resumed from a compaction
+
+# --- D2b: SKILLS UTILIZATION (R020) ---
+skills:
+  skills_first_check: yes     # explicitly gated — user asked "what skills"; R020 applied before executing
+  skills_used:
+    - name: wyse-model-generation
+      how: created + exercised (DC-motor, pendulum) via propose->validate->measure
+    - name: reflookup
+      how: found the local SBD references (singer2009sbd, xu2026set) before drafting
+    - name: refverify
+      how: promoted 11 SBD refs; caught 2 phantom-author/wrong-DOI errors; ran the 3 human-attestations
+    - name: morphism-research-methodology
+      how: the rigor bar / candidate-vs-adopted lifecycle applied to the RBW verdicts
+    - name: morphism-domain-reference
+      how: WySE quintuple + morphism typing reference for the derivations
+  relevant_but_unused:
+    - name: morphism-research-frontier
+      why_not: referenced for target selection but not formally invoked (backlog authored inline)
+    - name: systematic-literature-review / deep-research
+      why_not: used a literature-reviewer background agent for the SBD external review instead of the codified SLR skill
+  skills_modified_created: wyse-model-generation (CREATED; §8 updated each exercise)
+  utilization_note: >
+    High skill-utilization, skills-first honored (user explicitly gated it). The wyse-model-generation
+    CREATE and the reflookup/refverify gates were load-bearing; refverify's R019 discipline caught real
+    citation errors an unverified lit review had asserted.
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: R019 refverify (reference verification + attestation)
+      result: pass
+      details: 11 SBD refs promoted; caught 2 phantom-author/wrong-DOI errors; 3 no-DOI refs human-attested
+    - gate: self-verifying witnesses (predict-first, SHA-pinned)
+      result: pass
+      details: every candidate's witness passed and reproduced its SHA every round (zero regressions)
+    - gate: RBW adversarial hardening (Codex red + Sonnet blue + Opus white, 5 rounds)
+      result: partial
+      details: E, D, B reached CLOSED-HARDENED; A, C, F17 remain REWORK (claim-calibration residuals)
+  tests_passed: all witnesses (7 candidates + 2 reproductions, every round)
+  tests_failed: 0            # zero witness failures / zero math refutations across 5 rounds
+  reviewer_comments_addressed: many   # RBW findings addressed across v2-v5 (some introduced new prose defects, caught by re-adjudication)
+  first_pass_quality_pct: 40  # math was 100% first-pass-sound; CLAIMS were not (all 7 candidates needed RBW rework for overclaims)
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 5   # Codex-exec timeouts across rounds (incl. B/C/F17 red legs) + the discovered 3-day orphaned codex shell
+  retries: 5          # five RBW/rework rounds; plus several stopped/relaunched batch workflows
+  rework_files: 6     # the candidates A,B,C,D,E,F17 edited 3-5+ times each — high rework (claim calibration, not math)
+  blocked_minutes: 0  # no hard block; the Gemini blue leg was down all session (worked around with Sonnet)
+  blockers: >
+    Gemini blue leg down all session (API-key 429; agy/Antigravity installed but not signed in). Intermittent
+    Codex-exec timeouts. Repo-name confusion (local "Fable 5 planning" = DocWach/WySE-Theory). A 3-day
+    orphaned codex shell was found and killed.
+  perception_note: >
+    Faster than manual for the derivations (Fable + witnesses). The claim-calibration iteration was the slow
+    part (5 rounds, asymptotic) but caught genuinely real defects each round; the cross-vendor red leg was
+    decisive twice. Key lesson: witnesses guarantee math, not claims; a live cross-vendor adversary is the
+    instrument that catches over-statement — and per-candidate line-fixing hits whack-a-mole, so global-sweep
+    + universal-quantifier hedging is the converging strategy.
