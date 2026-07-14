@@ -1,0 +1,119 @@
+schema_version: "1.1"
+
+# --- SESSION METADATA ---
+session:
+  id: 2026-07-14-postwach-02
+  date: 2026-07-14
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "09:30"   # approximate
+  end_time: "17:45"     # approximate
+  task_summary: >
+    Restore Gemini as an RBW review leg (via agy), then finish hardening the decision-layer candidates
+    (A, C, F17, B) with a two-red/two-blue cross-vendor harness; then pause Fable and open a consolidation/
+    reachability phase (a single decomposing visual + audience-spectrum write-up).
+
+# --- D1: OUTPUT VOLUME ---
+output:
+  artifacts:
+    - type: analysis
+      name: Fable candidates A (v6-v10), C (v6-v7), F17 (v6-v7), B (v6-v7) -- RBW rework edits
+      action: modified
+      lines: 900
+      files: 4
+    - type: review
+      name: RBW records RBW_A_v6, RBW_A_v9, RBW_C_v6, RBW_B_v6, RBW_F17_v6 (two-red / owed-red hardening)
+      action: created
+      lines: 400
+      files: 5
+    - type: code
+      name: phase-1 visuals (plane_anchor.py rendered PNG; plane_plus_confidence_axis.py held)
+      action: created
+      lines: 220
+      files: 3
+    - type: other
+      name: memory updates (gemini-cli-migration correction; paperbanana backlog; governance-revector seed; distillation seed) + MEMORY.md
+      action: modified
+      lines: 90
+      files: 5
+    - type: other
+      name: session archive + this scorecard
+      action: created
+      lines: 160
+      files: 2
+  total_files_created: 12
+  total_files_modified: 9
+  total_lines_written: 1800   # approximate
+  pages_produced: 20          # approximate
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 0           # NO Workflow/Agent fan-out this session; RBW legs were external-CLI Bash calls
+  external_red_blue_legs: 24  # approximate: Codex + Gemini(agy) red/blue calls across A/C/F17/B rounds + targeted reds
+  swarm_topology: none        # main-loop-orchestrated external CLIs (codex exec, agy --print), not a swarm
+  model_primary: claude-opus-4-8   # main loop + adjudication + APPLY (edits done inline as Opus, not delegated to Sonnet this session)
+  models_external: [codex-gpt-5.5, gemini-3.1-pro-via-agy]   # off the Claude weekly limit
+  tokens_input:
+  tokens_output:              # external legs ran ~30k-110k tokens each on their own subscriptions
+  total_cost_usd:             # Codex on ChatGPT sub, Gemini on agy sub -- off the Claude limit
+  tool_calls:                 # 100s (Edit-heavy; many background Bash red/blue legs)
+  context_compressions: 0
+
+# --- D2b: SKILLS UTILIZATION (R020) ---
+skills:
+  skills_first_check: partial   # RBW methodology + morphism domain-reference applied as the working discipline; no new skill invoked via Skill tool
+  skills_used:
+    - name: morphism-research-methodology
+      how: the RBW rigor bar / candidate-vs-CLOSED-HARDENED lifecycle governed every adjudication
+    - name: morphism-domain-reference
+      how: WySE quintuple / D_s,D_b / morphism typing reference for the candidate math and the plane visual
+  relevant_but_unused:
+    - name: reflookup / refverify
+      why_not: no new references promoted this session; the R019 [PLACEHOLDER] debt was catalogued, deferred to pre-render
+    - name: wyse-model-generation
+      why_not: referenced conceptually (the generate brick in the pipeline framing) but not exercised
+  skills_modified_created: none this session
+  create_candidate: >
+    R020 CREATE candidate surfaced: a `reachability-audit` / `spectrum-explainer` skill (single decomposing
+    anchor visual + audience spectrum). Decided to do it ad hoc once (this consolidation phase) then codify.
+  utilization_note: >
+    Lower explicit skill-invocation than the 07-13 session; this was RBW EXECUTION + a visualization pivot.
+    The morphism methodology/domain skills were the load-bearing knowledge packs.
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: self-verifying witnesses (predict-first, SHA-pinned)
+      result: pass
+      details: every candidate witness reproduced its canonical SHA every round; zero regressions (A f7951c2f, C 77892ea4, F17 bc17d82, B 34af0765)
+    - gate: RBW cross-vendor hardening (Codex red + Gemini red via agy + Opus white)
+      result: pass
+      details: A/C/F17/B all reached CLOSED-HARDENED; Gemini second-red OWED on B/C/F17 (agy quota-blocked ~6 days)
+    - gate: R019 reference verification
+      result: not-run
+      details: no new refs promoted; [PLACEHOLDER] debt catalogued for pre-render; none drafted from memory
+    - gate: figure verify-by-render
+      result: pass
+      details: phase-1 anchor rendered + viewed + title-clip fixed; deterministic matplotlib (no generative image model)
+  tests_passed: all witnesses (A,B,C,D,E,F17,F2) every round
+  tests_failed: 0             # zero math refutations across the whole session
+  reviewer_comments_addressed: many   # ~5 RBW rounds on A, 2 each on B/C/F17; some fixes introduced new prose defects, re-caught
+  first_pass_quality_pct: 30  # math 100% sound first-pass; CLAIMS were not -- my own fixes repeatedly introduced overclaims the reds caught
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 6   # agy quota exhaustion (Gemini out mid-session) + multiple codex-exec timeouts (exit 124) on B targeted reds + a bash-quoting fail (stray apostrophe)
+  retries: 8          # A v6->v10 (5 rounds); B v6->v7; F17 v6->v7; C v6->v7; several red re-fires
+  rework_files: 4     # A,B,C,F17 each edited multiple rounds
+  blocked_minutes: 0  # no hard block; Gemini outage worked around with Codex-only + owed-Gemini
+  blockers: >
+    Gemini/agy hit its subscription quota mid-session (hard ~weekly cap, resets ~149h) -> Gemini second-red
+    owed on B/C/F17. gemini CLI 429. Codex exec timed out repeatedly on B's targeted (c)-bullet re-confirm
+    (tooling). My own fixes on A and B introduced new overclaims (caught same-round by the cross-vendor reds).
+  perception_note: >
+    The two-red / owed-red discipline was decisively worth it: the cross-vendor (Gemini) or owed red caught
+    FOUR real defects that same-vendor or WHITE-substitute checks had ratified, including TWO premature
+    closures (A's ill-posed preorder fence; B's whole v5 closure). Key lesson reinforced: never mark
+    CLOSED-HARDENED on a WHITE-substituted red, and adversarially check the apply/white leg's OWN fixes.
+    Slower part = my fix-then-re-break cycle on A (asymptotic prose calibration), but every round caught a
+    genuine defect. Session then diverged into a consolidation/visualization phase (new workstream).
