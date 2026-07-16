@@ -13,10 +13,12 @@ session:
     Execute cost_instrumentation_spec_2026-07-16. B0 SessionEnd-hook feasibility probe (found: stdin
     exposes no token/cost, but the transcript JSONL at a deterministic path does -> auto-capture feasible
     by transcript-parse; probe armed). B2 stdlib dashboard + backfill estimator. Part A: calibrate
-    (80k output tokens/agent, IQR [63k,103k]) + 10-agent classifier sweep over all 258 scorecards ->
-    corpus backfill ~74.6M subagent tokens [62-91M], (a) MODELED ESTIMATE +/-30-50%. Populated ledger
-    (measured vs estimated + per-row bands), backfill report, dogfooded this session, Alpha Empress
-    governance handoff.
+    (82k output tokens/agent, IQR [65k,105k]) + 10-agent classifier sweep over all scorecards ->
+    corpus backfill ~77.3M subagent tokens [64-94M] (as of 260 cards), (a) MODELED ESTIMATE +/-30-50%.
+    Populated ledger (measured vs estimated + per-row bands), backfill report, dogfooded this session,
+    Alpha Empress governance handoff, /cost-dashboard slash-command wrapper. Reconciled to the living
+    corpus after this session's own scorecard became the 12th calibration point + a concurrent SysMLv2
+    card arrived. Principal gate honored: every published figure carries estimate-flag AND per-row band.
 
 # --- D1: OUTPUT VOLUME ---
 output:
@@ -42,14 +44,19 @@ output:
       lines: 60
       files: 1
     - type: config
-      name: .claude/settings.json SessionEnd probe hook + governance handoff note
+      name: .claude/settings.json SessionEnd probe hook + /cost-dashboard slash-command + governance handoff note
       action: modified
-      lines: 90
+      lines: 120
+      files: 3
+    - type: other
+      name: session archive + project_cost_instrumentation memory
+      action: created
+      lines: 120
       files: 2
-  total_files_created: 6
+  total_files_created: 9
   total_files_modified: 2
-  total_lines_written: 1500   # ~half machine-rendered (report/dashboard/JSON)
-  pages_produced: 20
+  total_lines_written: 1750   # ~half machine-rendered (report/dashboard/JSON)
+  pages_produced: 22
 
 # --- D2: AI EFFICIENCY ---
 ai_efficiency:
