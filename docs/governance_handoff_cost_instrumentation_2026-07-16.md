@@ -26,9 +26,9 @@ for cross-hive consistency (per `cost_instrumentation_spec_2026-07-16.md`, "Gove
 - `data/scorecard_classifications_2026-07-16.json` — 258 sessions typed (10-agent sweep).
 
 ## Headline result (R016: (a) MODELED ESTIMATE, ±30–50%, NOT recovery)
-Full corpus (258 scorecards, Feb 25–Jul 16, all hives): **~74.6M subagent-output tokens [62–91M]**,
-16.65M measured + 57.9M modeled; ~$970 notional (API-rate), **~$0 actual** (subscription/toll-free/Codex).
-Every published figure carries an estimate flag AND a ±band per row.
+Full corpus (260 scorecards as of 2026-07-16, Feb 25–Jul 16, all hives): **~77.3M subagent-output tokens
+[64–94M]**, 17.8M measured + 59.5M modeled; ~$1,005 notional (API-rate), **~$0 actual** (subscription/toll-free/Codex).
+Living figure (recomputed per run). Every published figure carries an estimate flag AND a ±band per row.
 
 ## Registration asks of Alpha Empress
 1. **Register template v1.2** as the cross-hive R014 standard; notify hives the cost block is required.

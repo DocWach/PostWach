@@ -11,36 +11,38 @@ Fable window + Codex-on-ChatGPT-sub, so **actual marginal dollars have been ~0**
 ## Cumulative snapshot (as of 2026-07-16)
 Two scopes — do not conflate:
 - **Recent Fable research line (subset):** ~16.0M subagent tokens (this-conversation ~10.3M precise + prior ~6M est, ±2M).
-- **FULL corpus backfill (all 258 scorecards, all hives, Feb 25–Jul 16):** **~74.6M subagent-output tokens**
-  (band 62–91M; 16.65M measured + 57.9M modeled). R016: **(a) MODELED ESTIMATE ±30–50%**, not recovery.
+- **FULL corpus backfill (all 260 scorecards as of 2026-07-16, all hives, Feb 25–Jul 16):**
+  **~77.3M subagent-output tokens** (band 64–94M; 17.8M measured + 59.5M modeled). R016: **(a) MODELED
+  ESTIMATE ±30–50%**, not recovery. LIVING figure — recomputed per run; shifts as new measured sessions
+  accrue (this session's dogfood is now the 12th calibration point, nudging the per-agent median 80k→82k).
   Method + per-session appendix: `cost_backfill_report_2026-07-16.md`; live rollups: `cost_dashboard_2026-07-16.md`.
 - **actual_marginal_dollars:** ~0  (subscription + toll-free-Fable pre-Jul-19 + Codex external)
-- **notional_per_token_dollars_est:** ~$970 corpus-wide (~$13/M output, blended 40/40/20 Opus/Sonnet/Fable; band $808–1,185).
+- **notional_per_token_dollars_est:** ~$1,005 corpus-wide (~$13/M output, blended 40/40/20 Opus/Sonnet/Fable; band $838–1,221).
 - **measured_dollars:** NOT yet captured -- run `/cost` and record going forward. Auto-capture prototyped
   (transcript-parse; SessionEnd probe armed) — see `.claude/helpers/cost-capture-probe.mjs`.
 
 ## Backfill estimation (all 258 scorecards, 2026-07-16) — MODELED (a)
-Calibration: 11 clean multi-agent measured points → **median 80k output tokens/agent**, IQR [63k, 103k].
-Applied `agents_spawned × 80k` where tokens unrecorded; measured where present; 0-agent = ~0 subagent (main-loop out-of-unit).
-All 258 typed by a 10-agent classifier sweep (reading scorecard + archive).
+Calibration: 12 clean multi-agent measured points → **median 82k output tokens/agent**, IQR [65k, 105k].
+Applied `agents_spawned × 82k` where tokens unrecorded; measured where present; 0-agent = ~0 subagent (main-loop out-of-unit).
+All 260 typed by a 10-agent classifier sweep (reading scorecard + archive) + 2 late-arriving cards.
 
 Every row is a MODELED ESTIMATE with a ±band (from the per-agent IQR), except the `measured` portion.
-`mixed (Nm/Ne)` = N cards measured / N estimated. Auto-synced from `cost_backfill_report_2026-07-16.md`.
+`mixed (Nm/Ne)` = N cards measured / N estimated. Auto-synced from `cost_backfill_report_2026-07-16.md` (as of 260 cards).
 
 | Dimension | Cards | Est subagent tokens | Band | Flag |
 |---|---|---|---|---|
-| **TOTAL** | 258 (926 agents) | **74.6M** | 62.1M–91.2M | mixed (14m/244e) |
-| hive: postwach | 213 | 66.1M | 55.5M–80.3M | mixed (13m/200e) |
-| hive: gijoe | 21 | 4.6M | 3.6M–5.9M | estimated |
-| hive: nnsa | 2 | 1.2M | 0.9M–1.6M | estimated |
-| hive: sead | 6 | 0.9M | 0.7M–1.1M | estimated |
-| hive: sysmlv2 | 7 | 0.4M | 0.3M–0.5M | mixed (1m/6e) |
-| hive: lawsun/fort/roadmapping/finance/other | 9 | 1.4M | 1.1M–1.9M | estimated |
-| type: derivation/Fable | 25 | 31.7M | 28.0M–36.5M | mixed (7m/18e) |
-| type: paper/manuscript | 96 | 18.9M | 15.0M–24.1M | mixed (2m/94e) |
-| type: ops/tooling | 87 | 14.8M | 11.6M–19.0M | estimated |
-| type: review/refverify | 35 | 5.6M | 4.7M–7.0M | mixed (3m/32e) |
-| type: governance | 15 | 3.6M | 2.9M–4.6M | mixed (2m/13e) |
+| **TOTAL** | 260 (935 agents) | **77.3M** | 64.4M–93.9M | mixed (15m/245e) |
+| hive: postwach | 214 | 68.6M | 57.6M–82.8M | mixed (14m/200e) |
+| hive: gijoe | 21 | 4.7M | 3.7M–6.0M | estimated |
+| hive: nnsa | 2 | 1.2M | 1.0M–1.6M | estimated |
+| hive: sead | 6 | 0.9M | 0.7M–1.2M | estimated |
+| hive: sysmlv2 | 8 | 0.4M | 0.3M–0.5M | mixed (2m/6e) |
+| hive: lawsun/fort/roadmapping/finance/other | 9 | 1.5M | 1.2M–1.9M | estimated |
+| type: derivation/Fable | 25 | 32.1M | 28.4M–37.0M | mixed (7m/18e) |
+| type: paper/manuscript | 96 | 19.4M | 15.3M–24.6M | mixed (2m/94e) |
+| type: ops/tooling | 88 | 16.3M | 13.0M–20.6M | mixed (1m/87e) |
+| type: review/refverify | 36 | 5.8M | 4.8M–7.1M | mixed (4m/32e) |
+| type: governance | 15 | 3.7M | 3.0M–4.7M | mixed (2m/13e) |
 
 ## This conversation (precise, from task-notification usage blocks)
 | Session | Scope | Subagent tokens | Regime |

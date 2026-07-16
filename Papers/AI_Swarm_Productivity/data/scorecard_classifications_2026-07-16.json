@@ -2321,6 +2321,24 @@
       "tokens_if_recorded": null,
       "confidence": "high",
       "archive_found": false
+    },
+    {
+      "file": "2026-07-16-postwach-03.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "large",
+      "agents": 11,
+      "tokens_if_recorded": 1159258,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-07-16-sysmlv2-01.yaml",
+      "type": "review/refverify",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": 0,
+      "confidence": "high",
+      "archive_found": false
     }
   ]
 }
