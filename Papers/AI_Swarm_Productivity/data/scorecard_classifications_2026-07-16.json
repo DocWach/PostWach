@@ -1,0 +1,2326 @@
+{
+  "classifications": [
+    {
+      "file": "2026-02-25-postwach-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "medium",
+      "agents": 4,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-02-25-postwach-02.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "medium",
+      "agents": 1,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-03-02-nnsa-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "large",
+      "agents": 8,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-03-02-nnsa-02.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "large",
+      "agents": 7,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-03-03-postwach-01.yaml",
+      "type": "governance",
+      "size_proxy": "large",
+      "agents": 7,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-03-03-postwach-02.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "large",
+      "agents": 3,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-03-04-postwach-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-03-04-postwach-02.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "large",
+      "agents": 5,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-03-06-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-03-06-roadmapping-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "large",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-03-07-gi-joe-01.yaml",
+      "type": "derivation/Fable",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-03-07-gi-joe-02.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-03-07-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-03-07-postwach-02.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-03-07-postwach-03.yaml",
+      "type": "derivation/Fable",
+      "size_proxy": "large",
+      "agents": 3,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-03-07-postwach-04.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "large",
+      "agents": 12,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-03-07-postwach-05.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "large",
+      "agents": 7,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-03-07-postwach-06.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-03-07-postwach-07.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-03-09-gi-joe-01.yaml",
+      "type": "derivation/Fable",
+      "size_proxy": "large",
+      "agents": 8,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-03-09-postwach-02.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "large",
+      "agents": 4,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-03-10-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-03-10-postwach-02.yaml",
+      "type": "governance",
+      "size_proxy": "large",
+      "agents": 12,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-03-11-postwach-01.yaml",
+      "type": "review/refverify",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-03-11-postwach-02.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-03-12-postwach-02.yaml",
+      "type": "review/refverify",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-03-12-postwach-03.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "large",
+      "agents": 4,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-03-13-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 2,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-03-13-postwach-02.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-03-13-postwach-03.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-03-13-postwach-04.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "large",
+      "agents": 2,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-03-16-postwach-02.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-03-17-gi-joe-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "large",
+      "agents": 8,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-03-17-postwach-02.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-03-17-postwach-03.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "small",
+      "agents": 1,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-03-17-postwach-04.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "medium",
+      "agents": 1,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-03-18-sysmlv2-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "medium",
+      "agents": 1,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-03-19-sysmlv2-01.yaml",
+      "type": "review/refverify",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-03-20-postwach-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "medium",
+      "agents": 1,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-03-23-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 3,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-03-23-postwach-02.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 4,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-03-24-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "large",
+      "agents": 6,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-03-24-postwach-02.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-03-24-postwach-03.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-03-25-postwach-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-03-25-postwach-02.yaml",
+      "type": "review/refverify",
+      "size_proxy": "medium",
+      "agents": 3,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-03-25-postwach-03.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-03-25-postwach-04.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-03-26-gi-joe-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "large",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-03-26-gi-joe-02.yaml",
+      "type": "review/refverify",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-03-26-postwach-01.yaml",
+      "type": "governance",
+      "size_proxy": "medium",
+      "agents": 4,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-03-26-postwach-02.yaml",
+      "type": "governance",
+      "size_proxy": "medium",
+      "agents": 8,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-03-27-gijoe-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 3,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-03-27-postwach-01.yaml",
+      "type": "derivation/Fable",
+      "size_proxy": "large",
+      "agents": 4,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-03-27-postwach-02.yaml",
+      "type": "derivation/Fable",
+      "size_proxy": "large",
+      "agents": 4,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-03-30-gijoe-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "large",
+      "agents": 10,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-03-31-gi-joe-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "medium",
+      "agents": 5,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-03-31-gijoe-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "small",
+      "agents": 1,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-03-31-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "small",
+      "agents": 3,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-03-31-postwach-02.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "large",
+      "agents": 8,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-03-31-postwach-03.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-03-31-postwach-04.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "small",
+      "agents": 1,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-04-01-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "small",
+      "agents": 1,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-04-02-postwach-02.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "medium",
+      "agents": 3,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-04-03-postwach-02.yaml",
+      "type": "derivation/Fable",
+      "size_proxy": "large",
+      "agents": 10,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-04-05-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "large",
+      "agents": 15,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-04-06-postwach-01.yaml",
+      "type": "review/refverify",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-04-07-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 8,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-04-08-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-04-10-postwach-02.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "large",
+      "agents": 7,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-04-10-postwach-03.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "large",
+      "agents": 10,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-04-10-sead-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "small",
+      "agents": 3,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-04-11-postwach-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "medium",
+      "agents": 3,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-04-11-postwach-02.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "large",
+      "agents": 21,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-04-11-sead-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "small",
+      "agents": 1,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-04-11-sead-02.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-04-12-gijoe-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "large",
+      "agents": 8,
+      "tokens_if_recorded": 60000,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-04-12-postwach-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "large",
+      "agents": 24,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-04-12-postwach-02.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "small",
+      "agents": 1,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-04-12-sead-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "medium",
+      "agents": 4,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-04-13-postwach-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "medium",
+      "agents": 2,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-04-13-postwach-02.yaml",
+      "type": "review/refverify",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-04-13-postwach-03.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "medium",
+      "agents": 2,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-04-13-postwach-04.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "large",
+      "agents": 11,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-04-14-postwach-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "large",
+      "agents": 4,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-04-14-postwach-02.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "large",
+      "agents": 4,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-04-14-postwach-03.yaml",
+      "type": "governance",
+      "size_proxy": "small",
+      "agents": 1,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-04-14-postwach-04.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 4,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-04-20-postwach-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-04-20-postwach-02.yaml",
+      "type": "review/refverify",
+      "size_proxy": "large",
+      "agents": 15,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-04-21-postwach-01.yaml",
+      "type": "review/refverify",
+      "size_proxy": "medium",
+      "agents": 3,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-04-21-postwach-02.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "medium",
+      "agents": 5,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-04-21-postwach-03.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-04-21-postwach-04.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "large",
+      "agents": 4,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-04-21-sead-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-04-22-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 1,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-04-22-postwach-02.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-04-22-postwach-03.yaml",
+      "type": "review/refverify",
+      "size_proxy": "large",
+      "agents": 4,
+      "tokens_if_recorded": 62715,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-04-23-gi-joe-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-04-23-gi-joe-02.yaml",
+      "type": "review/refverify",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-04-23-postwach-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "large",
+      "agents": 1,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-04-23-postwach-02.yaml",
+      "type": "governance",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-04-23-postwach-03.yaml",
+      "type": "governance",
+      "size_proxy": "medium",
+      "agents": 4,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-04-28-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "large",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-04-29-postwach-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-04-29-postwach-02.yaml",
+      "type": "review/refverify",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-04-29-postwach-03.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-04-30-postwach-01.yaml",
+      "type": "review/refverify",
+      "size_proxy": "large",
+      "agents": 20,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-05-04-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "large",
+      "agents": 1,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-05-04-postwach-02.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-05-04-postwach-03.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-05-04-postwach-04.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-05-04-sysmlv2-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "large",
+      "agents": 8,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-05-05-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-05-06-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-05-07-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-05-08-sysmlv2-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-05-18-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 3,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-05-18-postwach-02.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-05-18-postwach-03.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "large",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-05-19-postwach-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-05-19-postwach-02.yaml",
+      "type": "review/refverify",
+      "size_proxy": "small",
+      "agents": 1,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-05-20-postwach-01.yaml",
+      "type": "derivation/Fable",
+      "size_proxy": "large",
+      "agents": 11,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-05-21-gi-joe-01.yaml",
+      "type": "derivation/Fable",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-05-21-gi-joe-02.yaml",
+      "type": "governance",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-05-21-postwach-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-05-21-postwach-02.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-05-21-postwach-03.yaml",
+      "type": "review/refverify",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-05-21-postwach-04.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-05-21-postwach-05.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "large",
+      "agents": 4,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-05-22-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-05-23-gi-joe-01.yaml",
+      "type": "review/refverify",
+      "size_proxy": "medium",
+      "agents": 4,
+      "tokens_if_recorded": 209131,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-05-23-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 1,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-05-23-postwach-02.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-05-26-sead-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "medium",
+      "agents": 3,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-05-27-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-05-27-postwach-02.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-05-27-postwach-03.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 2,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-05-27-postwach-04.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "large",
+      "agents": 5,
+      "tokens_if_recorded": 400395,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-05-28-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-05-28-postwach-02.yaml",
+      "type": "review/refverify",
+      "size_proxy": "medium",
+      "agents": 3,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-05-28-postwach-03.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "large",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-01-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-01-postwach-02.yaml",
+      "type": "review/refverify",
+      "size_proxy": "small",
+      "agents": 1,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-01-postwach-03.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "large",
+      "agents": 3,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-01-postwach-04.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 2,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-01-postwach-05.yaml",
+      "type": "review/refverify",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-02-postwach-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-06-02-postwach-02.yaml",
+      "type": "review/refverify",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-02-postwach-03.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-02-postwach-04.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 1,
+      "tokens_if_recorded": 88523,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-02-postwach-05.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-03-postwach-02.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "large",
+      "agents": 3,
+      "tokens_if_recorded": 350000,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-04-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-04-postwach-02.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "large",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-04-postwach-03.yaml",
+      "type": "review/refverify",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-04-postwach-04.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "large",
+      "agents": 4,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-04-postwach-05.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "large",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-05-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "large",
+      "agents": 4,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-05-postwach-02.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-08-postwach-01.yaml",
+      "type": "review/refverify",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-08-postwach-02.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-09-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-09-postwach-02.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "large",
+      "agents": 5,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-09-postwach-03.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-09-postwach-04.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-10-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-10-postwach-02.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-10-postwach-03.yaml",
+      "type": "review/refverify",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-12-postwach-01.yaml",
+      "type": "review/refverify",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-12-postwach-02.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 1,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-13-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-13-postwach-02.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-13-postwach-03.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "large",
+      "agents": 7,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-14-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 3,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-15-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "large",
+      "agents": 3,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-15-postwach-02.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 4,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-16-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-16-postwach-02.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-20-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-22-finance-bro-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-06-22-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "small",
+      "agents": 2,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-06-22-postwach-02.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "medium",
+      "agents": 2,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-06-22-postwach-03.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-06-22-postwach-04.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-06-22-postwach-05.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 5,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-06-22-postwach-06.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "large",
+      "agents": 1,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-06-23-postwach-02.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-06-23-postwach-03.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-06-23-sysmlv2-01.yaml",
+      "type": "review/refverify",
+      "size_proxy": "medium",
+      "agents": 4,
+      "tokens_if_recorded": 139000,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-06-23-sysmlv2-02.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-06-23-sysmlv2-03.yaml",
+      "type": "governance",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-06-24-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-06-24-postwach-02.yaml",
+      "type": "review/refverify",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-06-28-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 2,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-06-28-postwach-02.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "large",
+      "agents": 10,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-06-28-postwach-03.yaml",
+      "type": "review/refverify",
+      "size_proxy": "large",
+      "agents": 5,
+      "tokens_if_recorded": 605000,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-06-29-GI-JOE-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-06-29-GI-JOE-02.yaml",
+      "type": "review/refverify",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-06-29-postwach-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-06-29-postwach-02.yaml",
+      "type": "review/refverify",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-06-29-postwach-03.yaml",
+      "type": "governance",
+      "size_proxy": "small",
+      "agents": 1,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-06-29-postwach-04.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "large",
+      "agents": 7,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-06-29-postwach-05.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "large",
+      "agents": 10,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-06-29-postwach-06.yaml",
+      "type": "review/refverify",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-06-29-postwach-07.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-06-30-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 7,
+      "tokens_if_recorded": 441000,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-06-30-postwach-02.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "small",
+      "agents": 1,
+      "tokens_if_recorded": 165627,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-06-30-postwach-03.yaml",
+      "type": "review/refverify",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-01-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-01-postwach-02.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 2,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-01-sysmlv2-02.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-02-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    },
+    {
+      "file": "2026-07-03-postwach-01.yaml",
+      "type": "review/refverify",
+      "size_proxy": "medium",
+      "agents": 3,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-03-postwach-02.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-03-sysmlv2-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "large",
+      "agents": 3,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-06-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "large",
+      "agents": 1,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-07-postwach-01.yaml",
+      "type": "review/refverify",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-07-postwach-03.yaml",
+      "type": "derivation/Fable",
+      "size_proxy": "large",
+      "agents": 10,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-08-postwach-01.yaml",
+      "type": "derivation/Fable",
+      "size_proxy": "medium",
+      "agents": 2,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-08-postwach-02.yaml",
+      "type": "derivation/Fable",
+      "size_proxy": "small",
+      "agents": 1,
+      "tokens_if_recorded": 97200,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-08-postwach-03.yaml",
+      "type": "derivation/Fable",
+      "size_proxy": "large",
+      "agents": 24,
+      "tokens_if_recorded": 620000,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-08-postwach-04.yaml",
+      "type": "derivation/Fable",
+      "size_proxy": "medium",
+      "agents": 3,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-08-postwach-05.yaml",
+      "type": "derivation/Fable",
+      "size_proxy": "medium",
+      "agents": 4,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-09-postwach-01.yaml",
+      "type": "derivation/Fable",
+      "size_proxy": "large",
+      "agents": 10,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-09-postwach-02.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 8,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-09-postwach-03.yaml",
+      "type": "review/refverify",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-09-postwach-04.yaml",
+      "type": "derivation/Fable",
+      "size_proxy": "large",
+      "agents": 31,
+      "tokens_if_recorded": 3200000,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-10-fort-wachs-01.yaml",
+      "type": "governance",
+      "size_proxy": "large",
+      "agents": 5,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-07-10-gi-joe-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "large",
+      "agents": 10,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-07-10-postwach-01.yaml",
+      "type": "derivation/Fable",
+      "size_proxy": "large",
+      "agents": 14,
+      "tokens_if_recorded": 1400000,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-10-postwach-02.yaml",
+      "type": "derivation/Fable",
+      "size_proxy": "large",
+      "agents": 8,
+      "tokens_if_recorded": 1050000,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-10-postwach-03.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-10-postwach-04.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-10-postwach-05.yaml",
+      "type": "governance",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-10-postwach-06.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-10-postwach-07.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-10-postwach-08.yaml",
+      "type": "derivation/Fable",
+      "size_proxy": "large",
+      "agents": 30,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-11-postwach-01.yaml",
+      "type": "derivation/Fable",
+      "size_proxy": "large",
+      "agents": 11,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-11-postwach-02.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-07-12-gijoe-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-07-12-postwach-01.yaml",
+      "type": "derivation/Fable",
+      "size_proxy": "large",
+      "agents": 16,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-12-postwach-02.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "small",
+      "agents": 2,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-13-lawsun-01.yaml",
+      "type": "governance",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-07-13-postwach-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "large",
+      "agents": 10,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-13-postwach-02.yaml",
+      "type": "derivation/Fable",
+      "size_proxy": "large",
+      "agents": 115,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-14-gijoe-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-07-14-lawsun-01.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "large",
+      "agents": 4,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-07-14-postwach-02.yaml",
+      "type": "derivation/Fable",
+      "size_proxy": "large",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-14-postwach-03.yaml",
+      "type": "governance",
+      "size_proxy": "medium",
+      "agents": 3,
+      "tokens_if_recorded": 240605,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-15-postwach-01.yaml",
+      "type": "review/refverify",
+      "size_proxy": "medium",
+      "agents": 5,
+      "tokens_if_recorded": 322898,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-15-postwach-02.yaml",
+      "type": "derivation/Fable",
+      "size_proxy": "large",
+      "agents": 30,
+      "tokens_if_recorded": 2369013,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-15-postwach-03.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 4,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-15-postwach-04.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-15-sysmlv2-01.yaml",
+      "type": "paper/manuscript",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "medium",
+      "archive_found": false
+    },
+    {
+      "file": "2026-07-16-postwach-01.yaml",
+      "type": "derivation/Fable",
+      "size_proxy": "large",
+      "agents": 71,
+      "tokens_if_recorded": 6000000,
+      "confidence": "high",
+      "archive_found": true
+    },
+    {
+      "file": "2026-07-16-postwach-02.yaml",
+      "type": "governance",
+      "size_proxy": "small",
+      "agents": 0,
+      "tokens_if_recorded": 0,
+      "confidence": "medium",
+      "archive_found": true
+    },
+    {
+      "file": "sysmlv2-debugging-retroactive.yaml",
+      "type": "ops/tooling",
+      "size_proxy": "medium",
+      "agents": 0,
+      "tokens_if_recorded": null,
+      "confidence": "high",
+      "archive_found": false
+    }
+  ]
+}
