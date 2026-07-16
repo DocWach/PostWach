@@ -8,7 +8,7 @@
 #   4. Commit to the hive's repo or store in PostWach/Papers/AI_Swarm_Productivity/data/scorecards/
 # =============================================================================
 
-schema_version: "1.1"   # 1.1 (2026-07-10): added D2b skills-utilization block (R020 skills-first instrumentation)
+schema_version: "1.2"   # 1.2 (2026-07-16): D2 token/cost now REQUIRED + structured (tokens_by_workflow, cost_estimate_usd, billing_regime, cumulative_ledger pointer). 1.1 (2026-07-10): added D2b skills-utilization block.
 
 # --- SESSION METADATA (required) ---
 session:
@@ -33,14 +33,25 @@ output:
   total_lines_written:
   pages_produced:        # Prose: ~250 words/page or ~40 lines/page
 
-# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+# --- D2: AI EFFICIENCY (required: agents, topology, model, tokens_output, cost block) ---
+# COST CAPTURE IS NOW REQUIRED (v1.2). subagent_tokens_output is the dominant cost driver; record it.
+# Dollars: prefer the MEASURED figure from the CLI `/cost` (mark measured:true); else a derived estimate
+# with the method. Note the billing_regime -- most Fable-line work has been subscription/toll-free, so
+# actual marginal dollars ~0; a per-token notional estimate is still useful for projection.
 ai_efficiency:
   agents_spawned:
   swarm_topology:        # hierarchical | mesh | star | hybrid | none
-  model_primary:         # e.g., claude-opus-4-20250514
-  tokens_input:          # optional
-  tokens_output:         # optional
-  total_cost_usd:        # optional
+  model_primary:         # e.g., claude-opus-4-8[1m]
+  tokens_input:          # optional (often not surfaced)
+  tokens_output:         # REQUIRED — sum of subagent output tokens (from task-notification usage blocks)
+  tokens_by_workflow:    # REQUIRED when workflows were used — list: [{name: <wf>, tokens: <n>}, ...]
+  cost:                  # REQUIRED
+    total_cost_usd:      #   measured $ from `/cost` if available
+    measured:            #   true | false (false => estimate)
+    cost_estimate_usd:   #   derived $ if not measured (state method in cost_method)
+    cost_method:         #   e.g., "blended API rate ~40/40/20 Opus/Sonnet/Fable on output tokens"
+    billing_regime:      #   subscription | toll-free-Fable | paid-Fable-toll | Codex-external | mixed
+  cumulative_ledger:     # pointer: Papers/AI_Swarm_Productivity/data/fable_cost_ledger.md (running total)
   tool_calls:            # optional
   context_compressions:  # optional
 
