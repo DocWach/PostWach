@@ -1,0 +1,137 @@
+# Session Productivity Scorecard
+schema_version: "1.2"
+
+# --- SESSION METADATA ---
+session:
+  id: 2026-07-16-postwach-04
+  date: 2026-07-16
+  hive: PostWach
+  researcher: Paul Wach
+  start_time:            # not recorded
+  end_time:              # not recorded
+  task_summary: >
+    P1 ("Asserted or Entailed?") revision. Executed the approved 18-finding consistency-audit fix pass,
+    rebuilt PDF+DOCX v9 deliverables, removed a reviewer-rejection-risk future-work row + limitations
+    concession, and HARDENED the SysML v2 assessment through two independent adversaries: routed the
+    design-agnostic listing recast to the SysMLv2 hive (D9, parser-run) and then ran an RBW workflow
+    that reversed two candidate claim framings ("structural via :>", then "sibling-only") and settled
+    on the defensible "no native BOUNDED/degree-valued fidelity morphism" position.
+
+# --- D1: OUTPUT VOLUME ---
+output:
+  artifacts:
+    - type: paper_section
+      name: P1 main.tex + appendix_proof.tex -- 18 audit fixes (SysML design-agnostic recast; Results renderings to head of each approach; homomorphism direction; abstract temper; 4-level axis vocab; Q5/Q6; appendix VM-B label+grammar; Fig2 caption; title) + Table 11 row and limitations concession removed + SysML claim edits + D9 parse fixes (abstract, satisfy split)
+      action: modified
+      lines: 260
+      files: 2
+    - type: code
+      name: DOCX pipeline -- _frontmatter.py (front-matter move + code-left + table-center), _insertlisting.py (SysML listing left-justify/monospace; 3 rewrites paragraphs->nbsp->source-code-table fix)
+      action: created
+      lines: 120
+      files: 2
+    - type: other
+      name: P1 deliverables v9 -- PDF (40pp) + DOCX (front matter fixed; SysML listing left-justified monospace boxed; results matrix verified)
+      action: created
+      lines:
+      files: 2
+    - type: review
+      name: SYSMLV2-VERIF-003 cross-hive routing ticket (design-agnostic recast + 4 checks)
+      action: created
+      lines: 90
+      files: 1
+    - type: analysis
+      name: RBW adversarial workflow (7 agents) testing "SysML v2 has no native VM-to-design fidelity link"
+      action: created
+      lines:
+      files: 1
+  total_files_created: 6
+  total_files_modified: 2
+  total_lines_written: 470
+  pages_produced: 2      # net prose; the bulk was edits + verification, not new pages
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 12     # 5 consistency-audit auditors (start of session) + 7 RBW (4 red / 2 white / 1 synth)
+  swarm_topology: hybrid # RBW: parallel red (barrier) -> parallel white -> synthesis
+  model_primary: claude-opus-4-8[1m]
+  tokens_input:
+  tokens_output: 556080  # RBW measured (task-notification usage block); consistency-audit swarm not captured
+  tokens_by_workflow:
+    - name: rbw-sysml-no-native-link
+      tokens: 556080
+    - name: p1-consistency-audit
+      tokens: not_captured
+  cost:
+    total_cost_usd:
+    measured: false
+    cost_estimate_usd: 42
+    cost_method: "Opus 4.8 output-token notional (~$75/M) on 556k RBW subagent tokens; audit swarm + main-loop not captured"
+    billing_regime: subscription
+  cumulative_ledger: Papers/AI_Swarm_Productivity/data/fable_cost_ledger.md
+  tool_calls: 90
+  context_compressions: 1  # session continued from a compaction summary
+
+# --- D2b: SKILLS UTILIZATION (R020) ---
+skills:
+  skills_first_check: yes   # checked for an RBW/adversarial skill BEFORE spawning; none existed
+  skills_used:
+    - name: refcheck
+      how: R019 pre-render reference gate on P1 (50/50 approved, 0 missing)
+  relevant_but_unused:
+    - name: document-format-fidelity
+      why_not: applied its render-and-compare discipline ad hoc (LibreOffice) but did NOT invoke via the Skill tool -- an R020 gap
+    - name: dialectical-synthesis
+      why_not: considered for the adversarial pass; rejected as the wrong tool (single-agent dialectic, not multi-agent RBW with an independence requirement)
+  skills_modified_created: none   # red-blue-white skill CREATE identified + approved by principal, PENDING next session
+  utilization_note: >
+    Low FORMAL skill utilization. The RBW gap (no red-blue-white skill) meant the adversarial pass was
+    hand-orchestrated via the Workflow tool, and the format-fidelity discipline was re-enacted rather
+    than invoked. Despite the gap the ad hoc adversarial orchestration caught a first-pass over-claim
+    (the "structural" cell), which is the strongest evidence this session that the RBW pattern is worth
+    codifying as a skill.
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: latexmk build (P1 PDF)
+      result: pass
+      details: 40pp, 0 undefined, 0 multiply-defined
+    - gate: refcheck R019
+      result: pass
+      details: 50/50 matched, 0 missing
+    - gate: LibreOffice render-and-look (DOCX v9)
+      result: pass
+      details: front matter (affiliations+keywords left, above abstract), SysML listing (left/monospace/boxed), results matrix headers + "structural" cell verified visually
+    - gate: cross-representation design-agnostic check
+      result: pass
+      details: no residual design.led; all requirement subjects on abstract LightEmittingSystem
+    - gate: SysMLv2 hive parser (D9)
+      result: partial
+      details: caught a blocking parse defect (inline satisfy-by-typed-decl) and VM :> FlashlightDesign unsatisfiable (empty classifier); recommended siblings
+    - gate: RBW adversarial (no-native-link claim)
+      result: partial
+      details: claim-holds-with-caveat -- reversed "structural", refuted D9's "sibling-only" wording, settled on "no bounded/degree-valued fidelity morphism"
+    - gate: parser satisfiability [VERIFY]
+      result: skipped
+      details: 4 satisfiability facts routed to hive D10 (pending) before the manuscript leans on them
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed: 21   # 18 audit findings + 3 D9 changes (RBW-driven claim rewrite pending)
+  first_pass_quality_pct: 60
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 0     # RBW 7/7 + audit 5/5 completed
+  retries: 4            # heredoc regex bad-escape -> script file; Edit file-modified-since-read; DOCX listing alignment iterations
+  rework_files: 3       # _insertlisting.py (3 rewrites), main.tex SysML claim (structural set then to-be-reversed), DOCX listing alignment
+  blocked_minutes: 0
+  blockers: >
+    None external. The SysML claim genuinely required the hive parser (D9) + an RBW pass to settle --
+    a substantive verification dependency, not a process blocker.
+  perception_note: >
+    AI dramatically faster on the 18 mechanical fixes and on the parallel audit/RBW passes. Two areas
+    cost cycles: the DOCX pipeline (pandoc renders the lstlisting as a CENTERED Source-Code table -- ~4
+    render iterations to left-justify), and the SysML claim (I asserted "structural" which the parser
+    and RBW disproved -- a live "measure, don't assume" catch). Net: the adversarial machinery prevented
+    a reviewer-facing over-claim from shipping.
