@@ -23,6 +23,7 @@ import os
 import re
 import sys
 import glob
+import json
 import datetime
 from collections import defaultdict
 
@@ -35,9 +36,83 @@ LEDGER = os.path.join(HERE, "data", "research_token_ledger.md")
 # Blended ~40/40/20 Opus/Sonnet/Fable OUTPUT. (Corrected 2026-07-16: prior model used $13/M,
 # which understated Opus output at $15 instead of $25.)
 NOTIONAL_USD_PER_MTOK_OUT = 0.40 * 25 + 0.40 * 15 + 0.20 * 50  # = 26.0 $/M output tokens
+NOTIONAL_USD_PER_MTOK_IN = 0.40 * 5 + 0.40 * 3 + 0.20 * 10      # = 5.2 $/M input tokens (blended)
+# Cache multipliers on the input rate: write (5-min) 1.25x, read 0.1x.
+USD_CW = NOTIONAL_USD_PER_MTOK_IN * 1.25   # cache-write $/M
+USD_CR = NOTIONAL_USD_PER_MTOK_IN * 0.10   # cache-read  $/M
 
 # Fable-derivation share of tokens (only these become a pay-per-use toll after the Jul-19 cliff).
 FABLE_TOLL_SHARE = 0.175  # midpoint of the spec's 15-20%
+
+# --- Transcript recovery (real four-component API usage; machine-local, ~Jun22-Jul16 only) ---
+import glob as _glob
+from os.path import expanduser as _exp
+TRANSCRIPT_DIR = os.path.join(
+    _exp("~"), ".claude", "projects",
+    "C--Users-pfwac-OneDrive---University-of-Arizona-Documents-03-Projects-00-Hive-Empire-01-Hives-01-PostWach")
+_TS_RE = re.compile(r'"timestamp"\s*:\s*"(\d{4}-\d{2}-\d{2})')
+
+
+def _iso_week_of(datestr):
+    return iso_week(datestr)
+
+
+def parse_transcript_usage(path):
+    """Sum the four API-metered components from a transcript JSONL; date = first line timestamp."""
+    tot = {"input": 0, "cache_write": 0, "cache_read": 0, "output": 0, "turns": 0, "date": None}
+    try:
+        raw = open(path, encoding="utf-8", errors="replace").read()
+    except OSError:
+        return None
+    m = _TS_RE.search(raw)
+    tot["date"] = m.group(1) if m else None
+    for line in raw.split("\n"):
+        if '"usage"' not in line:
+            continue
+        try:
+            o = json.loads(line)
+        except ValueError:
+            continue
+        u = (o.get("message") or {}).get("usage")
+        if not u:
+            continue
+        tot["turns"] += 1
+        tot["input"] += u.get("input_tokens", 0)
+        tot["cache_write"] += u.get("cache_creation_input_tokens", 0)
+        tot["cache_read"] += u.get("cache_read_input_tokens", 0)
+        tot["output"] += u.get("output_tokens", 0)
+    return tot
+
+
+def recover_components():
+    """Parse surviving main + subagent transcripts into per-week four-component totals."""
+    if not os.path.isdir(TRANSCRIPT_DIR):
+        return None
+    main_files = [f for f in _glob.glob(os.path.join(TRANSCRIPT_DIR, "*.jsonl"))
+                  if not os.path.basename(f).startswith("agent-")]
+    sub_files = _glob.glob(os.path.join(TRANSCRIPT_DIR, "**", "agent-*.jsonl"), recursive=True)
+    out = {"main": {}, "subagent": {}}
+    for label, files in (("main", main_files), ("subagent", sub_files)):
+        weeks = defaultdict(lambda: {"input": 0, "cache_write": 0, "cache_read": 0,
+                                     "output": 0, "files": 0, "turns": 0})
+        tot = {"input": 0, "cache_write": 0, "cache_read": 0, "output": 0, "files": 0, "turns": 0}
+        for f in files:
+            u = parse_transcript_usage(f)
+            if not u:
+                continue
+            wk = _iso_week_of(u["date"])
+            for k in ("input", "cache_write", "cache_read", "output", "turns"):
+                weeks[wk][k] += u[k]; tot[k] += u[k]
+            weeks[wk]["files"] += 1; tot["files"] += 1
+        out[label] = {"weeks": dict(weeks), "total": tot}
+    return out
+
+
+def component_cost(t):
+    return (t["input"] * NOTIONAL_USD_PER_MTOK_IN
+            + t["cache_write"] * USD_CW
+            + t["cache_read"] * USD_CR
+            + t["output"] * NOTIONAL_USD_PER_MTOK_OUT) / 1_000_000
 
 FIELD_RE = {
     "id":     re.compile(r"^\s*id:\s*([0-9A-Za-z_.-]+)", re.M),
@@ -324,8 +399,85 @@ def render_backfill_report(cards, cal, agg, tot):
     return "\n".join(L) + "\n", latest
 
 
+def render_recovery(rec, latest):
+    L = []
+    P = L.append
+    P(f"# Cost Recovery — real four-component API usage (transcripts), as of {latest}")
+    P("")
+    P("**R016: (b) RECOVERED / MEASURED**, not modeled — parsed directly from the surviving session and")
+    P("subagent transcript JSONL (`~/.claude/projects/<slug>/`), which carry the four components the API")
+    P("meters: `input` (fresh), `cache_write` (1.25× in), `cache_read` (0.1× in), `output` (full out).")
+    P("This is the ACCURATE cost basis — distinct from the legacy `subagent_tokens` proxy backfill, which")
+    P("is a harness figure ~16× transcript output in the one checkable case (see the backfill report).")
+    P("")
+    P("**Coverage caveat.** Transcripts survive only for **~2026-06-22 → 07-16** (main back to ~06-19).")
+    P("Feb–mid-June has NO transcripts — not recoverable. Not every subagent transcript persists")
+    P("(background / worktree-cleaned agents leave none), so subagent totals are a FLOOR. Dates are the")
+    P("first in-transcript timestamp; dollars are NOTIONAL (blended rates; actual marginal ~0 on subscription).")
+    P("")
+    grand = {"input": 0, "cache_write": 0, "cache_read": 0, "output": 0}
+    for label in ("main", "subagent"):
+        t = rec[label]["total"]
+        for k in grand:
+            grand[k] += t[k]
+    P("## Totals (real API tokens)")
+    P("| stream | files | input | cache_write | cache_read | output | notional $ |")
+    P("|---|---|---|---|---|---|---|")
+    for label in ("main", "subagent"):
+        t = rec[label]["total"]
+        P(f"| {label} | {t['files']} | {fmt_m(t['input'])} | {fmt_m(t['cache_write'])} | "
+          f"{fmt_m(t['cache_read'])} | {fmt_m(t['output'])} | ${component_cost(t):,.0f} |")
+    gc = component_cost(grand)
+    P(f"| **combined** | — | {fmt_m(grand['input'])} | {fmt_m(grand['cache_write'])} | "
+      f"{fmt_m(grand['cache_read'])} | {fmt_m(grand['output'])} | **${gc:,.0f}** |")
+    P("")
+    P("## Cost by component (combined) — where the dollars actually are")
+    P("| component | tokens | rate $/M | notional $ | % of $ |")
+    P("|---|---|---|---|---|")
+    comps = [("input", grand["input"], NOTIONAL_USD_PER_MTOK_IN),
+             ("cache_write", grand["cache_write"], USD_CW),
+             ("cache_read", grand["cache_read"], USD_CR),
+             ("output", grand["output"], NOTIONAL_USD_PER_MTOK_OUT)]
+    for name, tok, rate in comps:
+        c = tok / 1_000_000 * rate
+        P(f"| {name} | {fmt_m(tok)} | ${rate:.2f} | ${c:,.0f} | {(c/gc*100 if gc else 0):.0f}% |")
+    P("")
+    P("*Note the split: `cache_read` is the volume giant but cheap; `output` is small volume but the")
+    P("cost driver. The output-only proxy saw neither the true volume nor the cache cost.*")
+    P("")
+    for label in ("main", "subagent"):
+        P(f"## Per week — {label}")
+        P("| week | files | input | cache_write | cache_read | output | notional $ |")
+        P("|---|---|---|---|---|---|---|")
+        wk = rec[label]["weeks"]
+        for k in sorted(wk, key=lambda w: wk[w]["output"], reverse=True):
+            t = wk[k]
+            P(f"| {k} | {t['files']} | {fmt_m(t['input'])} | {fmt_m(t['cache_write'])} | "
+              f"{fmt_m(t['cache_read'])} | {fmt_m(t['output'])} | ${component_cost(t):,.0f} |")
+        P("")
+    return "\n".join(L) + "\n"
+
+
 def main():
     mode = sys.argv[1] if len(sys.argv) > 1 else "both"
+
+    if mode == "recovery":
+        rec = recover_components()
+        if not rec:
+            print("No transcript dir found — recovery unavailable on this machine.")
+            return
+        latest = "2026-07-16"
+        md = render_recovery(rec, latest)
+        out = os.path.join(HERE, "data", f"cost_recovery_report_{latest}.md")
+        with open(out, "w", encoding="utf-8") as fh:
+            fh.write(md)
+        g = {k: rec["main"]["total"][k] + rec["subagent"]["total"][k]
+             for k in ("input", "cache_write", "cache_read", "output")}
+        print(f"Recovered (real API tokens): output {fmt_m(g['output'])}, cache_read {fmt_m(g['cache_read'])}, "
+              f"notional ${component_cost(g):,.0f}")
+        print(f"Wrote {out}")
+        return
+
     cards = load_cards()
     cal = calibrate(cards)
     cards = estimate(cards, cal)
