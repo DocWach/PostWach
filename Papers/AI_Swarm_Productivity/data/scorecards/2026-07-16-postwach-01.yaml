@@ -1,0 +1,137 @@
+# Session Productivity Scorecard  (session -- CONTINUED FAR past the original save point; full arc in archive UPDATE 2/3 + cost ledger)
+schema_version: "1.2"
+
+# --- SESSION METADATA ---
+session:
+  id: 2026-07-16-postwach-01
+  date: 2026-07-16
+  hive: PostWach
+  researcher: Paul Wach
+  start_time:            # not recorded (continuous session from 2026-07-15)
+  end_time:              # SAVE POINT, not termination
+  task_summary: >
+    Complete the data-fusion Fable wave (Tier-2 F21/F22/F23) and CONSOLIDATE the base before the F9 capstone:
+    reference promotion (14 refs), Tier-2 derivations, a strategic consolidate-then-capstone decision, a
+    consumable results catalog, a consolidation batch (F10/F24/F25 derive + A/B/C/F17 re-confirm), the first
+    source-fetching citation-content audit of the 8 closed results, and v2/v3 closes. Net: 11 CLOSED-HARDENED
+    clean + F10 math-hardened; A/F17 running; B held; F9 gated.
+    CONTINUED FAR PAST THIS SAVE POINT (see archive UPDATE 2/3 + research_token_ledger.md for the full arc + token/cost):
+    A/F17 -> closed; B -> CLOSED-HARDENED (object-complexity finding, not a Kannan flaw); F9 capstone -> REWORK
+    (interface VERIFIED not assumed; a MODEL-enriched institution, full enriched + graded D_s deferred); cost
+    instrumentation (running ledger + template v1.2 + ~74.6M-token full-corpus backfill + cost-dashboard); fresh
+    seeds F26 (shelved), F27 (shallow relabels; redirect REWORK = chain-vs-poset BOUNDARY on Lemma-CODY-IND),
+    F28 (scoped, ripe), and **F29 CLOSED-HARDENED = the FIRST THERMODYNAMIC grounding of the library** (Landauer
+    entropy = the granule-RECORD Shannon functional, distinct from D_s/g_max; a second-law arrow); + the new
+    resource-aware / homeostatic / thermodynamic WySE research thread (memory: research_resource_aware_homeostatic_wyse.md).
+    Net CLOSED-HARDENED now 14 (+B, +F29). Precise per-workflow token/cost for the whole session: research_token_ledger.md
+    (renamed; actual marginal ~$0 -- subscription + toll-free Fable + Codex external).
+    FURTHER CONTINUED 2026-07-16 evening/night: F28 run -> REWORK (re-scopes the asserted D-5, state-pair metric on the
+    key-equipped carrier, not a clean refute). The two thermodynamics theorem POs run as F30 (A.1 homeostasis=free-energy
+    over the viability kernel) + F31 (A.2 record-entropy = A monotone potential on the tower where D_s is not):
+    F30 REWORK/PAUSED (CIRCULAR -- U defined through S so S canceled; collapses to a generic Lyapunov, delta does NOT
+    carry), F31 CLOSED-HARDENED (#15) via r2 close workflow wghwg05nl (delta CARRIES, WySE-specific vs folklore; 4 refs
+    verified+promoted to approved.bib 388->392 clearing R019, labels softened, live Codex red minor-defects, WHITE
+    CLOSED-HARDENED, witness 40f3df4b unchanged). Deliverable: a 1-page WySE overview
+    (Papers/SE_Math_Foundations/WySE_One_Page_Summary_2026-07-16.pdf, pdflatex, rendered+verified). Records finalized
+    across memory/archive/ledger/backlog. Net CLOSED-HARDENED now 15 (+F31).
+
+# --- D1: OUTPUT VOLUME ---
+output:
+  artifacts:
+    - type: analysis
+      name: Fable candidates + witnesses F21/F22/F23/F10/F24/F25 (Fable 5) + rework of A/B/C/F17
+      action: created
+      lines: 2600       # candidate.md + witness.py across the arc, subagent-produced + hand-calibrated
+      files: 12
+    - type: review
+      name: RBW adjudications across the arc (Tier-2 r1/v2, consolidation r1, v2 rework, final close, A/F17)
+      action: created
+      lines: 2400       # ~24 RBW_*.md files, subagent-produced
+      files: 24
+    - type: config
+      name: Reference promotions to approved.bib (14) + manifest + provenance (refverify)
+      action: modified
+      lines: 180
+      files: 2
+    - type: other
+      name: WySE Hardened-Results Catalog (consumable) + memory/backlog/archive updates
+      action: created
+      lines: 260
+      files: 5
+  total_files_created: 40     # ~12 candidate/witness + ~24 RBW + catalog + archive + scorecard + staged bib
+  total_files_modified: 6     # approved.bib, manifest, backlog, 2 memory files, MEMORY.md
+  total_lines_written: 6500   # approximate, dominated by subagent-produced derivations + reviews
+  pages_produced: 75          # approximate
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 71          # approx across the arc: Tier-2 r1 (12) + Tier-2 v2 (9) + refverify (2) + catalog (1) + consolidation (21) + citation audit (8) + v2 rework (12) + final close (4) + A/F17 (2, running)
+  swarm_topology: none        # deterministic Workflow pipelines + background agents; no claude-flow swarm
+  model_primary: claude-opus-4-8[1m]   # orchestration + white + apply; derivations claude-fable-5; red Codex gpt-5.5 (external, off Claude meter); Sonnet apply/blue/audit
+  tokens_input:               # not recorded
+  tokens_output: 6000000      # APPROXIMATE aggregate subagent output across the arc (~6M); not per-logical-session split
+  total_cost_usd:             # not recorded
+  tool_calls:                 # not recorded
+  context_compressions: 0
+
+# --- D2b: SKILLS UTILIZATION ---
+skills:
+  skills_first_check: yes       # invoked refverify + reflookup(via grep) per R020; used the skill this time (prior scorecard flagged not doing so)
+  skills_used:
+    - name: refverify
+      how: single-model triple-check verification + promotion of the 14 gating references to approved.bib
+  relevant_but_unused:
+    - name: morphism-research-methodology
+      why_not: >
+        the rigor/lifecycle/never-CLOSED-without-live-cross-vendor-red discipline was applied throughout via
+        Workflows; the new SOURCE-FETCHING-red lesson is a candidate ADDITION to this skill, not yet written in.
+    - name: morphism-verification-campaign
+      why_not: the RBW campaign ran as bespoke Workflows rather than the codified campaign skill (R020 gap, ongoing).
+  skills_modified_created: none
+  utilization_note: >
+    refverify used correctly (closes the prior scorecard's R020 gap on reference verification). The RBW campaign
+    itself is still Workflow-driven rather than skill-invoked; and a genuine methodology UPGRADE surfaced this arc
+    (reds must fetch cited sources) that should be written into morphism-research-methodology.
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: Witness reproduction (PostWach independent re-run, every candidate every round)
+      result: pass
+      details: all witnesses exit 0, SHAs reproduced/deterministic; hand-edits were prose-only (SHA-preserving) or reported new SHAs
+    - gate: RBW live cross-vendor red (Codex)
+      result: pass
+      details: codexLive=true on all reds this arc; enforced the never-CLOSED-without-live-red rule
+    - gate: Source-fetching citation-content audit (NEW this arc)
+      result: partial
+      details: 5/8 clean; F18/F19 citation errors fixed; A's mislabel in rework; F23 audit false-positive caught; the newly-revealed gap
+    - gate: R016 artifact-integration tagging
+      result: pass
+      details: all candidates/RBW/catalog (a); CLOSED-HARDENED noted (a)-eligible-for-(b) pending refverify, never presented as (b)/(c)
+    - gate: R018 foundation-model provenance
+      result: pass
+      details: PROVENANCE on all candidates/witnesses/RBW/refs incl. cross-vendor delegation tables
+    - gate: R019 reference verification
+      result: pass
+      details: 14 refs verified + promoted; remaining cedes flagged [PLACEHOLDER] pending refverify; no manuscript rendered
+  tests_passed: 13            # distinct self-verifying witnesses reproduced this arc (F21,F22,F23,F10,F24,F25,A,B,C,F17 + reruns of F18/F19/F20)
+  tests_failed: 0
+  reviewer_comments_addressed: 60   # RBW surviving-defect dispositions addressed across the arc (approx)
+  first_pass_quality_pct: 65  # derivations land witness-verified first pass; claim-calibration + the newly-found citation axis take multiple rounds (the recurring decision-layer pattern)
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 0           # all completed; live Codex red succeeded every round (no vendor fallback needed)
+  retries: 3                  # a few memory-edit anchor mismatches (re-grepped) + one Workflow apostrophe parse error (fixed and relaunched)
+  rework_files: 8             # F10/F24/F25/A/B/C/F17 + F19 each edited across multiple rounds -- the calibration loop is the point
+  blocked_minutes: 0
+  blockers: none
+  perception_note: >
+    High-assurance, and the consolidation earned its cost by finding real defects a naive "8 closed" would have
+    shipped: A's false citation surviving 10 rounds, F19's Szpilrajn error, F10's backwards narrative. The
+    biggest methodological result of the arc is a PROCESS upgrade -- source-fetching reds -- not a single
+    theorem. Two candidates (F10, B) revealed themselves as PROSE-FRAGILE / author-judgment cases where
+    automated looping hits diminishing returns; F22 was correctly shelved on thin novelty. Cost was very large
+    (~6M subagent tokens across the arc) but the principal directed sustained autonomous execution and Fable is
+    toll-free pre-Jul-19; the binding constraint is the weekly usage meter. This is a SAVE POINT: A/F17 running,
+    B reserved for a human pass, F9 gated on those.

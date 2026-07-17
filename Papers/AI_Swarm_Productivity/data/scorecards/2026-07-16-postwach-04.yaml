@@ -68,7 +68,7 @@ ai_efficiency:
     cost_estimate_usd: 42
     cost_method: "Opus 4.8 output-token notional (~$75/M) on 556k RBW subagent tokens; audit swarm + main-loop not captured"
     billing_regime: subscription
-  cumulative_ledger: Papers/AI_Swarm_Productivity/data/fable_cost_ledger.md
+  cumulative_ledger: Papers/AI_Swarm_Productivity/data/research_token_ledger.md
   tool_calls: 90
   context_compressions: 1  # session continued from a compaction summary
 

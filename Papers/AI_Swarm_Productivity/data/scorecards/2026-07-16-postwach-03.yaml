@@ -44,7 +44,7 @@ output:
       lines: 650
       files: 3
     - type: analysis
-      name: fable_cost_ledger.md populated (corpus backfill, dogfood row)
+      name: research_token_ledger.md populated (corpus backfill, dogfood row)
       action: modified
       lines: 60
       files: 1
@@ -81,7 +81,7 @@ ai_efficiency:
     cost_estimate_usd: 15     # ~1.16M output x ~$13/M blended API rate
     cost_method: "blended API rate ~40/40/20 Opus/Sonnet/Fable on subagent output tokens; notional only"
     billing_regime: subscription   # no Fable derivation this session; ~0 actual marginal
-  cumulative_ledger: Papers/AI_Swarm_Productivity/data/fable_cost_ledger.md
+  cumulative_ledger: Papers/AI_Swarm_Productivity/data/research_token_ledger.md
   tool_calls:                 # not counted
   context_compressions: 0
 

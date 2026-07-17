@@ -37,7 +37,7 @@ ai_efficiency:
     cost_estimate_usd: 0
     cost_method: "single main-loop session, no subagents/workflows; subscription regime -> ~0 marginal $"
     billing_regime: "subscription"
-  cumulative_ledger: "Papers/AI_Swarm_Productivity/data/fable_cost_ledger.md"
+  cumulative_ledger: "Papers/AI_Swarm_Productivity/data/research_token_ledger.md"
   tool_calls: 12             # approx: greps/reads/bash for repo+artifact grounding, 1 AskUserQuestion
   context_compressions: 0
 

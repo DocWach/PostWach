@@ -1,0 +1,147 @@
+# Session Productivity Scorecard
+schema_version: "1.3"   # first card authored on v1.3; dogfoods the CAPABILITY UTILIZATION block
+
+# --- SESSION METADATA ---
+session:
+  id: 2026-07-17-postwach-01
+  date: 2026-07-17
+  hive: PostWach
+  researcher: Paul Wach
+  start_time:            # not recorded
+  end_time:              # not recorded
+  task_summary: >
+    Reframe the AI_Swarm_Productivity scorecard to capture the FULL harness capability surface (skills,
+    subagents, workflows, swarms, MCP/plugins, memory), not just skills. The literal ask ("reflect skills,
+    agents, swarms, tools used") was interrogated for intent, stress-tested with an RBW adversarial review,
+    then reformulated via GQM (problem-framer). Outcome: schema v1.3 (D2b -> CAPABILITY UTILIZATION,
+    single-source-of-truth, coordination_style, machine-sourced) + a capability-capture daemon spec folded
+    into the cost-instrumentation thread + this dogfood card. Also fixed a stale ledger pointer RBW caught.
+
+# --- D1: OUTPUT VOLUME ---
+output:
+  artifacts:
+    - type: config
+      name: scorecard-template.yaml -> v1.3 (D2b reframed Skills->Capability Utilization; agency placement rule; de-dup by tool-that-fired; single-source-of-truth vs D2; coordination_style added to D2; ambient demoted to record-once; not_captured a valid value)
+      action: modified
+      lines: 45
+      files: 1
+    - type: spec
+      name: capability_capture_spec_2026-07-17.md -- daemon that extends cost-capture.mjs to machine-source D2b from the transcript (metric catalog M1-M12, de-dup, coordination_style discriminator, quiescence constraint)
+      action: created
+      lines: 120
+      files: 1
+    - type: analysis
+      name: RBW adversarial review of the v1.3 schema (8 agents) + GQM measurement formulation (problem-framer)
+      action: created
+      lines:
+      files: 2
+    - type: config
+      name: 5 scorecards -- corrected stale cumulative_ledger pointer (fable_cost_ledger.md -> research_token_ledger.md)
+      action: modified
+      lines: 5
+      files: 5
+  total_files_created: 2
+  total_files_modified: 6
+  total_lines_written: 175
+  pages_produced: 3      # spec + template + card; design-heavy, not prose-heavy
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 9      # 8 RBW (4 red / 1 backstop / 2 white / 1 synth) + 1 problem-framer
+  swarm_topology: none   # no claude-flow swarm; a Workflow-tool orchestration + one Agent-tool spawn
+  coordination_style: workflow  # the RBW ran via the Workflow tool (deterministic DAG); problem-framer was a lone Agent-fanout of 1
+  model_primary: claude-opus-4-8[1m]
+  tokens_input:
+  tokens_output: 685836  # PROXY: subagent_tokens sum (RBW 612882 + problem-framer 72954); NOT verified output (subagent_tokens ~16x proxy per research_token_ledger); main-loop output not captured
+  tokens_by_workflow:
+    - name: rbw-scorecard-v13-schema
+      tokens: 612882
+    - name: problem-framer-gqm
+      tokens: 72954
+  cost:
+    total_cost_usd:
+    measured: false
+    cost_estimate_usd: 18
+    cost_method: "notional $26/M output on 686k subagent PROXY tokens; real output far lower (proxy caveat); subscription => actual marginal ~0"
+    billing_regime: subscription
+  cumulative_ledger: Papers/AI_Swarm_Productivity/data/research_token_ledger.md
+  tool_calls: 24         # main-session (approx); subagents added RBW 69 + problem-framer 6, not summed here
+  context_compressions: 0
+
+# --- D2b: CAPABILITY UTILIZATION (v1.3) ---
+capability_utilization:
+  skills_first_check: yes   # checked for + invoked the red-blue-white skill before executing; engaged problem-framer on the R020 nudge
+  skills_used:
+    - name: red-blue-white
+      how: adversarial stress-test of the v1.3 schema design before commit (verdict claim-holds-with-caveat)
+  relevant_but_unused:
+    - name: two-lens-evaluation
+      why_not: applied the two lenses inline (noted the harness-moment win) but did not invoke the skill via the Skill tool -- a minor R020 gap; the two-lens-critic AGENT was not required (no shelve/retire decision)
+  skills_modified_created: none
+  subagent_types:            # total count is in D2 agents_spawned (9); this is the type breakdown
+    red: 4
+    backstop: 1
+    white: 2
+    synth: 1
+    problem-framer: 1
+  orchestration_runs:
+    - name: rbw-scorecard-v13-schema
+      tool: workflow
+      pattern: parallel-red(barrier)->backstop->parallel-white->synthesis-reconcile
+      agents: 8
+  slash_commands_used: none  # red-blue-white was invoked via the Skill tool, recorded under skills_used (de-dup rule)
+  plugins_engaged: none      # main session called no MCP plugins; Workflow/Agent/Skill are core tools, not plugins
+  mcp_tool_call_count: 0
+  tools_notable:
+    - name: Workflow
+      how: orchestrated the 8-agent RBW as a deterministic DAG (red barrier -> backstop -> white -> synth)
+    - name: AskUserQuestion
+      how: 4 structured intent/scope decisions with the principal before any file write
+  memory_engaged: no
+  stores_written: 0
+  utilization_note: >
+    Highest-leverage capability use of the session was ADVERSARIAL + FORMULATION, not editing. My first v1.3
+    draft (invoked/ambient split, all-required, human-filled) was materially flawed; the RBW skill surfaced
+    fatal defeaters (non-partition, slash=skill double-count, redundancy-with-the-one-consumed-metric, no
+    consumer) and the problem-framer (GQM) reformulated the whole instrument around a capture DAEMON, which
+    dissolved every defeater at once. Zero files were written on the flawed design -- the machinery paid for
+    itself. Strong evidence for R020: using the codified skills changed the outcome.
+  ambient:
+    config_version: "helpers @ 2026-07-17 (auto-memory-hook/intelligence/statusline/hook-handler under active edit per git)"
+    plugins_active: [claude-flow, paperbanana]   # registered/available; not all engaged this session
+    hooks_active: [auto-memory (fired at SessionStart), cost-capture, statusline, intelligence]  # firing status daemon/log-sourced going forward
+    note: cost provenance lives in D2 cost.measured + cost_method + research_token_ledger.md, not here
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: RBW adversarial (v1.3 schema, 8 agents)
+      result: pass
+      details: verdict claim-holds-with-caveat; 2 white panels + objective backstop converged; drove the redesign to a daemon architecture
+    - gate: GQM measurement formulation (problem-framer)
+      result: pass
+      details: produced metric catalog M1-M12 with capture-channel + reconciliation + GAP markers; corrected 2 of my premises against source (agent_failures in D4; consumer reads >1 field)
+    - gate: schema single-source-of-truth check
+      result: pass
+      details: D2b restates no authoritative D2 count; agents_spawned/tool_calls/swarm_topology remain sole sources for analyze_scorecards.py
+    - gate: stale-pointer correctness fix
+      result: pass
+      details: 5 cards repointed fable_cost_ledger.md -> research_token_ledger.md (the live carry-forward failure RBW caught)
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed:
+  first_pass_quality_pct: 40   # my first schema draft was defeated by RBW; value came from the adversarial + formulation passes, not the first attempt
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 0     # RBW 8/8 + problem-framer 1/1 completed
+  retries: 0
+  rework_files: 0       # the design was reworked twice CONCEPTUALLY (draft -> RBW-caveated -> daemon architecture) before any file was written -- the intended order
+  blocked_minutes: 0
+  blockers: none
+  perception_note: >
+    Slower than a naive "add some YAML fields" edit, deliberately: the principal called for RBW before
+    execution and nudged toward a problem-formulation skill. That front-loaded rigor caught a flawed
+    instrument design before it shipped to a research dataset and before touching a live shared hook. The
+    daemon build itself is deferred to a quiescent point (shared .claude/ SessionEnd hook; INCIDENT-001
+    concurrency hazard). Net: correct-by-construction over fast.
