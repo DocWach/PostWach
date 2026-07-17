@@ -52,11 +52,12 @@ Full corpus (260 scorecards as of session end, Feb 25–Jul 16, all hives): **~7
 - **Sweep value:** the aggregate was already fixed by measured agent-counts; the ~1.1M-token sweep bought
   corrected TYPE labels, not a different headline.
 
-## Deliverables (all committed)
-- `.claude/helpers/cost-capture-probe.mjs`, `.claude/settings.json` (SessionEnd probe), `.claude/commands/cost-dashboard.md`
-- `Papers/AI_Swarm_Productivity/cost_dashboard.py`
-- `data/fable_cost_ledger.md` (populated), `data/cost_backfill_report_2026-07-16.md`, `data/cost_dashboard_2026-07-16.md`,
-  `data/scorecard_classifications_2026-07-16.json`
+## Deliverables (all committed) — final state
+- `.claude/helpers/cost-capture.mjs` (B1 live; probe retired), `.claude/settings.json`, `.claude/commands/cost-dashboard.md`
+- `Papers/AI_Swarm_Productivity/cost_dashboard.py` (calibrate/dashboard/report/**recovery**)
+- `data/research_token_ledger.md` (renamed, populated), `data/cost_backfill_report_2026-07-16.md`,
+  `data/cost_dashboard_2026-07-16.md`, `data/cost_recovery_report_2026-07-16.md` (real 4-component),
+  `data/cost_backfill_FROZEN_2026-07-16_260cards.md`, `data/scorecard_classifications_2026-07-16.json`
 - `docs/governance_handoff_cost_instrumentation_2026-07-16.md`
 - Scorecard `data/scorecards/2026-07-16-postwach-03.yaml`; memory `project_cost_instrumentation.md`
 
@@ -64,8 +65,31 @@ Full corpus (260 scorecards as of session end, Feb 25–Jul 16, all hives): **~7
 ~1.16M subagent output tokens (measured: claude-code-guide 52,241 + classifier sweep 1,107,017), ~11 agents,
 ~$15 notional / ~$0 actual (subscription). Main-loop additional (out-of-unit).
 
+## Continuation (same session, after the initial archive)
+Principal drove four follow-ups; all delivered + committed:
+- **B0 empirically CONFIRMED:** SessionEnd stdin carries `transcript_path` directly (the claude-code-guide
+  agent was wrong that only Stop does). Probe file proved it. "Nothing popped up" = the installed hook was
+  a *silent probe*, not real capture.
+- **B1 LIVE** (`cost-capture.mjs`, replaces the probe): parses the transcript for all FOUR API-metered
+  components (input / cache-write 1.25× / cache-read 0.1× / output) + subagent output, appends a per-session
+  row, prints a VISIBLE confirmation. Subagent scrape needed dedup by `<task-id>`/`agentId` + role-filter
+  (raw scrape over-counted ~10× — every Bash `cat` re-injects the figure; verified exact 1,159,258).
+- **Ledger renamed** `fable_cost_ledger.md` → **`research_token_ledger.md`** (all research tokens).
+- **Rate bug fixed:** notional output $13→$26/M (Opus output is $25, not $15); corpus proxy ~$1,983.
+- **UNIT FINDING (measure-don't-assume):** `subagent_tokens` — the backfill's unit — is **NOT** API output
+  tokens. One checkable case: annotation 52,241 vs surviving transcript output 3,269 (~16×, per-turn not
+  cumulative, no clean component match); ratio non-constant. Relabeled everywhere as a harness proxy. The
+  "77M subagent output tokens" was mislabeled; magnitudes internally consistent, unit unverified.
+- **RECOVERY (b) MEASURED** (`cost_dashboard.py recovery`): parsed 39 main + 570 subagent transcripts
+  (~Jun22–Jul16, the only surviving window) into real four-component API usage. Real notional **~$8,642**,
+  **79% cache-dominated** (cache_read 51% + cache_write 28%), output only 19%, input 2%; cache_read volume
+  ~8.5B tokens (~130× output). The output-only proxy saw ~$1,655. This is the accurate cost basis; the
+  subagent_tokens backfill is a legacy relative-activity proxy. Coverage floor (not all subagent transcripts
+  persist; Feb–mid-June gone). `data/cost_recovery_report_2026-07-16.md`.
+- **Snapshot+living design set:** B1 rows = frozen per-session snapshots; dashboard = living; paper cites
+  `data/cost_backfill_FROZEN_2026-07-16_260cards.md`.
+
 ## Next (deferred, not blocking)
-1. B1 full auto-capture: sum subagent `<usage>` annotations, not just main-loop `message.usage`.
-2. Inspect `.claude-flow/data/sessionend-probe.json` next session to confirm the empirical SessionEnd payload.
-3. Alpha Empress: register template v1.2 + hook/dashboard for cross-hive R014 consistency.
-4. Decide whether to FREEZE the paper's number at a pinned corpus snapshot vs let it live.
+1. Alpha Empress: register template v1.2 + hook/dashboard for cross-hive R014 consistency (handoff ready).
+2. Resolve exact `subagent_tokens` definition if a cross-hive proxy is wanted (n=1 clean case here).
+3. Optionally extend recovery coverage if older transcripts can be sourced from archives.

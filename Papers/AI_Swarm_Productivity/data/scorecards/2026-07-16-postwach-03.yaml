@@ -19,6 +19,11 @@ session:
     Alpha Empress governance handoff, /cost-dashboard slash-command wrapper. Reconciled to the living
     corpus after this session's own scorecard became the 12th calibration point + a concurrent SysMLv2
     card arrived. Principal gate honored: every published figure carries estimate-flag AND per-row band.
+    CONTINUATION: B0 confirmed (SessionEnd carries transcript_path); B1 auto-capture made LIVE + visible
+    (4 token components + subagent); ledger renamed research_token_ledger.md; rate fixed $13->$26/M.
+    Measure-don't-assume UNIT FINDING: subagent_tokens != output tokens (52,241 vs 3,269 transcript, ~16x)
+    -> backfill relabeled as a harness proxy. Built RECOVERY (b): parsed 39 main + 570 subagent transcripts
+    into real 4-component API cost ~$8,642 for ~Jun22-Jul16, 79% cache-dominated, output only 19%.
 
 # --- D1: OUTPUT VOLUME ---
 output:
@@ -100,6 +105,17 @@ skills:
 # --- D3: QUALITY GATES ---
 quality:
   gates_run:
+    - gate: unit verification (is subagent_tokens = output tokens?)
+      result: fail-caught
+      details: >
+        measure-don't-assume win — subagent_tokens annotation (52,241) != surviving transcript output
+        (3,269, ~16x, per-turn not cumulative); backfill unit relabeled as harness proxy before publication.
+    - gate: recovery reproducibility (transcript 4-component parse)
+      result: pass
+      details: 39 main + 570 subagent transcripts parsed; real notional ~$8,642, 79% cache-dominated
+    - gate: B1 subagent-token extraction correctness
+      result: pass
+      details: dedup by task-id/agentId + role-filter -> exact 1,159,258 (raw scrape over-counted ~10x)
     - gate: classifier coverage (expected == got)
       result: pass
       details: 258/258 classified, zero drops
