@@ -213,7 +213,11 @@ def render_dashboard(cards, cal, agg, tot):
     P = lines.append
     P(f"# Cost Dashboard — AI_Swarm_Productivity ({tot['n']} scorecards, as of {latest})")
     P("")
-    P("**Unit:** subagent OUTPUT tokens (dominant cost driver). Dollars are a NOTIONAL projection")
+    P("**Unit:** `subagent_tokens` — the harness-reported per-agent figure the scorecards recorded. NOTE")
+    P("(2026-07-16): this is NOT verified to equal API output tokens. In the one case checkable against a")
+    P("surviving subagent transcript, the annotation (52,241) was ~16x the transcript output (3,269); the")
+    P("ratio is not constant (search-heavy agents inflate it). Treat as a harness cost-proxy, not output.")
+    P("Dollars are a NOTIONAL projection")
     P(f"at ~${NOTIONAL_USD_PER_MTOK_OUT:.1f}/M output tokens (blended 40/40/20 Opus/Sonnet/Fable); actual")
     P("marginal $ ~= 0 on subscription + toll-free-Fable + external Codex. **R016: (a) MODELED ESTIMATE.**")
     P("")
@@ -264,7 +268,9 @@ def render_backfill_report(cards, cal, agg, tot):
     P("recorded tokens. Treat the aggregate as an order-of-magnitude (±30–50%), not accounting-grade.")
     P("")
     P("## Method")
-    P("1. **Unit:** subagent OUTPUT tokens (dominant cost driver; the ledger's unit).")
+    P("1. **Unit:** `subagent_tokens` — the harness figure the scorecards recorded. NOT verified = API")
+    P("   output tokens (one checkable case: annotation 52,241 vs transcript output 3,269, ~16x; ratio")
+    P("   varies by agent type). A harness cost-proxy. The `$` applies an output rate to it as an estimate.")
     P("2. **Calibrate:** on scorecards recording both `tokens_output` and `agents_spawned>=2`,")
     P(f"   compute output-tokens-per-agent. n={cal['n']} clean points; per-agent (k tokens): "
       f"{[round(x/1000) for x in cal['raw']]}.")

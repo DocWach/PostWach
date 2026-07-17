@@ -6,12 +6,18 @@ not just the Fable derivation line.*
 Companion to the R014 scorecards. Tracks the **running** token + cost total for the research portfolio,
 which the per-session scorecards did not aggregate before 2026-07-16.
 
-**Units.** A token is not one thing — the API meters **four components** at different prices: `input`
-(fresh, uncached), `cache_write` (1.25× input), `cache_read` (0.1× input; cheap per-token but huge in
-volume), and `output` (the expensive one, ~5× input on Opus). The **backfill** below is **output-only**
-(historical scorecards recorded only `tokens_output`; input/cache are unrecoverable). **Going-forward B1
-auto-capture** (`.claude/helpers/cost-capture.mjs`, SessionEnd) records all four + subagent output per
-session. Rates (per 1M): Opus 4.x $5/$25 in/out, Sonnet 4.6 $3/$15, Fable 5 $10/$50, Haiku 4.5 $1/$5.
+**Units — IMPORTANT (2026-07-16 finding).** The **backfill** unit is `subagent_tokens`, the harness figure
+each scorecard recorded from task-notification `<usage>` blocks. Investigating whether it could be split,
+we found it is **NOT verified to equal API output tokens**: in the one case checkable against a surviving
+subagent transcript, the annotation (52,241) was **~16× the transcript's actual output (3,269)**, and the
+ratio is not constant (search/context-heavy agents inflate it). So `subagent_tokens` is a **harness cost-
+proxy, not output tokens** — the earlier "subagent output tokens" label was wrong; the magnitudes are
+internally consistent but the unit is unverified. **The backfill therefore cannot be cleanly "split" into
+components** — the four API components (`input` / `cache_write` 1.25× / `cache_read` 0.1×, huge volume /
+`output`) live in the session/subagent **transcripts**, a DIFFERENT (and cleaner) measurement that only
+survives for ~Jun 22–Jul 16. **Going-forward B1 auto-capture** (`.claude/helpers/cost-capture.mjs`) reads
+those four real components from the transcript — that is the accurate path; the scorecard `subagent_tokens`
+is a legacy proxy. Rates (per 1M): Opus 4.x $5/$25 in/out, Sonnet 4.6 $3/$15, Fable 5 $10/$50, Haiku 4.5 $1/$5.
 Dollars are **notional** unless marked `measured` (CLI `/cost`); most work ran on subscription +
 toll-free-Fable + Codex-on-sub, so **actual marginal dollars have been ~0**.
 
@@ -103,3 +109,13 @@ work is on ~15-20% of tokens only.
 2. **Capture measured `/cost` dollars** per session going forward (the derived estimates above are a ceiling,
    not a bill).
 3. Fold the B dual-lens tokens in on completion.
+
+
+## Auto-captured sessions (B1, going-forward) <!-- AUTOCAPTURE:B1 -->
+All four API-metered token components + subagent output, per session, parsed from the
+session transcript at SessionEnd. `$` is NOTIONAL (blended rates; actual marginal ~0 on
+subscription). input=fresh uncached, cache_write=1.25x in, cache_read=0.1x in, output=full out.
+
+| session | date | input | cache_write | cache_read | output | subagent_out | notional $ |
+|---|---|---|---|---|---|---|---|
+| 65c8ff32 | session-end | 651443 | 23444924 | 780234759 | 6236091 | 1794251 | $770.29 |

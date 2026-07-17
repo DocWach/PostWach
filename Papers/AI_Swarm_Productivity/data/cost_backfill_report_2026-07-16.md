@@ -7,9 +7,11 @@ subagent output tokens from the fields the scorecards DO carry, calibrated on th
 recorded tokens. Treat the aggregate as an order-of-magnitude (±30–50%), not accounting-grade.
 
 ## Method
-1. **Unit:** subagent OUTPUT tokens (dominant cost driver; the ledger's unit).
+1. **Unit:** `subagent_tokens` — the harness figure the scorecards recorded. NOT verified = API
+   output tokens (one checkable case: annotation 52,241 vs transcript output 3,269, ~16x; ratio
+   varies by agent type). A harness cost-proxy. The `$` applies an output rate to it as an estimate.
 2. **Calibrate:** on scorecards recording both `tokens_output` and `agents_spawned>=2`,
-   compute output-tokens-per-agent. n=13 clean points; per-agent (k tokens): [26, 35, 46, 63, 65, 79, 80, 85, 100, 103, 105, 121, 131].
+   compute output-tokens-per-agent. n=13 clean points; per-agent (k tokens): [26, 35, 53, 63, 65, 79, 80, 85, 100, 103, 105, 121, 131].
    → median **80k**/agent, IQR [63k, 103k].
 3. **Classify:** all 258 sessions typed by a 10-agent classifier sweep reading each scorecard +
    matching archive (260/261 agent-labeled). Types: derivation/Fable, paper/manuscript,
@@ -18,10 +20,10 @@ recorded tokens. Treat the aggregate as an order-of-magnitude (±30–50%), not 
    0-agent sessions → ~0 subagent tokens (main-loop-only; out of this unit).
 
 ## Aggregate
-- **cumulative subagent-output tokens (est):** 76.27M  (band 63.85M–92.89M)
-- measured (14 cards): 18.37M; modeled (244 cards): 57.91M
+- **cumulative subagent-output tokens (est):** 76.35M  (band 63.93M–92.97M)
+- measured (14 cards): 18.44M; modeled (244 cards): 57.91M
 - total agents spawned: 949
-- **notional $ (API-rate, $26/M out):** $1,983 (band $1,660–$2,415); **actual marginal $ ≈ 0**.
+- **notional $ (API-rate, $26/M out):** $1,985 (band $1,662–$2,417); **actual marginal $ ≈ 0**.
 
 *Every token figure below is a MODELED ESTIMATE carrying a ±band (per-agent IQR), except rows
 flagged `measured`; `mixed (Nm/Ne)` = N measured / N estimated cards in that row.*
@@ -29,7 +31,7 @@ flagged `measured`; `mixed (Nm/Ne)` = N measured / N estimated cards in that row
 ### By hive
 | hive | est tokens | band | flag | cards | agents |
 |---|---|---|---|---|---|
-| postwach | 67.79M | 57.16M–82.02M | mixed (15m/200e) | 215 | 841 |
+| postwach | 67.87M | 57.24M–82.10M | mixed (15m/200e) | 215 | 841 |
 | gijoe | 4.57M | 3.59M–5.88M | estimated | 21 | 57 |
 | nnsa | 1.20M | 0.94M–1.55M | estimated | 2 | 15 |
 | sead | 0.88M | 0.69M–1.14M | estimated | 6 | 11 |
@@ -43,7 +45,7 @@ flagged `measured`; `mixed (Nm/Ne)` = N measured / N estimated cards in that row
 ### By session type
 | type | est tokens | band | flag | cards | agents |
 |---|---|---|---|---|---|
-| derivation/Fable | 32.21M | 28.59M–37.07M | mixed (8m/18e) | 26 | 402 |
+| derivation/Fable | 32.29M | 28.66M–37.15M | mixed (8m/18e) | 26 | 402 |
 | paper/manuscript | 18.89M | 14.97M–24.14M | mixed (2m/94e) | 96 | 236 |
 | ops/tooling | 15.92M | 12.75M–20.15M | mixed (1m/87e) | 88 | 195 |
 | review/refverify | 5.64M | 4.66M–6.95M | mixed (4m/32e) | 36 | 71 |
@@ -52,7 +54,7 @@ flagged `measured`; `mixed (Nm/Ne)` = N measured / N estimated cards in that row
 ### By week
 | week | est tokens | band | flag | cards | agents |
 |---|---|---|---|---|---|
-| 2026-W29 | 21.31M | 19.03M–24.38M | mixed (8m/9e) | 17 | 265 |
+| 2026-W29 | 21.39M | 19.11M–24.46M | mixed (8m/9e) | 17 | 265 |
 | 2026-W28 | 12.94M | 11.53M–14.83M | mixed (5m/22e) | 27 | 160 |
 | 2026-W15 | 7.22M | 5.67M–9.29M | estimated | 14 | 90 |
 | 2026-W14 | 4.57M | 3.59M–5.88M | estimated | 11 | 57 |
@@ -345,7 +347,7 @@ flagged `measured`; `mixed (Nm/Ne)` = N measured / N estimated cards in that row
 | 2026-07-16-postwach-01 | 2026-07-16 | postwach | derivation/Fable | 71 | M | 6.00M | — |
 | 2026-07-16-postwach-02 | 2026-07-16 | postwach | governance | 0 | M | 0.00M | — |
 | 2026-07-16-postwach-03 | 2026-07-16 | postwach | ops/tooling | 11 | M | 1.16M | — |
-| 2026-07-16-postwach-04 | 2026-07-16 | postwach | derivation/Fable | 12 | M | 0.56M | — |
+| 2026-07-16-postwach-04 | 2026-07-16 | postwach | derivation/Fable | 12 | M | 0.64M | — |
 | 2026-07-16-sysmlv2-01 | 2026-07-16 | sysmlv2 | review/refverify | 0 | M | 0.00M | — |
 
 *basis: M=measured, E=estimated (agents×median), 0=zero-agent (main-loop only).*
