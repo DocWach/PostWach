@@ -8,7 +8,7 @@ session:
   hive: PostWach
   researcher: Paul Wach
   start_time:            # not recorded
-  end_time:              # not recorded (checkpoint; "do not terminate")
+  end_time:              # not clock-recorded; session CLOSED / terminated at principal direction
   task_summary: >
     Stand up a new research line -- Lego models + analysis adhering to Wymore's T3SD, run as a FORWARD
     systems-engineering process, problem-formulation first, anchored on a "single Lego brick." T3SD ONLY
@@ -39,19 +39,24 @@ output:
       lines: 125
       files: 4
     - type: analysis
-      name: docs/development-log.md -- extensive development narrative + decision log D1-D9 + emergent method + open questions (for dev-rationale + publication pipeline)
+      name: docs/development-log.md -- extensive development narrative + decision log D1-D12 + emergent method + open questions (for dev-rationale + publication pipeline)
       action: created
-      lines: 130
+      lines: 145
+      files: 1
+    - type: spec
+      name: "rounds/round-1/02_ior.md -- SETTLED round-1 IOR = (OLR,IR,ITR,OR,OTR,ER); scalar input, ER=per-region-cap, derived tau=k*c, stateless problem space (named states removed per T3SD faithfulness); commits 37f55de->dac4a1a"
+      action: created
+      lines: 60
       files: 1
     - type: other
       name: PostWach records -- SESSION_ARCHIVE_2026-07-17_postwach-02.md (created + updated this checkpoint); this scorecard; memory project_t3sd_lego_thread.md + feedback_problem_first_not_solution_first.md + MEMORY.md pointers; ruflo store x3
       action: modified
       lines: 220
       files: 5
-  total_files_created: 7   # repo: 01_stakeholder_needs, round-1/README, development-log; PostWach: archive, scorecard, 2 memory files
+  total_files_created: 8   # repo: 01_stakeholder_needs, round-1/README, development-log, 02_ior; PostWach: archive, scorecard, 2 memory files
   total_files_modified: 2  # repo README (rewritten from GitHub init, then refined); MEMORY.md
-  total_lines_written: 460 # repo deliverable + dev log + records; substance mixes deliberation with construction
-  pages_produced: 8        # needs + dev log + README + archive + memory; design/deliberation + construction
+  total_lines_written: 540 # repo deliverable (needs+IOR+dev-log) + records; deliberation + construction
+  pages_produced: 9        # needs + IOR + dev log + README + archive + memory
 
 # --- D2: AI EFFICIENCY ---
 ai_efficiency:
@@ -69,7 +74,7 @@ ai_efficiency:
     cost_method: "single-agent main-loop, no subagents; subscription => actual marginal ~0; notional output cost negligible/uncaptured"
     billing_regime: subscription
   cumulative_ledger: Papers/AI_Swarm_Productivity/data/research_token_ledger.md
-  tool_calls: 52           # recon (~16) + ToolSearch 1 + ruflo 4 + AskUserQuestion 1 + repo gh/clone/commits (~10) + Writes/Edits across repo + records (~20)
+  tool_calls: 74           # recon (~16) + ToolSearch 1 + ruflo 5 + AskUserQuestion 1 + repo gh/clone/commits (~14) + Writes/Edits across repo + records (~37)
   context_compressions: 0
 
 # --- D2b: CAPABILITY UTILIZATION (v1.3) ---
@@ -88,12 +93,12 @@ capability_utilization:
   orchestration_runs: none
   slash_commands_used: none
   plugins_engaged: [claude-flow]   # ruflo memory_search + memory_store (warm-up + checkpoint)
-  mcp_tool_call_count: 4
+  mcp_tool_call_count: 5
   tools_notable:
     - name: AskUserQuestion
       how: 4-question scoping menu early in the session -- which the principal then flagged AS solution-ing; a lesson, not a win
   memory_engaged: yes
-  stores_written: 3         # ruflo: session intent + checkpoint-1 + checkpoint-2 (this update)
+  stores_written: 4         # ruflo: intent + checkpoint-1 + checkpoint-2 + session-close
   utilization_note: >
     Capability USE was thin (no skills, no agents) and that is itself a finding: I did stakeholder-needs
     elicitation without invoking the stakeholder-analysis skill (R020 gap), and I used AskUserQuestion in a
@@ -127,9 +132,12 @@ quality:
     - gate: representation decision for the IOR (Moore/Mealy resolved)
       result: pass
       details: lifecycle-sequence time base + region partition + Moore borne-load state; ER=(a) per-region cap with ER-vs-PR placement of (b)/(c)
+    - gate: IOR settled + T3SD faithfulness (problem space, not system model)
+      result: pass
+      details: scalar input + derived tau=k*c (debate->recommend->execute favored minimal/need-faithful); principal caught a named-states leak -> removed all named states/statuses (failure = E(n)=empty); IOR kept stateless
   tests_passed:
   tests_failed:
-  reviewer_comments_addressed: 4   # 3 method corrections (six-tuple; problem-ing; language discipline) + the S1/S2 symbolic-round realignment
+  reviewer_comments_addressed: 5   # +the named-states-in-IOR faithfulness correction (IOR is a problem space, not a system model)
   first_pass_quality_pct: 45       # framing needed repeated correction (the cost); once aligned, the repo/structure/dev-log/IOR-derivation production was clean
 
 # --- D4: PROCESS HEALTH ---

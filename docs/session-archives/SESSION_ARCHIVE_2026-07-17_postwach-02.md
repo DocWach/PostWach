@@ -3,7 +3,7 @@
 **Hive:** PostWach (CTO / Chief Scientist)
 **Type:** Research framing + method grounding + problem formulation (theme 1 done, theme 2 IOR in progress) + repo/structure setup
 **Provenance (R018):** claude-opus-4-8[1m], Anthropic, Claude Code CLI, principal-directed.
-**Status:** OPEN (checkpoint; not a termination). Theme 1 (stakeholder needs) finalized; theme 2 (IOR) in progress; deliverable repo live; S1/S2 symbolic-round alignment pending.
+**Status:** CLOSED (session terminated at principal's direction). Theme 1 (needs) finalized + theme 2 (IOR) SETTLED for round 1; deliverable repo live (5 commits pushed). Resumes at theme 3 (TYR) / theme 4 (FSD).
 
 ## Objective
 Stand up a new research line: create a set of Lego models + analysis that adhere to Wymore's T3SD, using
@@ -77,7 +77,7 @@ Commits (author Paul Wach, no ruvnet): 3b4e5d6 README scaffold; 7ac8c82 structur
 -- discussion arc + decision log D1-D9 + emergent method + open questions; for dev-rationale + publication).
 Principal confirmed: no verbatim transcript needed, the development log suffices.
 
-### 9. Theme 2 (IOR) -- in progress
+### 9. Theme 2 (IOR) -- SETTLED
 Settled the representation to derive `IOR=(OLR,IR,ITR,OR,OTR,ER)`: (1) **time base** = the lifecycle as a
 sequence of load functions; round 1 uses the FIRST -- a single static load captured two ways (as a standalone
 constant trajectory, one state OK; and as the first function over the lifecycle = the seam to the dynamic
@@ -86,25 +86,38 @@ problem space; principal's refinement, resolves the Moore/Mealy flag by folding 
 borne load**. **ER "spread" choice = (a) per-region cap** -- with the T3SD-native placement that (a) is the
 ER BOUNDARY now, (b) even-distribution is really a **PR ordering** (later), (c) minimum-participation is a
 later ER TIGHTENING. Each of (a)/(b)/(c) lands on a named construct; monotone refinement path.
+**SETTLED (session close):** IOR written to `rounds/round-1/02_ior.md`. Resolved flagged choices: **input =
+scalar total load** `n` (per-region input deferred with off-axis forces); **failure threshold DERIVED
+`τ = k·c`** (no independent material threshold in round 1 -- `E(n)≠∅` iff `n ≤ k·c`). **Faithfulness
+correction (principal):** the IOR is a PROBLEM SPACE, not a system model -- **removed all named
+states/statuses** (dropped the `bearing/failed` output status + the S2 named-regime brackets); failure now
+expressed as an empty eligible set `E(n)=∅`; named states belong to `Z`/FSD (theme 4). `OR=ℕ^k`; free params
+`k`, `c`, `w`. Debate->recommend->execute on both flags favored the minimal, need-faithful option. Commits
+37f55de (draft) -> dac4a1a (settled).
 
-### 10. Symbolic-round plan (alignment in progress)
+### 10. Symbolic-round plan (resolved)
 Principal wants representation handled as its OWN axis (distinct from scope). Two senses of "symbolic"
 disentangled: **S1 abstract-quantitative** (states = per-region unit-weight configs; the CURRENT round-1
 path) vs **S2 generic symbolic states** (named qualitative tokens, e.g. "initial stationary load"; for
 communication/training). PLAN: **round 1 = S1 (continue now); round 2 = full S2 generic re-creation of the
 same static-compression content; round 3 = perhaps COMBINE** (tentative read: relating S1 to its S2
 named-state abstraction is itself a Wymore homomorphism). Nuance: round 1 must name its states anyway, so a
-light S2 companion may sit inside round 1. **OPEN (awaiting principal):** whether round 1 carries an S2
-companion now, or stays pure-S1 with S2 reserved for round 2.
+light S2 companion may sit inside round 1. **RESOLVED (principal):** round 1 carries a LIGHT S2 companion
+(only the named regimes we cannot avoid); FULL generic S2 = round 2. IMPORTANT downstream: per the theme-2
+faithfulness correction, named states do NOT appear in the IOR (a problem space) -- the S2 companion becomes
+concrete only at the FSD (theme 4), where states exist.
 
-## Key decisions / open threads
-- **Theme 1 (stakeholder needs) FINALIZED for round 1**; theme 2 (IOR) in progress.
-- **Representation triple settled** (lifecycle-sequence time base / region partition / Moore borne-load state);
-  **ER = (a) per-region cap** settled; (b)->PR, (c)->later ER tightening.
-- **OPEN:** the S1/S2 symbolic-round alignment (see 10). On confirmation, write `rounds/round-1/02_ior.md` at
-  S1 (ER = per-region cap), then round 2 (S2) and round 3 (combine).
+## Session outcome + resume point
+- **Theme 1 (needs) FINALIZED** and **Theme 2 (IOR) SETTLED** for round 1, both committed to the deliverable
+  repo (`rounds/round-1/01_stakeholder_needs.md`, `02_ior.md`).
+- **Round-1 IOR:** scalar input; ER = per-region cap; `τ = k·c` derived; stateless (no named states, failure =
+  `E(n)=∅`); free params `k` (regions), `c` (per-region cap), `w` (unit-weight).
+- **RESUME AT:** Theme 3 (TYR -- technology must supply a boundary observable as `k` regions each of capacity
+  >= `c`) or Theme 4 (FSD -- the Moore system model `Z`, its states, and the S1/light-S2 named-state treatment).
 - **Deferred considerations logged:** mechanical envelope; dynamic problem space (lifecycle-varying conditions
-  as a parameterized family of T3SD IORs, kept T3SD-native).
+  as a parameterized family of T3SD IORs, kept T3SD-native); (b) even-distribution -> PR; (c) min-participation
+  -> later ER tightening; per-region/positional input + off-axis forces (shear/moment) -> later rounds.
+- **Repo commits this session (author Paul Wach, no ruvnet):** 3b4e5d6, 7ac8c82, ad5855f, 37f55de, dac4a1a.
 
 ## Fences in force
 - T3SD ONLY (no DEVS / WySE / Kannan / SBD). PR/CR/TR stay at Wymore's native ordering level.
