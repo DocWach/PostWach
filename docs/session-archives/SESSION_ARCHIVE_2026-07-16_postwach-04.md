@@ -82,23 +82,43 @@ This is the substantive result of the session.
 ## Artifacts
 - `02 My Outreach/2026 - Dis Pub/manuscript_v3/main.tex`, `appendix_proof.tex` (modified).
 - `.../manuscript_v3/_frontmatter.py`, `_insertlisting.py` (created -- reproducible DOCX pipeline).
-- `.../Asserted_or_Entailed_Verification_Models_P1_2026-07-16_v9.{pdf,docx}` (deliverables).
+- `.../Asserted_or_Entailed_Verification_Models_P1_2026-07-16_v9.{pdf,docx}` and the FINAL
+  `..._v10.{pdf,docx}` (deliverables; v10 shipped to co-authors).
 - `07 SysMLv2/tickets/SYSMLV2-VERIF-003_design_agnostic_recast_check_2026-07-16.md` (created; hive
   returned D9 in `SYSMLV2-VERIF-003_deliverables/`).
 - RBW workflow script `rbw-sysml-no-native-link-wf_2294be2b-ccc.js` (session workflows dir).
+- `01 PostWach/.claude/skills/red-blue-white/SKILL.md` (CREATED via skill-builder background agent;
+  committed `ca541e5`, pushed to origin/main). postwach-04 records committed `54a6f27`, pushed.
 
-## Pending / next steps (NOT executed -- session paused before the consolidated package)
-1. Consolidated edit pass: listing -> siblings; ss5.2 + Background + in-sum + ss5.4 -> the tightened
-   "no bounded-fidelity morphism" claim; results-matrix VM<->SD cell -> "no native fidelity link
-   (declared trace only)"; add a considered-and-rejected clause naming allocation + the feature-selective
-   bind; Methods ss4.2.5 parser-backed assessment method; `[VERIFY]` markers.
-2. **D10 to the hive:** parser-validate the 4 satisfiability facts + supply the parser name/version/
-   citation for the Methods `[PLACEHOLDER]`.
-3. Rebuild v10 (PDF + DOCX).
-4. Create the `red-blue-white` skill (fold in this run's learnings + prior RBW memory).
-5. Open call for the principal: parser described generically ("a conforming SysML v2 parser") vs named
-   in Methods -- affects R016 framing (general method vs specific instrument).
-6. Co-author send is gated on 1-3.
+## Completed after the mid-session archive (2026-07-16 continuation)
+- **Items 1-4 (principal-directed) DONE.** Item 1: the SysML claim package landed and is consistent
+  across abstract, ss2, Methods ss4.2.5 (parser-backed assessment method, generic -- principal confirmed
+  NO reference needed), ss5.2 (existence/characterization/in-sum + considered-and-rejected clause naming
+  allocation/dependency/binding connector), ss5.4, ss6.2, Conclusion, and the results-matrix VM<->SD cell
+  ("Implicit; declared"); listing VMs -> siblings (`:> LightEmittingSystem`). Item 3: references clean
+  (50/50, one `\cite` form, 0 undefined; 31 non-rendering orphans harmless). Item 4: fixed 12 unreferenced
+  appendix tables (added `\Cref` callouts) -> all 29 floats referenced; Figure 1 = WySE metamodel. Item 2
+  (holistic, last): tightened claim verified to propagate with no contradictions.
+- **v10 deliverables** built + verified (PDF 40pp 0-undefined, refcheck 50/50, DOCX siblings-listing
+  left/monospace/boxed confirmed by LibreOffice render). **Shipped to co-authors.**
+- **`red-blue-white` skill CREATED** (7 sections, 7 variant axes, P1 worked example, R016 (a)); committed.
+- **Hive dependency: NONE blocking** -- load-bearing facts parser-confirmed (D9 + RBW red ran the parser);
+  residual satisfiability needs a semantic reasoner the surface parser lacks, so marked spec-grounded
+  rather than gated on a D10.
+
+## Next steps (for pick-up)
+1. **Co-author review** in progress (the external gate).
+2. **Co-author formatting notes (2026-07-16):** (a) extra vertical space in tables -- line spacing between
+   wrapped lines within a single column cell; (b) reference formatting -- rendered bibliography lacked a
+   section title and the number/text alignment read AI-generated; principal made manual adjustments (closer
+   to a citation editor now, still slightly off). Investigate the DOCX table cell spacing and the
+   bibliography rendering (heading + hanging-indent/number alignment) next session.
+3. Pre-submission hands-on references triple-check (external metadata verification, per
+   [[feedback_references_triple_check]]).
+4. RBW skill: 3 principal calls still open -- style depth (lean vs full evidence-ledger + self-test),
+   the `[[project_tri_model_review]]` cross-ref target (commit DONE).
+5. Wiley Systems Engineering template + cover letter (post-readiness).
+6. Optional: `git init` the `manuscript_v3` dir (currently untracked -- no commit trail for these arcs).
 
 ## Memory-worthy (not yet written)
 - pandoc renders `lstlisting` as a CENTER-aligned Source-Code table -> must be left-justified in
