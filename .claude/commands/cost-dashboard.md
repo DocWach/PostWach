@@ -28,6 +28,6 @@ Run the token/cost dashboard for the AI_Swarm_Productivity scorecard corpus.
 
 ## Notes
 - This is a backfill/reporting tool: it recomputes from the scorecards each run. It does NOT append new
-  sessions to `data/fable_cost_ledger.md` — that is the separate auto-capture hook path
-  (`.claude/helpers/cost-capture-probe.mjs`, still at prototype stage).
+  sessions to `data/research_token_ledger.md` — that is the separate B1 auto-capture hook
+  (`.claude/helpers/cost-capture.mjs`, SessionEnd; appends a per-session row + prints a confirmation).
 - Dollars are notional (subscription + toll-free-Fable + external Codex ⇒ ~0 actual marginal); state that.

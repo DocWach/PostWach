@@ -51,7 +51,7 @@ ai_efficiency:
     cost_estimate_usd:   #   derived $ if not measured (state method in cost_method)
     cost_method:         #   e.g., "blended API rate ~40/40/20 Opus/Sonnet/Fable on output tokens"
     billing_regime:      #   subscription | toll-free-Fable | paid-Fable-toll | Codex-external | mixed
-  cumulative_ledger:     # pointer: Papers/AI_Swarm_Productivity/data/fable_cost_ledger.md (running total)
+  cumulative_ledger:     # pointer: Papers/AI_Swarm_Productivity/data/research_token_ledger.md (running total)
   tool_calls:            # optional
   context_compressions:  # optional
 

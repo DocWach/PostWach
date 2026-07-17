@@ -159,7 +159,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node -e \"var c=require('child_process'),p=require('path'),u=require('url'),r;try{r=c.execSync('git rev-parse --show-toplevel',{encoding:'utf8'}).trim()}catch(e){r=process.cwd()}var f=p.join(r,'.claude/helpers/cost-capture-probe.mjs');import(u.pathToFileURL(f).href)\"",
+            "command": "node -e \"var c=require('child_process'),p=require('path'),u=require('url'),r;try{r=c.execSync('git rev-parse --show-toplevel',{encoding:'utf8'}).trim()}catch(e){r=process.cwd()}var f=p.join(r,'.claude/helpers/cost-capture.mjs');import(u.pathToFileURL(f).href)\"",
             "timeout": 8000,
             "continueOnError": true
           },

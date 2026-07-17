@@ -28,12 +28,13 @@ from collections import defaultdict
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SCORECARD_DIR = os.path.join(HERE, "data", "scorecards")
-LEDGER = os.path.join(HERE, "data", "fable_cost_ledger.md")
+LEDGER = os.path.join(HERE, "data", "research_token_ledger.md")
 
 # --- Notional dollar model (for projection only; actual marginal $ ~= 0 on sub/toll-free) ---
-# Blended ~40/40/20 Opus/Sonnet/Fable OUTPUT rate. Opus $15, Sonnet $15, Fable ~$5 per 1M out.
-# (Sonnet-4.6 output priced at Opus tier here as a conservative ceiling.)
-NOTIONAL_USD_PER_MTOK_OUT = 0.40 * 15 + 0.40 * 15 + 0.20 * 5  # = 13.0 $/M output tokens
+# Authoritative Claude output rates per 1M tokens: Opus 4.x $25, Sonnet 4.6 $15, Fable 5 $50.
+# Blended ~40/40/20 Opus/Sonnet/Fable OUTPUT. (Corrected 2026-07-16: prior model used $13/M,
+# which understated Opus output at $15 instead of $25.)
+NOTIONAL_USD_PER_MTOK_OUT = 0.40 * 25 + 0.40 * 15 + 0.20 * 50  # = 26.0 $/M output tokens
 
 # Fable-derivation share of tokens (only these become a pay-per-use toll after the Jul-19 cliff).
 FABLE_TOLL_SHARE = 0.175  # midpoint of the spec's 15-20%

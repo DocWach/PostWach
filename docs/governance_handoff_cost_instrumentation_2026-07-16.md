@@ -20,7 +20,8 @@ for cross-hive consistency (per `cost_instrumentation_spec_2026-07-16.md`, "Gove
    backfill report.
 
 ## Deliverables produced
-- `data/fable_cost_ledger.md` — populated with the corpus-wide backfill (measured vs estimated flags).
+- `data/research_token_ledger.md` (renamed from `fable_cost_ledger.md`) — populated with the corpus-wide
+  backfill (measured vs estimated flags) + B1 auto-capture section (four token components per session).
 - `data/cost_backfill_report_2026-07-16.md` — method + aggregate + per-session appendix, all banded.
 - `data/cost_dashboard_2026-07-16.md` — live rollups.
 - `data/scorecard_classifications_2026-07-16.json` — 258 sessions typed (10-agent sweep).

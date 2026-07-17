@@ -1,12 +1,19 @@
-# Fable / Research-Workflow Cost Ledger (running)
+# Research Token Ledger (running)
 
-Companion to the R014 scorecards. Tracks the **running** token + cost total for the Fable research line,
+*Renamed 2026-07-16 from `fable_cost_ledger.md` — this tracks ALL research token use across every hive,
+not just the Fable derivation line.*
+
+Companion to the R014 scorecards. Tracks the **running** token + cost total for the research portfolio,
 which the per-session scorecards did not aggregate before 2026-07-16.
 
-**Units.** Primary = **subagent output tokens** (the dominant cost driver; read from each workflow/agent
-task-notification `usage` block). Dollars are **derived estimates** unless marked `measured` (from the CLI
-`/cost`). Billing regime is noted per row because most Fable-line work ran on subscription + the toll-free
-Fable window + Codex-on-ChatGPT-sub, so **actual marginal dollars have been ~0** beyond the flat subscription.
+**Units.** A token is not one thing — the API meters **four components** at different prices: `input`
+(fresh, uncached), `cache_write` (1.25× input), `cache_read` (0.1× input; cheap per-token but huge in
+volume), and `output` (the expensive one, ~5× input on Opus). The **backfill** below is **output-only**
+(historical scorecards recorded only `tokens_output`; input/cache are unrecoverable). **Going-forward B1
+auto-capture** (`.claude/helpers/cost-capture.mjs`, SessionEnd) records all four + subagent output per
+session. Rates (per 1M): Opus 4.x $5/$25 in/out, Sonnet 4.6 $3/$15, Fable 5 $10/$50, Haiku 4.5 $1/$5.
+Dollars are **notional** unless marked `measured` (CLI `/cost`); most work ran on subscription +
+toll-free-Fable + Codex-on-sub, so **actual marginal dollars have been ~0**.
 
 ## Cumulative snapshot (as of 2026-07-16)
 Two scopes — do not conflate:
@@ -17,9 +24,13 @@ Two scopes — do not conflate:
   accrue (this session's dogfood is now the 12th calibration point, nudging the per-agent median 80k→82k).
   Method + per-session appendix: `cost_backfill_report_2026-07-16.md`; live rollups: `cost_dashboard_2026-07-16.md`.
 - **actual_marginal_dollars:** ~0  (subscription + toll-free-Fable pre-Jul-19 + Codex external)
-- **notional_per_token_dollars_est:** ~$1,005 corpus-wide (~$13/M output, blended 40/40/20 Opus/Sonnet/Fable; band $838–1,221).
-- **measured_dollars:** NOT yet captured -- run `/cost` and record going forward. Auto-capture prototyped
-  (transcript-parse; SessionEnd probe armed) — see `.claude/helpers/cost-capture-probe.mjs`.
+- **notional_per_token_dollars_est:** ~$1,983 corpus-wide (**output-only**, ~$26/M blended 40/40/20
+  Opus/Sonnet/Fable at corrected rates; band $1,660–2,415). NOTE: corrected 2026-07-16 from an earlier
+  ~$1,005 that used $13/M — it understated Opus output at $15 instead of $25. Adding input+cache would
+  raise this further (cache-read volume is large), but the backfill is output-only.
+- **measured_dollars:** NOT yet captured -- run `/cost` and record going forward. **B1 auto-capture is LIVE**
+  (SessionEnd → `.claude/helpers/cost-capture.mjs` parses the transcript, appends a per-session row with
+  all four token components + subagent output, prints a visible confirmation).
 
 ## Backfill estimation (all 258 scorecards, 2026-07-16) — MODELED (a)
 Calibration: 12 clean multi-agent measured points → **median 82k output tokens/agent**, IQR [65k, 105k].
