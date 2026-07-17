@@ -1,0 +1,147 @@
+# Session Productivity Scorecard
+schema_version: "1.3"
+
+# --- SESSION METADATA ---
+session:
+  id: 2026-07-17-postwach-02
+  date: 2026-07-17
+  hive: PostWach
+  researcher: Paul Wach
+  start_time:            # not recorded
+  end_time:              # not recorded (checkpoint; "do not terminate")
+  task_summary: >
+    Stand up a new research line -- Lego models + analysis adhering to Wymore's T3SD, run as a FORWARD
+    systems-engineering process, problem-formulation first, anchored on a "single Lego brick." T3SD ONLY
+    (no DEVS/WySE) per principal fence. Warm ruflo; ground T3SD from primary sources; debate what
+    "single brick" means; absorb two principal corrections (SDR is a six-tuple; problem-ing not
+    solution-ing); finalize theme 1 (load/force needs, round 1); absorb a 3rd correction (language
+    discipline: "system of interest", not "the brick"); stand up the deliverable repo
+    (DocWach/T3SD-Lego-Exemplar, private) with a round-major hybrid structure + an extensive development
+    log; open theme 2 (IOR), settling the representation triple, ER=(a) per-region cap, and an S1/S2
+    symbolic-round plan. Mix of deliberation and repo construction.
+
+# --- D1: OUTPUT VOLUME ---
+output:
+  artifacts:
+    - type: analysis
+      name: T3SD grounding from sources (dissertation appendix A.2 + McKibben-Wach FO-LTL paper + STOIC stoic-t3sd.ttl); recovered SDR six-tuple (IOR,TYR,PR,CR,TR,STR) and the A1-A9 tuple stack
+      action: reviewed
+      lines:
+      files: 3
+    - type: analysis
+      name: Problem formulation + theme-1 needs (FINALIZED) + 3 principal corrections (SDR six-tuple; problem-ing not solution-ing; language discipline) + theme-2 IOR representation derivation (lifecycle-sequence time base / region partition / Moore borne-load state; ER=(a) per-region cap with ER-vs-PR placement of (b)/(c)) + S1/S2 symbolic-round plan
+      action: created
+      lines:
+      files: 0
+    - type: config
+      name: "Deliverable repo bring-up -- DocWach/T3SD-Lego-Exemplar (private) cloned to 03 Output Artifacts/; round-major hybrid structure; README + rounds/round-1/01_stakeholder_needs.md + rounds/round-1/README.md; 3 commits pushed (3b4e5d6/7ac8c82/ad5855f), author Paul Wach no-ruvnet"
+      action: created
+      lines: 125
+      files: 4
+    - type: analysis
+      name: docs/development-log.md -- extensive development narrative + decision log D1-D9 + emergent method + open questions (for dev-rationale + publication pipeline)
+      action: created
+      lines: 130
+      files: 1
+    - type: other
+      name: PostWach records -- SESSION_ARCHIVE_2026-07-17_postwach-02.md (created + updated this checkpoint); this scorecard; memory project_t3sd_lego_thread.md + feedback_problem_first_not_solution_first.md + MEMORY.md pointers; ruflo store x3
+      action: modified
+      lines: 220
+      files: 5
+  total_files_created: 7   # repo: 01_stakeholder_needs, round-1/README, development-log; PostWach: archive, scorecard, 2 memory files
+  total_files_modified: 2  # repo README (rewritten from GitHub init, then refined); MEMORY.md
+  total_lines_written: 460 # repo deliverable + dev log + records; substance mixes deliberation with construction
+  pages_produced: 8        # needs + dev log + README + archive + memory; design/deliberation + construction
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 0        # pure main-loop deliberation; no Task/Workflow/swarm this session
+  swarm_topology: none
+  coordination_style: single-agent
+  model_primary: claude-opus-4-8[1m]
+  tokens_input:
+  tokens_output: not_captured   # no subagents; main-loop output not instrumented this session
+  tokens_by_workflow:           # none (no workflows)
+  cost:
+    total_cost_usd:
+    measured: false
+    cost_estimate_usd: 0
+    cost_method: "single-agent main-loop, no subagents; subscription => actual marginal ~0; notional output cost negligible/uncaptured"
+    billing_regime: subscription
+  cumulative_ledger: Papers/AI_Swarm_Productivity/data/research_token_ledger.md
+  tool_calls: 52           # recon (~16) + ToolSearch 1 + ruflo 4 + AskUserQuestion 1 + repo gh/clone/commits (~10) + Writes/Edits across repo + records (~20)
+  context_compressions: 0
+
+# --- D2b: CAPABILITY UTILIZATION (v1.3) ---
+capability_utilization:
+  skills_first_check: no    # honest: did NOT check for an applicable skill before the framing/elicitation; stakeholder-analysis was applicable and un-invoked
+  skills_used: none
+  relevant_but_unused:
+    - name: stakeholder-analysis
+      why_not: directly applicable to the theme-1 needs elicitation; ran it ad hoc in prose instead of invoking the skill -- a real R020 gap this session
+    - name: red-blue-white
+      why_not: the framing decisions were load-bearing, but the principal drove the adversarial correction manually (twice); did not stand up an RBW
+    - name: two-lens-evaluation
+      why_not: no shelve/retire decision reached, so the mandatory-trigger did not fire; lens thinking stayed inline
+  skills_modified_created: none
+  subagent_types: none
+  orchestration_runs: none
+  slash_commands_used: none
+  plugins_engaged: [claude-flow]   # ruflo memory_search + memory_store (warm-up + checkpoint)
+  mcp_tool_call_count: 4
+  tools_notable:
+    - name: AskUserQuestion
+      how: 4-question scoping menu early in the session -- which the principal then flagged AS solution-ing; a lesson, not a win
+  memory_engaged: yes
+  stores_written: 3         # ruflo: session intent + checkpoint-1 + checkpoint-2 (this update)
+  utilization_note: >
+    Capability USE was thin (no skills, no agents) and that is itself a finding: I did stakeholder-needs
+    elicitation without invoking the stakeholder-analysis skill (R020 gap), and I used AskUserQuestion in a
+    way the principal correctly read as premature solution-ing. The session's value came from PRINCIPAL-DRIVEN
+    method correction (problem-ing over solution-ing; do not assume the IOR/morphism), not from harness
+    machinery. Next session on this thread should invoke stakeholder-analysis for the IOR derivation.
+  ambient:
+    config_version: "helpers @ 2026-07-17 (auto-memory-hook/intelligence/statusline/hook-handler under active edit per git)"
+    plugins_active: [claude-flow, paperbanana]
+    hooks_active: [auto-memory (fired at SessionStart), cost-capture, statusline, intelligence]
+    note: cost provenance lives in D2 cost.measured + cost_method + research_token_ledger.md, not here
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: source-grounding of T3SD constructs (measure-don't-assume)
+      result: pass
+      details: TYR/STR and the full SDR six-tuple verified against stoic-t3sd.ttl (Wymore 1993; Wach-Zeigler-Salado 2021 Eq A8), not recited from memory
+    - gate: T3SD-only fence (no DEVS/WySE leakage)
+      result: pass
+      details: held PR/CR/TR at Wymore's native ordering level; explicitly declined Kannan acceptability + Set-Based Design
+    - gate: problem-formulation discipline (principal-adjudicated)
+      result: partial
+      details: FAILED first attempts (solution-ing; assumed IOR + morphism character); corrected to a forward problem-first stance
+    - gate: language discipline (solution-neutral referents)
+      result: partial
+      details: principal caught "the brick" phrasing (Correction 3); adopted system-of-interest/unit-weight/boundary/environment thereafter
+    - gate: deliverable repo + round-major structure
+      result: pass
+      details: DocWach/T3SD-Lego-Exemplar cloned, seeded, structured; finalized needs + dev log committed/pushed (3 commits, no-ruvnet)
+    - gate: representation decision for the IOR (Moore/Mealy resolved)
+      result: pass
+      details: lifecycle-sequence time base + region partition + Moore borne-load state; ER=(a) per-region cap with ER-vs-PR placement of (b)/(c)
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed: 4   # 3 method corrections (six-tuple; problem-ing; language discipline) + the S1/S2 symbolic-round realignment
+  first_pass_quality_pct: 45       # framing needed repeated correction (the cost); once aligned, the repo/structure/dev-log/IOR-derivation production was clean
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 0
+  retries: 0
+  rework_files: 1        # repo README touched 3x (GitHub init -> scaffold -> structure -> docs) = incremental scaffold growth, not defect rework; conceptual REFRAMING (x3+1) happened in-dialogue before construction
+  blocked_minutes: 0
+  blockers: none
+  perception_note: >
+    Problem-formulation-heavy with repeated principal course-corrections (3 method + 1 representation-vocabulary
+    realignment). Slower than naive execution, deliberately: no model or tuple was built on an assumed IOR or
+    morphism. Once aligned, construction was efficient (repo bring-up, round-major structure, extensive dev log,
+    IOR representation settled). Net: correct-by-construction over fast. Checkpoint only; session continues
+    (theme-2 IOR write + S1/S2 alignment pending).
