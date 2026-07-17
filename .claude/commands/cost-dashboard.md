@@ -14,8 +14,11 @@ Run the token/cost dashboard for the AI_Swarm_Productivity scorecard corpus.
    python "Papers/AI_Swarm_Productivity/cost_dashboard.py" $ARGUMENTS
    ```
 
-   `$ARGUMENTS` is the optional mode: `calibrate` (terminal only), `dashboard`, `report`, or empty/`both`
-   (default: writes both the dashboard and the backfill report).
+   `$ARGUMENTS` is the optional mode: `calibrate` (terminal only), `dashboard`, `report`, `recovery`, or
+   empty/`both` (default: dashboard + backfill report). **`recovery`** parses the surviving session +
+   subagent transcripts into the REAL four token components (input/cache-write/cache-read/output) for
+   ~Jun22–Jul16 → `cost_recovery_report_<date>.md`; this is the accurate cost basis (the backfill unit
+   `subagent_tokens` is an unverified harness proxy, ~16× transcript output in the one checkable case).
 
 2. The script reads `Papers/AI_Swarm_Productivity/data/scorecards/*.yaml` and, if present,
    `data/scorecard_classifications_2026-07-16.json` (agent-derived type labels; falls back to the

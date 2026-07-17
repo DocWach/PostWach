@@ -38,7 +38,23 @@ Two scopes — do not conflate:
   (SessionEnd → `.claude/helpers/cost-capture.mjs` parses the transcript, appends a per-session row with
   all four token components + subagent output, prints a visible confirmation).
 
-## Backfill estimation (all 258 scorecards, 2026-07-16) — MODELED (a)
+## Recovered real cost (transcripts, ~2026-06-22 → 07-16) — (b) MEASURED
+The **accurate** cost basis: real four-component API tokens parsed from 39 main + 570 subagent
+transcripts (`cost_dashboard.py recovery` → `cost_recovery_report_2026-07-16.md`). Distinct from the
+`subagent_tokens` proxy backfill below.
+
+| stream | input | cache_write | cache_read | output | notional $ |
+|---|---|---|---|---|---|
+| main | 8.4M | 216.7M | 7,547.1M | 55.3M | $6,813 |
+| subagent | 23.2M | 154.3M | 935.6M | 8.4M | $1,829 |
+| **combined** | 31.6M | 371.0M | **8,482.7M** | 63.7M | **$8,642** |
+
+**Where the dollars are:** cache_read 51% + cache_write 28% = **79% cache**, output only 19%, input 2%.
+The output-only view saw ~$1,655 of a real ~$8,642. **Coverage:** transcripts survive ONLY ~Jun22–Jul16
+(Feb–mid-June unrecoverable); subagent totals are a FLOOR (not every subagent transcript persists).
+Actual marginal $ still ~0 (subscription + toll-free-Fable + Codex). Going-forward B1 captures this per session.
+
+## Backfill estimation (all 258 scorecards, 2026-07-16) — MODELED (a), proxy unit
 Calibration: 12 clean multi-agent measured points → **median 82k output tokens/agent**, IQR [65k, 105k].
 Applied `agents_spawned × 82k` where tokens unrecorded; measured where present; 0-agent = ~0 subagent (main-loop out-of-unit).
 All 260 typed by a 10-agent classifier sweep (reading scorecard + archive) + 2 late-arriving cards.

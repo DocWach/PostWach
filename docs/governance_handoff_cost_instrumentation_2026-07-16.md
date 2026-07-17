@@ -25,6 +25,9 @@ for cross-hive consistency (per `cost_instrumentation_spec_2026-07-16.md`, "Gove
 - `data/cost_backfill_report_2026-07-16.md` — method + aggregate + per-session appendix, all banded.
 - `data/cost_dashboard_2026-07-16.md` — live rollups.
 - `data/scorecard_classifications_2026-07-16.json` — 258 sessions typed (10-agent sweep).
+- `data/cost_recovery_report_2026-07-16.md` — (b) MEASURED four-component API cost from transcripts
+  (~Jun22–Jul16): real notional ~$8,642, **79% cache-dominated**, output only 19%. This is the accurate
+  basis; the `subagent_tokens` backfill is an unverified harness proxy (NOT output tokens — ~16× in one case).
 
 ## Headline result (R016: (a) MODELED ESTIMATE, ±30–50%, NOT recovery)
 Full corpus (260 scorecards as of 2026-07-16, Feb 25–Jul 16, all hives): **~77.3M subagent-output tokens
