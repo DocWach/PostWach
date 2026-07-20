@@ -1,0 +1,32 @@
+flowchart TD
+  IN["<b>Requirements file</b><br/><b>+ optional context / ConOps</b>"]
+
+  subgraph ANALYZE["<b>ANALYZE</b>"]
+    AI["<b>AI ANALYZER</b><br/>Checks each requirement vs INCOSE A-criteria<br/>(Necessary, Complete, Unambiguous, ...)<br/>Flags the exact problem phrase + a targeted fix<br/><i>It classifies; it does not rewrite your spec</i>"]
+    ONT["<b>ONTOLOGY GROUNDING</b><br/>42 INCOSE rules &#183; 15 quality characteristics<br/>Every finding tied to a named rule<br/>Minted as RDF, machine-validated (SHACL)"]
+    SET["<b>SET-LEVEL CHECK (optional)</b><br/>Cross-requirement consistency,<br/>completeness, glossary, conflicts"]
+  end
+
+  subgraph DECIDE["<b>DECIDE</b>"]
+    REV["<b>MULTI-REVIEWER CONSENSUS</b><br/>Reviewers vote accept / reject / modify<br/>Weighted by role (lead &#183; senior &#183; junior)<br/>Conflicts surfaced; lead can override"]
+  end
+
+  OUT["<b>Corrected DOCX + structured JSON</b><br/>Every decision logged"]
+  CAL["<b>Per-rule calibration</b><br/>Which rules reviewers uphold vs. dismiss"]
+
+  IN --> AI
+  AI --> ONT
+  ONT --> SET
+  SET --> REV
+  REV --> OUT
+  OUT --> CAL
+  CAL -. "<b>roadmap:</b> calibration sharpens analysis" .-> AI
+
+  classDef analyze fill:#E8F0FE,stroke:#1A4B8C,stroke-width:2px,color:#0B1F3A;
+  classDef decide fill:#FDECEC,stroke:#B23A3A,stroke-width:2px,color:#3A0B0B;
+  classDef io fill:#EAF5EA,stroke:#2E7D32,stroke-width:2px,color:#0B2A0F;
+  classDef cal fill:#FFF7E6,stroke:#B8860B,stroke-width:2px,color:#3A2A00;
+  class AI,ONT,SET analyze;
+  class REV decide;
+  class IN,OUT io;
+  class CAL cal;

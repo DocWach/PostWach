@@ -1,0 +1,4 @@
+{
+  "flowchart": { "htmlLabels": true, "wrappingWidth": 520, "curve": "basis", "padding": 14 },
+  "themeVariables": { "fontFamily": "Segoe UI, Arial, sans-serif", "fontSize": "16px" }
+}

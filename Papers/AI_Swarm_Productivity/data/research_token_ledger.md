@@ -186,3 +186,4 @@ subscription). input=fresh uncached, cache_write=1.25x in, cache_read=0.1x in, o
 | da209e23 | session-end | 96380 | 320691 | 5256788 | 60056 | 0 | $6.88 |
 | d53baeca | session-end | 737486 | 19662919 | 599248395 | 4718235 | 23278520 | $1171.17 |
 | 67939877 | session-end | 132835 | 1237148 | 54891317 | 847847 | 0 | $59.32 |
+| ca9f2ad2 | session-end | 96625 | 1216394 | 8732111 | 112840 | 0 | $15.88 |
