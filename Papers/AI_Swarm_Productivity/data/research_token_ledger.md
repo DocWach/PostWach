@@ -109,6 +109,53 @@ Every row is a MODELED ESTIMATE with a ±band (from the per-agent IQR), except t
 | close A/F17 | 573,862 |
 | **subtotal** | **~6,571,032** |
 
+**Continuation (2026-07-16 evening/night):**
+| Workflow | Tokens | Note |
+|---|---|---|
+| A.1/A.2 = F30+F31 derive+RBW (`wrlsrcqft`) | 612,991 | measured (workflow usage); F30 REWORK-circular (PAUSED), F31 REWORK-carries |
+| F31-close (`wghwg05nl`) refverify+fixes+RBW2 | 264,895 | measured; F31 -> CLOSED-HARDENED #15; approved.bib 388->392 (4 refs) |
+| F32 uniqueness derive+RBW (`wew8t5k0r`) | 329,387 | measured (2026-07-17); F32 -> CLOSED-HARDENED #16 (S is THE potential; 4-axiom) |
+| F32-hardening refverify+fixes+RBW2 (`w0r1i7toq`) | 283,801 | measured; ref gate cleared (Khinchin+Faddeev, ->394) but r2 introduced a wrong A0 table -> REWORK |
+| F32-correction RBW3 (`wcgug91q6`) | 241,849 | measured; A0 table fixed + 3 minors -> F32 MANUSCRIPT-HARD (Codex clean; SHA bb45e07f held) |
+| F34 ParaDEVS refverify+derive+RBW (`w2ssy8bui`) | 340,276 | measured; F34 -> REWORK (predictive dial overclaimed; budget certificate carries) |
+| GST-SLR execute (`wi9m2c709`) | 541,734 | measured; verdict = "GST disproven" is MISATTRIBUTION; v1 manuscript |
+| GST ref-finish + editorial (`wpe005czb`) | 165,863 | measured; 8 refs promoted (store ->407), v2 render-ready |
+| record-unification M1/M2/M3 (`wala9fxl1`) | 807,924 | measured; M1 CLOSED-HARDENED (record carries), M2/M3 REFUTED |
+| F36 boundary r1 (`wypwmg7wb`) | 333,882 | measured; REWORK (sufficiency folklore + misrepresented M2/M3) |
+| F36 rework r2 (`wfoepnhuz`) | 390,897 | measured; CLOSED-HARDENED (family-quantified, 3 regimes) |
+| F34 ParaDEVS 3-way benchmark (`wzq97x20a`) | 357,912 | measured; REFUTED (characterized near-miss, overhead-limited) |
+| reframe builds F38 + F34-STRESS (`wm83yfzmf`) | 673,219 | measured; F34-STRESS CLOSED-HARDENED (obstruction relocates to certificate-tightness); F38 REWORK (ledger) |
+| capstone F38-rework + F39 + flagship (`wv108fl26`) | 850,617 | measured; F38 + F39 CLOSED-HARDENED (F39 = delivered win at xlarge); flagship v1 drafted |
+| F28 HE-noise run + RBW | not separately captured | REWORK (re-scopes D-5); earlier background run, usage not surfaced |
+
+Billing regime: subscription (Opus/Sonnet) + toll-free Fable (pre-Jul-19) + Codex external; actual marginal ~$0.
+
+## 2026-07-19 postwach-01 (per-workflow, subagent PROXY tokens)
+Coherence + index-triad + F30R/F32GP-r2/CPOSET-r2/F9D/F2-r2 session. Units are `subagent_tokens` = the harness
+cost-PROXY (see the units note above; the one checkable case was ~16x the transcript's actual output tokens, so
+these are a proxy, not API output tokens). Total ~4.45M subagent proxy tokens.
+
+| Workflow | Tokens | Note |
+|---|---|---|
+| wbzwwzdcu | 1,244,456 | measured (workflow usage) |
+| wgtnkk63k | 265,158 | measured |
+| w3sxnoge0 | 264,150 | measured |
+| wflhgbv9o | 704,282 | measured |
+| ledger-build | 188,302 | measured; FABLE_RUN_LEDGER (index triad) |
+| artifact-catalog | 97,246 | measured; FABLE_ARTIFACT_CATALOG |
+| decision-log | 215,177 | measured; FABLE_DECISION_LOG |
+| wa174f239 | 262,489 | measured |
+| wu361wt8g | 445,383 | measured |
+| w99geposp | 190,809 | measured |
+| whbdqk8as | 98,550 | measured (failed-retry) |
+| wktaedq7c | 284,068 | measured |
+| friston-gap | 73,757 | measured; F30R Friston gap-closer prior-art check |
+| fence-retire | 112,082 | measured; C/F18 fence retirement |
+| **total** | **~4,445,909** | ~4.45M subagent PROXY tokens (~16x proxy caveat) |
+
+Billing regime: subscription (Opus/Sonnet) + Codex external; Fable cliff (Jul 19) now in effect but this
+session's derives/fixes ran on Opus (cliff-immune). Actual marginal ~$0.
+
 ## Prior sessions (2026-07-12..07-14, before this conversation) — ESTIMATE
 | Span | Scope | Subagent tokens (est) | Basis |
 |---|---|---|---|
@@ -135,3 +182,5 @@ subscription). input=fresh uncached, cache_write=1.25x in, cache_read=0.1x in, o
 | session | date | input | cache_write | cache_read | output | subagent_out | notional $ |
 |---|---|---|---|---|---|---|---|
 | 65c8ff32 | session-end | 651443 | 23444924 | 780234759 | 6236091 | 1794251 | $770.29 |
+| fe50cae8 | session-end | 226240 | 2174215 | 115193862 | 577384 | 1159258 | $120.36 |
+| da209e23 | session-end | 96380 | 320691 | 5256788 | 60056 | 0 | $6.88 |
