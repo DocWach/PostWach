@@ -64,6 +64,18 @@ dialectical-synthesis, emergence-detection, emergent-inquiry, epistemic-inquiry,
 **Cross-Domain Analysis (3 skills):**
 biomimetics-analyst, transfer-learning-analyst, cognitive-study-designer
 
+**Evaluation & Governance (2026-07-17):**
+- **two-lens-evaluation** (skill) + **two-lens-critic** (agent) — the principal's two mandatory evaluation lenses applied to every candidate / result / seed / scoping decision: (1) research novelty & advancement (does the delta carry?), and (2) the Steve Jobs iPhone / harness moment (harness existing tech + deliver it transformatively in-hand). The skill is the METHOD; the critic agent is the independent GATE (required before any shelve / retire; counters the author-rationalizes-shelving failure mode surfaced by the F34 miss). Cross-references `morphism-research-methodology` (lens-1 carry-gate); composes with `red-blue-white`. **R016: (a) research artifact; PENDING Alpha Empress governance registration** (handoff `docs/AlphaEmpress_registration_two-lens_2026-07-17.md`). Cross-hive evaluative discipline, not PostWach-local.
+
+**Deliverable-QA skills (2026-07-16):**
+- **document-format-fidelity** (skill) — produce a document in one format (esp. DOCX from LaTeX/Markdown) that matches a reference's RENDERED look across ALL formatting dimensions, verified by rendering both and comparing by eye. Reference-doc-first for DOCX (pandoc `--reference-doc`); enabled by the now-installed LibreOffice headless renderer + Latin Modern fonts. Codifies [[feedback_holistic_formatting_fidelity]].
+- **document-qa** (skill) — pre-signoff QA scan for a Word/PDF deliverable: duplicate/missing figure & table labels, orphaned captions, missing in-text callouts, inconsistent table/caption formatting, leftover scaffolding, heading-hierarchy outliers. Run BEFORE calling any deliverable camera-ready. Complements document-format-fidelity (LOOK vs internal CONSISTENCY). Closes the deferred document-QA-procedure TODO.
+- **wyse-model-generation**, **red-blue-white** (skills, 2026-07) — see WySE research methodology stack; both R020-invokable.
+
+**Instrumentation & bridges (2026-07):**
+- **Graphify → ruflo/AgentDB bridge** — MIT KG tool wired to ruflo memory; L3 SessionStart hook LIVE; Fort Wachs CISO gate (FW-GRAPHIFY-001; local code-only cleared, shared-store C0–C5 gated). **R016: (b) demonstrated.** Home: `01 PostWach/scripts` + `bmpwach-lab` PR #1.
+- **Cost / token instrumentation (R014)** — `cost-capture.mjs` SessionEnd hook (4 token components + subagent, deduped, visible line) + `cost_dashboard.py` transcript-parse recovery; scorecard template v1.3 (capability-utilization). **R016: (b) demonstrated.** Research data feeds `Papers/AI_Swarm_Productivity/`.
+
 **59 domain-specific agents:**
 - Mathematics (23): agents per MSC branch — algebraists, analysts, topologists, logicians, etc.
 - Philosophy (28): epistemology (6), ethics (5), hybrid (7), pragmatism (5), process (5)
@@ -103,7 +115,9 @@ biomimetics-analyst, transfer-learning-analyst, cognitive-study-designer
 - `ontologies/domain/stoic-t3sd.ttl` — Wymore's T3SD (v0.2.0, SDR, 3 cotyledon spaces, design elaboration, IA)
 - `ontologies/domain/stoic-bridge.ttl` — T3SD↔DEVS correspondence (v0.1.0, gap declarations, convergence recommendations)
 
-**Scoped capability — named-graph / quad-store / RDF-star (2026-06-29):** ticket `GI-JOE-QUADS-001` (`02 GI-JOE/tickets/Named_Graph_Quad_Store_Capability_2026-06-29.md`). Makes GI-JOE's ontology tooling quad/dataset-aware across build/review/query: Phase A extends `ontology-gate.sh` + `ontology-validation` to `rdflib.Dataset`; Phase B adds a new `rdf-dataset-analysis` skill (pyoxigraph) for external multi-graph datasets + authoring + an RDF-star-recognition eval checklist. RDF-star is recognize-not-author; named-graph provenance (not RDF-star) is the [R018] path. **(a) scoping ticket — not yet implemented.**
+**Named-graph / quad-store / RDF-star (2026-06-29):** ticket `GI-JOE-QUADS-001` (`02 GI-JOE/tickets/Named_Graph_Quad_Store_Capability_2026-06-29.md`). Makes GI-JOE's ontology tooling quad/dataset-aware across build/review/query: Phase A extends `ontology-gate.sh` + `ontology-validation` to `rdflib.Dataset`; Phase B adds a new `rdf-dataset-analysis` skill (pyoxigraph) for external multi-graph datasets + authoring + an RDF-star-recognition eval checklist. RDF-star is recognize-not-author; named-graph provenance (not RDF-star) is the [R018] path. **R016: (b) demonstrated — Phases A+B CLOSED and ACCEPTED by PostWach CTO 2026-06-29** (independent verification pass: `ontology-gate.sh full` zero-regression, per-graph SHACL isolation, silent-quad-loss + cross-backend parity reproduced, RDF-star detect-and-flag confirmed). Phase C (FM-provenance) carried to its own ticket.
+
+**SE Morphism Library (2026-07-14):** `ml:` ontology in GI-JOE (`02 GI-JOE/ontologies/domain/morphism-library.ttl` TBox + `morphism-library-abox.ttl` + `morphism-library-wave1-abox.ttl`; SHACL shapes `ontologies/shapes/morphism-library.shapes.ttl`; SPARQL CQs `ontologies/queries/morphism-library/`). Formalizes the PostWach isomorphism/morphism catalog as individuals (C1–C12 + wave-1 backfill); built from the PostWach ABox handoff (`tickets/PostWach_to_GIJOE_MorphismLibrary_ABox_Handoff_2026-07-12.md`), gate-green, pushed. **R016: (b) demonstrated capability.** Consumer of PostWach Idea 9 (ontological representations for SE morphisms).
 
 ### MACQ — Defense Acquisition
 
@@ -271,6 +285,7 @@ biomimetics-analyst, transfer-learning-analyst, cognitive-study-designer
 | 2026-06-29 | PostWach CTO | GI-JOE: scoped named-graph/quad-store/RDF-star capability (ticket GI-JOE-QUADS-001); pointer added under GI-JOE section. Scoping only, not implemented. |
 | 2026-06-22 | PostWach CTO | Add Finance Bro (financial-manager assistant): 1 skill, 3 agents, AI_Investing_Platform backend reference, 5 cross-project reuse entries |
 | 2026-06-29 | PostWach CTO | Add Lawsun (legal assistant): 3 skills, 4 agents + 3 stubs, 6 cross-project reuse entries. Plan vetted via tri-model red/blue/white; citecheck hardened to 4-gate. V3 hive count 10→11 |
+| 2026-07-20 | PostWach CTO | July refresh: flip GI-JOE QUADS-001 to (b) CLOSED-ACCEPTED; add GI-JOE SE Morphism Library (b); add PostWach deliverable-QA skills (document-format-fidelity, document-qa) + wyse-model-generation/red-blue-white; add Graphify bridge (b) + cost/token instrumentation (b). two-lens still pending Alpha Empress registration. |
 
 ---
 

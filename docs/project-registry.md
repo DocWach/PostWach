@@ -3,7 +3,10 @@
 **Maintained by:** PostWach (CTO / Chief Scientist role)
 **Created:** 2026-02-24
 **Review cycle:** Monthly
-**Next review:** 2026-03-24
+**Last refreshed:** 2026-07-20
+**Next review:** 2026-08-20
+
+> **Numbering note (2026-07-20):** section headers below carry legacy numbers (e.g. "04 MACQ", "05 GI-JOE") that predate the current on-disk hive folders. Actual folders in `01 Hives/`: `00 Alpha Empress`, `01 PostWach`, `01A Patsy`, `02 GI-JOE`, `03 Lawsun`, `04 Fort Wachs`, `05 MACQ`, `06 COSYSMO`, `07 SysMLv2`, `08 PLM`, `09 SEAD`, `10 Finance Bro`. Reconcile numbering at next full review. Patsy now has its own git repo (committed 2026-07-11) but its Hive-vs-Output classification remains deferred by the principal (filed as Output below). As of 2026-07-20, Alpha Empress / MACQ / COSYSMO / PLM / SEAD last committed 2026-06-01 (parked).
 
 ---
 
@@ -54,7 +57,7 @@
 - **Agents:** 116 total (5 domain-specific: ontology-swarm-coordinator, ontology-alignment, ontology-evaluator, ontology-metrics, ontoclean-validator)
 - **Status:** Active
 - **Research relevance:** Primary for Idea 9 (Ontological Representations for SE Morphisms); OWL/RDF infrastructure for any project needing formal ontologies
-- **Key assets:** OntoClean validation, ontology evaluation swarm, OML workflow
+- **Key assets:** OntoClean validation, ontology evaluation swarm, OML workflow, STOIC ontology family (DEVS/T3SD/bridge), named-graph/quad-store capability (QUADS-001, closed 2026-06-29), **SE Morphism Library** (`ml:` TBox + ABox, built 2026-07-14, (b) demonstrated)
 
 ### 06 COSYSMO
 
@@ -211,6 +214,7 @@ Output repositories are artifacts produced by one or more hives. They contain de
 | UAOS Cluster | GI-JOE (ontology review and evaluation) | OML/OpenCaesar ontology models across four repositories | Dormant |
 | IGNITE '26 Hackathon | MACQ (DTE&A knowledge, T&E metrics), GI-JOE (ontology patterns, validation pipeline), PostWach (morphism engine, Wymore models) | DTE&A assessment demo: Berserker MQ-99 ontology, morphism quality heatmap, traceability queries, Streamlit dashboard | Active |
 | VT Supply Chain Analyzer | PostWach (faculty advisor, architecture ownership) | Streamlit + SimPy + LP titanium supply chain disruption analyzer. VT ISE Senior Design Team 4 (AY 25-26). Sponsor: The Aerospace Corporation. Tier 2 service project. Repo: `DocWach/Supplychain-Analysis-VT-ISE-Senior-Design` (private). Current release: v2.1.0 (commit `d9a6c13`, 65/65 tests). | Active |
+| Patsy (personal assistant) | PostWach (originating; classification deferred) | Personal assistant integrated into the home-lab environment. Hybrid (Tier 0/1 local + Tier 2 cloud). Topology A; inventory pinned; v1 = HA + router + STT/TTS on a Pi 4 (Asus deferred). Being architected via the WySE scheme + T3SD (SD@LA drafted, verifying to BSD@LC). Home folder `01 Hives/01A Patsy/`; brief `01 Hives/01A Patsy/Patsy_Brief.md`. Hive-vs-output classification deferred (Output for now). | Active (exploration) |
 
 ---
 
@@ -281,6 +285,8 @@ Output repositories are artifacts produced by one or more hives. They contain de
 | 2026-03-10 | PostWach CTO | Add Fort Wachs (CISO) as Tier 1 hive [X001-X010]; update SEAD governance [D001-D009] |
 | 2026-06-22 | PostWach CTO | Add Finance Bro as Tier 1 hive [F101-F114]; v1 = Form 5500 prospecting vertical; AI_Investing_Platform referenced as backend; V3 count 9→10 |
 | 2026-06-29 | PostWach CTO | Add Lawsun as Tier 1 hive [LW101-LW117]; v1 = legal-research + 4-gate citecheck vertical (eyecite + CourtListener, confidence reported-not-gated, plan-driven 20-test harness); plan vetted via tri-model red/blue/white; V3 count 10→11 |
+| 2026-07-10 | PostWach CTO | Add HomeLab Assistant (working name) as a research output/product (exploration); hybrid personal assistant + home-lab hardware trade study; classification deferred pending trades |
+| 2026-07-20 | PostWach CTO | Overdue-review refresh: set next review 2026-08-20; added numbering-reconciliation note (legacy section numbers vs on-disk folders); recorded Patsy now has its own repo (classification still deferred); flagged 5 hives parked since 2026-06-01; added GI-JOE SE Morphism Library + QUADS-001 to key assets. Full numbering reconciliation deferred to next review. |
 
 ---
 
