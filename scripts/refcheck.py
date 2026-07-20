@@ -111,6 +111,196 @@ def extract_bibkeys_from_md(text):
     return set(re.findall(r'(?<![\w])@([A-Za-z][\w]+)', text))
 
 
+_CITE_CMD_RE = re.compile(
+    r'\\(?:cite|citep|citet|citeal|citealp|citealt|citeauthor|citeyear|citeyearpar|'
+    r'parencite|Parencite|textcite|Textcite|autocite|Autocite|footcite|smartcite|'
+    r'Cite|Citep|Citet|fullcite)\s*(?:\[[^\]]*\]\s*)*\{([^}]*)\}'
+)
+
+
+def extract_latex_citekeys(text):
+    """Extract cite keys from LaTeX \\cite-family commands (handles \\cite[..]{a,b})."""
+    keys = set()
+    for m in _CITE_CMD_RE.finditer(text):
+        for k in m.group(1).split(','):
+            k = k.strip()
+            if k:
+                keys.add(k)
+    return keys
+
+
+def find_refs_bib(manuscript_path, text):
+    """Locate the manuscript's local .bib from \\bibliography{}/\\addbibresource{}."""
+    ms_dir = Path(manuscript_path).parent
+    paths = []
+    for m in re.finditer(r'\\(?:bibliography|addbibresource)\{([^}]*)\}', text):
+        for name in m.group(1).split(','):
+            name = name.strip()
+            if not name:
+                continue
+            p = ms_dir / (name if name.endswith('.bib') else name + '.bib')
+            if p not in paths:
+                paths.append(p)
+    if not paths:
+        fallback = ms_dir / 'references.bib'
+        if fallback.exists():
+            paths.append(fallback)
+    return [p for p in paths if p.exists()]
+
+
+def extract_docx_text(path):
+    """Extract paragraph text from a .docx (one paragraph per line); stdlib only."""
+    import zipfile
+    from xml.etree import ElementTree as ET
+    W = '{http://schemas.openxmlformats.org/wordprocessingml/2006/main}'
+    with zipfile.ZipFile(path) as z:
+        xml = z.read('word/document.xml')
+    root = ET.fromstring(xml)
+    paras = []
+    for p in root.iter(W + 'p'):
+        texts = [t.text for t in p.iter(W + 't') if t.text]
+        paras.append(''.join(texts))
+    return '\n'.join(paras)
+
+
+def extract_pdf_text(path):
+    """Best-effort PDF text extraction. Returns (text, backend) or (None, None)."""
+    path = str(path)
+    try:
+        from pypdf import PdfReader
+        return '\n'.join((pg.extract_text() or '') for pg in PdfReader(path).pages), 'pypdf'
+    except Exception:
+        pass
+    try:
+        import PyPDF2
+        return '\n'.join((pg.extract_text() or '') for pg in PyPDF2.PdfReader(path).pages), 'PyPDF2'
+    except Exception:
+        pass
+    try:
+        from pdfminer.high_level import extract_text as _pm
+        t = _pm(path)
+        if t and t.strip():
+            return t, 'pdfminer'
+    except Exception:
+        pass
+    try:
+        import subprocess
+        out = subprocess.run(['pdftotext', '-layout', path, '-'],
+                             capture_output=True, text=True, timeout=90)
+        if out.returncode == 0 and out.stdout.strip():
+            return out.stdout, 'pdftotext'
+    except Exception:
+        pass
+    return None, None
+
+
+def _split_ref_section(section):
+    """Split a references-section string into entry strings (numbered or line-per-entry)."""
+    parts = re.split(r'(?m)(?=^[ \t]*(?:\[\d+\]|\d+\.)[ \t]+)', section)
+    numbered = [x.strip() for x in parts if re.match(r'^[ \t]*(?:\[\d+\]|\d+\.)[ \t]+', x)]
+    if len(numbered) >= 2:
+        return [' '.join(re.sub(r'^[ \t]*(?:\[\d+\]|\d+\.)[ \t]+', '', e).split()) for e in numbered]
+    out = []
+    for line in section.splitlines():
+        line = ' '.join(line.split())
+        if len(line) >= 20 and re.search(r'\b(19|20)\d{2}\b', line):
+            out.append(line)
+    return out
+
+
+def extract_doc_reference_entries(text):
+    """Locate the References/Bibliography section in rendered text and split into entries.
+
+    Handles a heading ("References"/"Bibliography") and, as a fallback for
+    heading-less bibliographies (common in pandoc-from-LaTeX .docx), the maximal
+    trailing block of citation-like lines.
+    """
+    heads = list(re.finditer(
+        r'(?im)^[ \t]*(?:\d+\.?[ \t]+)?(references|bibliography|works\s+cited)[ \t]*$', text))
+    if not heads:
+        heads = list(re.finditer(r'(?im)\b(references|bibliography|works\s+cited)\b', text))
+    if heads:
+        section = text[heads[-1].end():]
+        cut = re.search(r'(?im)^[ \t]*(appendix|appendices|acknowledge?ments?)\b', section)
+        if cut:
+            section = section[:cut.start()]
+        entries = _split_ref_section(section)
+        if entries:
+            return entries
+
+    # Fallback: no usable heading. Take the trailing run of citation-like lines.
+    lines = [' '.join(ln.split()) for ln in text.splitlines()]
+    def reflike(ln):
+        return len(ln) >= 40 and bool(re.search(r'\b(19|20)\d{2}\b', ln))
+    last = len(lines) - 1
+    while last >= 0 and not lines[last]:
+        last -= 1
+    if last < 0:
+        return []
+    start, gap, j = last + 1, 0, last
+    while j >= 0:
+        if reflike(lines[j]):
+            start, gap = j, 0
+        elif lines[j] == '':
+            pass
+        else:
+            gap += 1
+            if gap > 1:
+                break
+        j -= 1
+    block = [lines[k] for k in range(start, last + 1) if reflike(lines[k])]
+    return block if len(block) >= 3 else []
+
+
+def _candidate_names(etext):
+    """Every capitalized name-token in the author region of a rendered entry.
+
+    Rendered bibliographies vary (``Wach, P.`` vs ``Paul Wach``), so rather than
+    guess which token is the surname we return all plausible ones and let the
+    (surname, year) index, which holds every author's surname, decide.
+    """
+    head = etext[:140]
+    cands = set()
+    for tok in re.findall(r"[A-Za-zÀ-ſ][A-Za-zÀ-ſ'\-]{2,}", head):
+        n = normalize_name(tok)
+        if n and n not in _TITLE_STOPWORDS:
+            cands.add(n)
+    return cands
+
+
+def check_text_entries(entries, ay_idx_approved, approved_entries,
+                       ay_idx_pending, pending_entries, include_pending):
+    """Match reference-entry strings against the approved store; prints verdicts."""
+    approved_hits, pending_hits, missing = [], [], []
+    for i, etext in enumerate(entries, 1):
+        year_m = re.search(r'\b(19|20)\d{2}\b', etext)
+        year = year_m.group(0) if year_m else None
+        preview = (etext[:68] + '...') if len(etext) > 68 else etext
+        if not year:
+            print(f'  ???            #{i:2d} no year | {preview}')
+            missing.append(etext)
+            continue
+        cands = _candidate_names(etext)
+        hit_a = next(((c, ay_idx_approved[(c, year)]) for c in cands if (c, year) in ay_idx_approved), None)
+        hit_p = None
+        if include_pending and not hit_a:
+            hit_p = next(((c, ay_idx_pending[(c, year)]) for c in cands if (c, year) in ay_idx_pending), None)
+        if hit_a:
+            c, bks = hit_a
+            bk = pick_best_by_title(bks, approved_entries, etext) if len(bks) > 1 else bks[0]
+            print(f'  OK  (approved) #{i:2d} -> {bk:30s} ({c}, {year})')
+            approved_hits.append(etext)
+        elif hit_p:
+            c, bks = hit_p
+            bk = pick_best_by_title(bks, pending_entries, etext) if len(bks) > 1 else bks[0]
+            print(f'  ?? (pending)   #{i:2d} -> {bk:30s} ({c}, {year})')
+            pending_hits.append(etext)
+        else:
+            print(f'  MISS           #{i:2d} {year} | {preview}')
+            missing.append(etext)
+    return approved_hits, pending_hits, missing
+
+
 def extract_bib_section(text):
     m = re.search(
         r'^#{1,3}\s*References\s*$(.+?)(?=^#{1,3}\s|\Z)',
@@ -189,6 +379,11 @@ def main():
                     help='[stub] On miss, would auto-launch /refverify')
     ap.add_argument('--bibkey-mode', action='store_true',
                     help='Force pandoc @bibkey extraction mode')
+    ap.add_argument('--latex', action='store_true',
+                    help='Force LaTeX \\cite + BibTeX mode (auto-detected for .tex manuscripts)')
+    ap.add_argument('--refs-bib',
+                    help='Path to the manuscript local .bib for LaTeX mode; '
+                         'auto-detected from \\bibliography{} if omitted')
     args = ap.parse_args()
 
     is_strict = not args.advisory
@@ -221,17 +416,106 @@ def main():
     print(f'  mode:            {"STRICT (exit nonzero on miss)" if is_strict else "ADVISORY (warnings only)"}')
     print()
 
-    ms_text = Path(args.manuscript).read_text(encoding='utf-8')
+    ext = Path(args.manuscript).suffix.lower()
+    is_docx = ext == '.docx'
+    is_pdf = ext == '.pdf'
+    is_latex = args.latex or ext == '.tex'
+    pdf_backend = None
 
-    bibkeys_in_text = extract_bibkeys_from_md(ms_text)
-    bib_entries = extract_bib_section(ms_text)
+    if is_docx:
+        ms_text = extract_docx_text(args.manuscript)
+    elif is_pdf:
+        ms_text, pdf_backend = extract_pdf_text(args.manuscript)
+        if ms_text is None:
+            print('Mode: PDF (advisory)')
+            print('  PDF text extraction unavailable (need pypdf, pdfminer.six, or poppler pdftotext).')
+            print('  Run the gate on the source (.tex / .md) instead.')
+            sys.exit(0)
+    else:
+        ms_text = Path(args.manuscript).read_text(encoding='utf-8')
+
+    bibkeys_in_text = extract_bibkeys_from_md(ms_text) if not (is_docx or is_pdf) else set()
+    bib_entries = extract_bib_section(ms_text) if not (is_docx or is_pdf) else []
 
     use_bibkey_mode = args.bibkey_mode or (bibkeys_in_text and not bib_entries)
     missing = []
     pending_hits = []
     approved_hits = []
 
-    if use_bibkey_mode:
+    if is_docx:
+        print('Mode: Word (.docx)')
+        entries = extract_doc_reference_entries(ms_text)
+        if not entries:
+            print('  No References/Bibliography section found in the document.')
+            sys.exit(0)
+        print(f'Found {len(entries)} reference entries.')
+        approved_hits, pending_hits, missing = check_text_entries(
+            entries, ay_idx_approved, approved_entries, ay_idx_pending, pending_entries, args.include_pending)
+        total = len(entries)
+    elif is_pdf:
+        is_strict = False
+        print(f'Mode: PDF (advisory; text via {pdf_backend})')
+        print('  NOTE: PDF extraction is best-effort (column reflow, hyphenation, entry boundaries).')
+        print('        This never blocks and does NOT replace the source-file gate.')
+        entries = extract_doc_reference_entries(ms_text)
+        if not entries:
+            print('  No References/Bibliography section detected in the extracted text.')
+            sys.exit(0)
+        print(f'Found ~{len(entries)} reference entries.')
+        approved_hits, pending_hits, missing = check_text_entries(
+            entries, ay_idx_approved, approved_entries, ay_idx_pending, pending_entries, args.include_pending)
+        total = len(entries)
+    elif is_latex:
+        citekeys = extract_latex_citekeys(ms_text)
+        refs_paths = ([Path(args.refs_bib)] if args.refs_bib
+                      else find_refs_bib(args.manuscript, ms_text))
+        refs_paths = [p for p in refs_paths if Path(p).exists()]
+        local_bib = {}
+        for rp in refs_paths:
+            local_bib.update(parse_bib(rp))
+        print('Mode: LaTeX \\cite + BibTeX')
+        print(f'  local bibliography: {", ".join(str(p) for p in refs_paths) if refs_paths else "(NONE FOUND)"}')
+        print(f'                   ({len(local_bib)} entries in local bib)')
+        print(f'Found {len(citekeys)} unique cite keys.')
+        undefined = []
+        for k in sorted(citekeys):
+            if k in approved_keys:
+                print(f'  OK  (approved bibkey)    @{k}')
+                approved_hits.append(k)
+                continue
+            if k not in local_bib:
+                print(f'  UNDEF (not in local bib) @{k}')
+                undefined.append(k)
+                missing.append(k)
+                continue
+            f = local_bib[k]['fields']
+            surname = first_surname(f.get('author', '') or f.get('editor', ''))
+            year = f.get('year', '').strip()
+            title = f.get('title', '')
+            if surname and year:
+                norm = normalize_name(surname)
+                cands_a = ay_idx_approved.get((norm, year), [])
+                cands_p = ay_idx_pending.get((norm, year), []) if args.include_pending else []
+                if cands_a:
+                    bk = pick_best_by_title(cands_a, approved_entries, title) if len(cands_a) > 1 else cands_a[0]
+                    print(f'  OK  (approved a/y)       @{k}  -> {bk} ({surname}, {year})')
+                    approved_hits.append(k)
+                elif cands_p:
+                    bk = pick_best_by_title(cands_p, pending_entries, title) if len(cands_p) > 1 else cands_p[0]
+                    print(f'  ?? (pending)             @{k}  -> {bk} ({surname}, {year})')
+                    pending_hits.append(k)
+                else:
+                    print(f'  MISS (not approved)      @{k}  ({surname}, {year}) | {title[:48]}')
+                    missing.append(k)
+            else:
+                print(f'  ???  (no surname/year)   @{k}')
+                missing.append(k)
+        total = len(citekeys)
+        if undefined:
+            print()
+            print(f'  NOTE: {len(undefined)} cite key(s) are not defined in the local bibliography;')
+            print(f'        these would render as undefined citations and break the build.')
+    elif use_bibkey_mode:
         print(f'Mode: pandoc @bibkey')
         print(f'Found {len(bibkeys_in_text)} cite keys.')
         for k in sorted(bibkeys_in_text):
