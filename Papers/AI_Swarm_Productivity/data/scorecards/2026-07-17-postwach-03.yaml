@@ -1,0 +1,159 @@
+# Session Productivity Scorecard (2026-07-17 arc, F32/F34/GST thread; continuous session from 2026-07-15)
+# NOTE on id -03: three parallel 2026-07-17-postwach sessions exist -- -01 (scorecard-template v1.3 + capability-capture daemon, commit c017ed6), -02 (T3SD-LEGO single-brick research line), -03 (THIS: the F32/F34/GST research arc).
+schema_version: "1.3"
+
+session:
+  id: 2026-07-17-postwach-03
+  date: 2026-07-17
+  hive: PostWach
+  researcher: Paul Wach
+  start_time:            # continuous from 2026-07-16 night
+  end_time:              # records save-point, not a termination
+  task_summary: >
+    Hardened F32 to manuscript grade (thermo spine F29->F31->F32 complete); codified the principal's TWO LENSES
+    (research novelty + the Steve Jobs iPhone/harness moment) as a skill + independent critic agent and registered them;
+    ran and reframed F34 (Monte Carlo -> ParaDEVS harness -> record-based reduction-unification, 3 parallel modality
+    instances launched); scoped FEA/CFD (F35) and DSRP (F33); executed the tight-scope GST-status SLR to publication
+    grade (verdict: "GST was disproven" is a MISATTRIBUTION).
+    CONTINUED (record-reduction arc + reframe): M2/M3 REFUTED (record loses to a stronger legal scalar); F36 boundary
+    r1 REWORK -> r2 CLOSED-HARDENED (family-quantified, 3 regimes); ParaDEVS 3-way benchmark REFUTED (characterized
+    near-miss: overhead-limited, scale-amortizable-in-principle). PRINCIPAL REFRAME: overlap/distinction +
+    cost-of-information (F36 = distinction axis, F29 = cost axis; the horse-race sub-lens was wrong; accuracy conflation
+    corrected -- exact ParaDEVS IS exact). Two reframe builds launched (F38 study + F34-STRESS). Honest negatives treated
+    as real findings; the RBW discipline caught an overclaimed unification (F36 r1) and a wrong DEVS-path claim (mine).
+    Additional workflows: research_token_ledger.md (M-instances wala9fxl1, F36 wypwmg7wb, F36-rework wfoepnhuz, benchmark
+    wzq97x20a, reframe builds wm83yfzmf, capstone wv108fl26).
+    CAPSTONE (wv108fl26): F38 ledger rework CLOSED-HARDENED; F39 tighter certificate CLOSED-HARDENED = a real
+    honestly-bounded WIN (unblocks the delivered harness win at xlarge scale); flagship v1 manuscript drafted (6261
+    words, 0 em dashes, 22 refs approved + ~10 [PLACEHOLDER] pending firsthand verify). ARC CONCLUSION: the record
+    captures distinctions scalars conflate (F36) at a thermodynamic cost (F29); the delivered reduction win, blocked by
+    overhead at small scale, is delivered at scale with a tighter certificate. SESSION TERMINATED at principal request;
+    all work saved to disk (OneDrive), UNCOMMITTED (commit-only-when-asked). This card = the FINAL record for the arc.
+
+output:
+  artifacts:
+    - type: analysis
+      name: F32 hardening/correction (RBW r1-3) + F34 ParaDEVS candidate/witness + 3 record-unification instances (M1/M2/M3)
+      action: created
+      lines: 2200
+      files: 12
+    - type: paper_section
+      name: GST-status SLR (protocol + synthesis + manuscript v1 + v2 render-ready + candidate bib)
+      action: created
+      lines: 900
+      files: 4
+    - type: config
+      name: two-lens-evaluation SKILL + two-lens-critic AGENT + capability-index entry + Alpha Empress registration handoff
+      action: created
+      lines: 340
+      files: 4
+    - type: other
+      name: seed/thread memory records (F35 FEA-CFD, DSRP, MC/ParaDEVS, T3SD-LEGO coord, two-lens feedback) + archive/ledger/MEMORY updates
+      action: created
+      lines: 700
+      files: 9
+  total_files_created: 29
+  total_files_modified: 10
+  total_lines_written: 4200
+  pages_produced: 48
+
+ai_efficiency:
+  agents_spawned: 34
+  swarm_topology: none
+  coordination_style: workflow
+  model_primary: claude-opus-4-8[1m]
+  tokens_input:
+  tokens_output: 2500000   # APPROXIMATE aggregate subagent proxy tokens for the F32/F34/GST arc; per-workflow precise in research_token_ledger.md
+  tokens_by_workflow:
+    - {name: F32-uniqueness wew8t5k0r, tokens: 329387}
+    - {name: F32-hardening w0r1i7toq, tokens: 283801}
+    - {name: F32-correction wcgug91q6, tokens: 241849}
+    - {name: F34-ParaDEVS w2ssy8bui, tokens: 340276}
+    - {name: FEA/CFD scout, tokens: 60952}
+    - {name: ParaDEVS scout, tokens: 65653}
+    - {name: GST-SLR wi9m2c709, tokens: 541734}
+    - {name: GST-ref-finish wpe005czb, tokens: 165863}
+    - {name: record-unification wala9fxl1, tokens: 0}   # RUNNING at card time
+  cost:
+    total_cost_usd:
+    measured: false
+    cost_estimate_usd: 65
+    cost_method: "notional ~$26/M output on ~2.5M subagent PROXY tokens (proxy ~16x real out); Codex external/off-meter; subscription => actual marginal ~0"
+    billing_regime: mixed
+  cumulative_ledger: Papers/AI_Swarm_Productivity/data/research_token_ledger.md
+  tool_calls:
+  context_compressions: 0
+
+capability_utilization:
+  skills_first_check: yes
+  skills_used:
+    - name: systematic-literature-review
+      how: drafted + executed the GST SLR protocol (PRISMA/Kitchenham + RED-steelman bias control)
+    - name: refverify
+      how: verified+promoted F32 (Khinchin/Faddeev), ParaDEVS (Zeigler 2024), GST (14 works) refs; triple-check caught real errors
+    - name: two-lens-evaluation
+      how: CREATED this session; first live use on F34 (the ParaDEVS harness verdict)
+  relevant_but_unused:
+    - name: morphism-research-methodology
+      why_not: carry-gate/lifecycle applied via Workflows; the source-fetching-red lesson still not written into it
+  skills_modified_created: "CREATED two-lens-evaluation (skill) + two-lens-critic (agent); registered to Alpha Empress"
+  subagent_types:
+    fable-derive: 8
+    codex-red-orchestrator: 9
+    opus-white: 9
+    refverify: 3
+    researcher-scout: 4
+    slr-searcher: 4
+  orchestration_runs:
+    - {name: F32 uniqueness/hardening/correction, tool: workflow, pattern: derive->red->blue/white (x3 rounds), agents: 10}
+    - {name: F34-ParaDEVS, tool: workflow, pattern: refverify->derive->red->white, agents: 4}
+    - {name: GST-SLR, tool: workflow, pattern: parallel-searchers(4)->red-steelman->white-synth->draft->refverify, agents: 8}
+    - {name: record-unification, tool: workflow, pattern: pipeline(3 modalities x derive->red->white), agents: 9}
+  slash_commands_used: none
+  plugins_engaged: none
+  mcp_tool_call_count: 0
+  tools_notable:
+    - {name: Workflow, how: 6+ deterministic multi-agent pipelines (RBW rounds, SLR, record-unification)}
+    - {name: WebFetch, how: grounded ParaDEVS + FEA/CFD prior-art + GST sources from authoritative pages}
+  memory_engaged: yes
+  stores_written: 9
+  utilization_note: >
+    Strong skills-first turn. The R020 gap (an evaluative discipline living only in memory) was CLOSED by creating the
+    two-lens skill+agent, whose reason-for-being is a concrete miss it just prevented from recurring (the F34 shelve).
+    SLR + refverify + RBW invoked directly; refverify's triple-check caught two real metadata errors before render.
+  ambient:
+    plugins_active: [claude-flow, paperbanana]
+    hooks_active: [auto-memory, cost-capture, statusline, intelligence]
+    note: cost provenance in D2 cost + research_token_ledger.md
+
+quality:
+  gates_run:
+    - gate: Witness reproduction (PostWach independent re-run)
+      result: pass
+      details: F32 bb45e07f held through prose edits; F28/F31/F34 reproduced
+    - gate: RBW live cross-vendor red (Codex)
+      result: pass
+      details: codexLive=true throughout; the r3 white INDEPENDENTLY re-derived the A0 table and caught 4 wrong cells the F32 hardening pass introduced
+    - gate: Reference verification (refverify triple-check)
+      result: pass
+      details: caught Bunge pages (329-376->29-37) + the Laszlo misattribution (1975 Taschdjian vol); approved store ->407
+    - gate: R016 / R018 / R019
+      result: pass
+      details: all artifacts (a); provenance on all; GST v2 render-gated on refcheck.py (0 placeholders after Laszlo drop)
+  tests_passed: 6
+  tests_failed: 0
+  reviewer_comments_addressed: 25
+  first_pass_quality_pct: 60
+
+process:
+  agent_failures: 1     # one Workflow parse error (unescaped inline backtick around a bibkey) -> fixed + relaunched
+  retries: 3
+  rework_files: 4       # F32 candidate (r1/r2/r3); F34 records; GST manuscript (v1->v2->Laszlo-drop); MEMORY.md
+  blocked_minutes: 0
+  blockers: none
+  perception_note: >
+    High-assurance and honest. The two-lens discipline earned its keep immediately (caught my F34 shelve-miss; the
+    principal's ParaDEVS reframe turned a dead seed into a live harness thesis). RBW caught a hardening pass that
+    INTRODUCED an error before it shipped. The GST SLR's RED steelman found the one genuine falsification and bounded it
+    honestly; hands-on ref triple-check caught two real metadata errors. Net: F32 fully hardened, GST publishable-in-shape,
+    F34 reframed into the record-based reduction-unification with 3 instances measuring in parallel.

@@ -1,0 +1,125 @@
+# =============================================================================
+# Session Productivity Scorecard — 2026-07-14 Lawsun-01
+# =============================================================================
+schema_version: "1.1"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-07-14-lawsun-01
+  date: 2026-07-14
+  hive: Lawsun
+  researcher: Paul Wach
+  start_time: "14:00"        # approximate (UTC, from tool timestamps)
+  end_time: "15:55"          # approximate (UTC)
+  task_summary: >
+    Harden Layer-1 (behavioral harness), build Layer-2/3 + open Layer-4, wire the queen pipeline,
+    adopt tri-model Byzantine citecheck, run a cross-hive blackboard finalization review and remediate
+    its criticals, then tackle the reasoning layer: scan the Hive Empire, reuse the PostWach Core-4
+    engines via a wired legal-context-transfer, build + run an eval runner, and seed a richer baseline.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: config
+      name: 11 new skills (case-synthesis, precedent-analysis, issue-spotting, statutory-interpretation, good-law-currency, bluebook-format, contract-risk-analysis, legal-context-transfer, tri-model-citecheck; + wiring)
+      action: created
+      lines: 380
+      files: 11
+    - type: code
+      name: Layer-1/pipeline/bluebook/tri-model/legal-transfer/reasoning-eval modules + citecheck egress guard + baseline driver
+      action: created
+      lines: 640
+      files: 8
+    - type: test
+      name: test_pipeline/layer23/tri_model/legal_transfer/reasoning_eval + layer1/citecheck regressions (71 green)
+      action: created
+      lines: 470
+      files: 6
+    - type: config
+      name: Layer-4 agents activated + queen pipeline + MANIFEST + governance (CLAUDE.md LW110/LW117 entity election, README honesty)
+      action: modified
+      lines: 160
+      files: 8
+    - type: review
+      name: cross-hive blackboard (3 reviewers) + Hive-Empire reasoning scan (Explore) + remediation (tripwire/LW116/PII/H-4/posture)
+      action: reviewed
+      lines: 110
+      files: 10
+    - type: analysis
+      name: reasoning baseline (n=6 live Codex A/B) + richer seed set (6->15) + session archive + scorecard + 2 memory notes
+      action: created
+      lines: 260
+      files: 5
+  total_files_created: 30
+  total_files_modified: 16
+  total_lines_written: 2020
+  pages_produced: 50
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 4          # 3 blackboard reviewers + 1 Explore (Hive-Empire reasoning scan)
+  swarm_topology: star       # ruflo hive-mind blackboard (byzantine consensus)
+  model_primary: claude-opus-4-8[1m]
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: 150
+  context_compressions: 0
+
+# --- D2b: SKILLS UTILIZATION (required) — R020 skills-first instrumentation ---
+skills:
+  skills_first_check: yes    # scanned the Hive Empire and REUSED PostWach Core-4 engines + tri-model (RBW) pattern + ruflo blackboard rather than rebuilding
+  skills_used:
+    - name: none (Skill tool)
+      how: No Skill tool invoked; work was authoring/wiring skills + code + orchestrating subagents/CLIs.
+  relevant_but_unused:
+    - name: citecheck / legal-research
+      why_not: No real legal matter this session; gates exercised via tests + live smokes, not a client query.
+  skills_modified_created: >
+    created/wired 11 skills incl. legal-context-transfer (now real code, reusing PostWach Core-4:
+    practical-reasoning / dialectical-synthesis / evidence-synthesis / epistemic-inquiry); adopted
+    tri-model RBW as tri-model-citecheck; hardened third-party-tripwire; built the reasoning-eval runner.
+  utilization_note: >
+    Two standout REUSE + adversarial moves: (1) the cross-hive BLACKBOARD (3 reviewers) caught a UPL
+    tripwire bypass, a confidentiality egress leak, and an entity-representation legal hole that
+    self-review missed; (2) reuse-over-rebuild for the reasoning layer — PostWach Core-4 engines wired
+    via legal-context-transfer instead of new skills. The eval runner is measurement-first and earned
+    its keep, surfacing a cp1252 subprocess bug and an engine-embed bloat bug (both fixed).
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: pytest suite
+      result: pass
+      details: 71 passed, 1 skipped (live tri-model, env-gated). Grew from 49 -> 71 this session.
+    - gate: blackboard adversarial review (3 lenses)
+      result: partial
+      details: Surfaced 3 CRITICAL + several HIGH; all criticals remediated same session.
+    - gate: tri-model live smoke (Claude+Codex)
+      result: pass
+      details: Codex reachable; Gemini 429-abstains; aggregator fail-closed.
+    - gate: reasoning baseline (n=6, live Codex A/B)
+      result: partial
+      details: Scaffolded > free-form (coverage 0.556 vs 0.444; judge 2/6 vs 1/6) but low absolute; a Codex-generated FLOOR, not a ceiling. Richer 15-seed set staged for a real run.
+  tests_passed: 71
+  tests_failed: 0
+  reviewer_comments_addressed: 5   # tripwire C-1, LW116 C-2, PII H-1, H-4, posture residue
+  first_pass_quality_pct: 72
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 7
+  rework_files: scripts/layer1_gates.py; scripts/legal_transfer.py   # tripwire+PII+H-4; engine-embed bloat fix
+  blocked_minutes: 8
+  blockers: >
+    Gemini API quota (HTTP 429) capped both tri-model citecheck and the reasoning judge to single-model
+    (Codex); true tri-model/real baseline deferred until quota returns. Two bugs the eval surfaced
+    (Windows cp1252 subprocess decode; engine-embed prompt bloat) — both fixed same session.
+  perception_note: >
+    The session's ROI came from two disciplines: adversarial multi-agent review (blackboard) and
+    measurement-first (the reasoning eval runner). Both caught real defects a single pass shipped.
+    Reuse-over-rebuild (PostWach Core-4) avoided authoring 4 redundant reasoning skills.
+
+# --- DERIVED (do not fill — computed by script) ---
+# derived:

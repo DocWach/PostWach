@@ -1,0 +1,132 @@
+schema_version: "1.1"
+
+# --- SESSION METADATA ---
+session:
+  id: 2026-07-11-postwach-02
+  date: 2026-07-11
+  hive: PostWach
+  researcher: Paul Wach
+  start_time:            # not tracked (continued session across a context compaction)
+  end_time:
+  task_summary: >
+    Continue the Patsy home-lab assistant build: give Patsy her own senses on the Pi
+    (Logitech C270 mic + wired 3.5mm speaker via the Assist Satellite add-on; C270
+    camera via the go2rtc add-on -> HA Generic Camera camera.patsy_cam). Restructure
+    the Patsy repo (assets/docs/hardware, images atop README) and update the WySE
+    model (BSD@LC, DR-16/17, D_s, seeing-vs-perceiving) to match the as-built system.
+
+# --- D1: OUTPUT VOLUME ---
+output:
+  artifacts:
+    - type: config
+      name: Patsy voice senses (Assist Satellite add-on; C270 mic + 3.5mm speaker; okay_nabu; Full-local)
+      action: created
+      lines:
+      files: 1
+    - type: config
+      name: Patsy vision seeing (go2rtc add-on stream + Generic Camera camera.patsy_cam)
+      action: created
+      lines:
+      files: 1
+    - type: spec
+      name: Patsy_Brief.md WySE model update (SD@LA/BSD@LC, D_s, vision, YOLO note)
+      action: modified
+      lines: 45
+      files: 1
+    - type: spec
+      name: Patsy_Decision_Register.md (DR-14 fix, DR-15 live, DR-16, DR-17)
+      action: modified
+      lines: 60
+      files: 1
+    - type: spec
+      name: Patsy_v1_Build_Runbook.md (Phase 4/4b as-built + 2 V&V datapoints)
+      action: modified
+      lines: 30
+      files: 1
+    - type: other
+      name: Patsy_BSD_LC_v1 diagram (.mmd + rendered .png), vision path added
+      action: modified
+      lines: 15
+      files: 2
+    - type: other
+      name: Patsy repo professional restructure (git mv into assets/docs/hardware; images atop README)
+      action: modified
+      lines: 40
+      files: 1
+    - type: other
+      name: memory (feedback_uncoupled_vs_untested created; MEMORY.md + project anchor updated)
+      action: created
+      lines: 20
+      files: 3
+  total_files_created: 2
+  total_files_modified: 8
+  total_lines_written: 275
+  pages_produced: 4
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: none
+  model_primary: claude-opus-4-8
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls:
+  context_compressions: 1
+
+# --- D2b: SKILLS UTILIZATION (R020) ---
+skills:
+  skills_first_check: no
+  skills_used:
+    - name: none
+      how:
+  relevant_but_unused:
+    - name: none directly applicable
+      why_not: >
+        Session was hardware bring-up (HAOS add-ons, USB devices) plus Patsy-specific
+        WySE modeling that reuses the project's own conventions; no codified skill maps
+        to it. The SE morphism-* skills concern the research morphism library, not this
+        build's D_s bookkeeping.
+  skills_modified_created: none
+  utilization_note: >
+    Skill non-use did not obviously hurt; the work was device integration and
+    project-local modeling, not a codified-discipline task. Recorded honestly as zero
+    skills invoked (third consecutive Patsy/PostWach session with zero skill use).
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: Voice pipeline end-to-end ("Okay Nabu -> what time is it?")
+      result: pass
+      details: Full loop C270 mic -> Whisper -> agent -> Piper -> speaker on Patsy's own body (no phone).
+    - gate: Vision seeing (live camera.patsy_cam feed)
+      result: pass
+      details: C270 -> go2rtc -> Generic Camera; live feed verified on the dashboard.
+    - gate: "'can you see me' / 'what time is it in Denver'"
+      result: partial
+      details: >
+        Expected non-answers; documented as the seeing!=perceiving gap and the Tier-2
+        (world-knowledge) gap, reserved as Phase-5 acceptance cases (not failures).
+  tests_passed: 2
+  tests_failed: 0
+  reviewer_comments_addressed:
+  first_pass_quality_pct: 85
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 0
+  retries: 4
+  rework_files: Patsy_Brief.md (multiple passes incl. an LF-scope revert)
+  blocked_minutes: 25
+  blockers: >
+    go2rtc add-on UI friction: inert 'add' page, a raw-YAML "mapping values are not
+    allowed" error (fixed via flow-style + quoting the source), Generic Camera setup
+    interrupted by an unrelated iBeacon discovery + a benign HA failed-login log, and
+    the camera entity's 'idle' state doubling as a non-obvious play button. All
+    resolved. Also a self-inflicted scope over-reach (edited the LF problem-space model
+    when only LA/LC were in scope), caught by the principal and reverted.
+  perception_note: >
+    AI substantially faster for the modeling and record-keeping; the hardware bring-up
+    was gated by HAOS/add-on UI quirks that AI speed cannot remove (human-in-the-loop
+    clicking). Principal explicitly valued precise, honest pushback on an
+    integration-status overclaim (vision "seeing" vs "perceiving").

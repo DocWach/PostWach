@@ -1,0 +1,109 @@
+# =============================================================================
+# Session Productivity Scorecard — 2026-07-13 Lawsun-01
+# =============================================================================
+schema_version: "1.1"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-07-13-lawsun-01
+  date: 2026-07-13
+  hive: Lawsun
+  researcher: Paul Wach
+  start_time: "22:50"        # approximate (UTC, from tool timestamps)
+  end_time: "23:40"          # approximate (UTC)
+  task_summary: >
+    First working session for the Lawsun hive. Warm up ruflo, inventory the hive, debate the thin
+    skill surface, then redefine the hive's core posture (public no-advice tool -> principal's
+    own-matters legal co-pilot) with a governance rewrite, and construct the Layer-1 safety-tier skills.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: config
+      name: CLAUDE.md governance rewrite (LW110 own-matters posture + LW117 reconcile)
+      action: modified
+      lines: 4
+      files: 1
+    - type: spec
+      name: docs/skill_architecture_proposal.md (layered skill catalog, new posture)
+      action: created
+      lines: 90
+      files: 1
+    - type: config
+      name: Layer-1 safety-tier skills (third-party-tripwire, confidentiality-redaction, high-stakes-candor, scope-triage)
+      action: created
+      lines: 200
+      files: 4
+    - type: other
+      name: SESSION_ARCHIVE_2026-07-13_lawsun-01.md
+      action: created
+      lines: 60
+      files: 1
+    - type: other
+      name: Hive memory entries (api-keys-deferred, encryption-at-rest-off, metaharness-import-error, lawsun-redefined-personal-copilot) + MEMORY.md index
+      action: created
+      lines: 60
+      files: 5
+  total_files_created: 11
+  total_files_modified: 2
+  total_lines_written: 414
+  pages_produced: 10
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 0
+  swarm_topology: none
+  model_primary: claude-opus-4-8[1m]
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: 42
+  context_compressions: 0
+
+# --- D2b: SKILLS UTILIZATION (required) — R020 skills-first instrumentation ---
+skills:
+  skills_first_check: partial   # consulted ruflo skill-builder conventions + existing citecheck SKILL.md before authoring, but invoked no Skill tool
+  skills_used:
+    - name: none
+      how: No Skill tool was invoked this session; the work was design + authoring, not skill execution.
+  relevant_but_unused:
+    - name: skill-builder (ruflo, global)
+      why_not: Not registered as an invokable Skill in this project (global ruflo asset). Its written spec was READ and followed to hand-author the four skills, rather than invoked.
+    - name: citecheck / legal-research / legal-argumentation
+      why_not: No legal authorities or citations were produced this session (governance + skill-scaffolding only), so the citation gate had nothing to run against.
+  skills_modified_created: "created 4: third-party-tripwire, confidentiality-redaction, high-stakes-candor, scope-triage (Layer-1 safety tier)"
+  utilization_note: >
+    Skill non-use here is expected and benign — the session's PURPOSE was authoring skills and governance,
+    not running them. The R020 discipline showed up on the CREATE branch (4 new skills) and via reading
+    skill-builder for conventions. Worth noting the tripwire and the other three ship WITHOUT tests yet;
+    per the proposal they need citecheck-grade adversarial harnesses before they are load-bearing.
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: citecheck (LW112)
+      result: skipped
+      details: No citations produced this session.
+    - gate: governance-coherence (manual)
+      result: pass
+      details: Caught LW117 contradiction with the new LW110 and reconciled it proactively; disclosed to principal.
+  tests_passed: 0
+  tests_failed: 0
+  reviewer_comments_addressed:
+  first_pass_quality_pct: 90
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 4
+  rework_files: none
+  blocked_minutes: 5
+  blockers: >
+    Minor friction locating portfolio directories (OneDrive paths with spaces + relative-path depth);
+    resolved by mapping the tree with absolute paths. No substantive blockers.
+  perception_note: >
+    Substantially faster than manual. The main value was the human-in-the-loop redefinition dialogue
+    (stress test surfaced the posture mismatch); authoring the skills + governance afterward was quick.
+
+# --- DERIVED (do not fill — computed by script) ---
+# derived:

@@ -1,0 +1,119 @@
+# Session Productivity Scorecard
+schema_version: "1.1"
+
+# --- SESSION METADATA ---
+session:
+  id: 2026-07-15-postwach-01
+  date: 2026-07-15
+  hive: PostWach
+  researcher: Paul Wach
+  start_time:            # not recorded
+  end_time:              # not recorded
+  task_summary: >
+    Inventory "data fusion" as a Fable-run family via a scoping SLR (four senses),
+    synthesize a ranked slate + backlog F18-F25, and verify/stage gating references
+    (Fable prep, execution deferred to a distinct session). Separately, open the
+    LLM-agnosticism debate for the Hive Empire (trades + stakeholder needs, held for
+    steer) and log the tool/skill/agent/swarm/hive-mind/plugin taxonomy.
+
+# --- D1: OUTPUT VOLUME ---
+output:
+  artifacts:
+    - type: review
+      name: Data-fusion inventory — 4 sense slices (decision-layer, multi-model, classical, organizational)
+      action: created
+      lines: 900        # approximate; subagent-produced across 4 files
+      files: 4
+    - type: analysis
+      name: Data-fusion synthesis + Fable run plan (ranked slate, F18-F25, refverify debt)
+      action: created
+      lines: 130
+      files: 1
+    - type: config
+      name: Gating references verified + staged to pending store (5 clean, 1 partial)
+      action: created
+      lines: 45         # approximate; subagent-produced .bib
+      files: 1
+    - type: spec
+      name: Fable Run Backlog — data-fusion wave F18-F25
+      action: modified
+      lines: 30
+      files: 1
+    - type: other
+      name: Memory (data-fusion Fable family, construct taxonomy, MEMORY.md index x2)
+      action: created
+      lines: 90
+      files: 3
+  total_files_created: 10     # 4 slices + synthesis + pending.bib + 2 memory + archive + scorecard
+  total_files_modified: 2     # Fable_Run_Backlog, MEMORY.md
+  total_lines_written: 1300   # approximate, includes subagent-produced reports
+  pages_produced: 14          # approximate
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 5           # all background, model sonnet (4 inventory slices + 1 reference verification)
+  swarm_topology: none        # independent background Task agents, no inter-agent coordination
+  model_primary: claude-opus-4-8[1m]
+  tokens_input:               # not recorded
+  tokens_output: 322898       # subagent output only (61608+52098+56653+83379+69160); main-session not recorded
+  total_cost_usd:             # not recorded
+  tool_calls:                 # not recorded
+  context_compressions: 0
+
+# --- D2b: SKILLS UTILIZATION ---
+skills:
+  skills_first_check: yes       # checked skills-first (R020); used SLR per principal direction; used memory before asserting
+  skills_used:
+    - name: systematic-literature-review
+      how: scoping-review mode to structure the four-sense data-fusion inventory + Fable-shape verdicts
+  relevant_but_unused:
+    - name: refverify / reflookup
+      why_not: >
+        the verification DISCIPLINE was applied (an agent checked approved+pending first, verified each ref
+        against authoritative external sources, staged to pending) but via a hand-written agent brief rather
+        than invoking the refverify Skill tool directly — a minor R020 gap, noted honestly; outcome met the
+        references-triple-check standard.
+  skills_modified_created: none
+  utilization_note: >
+    Strong, appropriate skill use for the inventory (SLR gave the scoping structure). The reference-
+    verification could have invoked the refverify skill rather than re-enacting its discipline in a brief;
+    the result was equivalent but the skill-invocation habit is the R020 target. No quality effect observed.
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: R016 artifact-integration tagging
+      result: pass
+      details: all inventory/synthesis/backlog/memory tagged (a) research artifact throughout
+    - gate: R018 foundation-model provenance
+      result: pass
+      details: PROVENANCE lines on synthesis doc, backlog wave, memory, and staged .bib entries (per-entry comments)
+    - gate: R019 reference verification
+      result: pass
+      details: >
+        5 gating refs verified against authoritative sources (Oxford/INFORMS/IEEE/SPIE/Open Library) and
+        STAGED to pending; promotion to approved.bib correctly deferred to the run session (stays gated).
+        white1991 partial (pages placeholder). No manuscript rendered, so no render-gate exposure.
+    - gate: SLR scoping-review method
+      result: pass
+      details: four senses inventoried, cross-sense synthesis, Fable-shape verdicts incl. explicit NOT-Fable-shaped fences
+  tests_passed:               # n/a (no code)
+  tests_failed:               # n/a
+  reviewer_comments_addressed:  # n/a
+  first_pass_quality_pct: 90  # inventory + synthesis + backlog + memory landed first-pass; one MEMORY.md edit needed a re-read
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 0           # all 5 background agents completed
+  retries: 1                  # one MEMORY.md edit failed (file-not-read) then succeeded after Read
+  rework_files: 0             # MEMORY.md edited twice (below the 3+ threshold); no file reworked 3+ times
+  blocked_minutes: 0
+  blockers: >
+    ruflo AgentDB vector store cold at session start (4 entries; semantic search empty for both topics),
+    non-blocking since the authoritative record is the file-based memory + session archives read directly.
+  perception_note: >
+    AI assist clearly faster: four parallel background inventory agents produced the landscape while the
+    main thread ran the agnosticism debate (correct background-agents shape). Discuss-before-executing paid
+    off — the principal reframed BOTH asks (full-spectrum SLR; rule+ontology debate), which would have been
+    mis-scoped had the session executed on the literal first reading. No Fable run fired; execution
+    correctly deferred to a distinct session.

@@ -1,0 +1,108 @@
+schema_version: "1.1"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-07-15-postwach-04
+  date: 2026-07-15
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "17:20"          # approximate; continuation after postwach-03
+  end_time: "18:40"            # approximate
+  task_summary: >
+    Correct five review misses on P1 that the principal caught on first read after the postwach-03 "done":
+    fold THE gap and cut Section 3.3, insert and correct the missing methods visual, transpose Results from
+    by-question to by-approach, match DOCX table formatting to the PDF, and write an extensive root-cause report.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: paper_section
+      name: P1 Results transposed by-question -> by-approach (5.1-5.5) + SysML listing and worked example moved inline
+      action: modified
+      lines: 240
+      files: 1
+    - type: paper_section
+      name: Gap folded into Related Work (Section 3.3 + gap table cut); appendix reduced to full proof; ref fixes
+      action: modified
+      lines: 40
+      files: 2                 # main.tex, appendix_proof.tex
+    - type: other
+      name: Protocol methods figure inserted (was orphaned) + Mermaid source corrected to by-approach + PNG regenerated
+      action: modified
+      lines: 12
+      files: 2                 # main.tex, protocol_map.mmd (+ png)
+    - type: review
+      name: Root-cause report on how five defects survived every review
+      action: created
+      lines: 95
+      files: 1
+    - type: config
+      name: Custom pandoc reference doc (booktabs table style) + restructured PDF/DOCX rebuild
+      action: created
+      lines: 0
+      files: 3                 # custom-ref.docx, restructured .pdf, .docx
+  total_files_created: 5
+  total_files_modified: 4
+  total_lines_written: 390
+  pages_produced: 4            # net new/rewritten prose-equivalent (mostly regrouped existing Results prose)
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 0            # all main-session work + background Bash builds; no subagents this block
+  swarm_topology: none
+  model_primary: claude-opus-4-8[1m]
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls:
+  context_compressions: 0
+
+# --- D2b: SKILLS UTILIZATION (required) — R020 skills-first instrumentation ---
+skills:
+  skills_first_check: yes      # applied research-writing (structural-revision) deliberately this block; discussed-before-executing on the restructure
+  skills_used:
+    - name: research-writing
+      how: structural-revision checklist drove the by-approach transposition and the gap-fold; caption/callout discipline on the figure
+    - name: refcheck
+      how: R019 gate re-run on the restructured source; 50/50, 0 missing
+  relevant_but_unused: none
+  skills_modified_created: none
+  utilization_note: >
+    Deliberate skills-first use this block (the direct corrective to the postwach-03 gap the root-cause report
+    diagnosed). Render-and-look was applied as a gate and caught two real defects the log did not: the orphaned
+    figure's stale by-question content, and the DOCX table style mismatch. This block is itself the demonstration
+    that the D2b hypothesis holds: instrumenting design-conformance (not just build success) is what caught the misses.
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: R019 refcheck (LaTeX, restructured source)
+      result: pass
+      details: 50/50, 0 missing
+    - gate: PDF build (latexmk)
+      result: pass
+      details: 40 pages, 0 overfull h/v, 0 undefined, 0 multiply-defined (duplicate fig label resolved)
+    - gate: Render-and-look (PDF)
+      result: pass
+      details: verified page 1, protocol figure (p12), SysML listing (p21), by-approach Results (p19); caught + fixed stale figure content
+    - gate: DOCX table style (structural)
+      result: partial
+      details: booktabs-matching Table style applied (23 refs), content verified; visual table confirmation deferred to principal (no DOCX renderer available)
+  tests_passed: 3
+  tests_failed: 0
+  reviewer_comments_addressed: 5   # the five flagged misses
+  first_pass_quality_pct: 90       # this block corrected prior misses; render-and-look caught the one new stale-figure defect before ship
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 2                    # DOCX write blocked by Word file lock (resolved via new filename); one latexmk force-rebuild
+  rework_files: 1               # main.tex
+  blocked_minutes: 5
+  blockers: >
+    DOCX same-name write blocked by the file being open in Word; resolved with a distinct filename rather than
+    force-closing Word (hazard rule). No DOCX renderer available, so table fidelity cannot be visually verified here.
+  perception_note: >
+    The corrective block was fast and high-yield. The lesson from the postwach-03 misses held: verifying against
+    the agreed design (structure, placed assets, rendered appearance) is what catches absence and wrong-structure,
+    which build-success gates never see.

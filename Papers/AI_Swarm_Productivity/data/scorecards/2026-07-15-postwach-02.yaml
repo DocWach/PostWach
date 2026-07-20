@@ -1,0 +1,117 @@
+# Session Productivity Scorecard
+schema_version: "1.1"
+
+# --- SESSION METADATA ---
+session:
+  id: 2026-07-15-postwach-02
+  date: 2026-07-15
+  hive: PostWach
+  researcher: Paul Wach
+  start_time:            # not recorded
+  end_time:              # not recorded
+  task_summary: >
+    Execute the data-fusion Tier-1 Fable wave (F18 LogOP-Kannan non-collapse, F20 D_b convexity for
+    mixtures, F19 credal-set = distribution-over-poset) to completion: three Fable-5 derivations +
+    witnesses, PostWach independent reproduction, then THREE rounds of Workflow-orchestrated cross-vendor
+    RBW (Codex red / Sonnet|Opus apply / Opus white). Outcome: v1 3x REWORK -> v2 3x REWORK -> v3 3x
+    CLOSED-HARDENED (F19 cosmetic residual closed by hand). All three (a), eligible for (b) pending refverify.
+
+# --- D1: OUTPUT VOLUME ---
+output:
+  artifacts:
+    - type: analysis
+      name: Fable F18/F20/F19 candidates + witnesses (Fable 5); calibrated across v1->v3
+      action: created
+      lines: 1300       # 3 candidate.md + 3 witness.py, subagent-produced + hand-calibrated
+      files: 6
+    - type: review
+      name: RBW cross-vendor adjudications F18/F20/F19 x3 rounds (v1, v2, v3)
+      action: created
+      lines: 900        # 9 RBW_*.md, subagent-produced
+      files: 9
+    - type: other
+      name: Records (data-fusion memory, decision-analysis thread, MEMORY.md, backlog, archive) run+CLOSED-HARDENED outcomes
+      action: modified
+      lines: 130
+      files: 5
+  total_files_created: 17     # 6 candidate/witness + 9 RBW (v1/v2/v3) + archive + scorecard
+  total_files_modified: 5     # data-fusion memory, decision-analysis memory, MEMORY.md, backlog, (F19 hand-fix)
+  total_lines_written: 3400   # approximate, mostly subagent-produced derivations + 9 RBW reviews
+  pages_produced: 40          # approximate
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 30          # 3 Fable-5 derivation + 3 RBW workflows x 9 agents each (apply/red/white)
+  swarm_topology: none        # background derivation agents + 3 deterministic Workflow pipelines (not a claude-flow swarm)
+  model_primary: claude-opus-4-8[1m]   # orchestration + white + v3 apply; derivations claude-fable-5; blue/v1-v2 apply Sonnet 4.6; red Codex gpt-5.5 (external, off Claude meter)
+  tokens_input:               # not recorded
+  tokens_output: 2369013      # subagent output: derivation 297228 + RBW v1 648843 + v2 718847 + v3 704095
+  total_cost_usd:             # not recorded
+  tool_calls:                 # not recorded
+  context_compressions: 0
+
+# --- D2b: SKILLS UTILIZATION ---
+skills:
+  skills_first_check: partial   # re-grounded on prior-session artifacts + Fable conventions; codified methodology skills not loaded
+  skills_used:
+    - name: none
+      how: no Skill tool invocation; the Workflow tool orchestrated the derivation-verification-RBW pipeline (x3 rounds)
+  relevant_but_unused:
+    - name: morphism-research-methodology
+      why_not: >
+        the rigor bar / candidate lifecycle / witnesses-necessary-not-sufficient discipline was APPLIED
+        (independent witness reproduction; (a) tags; REWORK-as-first-class; never-CLOSED-without-live-cross-vendor-red)
+        but re-enacted via hand-authored Workflows rather than loaded via the Skill tool — an R020 gap, noted honestly.
+    - name: morphism-verification-campaign
+      why_not: >
+        the decision-gated RBW campaign was run as three bespoke Workflows; a loaded campaign skill might have
+        pre-listed the prior-art collisions (Jensen, Dushnik-Miller, Yannakakis) to check on round 1, saving rounds.
+  skills_modified_created: none
+  utilization_note: >
+    Discipline followed correctly but instantiated via Workflows, not the codified skills. The v2->v3 lesson is
+    concrete R020 evidence: a loaded verification-campaign skill front-loading the standard prior-art and the
+    witness-docstring-sweep rule would likely have collapsed three RBW rounds into two.
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: Witness reproduction (PostWach independent re-run, all rounds)
+      result: pass
+      details: F18/F20/F19 exit 0, SHAs reproduced byte-identically each round (286ad384 / 6d1d2ccf / d49d751c); F19 docstring edits SHA-stable
+    - gate: RBW live cross-vendor red (v1, v2, v3)
+      result: pass
+      details: codexLive=true on all three candidates in all three rounds (Codex gpt-5.5); never-CLOSED-without-live-red enforced by adjudicator
+    - gate: RBW final adjudication
+      result: pass
+      details: v3 = F18/F20/F19 CLOSED-HARDENED (after v1/v2 REWORK); F19 residual cosmetic total-order/preorder closed by hand
+    - gate: R016 artifact-integration tagging
+      result: pass
+      details: all candidates + RBW files (a); CLOSED-HARDENED noted as (a) eligible-for-(b), not presented as (b)/(c)
+    - gate: R018 foundation-model provenance
+      result: pass
+      details: PROVENANCE on candidates, witnesses, and all 9 RBW files incl. cross-vendor delegation tables (white/apply/red)
+    - gate: R019 reference verification
+      result: partial
+      details: refs stay [PLACEHOLDER]/staged (walley1991, yannakakis1982 NEW, Szpilrajn, Dushnik-Miller, Stanley, Troffaes, Berger); MUST refverify before any (b)/manuscript; no render this session
+  tests_passed: 3             # three self-verifying witnesses (686 / 5750 / 552 checks), reproduced every round
+  tests_failed: 0
+  reviewer_comments_addressed: 24   # RBW v1/v2 surviving defects addressed across v2/v3 + hand-fix
+  first_pass_quality_pct: 70  # derivations landed witness-verified first pass, but claim-calibration to CLOSED-HARDENED took 3 RBW rounds (the standing decision-layer pattern)
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 0           # all 30 subagents completed; live Codex red succeeded every round (no vendor fallback needed)
+  retries: 2                  # one MEMORY.md edit + one memory-file edit failed on stale read/anchor, re-read/re-grepped and succeeded; one Workflow script parse error (over-escaped apostrophe) fixed and relaunched
+  rework_files: 3             # F18/F20/F19 candidates each edited across v2/v3 (3+ touches); the point of the calibration loop
+  blocked_minutes: 0
+  blockers: none
+  perception_note: >
+    High-assurance and, net, faster than manual for a result of this rigor. The value pattern held: witnesses
+    are necessary-not-sufficient, and the LIVE cross-vendor Codex red earned its keep every round, surfacing
+    prior-art (Jensen 1906, Dushnik-Miller 1941, Yannakakis 1982) and a category-error overclaim (F19 "is exactly
+    a credal set") that self-adversarial witnesses missed. The v1->v2->v3 arc is the known whack-a-mole on prose
+    calibration; v2 (Sonnet apply) even introduced new minor false claims, and switching v3 apply to Opus with
+    exact edit lists + explicit witness-docstring sweeps is what closed it. Cost was high (~2.37M subagent tokens,
+    3 workflows) but the principal explicitly directed execution to completion and Fable is toll-free pre-Jul-19.
+    Result: the credal-set tension-closer (F19) is hardened, plus two supporting theorems (F18, F20). Reference
+    debt is the only thing between (a) and a manuscript.

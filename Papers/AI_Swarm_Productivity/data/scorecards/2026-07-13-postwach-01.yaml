@@ -1,0 +1,131 @@
+# =============================================================================
+# Session Productivity Scorecard — 2026-07-13 postwach-01
+# PROVENANCE: filled by claude-opus-4-8[1m] (Anthropic, Claude Code CLI) per R014.
+# =============================================================================
+
+schema_version: "1.1"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-07-13-postwach-01
+  date: 2026-07-13
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "20:30"   # estimated; resumed from 2026-07-12 postwach-02 and ran a long multi-hour session
+  end_time: "00:15"     # estimated (crossed into 2026-07-13)
+  task_summary: >
+    Drafted the RTSync SBIR Phase I Technical Volume for DLA26BZ03-NV011 (Digital Twin of the Organization)
+    end to end on the mirroring-hypothesis spine, ran ~10 background research/figure/formatting agents, and
+    produced a camera-ready PDF plus a Word docx in RTSync house style.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: paper_section
+      name: Technical Volume Sections 1-6, 8, 9 (mirroring/DEVS reframe, RTSync-framed)
+      action: created
+      lines: 900
+      files: 9
+    - type: spec
+      name: WySE scope + Decision Register (D1-D19) + Figures manifest
+      action: created
+      lines: 350
+      files: 3
+    - type: other
+      name: Figures F1-F5 (Mermaid sources + rendered PNGs) and Tables 1-5
+      action: created
+      lines: 200
+      files: 15
+    - type: other
+      name: Camera-ready build pipeline (assemble.py, preamble.tex, make_reference.py) + PDF + docx
+      action: created
+      lines: 250
+      files: 5
+    - type: analysis
+      name: WRT-2516 cross-note; session archive; this scorecard
+      action: created
+      lines: 260
+      files: 3
+  total_files_created: 35
+  total_files_modified: 6
+  total_lines_written: 1960
+  pages_produced: 15   # camera-ready Technical Volume (~15 typeset pages, under the 20-page cap)
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 10        # background: mission/scope, DLA needs/GAO, RFP Q&A, lit seed, DCPDS/SASMO,
+                            # DSIP browser extraction, scoping review, F2/F4/F5 figures, RTSync formatting,
+                            # dissertation formatting. All completed; none orphaned.
+  swarm_topology: none      # independent Task agents, not a coordinated swarm
+  model_primary: claude-opus-4-8[1m]
+  tokens_input:
+  tokens_output:
+  total_cost_usd:
+  tool_calls: 120           # approximate across the session
+  context_compressions: 0
+
+# --- D2b: SKILLS UTILIZATION (required) — R020 skills-first instrumentation ---
+skills:
+  skills_first_check: partial   # checked for a proposal skill (none exists) and used SLR + morphism skills;
+                                # did not scan the full catalog before each step
+  skills_used:
+    - name: systematic-literature-review
+      how: scoped the digital-twin-of-organization scoping review (Section 4 seed set)
+    - name: morphism-domain-reference
+      how: WySE PSO/PSF, Kannan acceptability, and the mirror/fidelity morphism framing for scoping
+  relevant_but_unused:
+    - name: grant-writing
+      why_not: academic-grant oriented; DoD SBIR proposal genre + camera-ready formatting were hand-built
+               because NO sbir-proposal skill exists (the R020 gap this session surfaced)
+    - name: refverify / reflookup / refcheck
+      why_not: citations kept as [PLACEHOLDER]; the R019 verification pass is deferred to the drafting-final stage
+  skills_modified_created: none   # (proposal-skill CREATE recommended and deferred post-deadline)
+  utilization_note: >
+    The load-bearing R020 finding of the session: there is no proposal-writing skill/agent, so the SBIR section
+    conventions and camera-ready formatting were re-derived by hand, and one section (Related Work) was mis-built
+    as a literature review before correction. A codified sbir-proposal skill + QA gate + reviewer agent would
+    have prevented that and is the recommended post-deadline build.
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: R016 integration-status tagging
+      result: pass
+      details: demonstrated components (b) vs research artifacts (a) tagged; no (a) presented as (c); titanium
+               scoped out on attribution grounds
+    - gate: R019 citation discipline
+      result: partial
+      details: all citations visible [PLACEHOLDER]/report-IDs, none drafted from memory; approved.bib LOCATED;
+               refverify pass deferred to final render
+    - gate: figure/table label-and-callout
+      result: pass
+      details: new standing rule added mid-session and applied; every figure numbered + cited in prose
+    - gate: no-overwrite / no-Word-COM
+      result: pass
+      details: RTSync live docx untouched + backed up; docx built via pandoc reference-doc + python-docx, no COM
+    - gate: camera-ready visual verification
+      result: pass
+      details: PDF rendered and inspected page by page; iterated figures/placement until clean (docx not
+               auto-verifiable here, flagged for a Word eyeball)
+  tests_passed:
+  tests_failed:
+  reviewer_comments_addressed: 6   # Bernie's data-strategy critique (6 points) traced into the proposal
+  first_pass_quality_pct: 80
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 4                # F1 Edit string-mismatch (rewrote via Write); PDF file-lock (built to v2 name);
+                            # float-too-large + figure legibility (several re-render/resize passes)
+  rework_files: 8           # figures F1-F5 re-rendered multiple times; the PDF rebuilt ~6x; assemble.py edited repeatedly
+  blocked_minutes: 5
+  blockers: >
+    Two self-inflicted detours corrected mid-session: Related Work first built as an academic literature review
+    (wrong genre), and the docx "merge" first done as a reference-doc render that used none of RTSync's content
+    and looked nothing like theirs. Both were caught by the principal, diagnosed, and redone. The open PDF viewer
+    locked the output file (worked around with versioned filenames).
+  perception_note: >
+    Very high-output session and clearly faster than manual for the research + drafting + typesetting, but the
+    two genre/approach misses (Related Work, docx merge) cost real rework and both trace to the missing
+    proposal-writing skill. The camera-ready pipeline (mermaid -> pandoc/pdflatex with a tuned RTSync/dissertation
+    preamble) is now reusable and is the main durable asset beyond the proposal itself.

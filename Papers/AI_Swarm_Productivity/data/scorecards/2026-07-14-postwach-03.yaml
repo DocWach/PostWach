@@ -1,0 +1,116 @@
+# Session Productivity Scorecard
+schema_version: "1.1"
+
+# --- SESSION METADATA ---
+session:
+  id: 2026-07-14-postwach-03
+  date: 2026-07-14
+  hive: PostWach
+  researcher: Paul Wach
+  start_time:            # not recorded
+  end_time:              # not recorded
+  task_summary: >
+    Revector Hive Empire governance. Applied WySE to the governance problem itself
+    (dogfooding) and produced a requirements-traceability matrix plus an ADR-lite
+    decision log; decided the SSOT locus, the transfer/generated-view model, the
+    authority model, and the 15288 non-linear lifecycle. No build; no CLAUDE.md touched.
+
+# --- D1: OUTPUT VOLUME ---
+output:
+  artifacts:
+    - type: spec
+      name: Governance Revector RTM (SN/SR, LA decisions, traceability)
+      action: created
+      lines: 120        # approximate; created then iterated to v1.0
+      files: 1
+    - type: spec
+      name: Governance Revector Decision Log (ADR-lite DR-01..DR-12)
+      action: created
+      lines: 95         # approximate
+      files: 1
+    - type: review
+      name: AI harness scan (frameworks/orchestration) — background subagent
+      action: created
+      lines: 200        # approximate; subagent-produced
+      files: 1
+    - type: review
+      name: AI harness scan (governance/memory) — background subagent
+      action: created
+      lines: 220        # approximate; subagent-produced
+      files: 1
+    - type: review
+      name: INCOSE GtWR requirements ontology extract — background subagent
+      action: created
+      lines: 150        # approximate; subagent-produced
+      files: 1
+    - type: other
+      name: Memory capture (revector outcomes update, harness-survey seed, MEMORY.md index)
+      action: modified
+      lines: 60         # approximate
+      files: 3
+  total_files_created: 6      # RTM, decision-log, 2 harness scans, INCOSE extract, harness seed (+ archive/scorecard = 8 incl. these)
+  total_files_modified: 2     # project_governance_revector.md, MEMORY.md
+  total_lines_written: 850    # approximate, includes subagent-produced reports
+  pages_produced: 9           # approximate
+
+# --- D2: AI EFFICIENCY ---
+ai_efficiency:
+  agents_spawned: 3           # all background, model sonnet (2 harness scans + 1 INCOSE extract)
+  swarm_topology: none        # independent background Task agents, no inter-agent coordination
+  model_primary: claude-opus-4-8[1m]
+  tokens_input:               # not recorded
+  tokens_output: 240605       # subagent output only (70791 + 87668 + 82146); main-session not recorded
+  total_cost_usd:             # not recorded
+  tool_calls:                 # not recorded
+  context_compressions: 0
+
+# --- D2b: SKILLS UTILIZATION ---
+skills:
+  skills_first_check: partial   # checked+used a skill for the WySE definitions; much of the session was novel governance design not covered by a skill
+  skills_used:
+    - name: morphism-domain-reference
+      how: canonical PSO/PSF and LO/LF definitions, to specify the problem space without asserting from memory
+  relevant_but_unused:
+    - name: reflookup / refverify
+      why_not: citations arose (INCOSE GtWR, harness sources) but were correctly deferred to the manuscript stage, not run this session (standing R019 debt)
+    - name: wyse-model-generation
+      why_not: considered and correctly not used — we specified the problem space (PSO/PSF), not generated a z-model, which is its contract
+  skills_modified_created: none
+  utilization_note: >
+    Light but appropriate skill use. Loading morphism-domain-reference prevented asserting
+    PSO/PSF from memory (measure-don't-assume). The deferred reference-verification is a small
+    standing debt, not a quality miss for a design session.
+
+# --- D3: QUALITY GATES ---
+quality:
+  gates_run:
+    - gate: R016 artifact-integration tagging
+      result: pass
+      details: RTM and decision-log tagged (a) research artifact; transfer operator flagged demonstrated-once
+    - gate: R018 foundation-model provenance
+      result: pass
+      details: PROVENANCE lines on RTM, decision-log, and memory writes
+    - gate: R019 reference verification
+      result: partial
+      details: INCOSE GtWR + harness [UNVERIFIED] citations flagged for refverify; deferred to manuscript stage, not yet run
+    - gate: INCOSE GtWR conformance (SR)
+      result: pass
+      details: SR-1..SR-11 rewritten to singular boilerplate with defined terms
+  tests_passed:               # n/a (no code)
+  tests_failed:               # n/a
+  reviewer_comments_addressed:  # n/a
+  first_pass_quality_pct: 80  # design mostly landed first-pass; some rework on the RTM (SR set revised after the 15288 decision; one edit needed a re-read)
+
+# --- D4: PROCESS HEALTH ---
+process:
+  agent_failures: 0           # all 3 background agents completed
+  retries: 1                  # RTM Section 5 edit failed on a string mismatch, needed a re-read then succeeded
+  rework_files: 1             # governance-revector-RTM.md edited 3+ times across the session
+  blocked_minutes: 0
+  blockers: >
+    ruflo auto-memory import timed out at session start (AgentDB vector store cold), non-blocking
+    since governance state lives in the memory/*.md files read directly.
+  perception_note: >
+    Design-heavy session; AI assist was clearly faster for the traceability/documentation scaffolding.
+    Main risk was scope expansion beyond the original two-decision charge (largely principal-driven);
+    the session flagged the divergence explicitly and closed on a defensible v1.0 baseline.

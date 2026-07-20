@@ -40,10 +40,20 @@ output:
       action: modified
       lines: 5
       files: 5
-  total_files_created: 2
-  total_files_modified: 6
-  total_lines_written: 175
-  pages_produced: 3      # spec + template + card; design-heavy, not prose-heavy
+    - type: other
+      name: SESSION_ARCHIVE_2026-07-17_postwach-01.md -- full session record (intent debate -> RBW -> GQM -> v1.3 + daemon spec + commit)
+      action: created
+      lines: 90
+      files: 1
+    - type: other
+      name: git commit c017ed6 (main, 8 files, unpushed); project_cost_instrumentation memory updated with the capability-capture increment
+      action: created
+      lines:
+      files:
+  total_files_created: 3   # daemon spec, dogfood card, session archive (memory file is outside the repo)
+  total_files_modified: 6  # template + 5 cards (research_token_ledger left unstaged, not this session's change)
+  total_lines_written: 265
+  pages_produced: 4      # spec + template + card + archive; design-heavy, not prose-heavy
 
 # --- D2: AI EFFICIENCY ---
 ai_efficiency:
@@ -65,7 +75,7 @@ ai_efficiency:
     cost_method: "notional $26/M output on 686k subagent PROXY tokens; real output far lower (proxy caveat); subscription => actual marginal ~0"
     billing_regime: subscription
   cumulative_ledger: Papers/AI_Swarm_Productivity/data/research_token_ledger.md
-  tool_calls: 24         # main-session (approx); subagents added RBW 69 + problem-framer 6, not summed here
+  tool_calls: 34         # main-session (approx, incl. commit + archive + scorecard finalize); subagents added RBW 69 + problem-framer 6, not summed here
   context_compressions: 0
 
 # --- D2b: CAPABILITY UTILIZATION (v1.3) ---

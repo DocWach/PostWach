@@ -1,0 +1,117 @@
+schema_version: "1.1"
+
+# --- SESSION METADATA (required) ---
+session:
+  id: 2026-07-15-postwach-03
+  date: 2026-07-15
+  hive: PostWach
+  researcher: Paul Wach
+  start_time: "13:00"          # approximate; session spans one context compaction
+  end_time: "17:20"            # approximate
+  task_summary: >
+    Resume P1 dissertation publication ("Asserted or Entailed?"): adjudicate co-author comments,
+    restructure to agreed section intents, integrate the SysMLv2 hive's D6/D8 deliverables, and
+    produce verified PDF + Word renderings of the new version.
+
+# --- D1: OUTPUT VOLUME (required) ---
+output:
+  artifacts:
+    - type: paper_section
+      name: P1 manuscript restructure (abstract, intro, background, current-practice, methods, results) + D8 SysML listing port
+      action: modified
+      lines: 450
+      files: 3                 # main.tex, references.bib, appendix_proof.tex
+    - type: code
+      name: refcheck.py multi-format (LaTeX authoritative + Word gate + PDF advisory)
+      action: modified
+      lines: 220
+      files: 1
+    - type: review
+      name: R020 skills-first non-compliance root-cause report (7-section RBW)
+      action: created
+      lines: 250
+      files: 1
+    - type: other
+      name: cross-hive coordination retro + P1 section map for SysMLv2 hive
+      action: created
+      lines: 130
+      files: 2
+    - type: other
+      name: P1 PDF (40 pp) + DOCX renderings, descriptive names
+      action: created
+      lines: 0                  # generated artifacts
+      files: 2
+    - type: config
+      name: refcheck SKILL update + memory files (skills-first, diagram-formatting, seeds, MEMORY.md)
+      action: modified
+      lines: 120
+      files: 6
+  total_files_created: 9
+  total_files_modified: 8
+  total_lines_written: 1170     # estimate; spans compaction
+  pages_produced: 9             # prose-equivalent authored/restructured this session (not the full 40pp)
+
+# --- D2: AI EFFICIENCY (required: agents, topology, model; rest optional) ---
+ai_efficiency:
+  agents_spawned: 4             # approximate: RBW red/blue/white + finders, conducted pre-compaction; count uncertain across compaction. Post-compaction was main-session + background Bash only.
+  swarm_topology: none          # main-session work; RBW roles, not a persistent swarm
+  model_primary: claude-opus-4-8[1m]
+  tokens_input:                 # unknown (spans compaction)
+  tokens_output:                # unknown
+  total_cost_usd:               # unknown
+  tool_calls:                   # unknown
+  context_compressions: 1
+
+# --- D2b: SKILLS UTILIZATION (required) — R020 skills-first instrumentation ---
+skills:
+  skills_first_check: partial   # checked inconsistently; the failure to check was itself this session's subject (R020 report)
+  skills_used:
+    - name: refcheck
+      how: R019 pre-render gate on main.tex (LaTeX mode); final 50/50, 0 missing
+    - name: research-writing
+      how: loaded and applied to abstract/intro/background/methods/results restructuring (partly ad hoc; see gap below)
+  relevant_but_unused:
+    - name: research-writing (as an invoked Skill)
+      why_not: repeatedly re-enacted its discipline ad hoc instead of invoking it; caught 3x by principal, documented in the R020 report
+    - name: systematic-literature-review
+      why_not: lit-review scope was debated and bounded rather than run as a full PRISMA pass
+  skills_modified_created: refcheck SKILL (LaTeX/Word/PDF modes documented); no new skill created (R020 output was a report, not a skill)
+  utilization_note: >
+    Skill non-use was the explicit object of study this session. Where refcheck WAS invoked the gate was
+    reliable (caught a false-pass, then 50/50). Where research-writing was applied ad hoc, several defects
+    slipped to the render stage (author-line overflow, listing page-overflow) and were caught only by
+    render-and-look, consistent with the D2b hypothesis that low skill-utilization raises rework.
+
+# --- D3: QUALITY GATES (required where applicable) ---
+quality:
+  gates_run:
+    - gate: R019 refcheck (LaTeX)
+      result: pass
+      details: 50/50 cites resolved to approved store, 0 missing
+    - gate: PDF build (latexmk pdflatex+bibtex)
+      result: pass
+      details: 40 pages, 0 overfull hbox/vbox, 0 undefined refs/cites after fixes
+    - gate: DOCX build (pandoc --citeproc)
+      result: pass
+      details: 0 unresolved cites, References heading present, listing + 4 figures present; author-date style (no IEEE CSL)
+    - gate: RBW holistic review
+      result: partial
+      details: conducted; false-positive reds (broken Cref) retracted after blue verification
+  tests_passed: 3               # refcheck, PDF build, DOCX build
+  tests_failed: 0
+  reviewer_comments_addressed: 12   # Zeigler/Beling/Salado adjudication items (approximate)
+  first_pass_quality_pct: 70    # two render defects + a refcheck false-pass required rework
+
+# --- D4: PROCESS HEALTH (required) ---
+process:
+  agent_failures: 0
+  retries: 3                    # latexmk force-rebuild; a few "read file before edit" retries
+  rework_files: 2               # main.tex, refcheck.py (edited 3+ times)
+  blocked_minutes: 10
+  blockers: >
+    Cross-store invisibility with the SysMLv2 hive: no shared memory across stores, hive could not read the
+    live main.tex, coordination ran through the principal as courier. Documented in the coordination retro.
+  perception_note: >
+    Substantially faster than manual for the build/verify loop. The decisive win was render-and-look:
+    inspecting rendered pages (not the log) caught the author-line and listing overflows that a log-only
+    pass reported as a single innocuous Overfull.
