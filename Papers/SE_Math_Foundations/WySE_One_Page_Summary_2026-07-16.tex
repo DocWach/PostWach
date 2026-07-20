@@ -1,0 +1,37 @@
+\documentclass[10pt]{article}
+\usepackage[margin=0.8in]{geometry}
+\usepackage{newtxtext,newtxmath}
+\usepackage{amsmath}
+\usepackage{parskip}
+\usepackage{enumitem}
+\setlist{nosep,leftmargin=1.35em,topsep=1pt}
+\usepackage{microtype}
+\pagestyle{empty}
+\setlength{\parskip}{4pt}
+
+\begin{document}
+
+\begin{center}
+{\large\bfseries WySE: Wymorian Systems Engineering}\\[2pt]
+{\small Measuring, not assuming, the relationships between models. A one-page overview.}\\[2pt]
+{\footnotesize Paul Wach, University of Arizona \quad$\cdot$\quad research artifact, candidate results \quad$\cdot$\quad 2026-07-16}
+\end{center}
+
+\textbf{The thesis.} Systems engineering reasons about the real system through \emph{models of it}: a verification model stands in for a design, a design stands in for the built thing. The question that carries the weight is how much a model actually \emph{preserves} of what it represents. WySE (Wymorian Systems Engineering) \emph{measures} that preservation, the degree of morphism between two systems, instead of assuming they are ``close enough.'' It builds on Wymore's systems theory and Zeigler's Discrete Event System Specification (DEVS).
+
+\textbf{The objects.} A system is a Wymorian quintuple $z=(S,I,O,N,R)$: states, inputs, outputs, next-state map, and readout. A relationship between two systems is a \emph{typed morphism} (isomorphism, homomorphism, coupling, or approximate), and it carries two independent \emph{degrees}:
+\begin{itemize}
+  \item $D_s$, the \emph{structural} degree. A homomorphism is many-to-one, and $D_s$ is read from its \emph{granule record}, which states collapse together into which.
+  \item $D_b$, the \emph{behavioral} distance, a Lawvere $[0,\infty]$ metric between the two systems' behaviors.
+\end{itemize}
+A common \emph{DEVS carrier} co-represents heterogeneous model families on one executable substrate, where structure generates behavior, so $D_s$ becomes computable \emph{across} families rather than only within one.
+
+\textbf{What it buys (verification and validation).} WySE separates three relationships long conflated under one word, ``fidelity'': \emph{fidelity} (model to reality), \emph{resolution} (model to model, same family), and \emph{pedigree} (model to model, cross-family, a verification model to a design). Verification is approximately pedigree; validation is approximately fidelity. Good pedigree is exactly what licenses a \emph{sound projection} of a verification verdict onto the system once it is built. Model selection then lives on the $(D_s, D_b)$ plane, and an acceptability order (Kannan; incomparability allowed, so ``acceptable'' need not be a single ranking) supplies the ``ought'' of which models are good enough.
+
+\textbf{The elegant core.} One idea recurs. The \emph{granular record} of a morphism (precisely which states merge into which) is the load-bearing object, and every single-number summary of it (a lone degree, a worst case, an average) discards what the record keeps; the record separates cases that the scalars conflate. A physical picture makes it tangible: couplings are the brick-to-brick connections, a homomorphism is coarsening a subassembly to one summary brick, and stratification is the ladder brick $\to$ subassembly $\to$ model.
+
+\textbf{Current frontier (candidate).} Three live threads, all research artifacts: a \emph{decision layer} that carries confidence as a distribution over the acceptability order rather than as a single score; a category-theoretic recasting of the unified $(D_s, D_b)$ object as an enriched institution; and a \emph{thermodynamic} grounding. Because a homomorphism destroys information, its coarsening carries a Landauer entropy equal to the Shannon functional of its granule record, which endows the resolution ladder with a genuine second-law arrow: coarsening dissipates, refinement must supply.
+
+\textbf{Honest status.} WySE is a \emph{positioned integration}, not a claimed unification of systems theory. Most results are \emph{candidate} (they survived independent adversarial verification) or \emph{asserted}, not yet integrated deliverables; the two-axis picture is welded to prior work (Cody; Zeigler), and the specific contribution is the granular record and what it lets one measure. The standing bar on all of it: the framework should be demonstrable on something as simple as a box of LEGO bricks. If it cannot be, it is either broken or not yet elegant.
+
+\end{document}
